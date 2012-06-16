@@ -1,0 +1,121 @@
+// 
+//	Localizable.strings ru
+//  Expenses
+//
+//  Created by Vinogradov Sergey on 14.04.11.
+//  Copyright 2011 AppMake.Ru. All rights reserved.
+//
+
+// Default
+"loading"										= "Загрузка";
+"back"											= "Назад";
+"close"											= "Закрыть";
+"warning_network_title"							= "Проблема сети";
+"warning_network_subtitle"						= "Пожалуйста, проверьте EDGE, 3G или WiFi соединение";
+"ON"											= "ДА";
+"OFF"											= "НЕТ";
+"search"										= "Быстрый поиск по разделу";
+"cancel"										= "Отмена";
+"loading_splash"								= "Загружаем данные с сервиса";
+"done"											= "Готово";
+"error"											= "Ошибка";
+"warning"										= "Внимание!";
+"success"										= "Успешно";
+"menu"											= "Меню";
+"edit"											= "Править";
+"reload"										= "Обновить";
+"confirm"										= "Подтвердить";
+"location_services_not_enabled"					= "Невозможно определить ваше местоположение.\nПожалуйста включите в настройках устройства Службу геолокаций";
+"show"											= "Смотреть";
+"current_location"								= "Текущая локация";
+"your_here"										= "Вы здесь";
+"network_failed"								= "Осутствует доступ к интернету";
+"retry"											= "Повторить";
+"splash_version"								= "Версия %@";
+"ok"                                            = "Ок";
+"done"											= "Принять";
+
+// App
+"app_title"										= "Семейный бюджет";
+
+// Tabbar
+"tabbar_transactions"							= "Транзакции";
+"tabbar_budget"									= "Бюджет";
+"tabbar_add"									= "Добавить";
+"tabbar_report"									= "Отчет";
+"tabbar_settings"								= "Настройки";
+
+// Transactions
+"transactions_hint"								= "Ваши транзакции";
+"transactions_sort_header"						= "Сортировать по...";
+"transactions_sort_by_summ"						= "Сумме";
+"transactions_sort_by_date"						= "Дате";
+"transactions_sort_by_categories"				= "Категории";
+"transactions_date_format"						= "dd MMMM yyyy HH:mm";
+"transactions_total"							= "Итого";
+
+// Budget
+"budget_hint"									= "Список ваших бюджетов";
+"budget_date_format"							= "dd MMMM yyyy";
+
+// Budget edit
+"budget_edit_hint"								= "Введите данные бюджета";
+"budget_edit_placeholder_amount"				= "Введите бюджет";
+"budget_edit_button_amount"						= "Бюджет";
+"budget_edit_button_date_from"					= "Начало";
+"budget_edit_button_date_to"					= "Окончание";
+"budget_edit_button_done"						= "Принять";
+"budget_edit_button_repeat_weekly"				= "Каждую неделю";
+"budget_edit_button_repeat_monthly"				= "Каждый месяц";
+"budget_edit_date_format"						= "dd MMMM yyyy";
+
+// Add
+"add_hint"										= "Выберите категорию";
+
+// Add edit
+"add_edit_hint"									= "Выберите избранные категории";
+"add_edit_button_done"							= "Принять";
+
+// Add calculator
+"add_calculator_hint"							= "Введите сумму";
+"add_calculator_button_next"					= "Далее";
+
+// Add bill
+"add_bill_hint"									= "Выберите дополнительные параметры";
+"add_bill_button_recurring"						= "Повторять";
+"add_bill_button_done"							= "Готово";
+"add_bill_date_format"							= "MMM dd, yyyy";
+"add_bill_note_placeholder"						= "Напишите заметку";
+
+// Add picker
+"add_picker_button_recurring_left"				= "Неделя";
+"add_picker_button_recurring_right"				= "Месяц";
+"add_picker_button_done"						= "Готово";
+"add_picker_header_recurring"					= "Повторять";
+"add_picker_header_date"						= "Дата";
+
+// Transaction
+"transaction_no_repeat"							= "Не повторять";
+"transaction_week_0"							= "Каждый понедельник";
+"transaction_week_1"							= "Каждый вторник";
+"transaction_week_2"							= "Каждую среду";
+"transaction_week_3"							= "Каждый четверг";
+"transaction_week_4"							= "Каждую пятницу";
+"transaction_week_5"							= "Каждую субботу";
+"transaction_week_6"							= "Каждое воскресенье";
+"transaction_month_1"							= "Каждый январь";
+"transaction_month_2"							= "Каждый февраль";
+"transaction_month_3"							= "Каждый март";
+"transaction_month_4"							= "Каждый апрель";
+"transaction_month_5"							= "Каждый май";
+"transaction_month_6"							= "Каждый июнь";
+"transaction_month_7"							= "Каждый июль";
+"transaction_month_8"							= "Каждый август";
+"transaction_month_9"							= "Каждый сентябрь";
+"transaction_month_10"							= "Каждый октябрь";
+"transaction_month_11"							= "Каждый ноябрь";
+"transaction_month_12"							= "Каждый декабрь";
+
+// Report
+"report_segmented_diagram"						= "Диаграма";
+"report_segmented_chart"						= "График";

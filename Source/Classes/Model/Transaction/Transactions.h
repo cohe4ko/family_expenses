@@ -1,0 +1,58 @@
+//
+//  Transactions.h
+//  Expenses
+//
+
+#import "Model.h"
+#import "Categories.h"
+
+typedef enum {
+	TransactionsStateNormal		= 0,
+	TransactionsStateDeleted	= 1
+} TransactionsState;
+
+typedef enum {
+	TransactionsDay		= 0,
+	TransactionsWeek	= 1,
+	TransactionsMonth	= 2
+} TransactionsType;
+
+@interface Transactions : DbObject {
+	NSInteger repeatType;
+	NSInteger repeatValue;
+	NSInteger time;
+	NSInteger categoriesId;
+	NSInteger categoriesParentId;
+	
+	TransactionsState state;
+	
+	CGFloat amount;
+	
+	NSString *desc;
+}
+
+@property (nonatomic, assign) NSInteger repeatType;
+@property (nonatomic, assign) NSInteger repeatValue;
+@property (nonatomic, assign) NSInteger time;
+@property (nonatomic, assign) NSInteger categoriesId;
+@property (nonatomic, assign) NSInteger categoriesParentId;
+@property (nonatomic, assign) TransactionsState state;
+@property (nonatomic, assign) CGFloat amount;
+@property (nonatomic, retain) NSString *desc;
+
++ (Transactions *)create;
++ (Transactions *)withDictionary:(NSDictionary *)dic;
+- (Transactions *)initWithDictionary:(NSDictionary *)dic;
+
+- (void)save;
+- (void)remove;
+
+- (NSDate *)date;
+- (NSString *)repeatName;
+- (NSString *)price;
+
+- (BOOL)isRepeat;
+
+- (Categories *)categories;
+
+@end
