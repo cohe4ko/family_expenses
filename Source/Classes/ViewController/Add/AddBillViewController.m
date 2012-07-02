@@ -92,7 +92,9 @@
 		Transactions *t = [Transactions create];
 		t.amount = amount;
 		self.transaction = t;
-	}
+	}else {
+        textView.text = transaction.desc;
+    }
 	
 	// Set background image
 	[buttonDate setBackgroundImage:[[buttonDate backgroundImageForState:UIControlStateNormal] stretchableImageWithLeftCapWidth:10.0f topCapHeight:10.0f] forState:UIControlStateNormal];

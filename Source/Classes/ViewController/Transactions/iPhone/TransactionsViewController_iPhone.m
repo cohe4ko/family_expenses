@@ -4,6 +4,7 @@
 //
 
 #import "TransactionsViewController_iPhone.h"
+#import "AddBillViewController_iPhone.h"
 #import "TransactionsTableViewCell.h"
 
 @interface TransactionsViewController_iPhone (Private)
@@ -46,6 +47,20 @@
 	
 	return cell;
 }
+
+#pragma mark -
+#pragma mark UITableView delegate
+-(void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [super tableView:_tableView didSelectRowAtIndexPath:indexPath];
+    AddBillViewController *controller = [MainController getViewController:@"AddBillViewController"];
+    Transactions *item = [list objectAtIndex:indexPath.row];
+    [controller setTransaction:item];
+    [controller setAmount:item.amount];
+    [controller setCategory:item.categories];
+    [controller setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+#pragma mark -
 
 #pragma mark -
 #pragma mark Other
