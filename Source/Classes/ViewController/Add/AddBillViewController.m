@@ -6,7 +6,7 @@
 #import "AddBillViewController.h"
 #import "AddPickerViewController.h"
 #import "PickerDateViewController.h"
-
+#import "CalculatorViewController.h"
 #import "CategoriesController.h"
 
 #import "NSDate+Utils.h"
@@ -18,6 +18,7 @@
 - (void)setData;
 - (void)setButtonPage;
 - (void)setCategoryName;
+- (void)setPrice:(NSNumber*)price;
 @end
 
 @implementation AddBillViewController
@@ -94,6 +95,11 @@
 		self.transaction = t;
 	}else {
         textView.text = transaction.desc;
+        labelPrice.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                              action:@selector(actionEditPrice:)];
+        [labelPrice addGestureRecognizer:tap];
+        [tap release];
     }
 	
 	// Set background image
@@ -232,6 +238,14 @@
 	[textView resignFirstResponder];
 }
 
+- (void)actionEditPrice:(UITapGestureRecognizer*)sender{
+    CalculatorViewController *controller = [MainController getViewController:@"CalculatorViewController"];
+	[controller setParent:self];
+	[controller setSelectorBack:@selector(setPrice:)];
+	[controller setHidesBottomBarWhenPushed:YES];
+	[self.navigationController pushViewController:controller animated:YES];
+}
+
 #pragma mark -
 #pragma mark Set
 
@@ -245,6 +259,11 @@
 	
 	// Set recurring
 	[labelRecurring setText:transaction.repeatName];
+}
+
+- (void)setPrice:(NSNumber*)price{
+    transaction.amount = [price floatValue];
+    [labelPrice setText:[NSString stringWithFormat:@"%d %@", (int)[price floatValue], @"руб"]];
 }
 
 - (void)setCategoryName {
