@@ -246,6 +246,11 @@
 	[self.navigationController pushViewController:controller animated:YES];
 }
 
+-(void)actionScrollTap:(UITapGestureRecognizer*)sender{
+    ISView *view = (ISView*)sender.view;
+    [scrollView selectIndex:[scrollView.viewArray indexOfObject:view]];
+}
+
 #pragma mark -
 #pragma mark Set
 
@@ -310,7 +315,11 @@
     if (view == nil) {
         view = [[ISView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, iconWidth - 2.0f, iconHeight) andIndentifier:indentifier];
         view.backgroundColor = [UIColor clearColor];
-		
+
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self                                                                            action:@selector(actionScrollTap:)];
+        [view addGestureRecognizer:tap];
+        [tap release];
+        
 		UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, iconWidth - 2.0f, iconHeight)] autorelease];
 		[imageView setContentMode:UIViewContentModeCenter];
 		[imageView setTag:200];
@@ -321,7 +330,7 @@
 	UIImageView *imageView = (UIImageView *)[view viewWithTag:200];
 	[imageView setAlpha:0.6f];
 	[imageView setImage:tmpImage.image];
-	
+    	
     return view;
 }
 
