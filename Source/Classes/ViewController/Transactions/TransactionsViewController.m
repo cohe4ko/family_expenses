@@ -4,6 +4,7 @@
 //
 
 #import "TransactionsViewController.h"
+#import "TransactionGroupViewController.h"
 #import "TransactionsTableViewCell.h"
 
 #import "TransactionsController.h"
@@ -22,7 +23,7 @@
 
 @implementation TransactionsViewController
 
-@synthesize sortType, isSort, list, cellEditing;
+@synthesize sortType, groupType, isSort, list, cellEditing;
 
 #pragma mark -
 #pragma mark Initializate
@@ -105,13 +106,15 @@
 	
 	// Set sort type
 	self.sortType = [[NSUserDefaults standardUserDefaults] integerForKey:@"sort_transactions"];
+    self.groupType = [[NSUserDefaults standardUserDefaults] integerForKey:@"group_transactions"];
 }
 
 #pragma mark -
 #pragma mark Actions
 
 - (void)actionGroup {
-	
+    TransactionGroupViewController *groupViewController = [MainController getViewController:@"TransactionGroupViewController"];
+    [[RootViewController shared] presentModalViewController:groupViewController animated:YES];
 }
 
 - (void)actionSort {

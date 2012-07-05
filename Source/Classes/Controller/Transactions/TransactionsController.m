@@ -25,6 +25,20 @@
 	return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
 }
 
++ (NSMutableArray *)loadTransactions:(SortType)sort groupBy:(GroupType)group{
+	
+	NSString *sortField = @"";
+	if (sort == SortSumm)
+		sortField = @"amount";
+	else if (sort == SortDate)
+		sortField = @"time";
+	else if (sort == SortCategores)
+		sortField = @"categoriesParentId, categoriesId";
+	
+	NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Transactions WHERE state = %d ORDER BY %@", TransactionsStateNormal, sortField];
+	return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+}
+
 + (NSMutableDictionary *)transactionsChartBy:(TransactionsType)type fromDate:(NSDate *)dateFrom toDate:(NSDate *)dateTo parentCid:(NSUInteger)pCid {
 	
 	NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];

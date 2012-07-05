@@ -27,6 +27,7 @@
 	NSMutableDictionary *cellEditing;
 	
 	SortType sortType;
+    GroupType groupType;
 	
 	BOOL isSort;
 	
@@ -35,6 +36,7 @@
 
 @property (nonatomic, retain) NSMutableDictionary *cellEditing;
 @property (nonatomic, assign) SortType sortType;
+@property (nonatomic, assign) GroupType groupType;
 @property (nonatomic, assign) BOOL isSort;
 
 @property (nonatomic, retain) NSMutableArray *list;
