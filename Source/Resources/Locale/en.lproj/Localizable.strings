@@ -117,5 +117,5 @@
 "transaction_month_12"							= "Каждый декабрь";
 
 // Report
-"report_segmented_diagram"						= "Диаграма";
+"report_segmented_diagram"						= "Диаграмма";
 "report_segmented_chart"						= "График";

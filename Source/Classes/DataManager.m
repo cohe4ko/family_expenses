@@ -26,7 +26,7 @@ static DataManager *sharedDataManager;
 
 - (id)init {
     if (self = [super init]) {
-		self.data	= [[[NSMutableDictionary alloc] init] autorelease];
+		self.data	= [[[NSMutableDictionary alloc] init] autorelease]; 
 		self.settings = [[[NSMutableDictionary alloc] init] autorelease];
 		self.categories = [[[NSMutableDictionary alloc] init] autorelease];
     }
@@ -38,12 +38,12 @@ static DataManager *sharedDataManager;
 		NSMutableArray *arr = [[[NSMutableArray alloc] init] autorelease];
 		[self.data setObject:arr forKey:name];
 	}
-	return [self.data objectForKey:name];
+	return [self.data objectForKey:name]; 
 }
 
 - (void)set:(NSMutableArray *)dic forKey:(NSString *)name {
 	if ([self.data objectForKey:name] == nil)
-		[self get:name reset:TRUE];
+		[self get:name reset:TRUE]; 
 	[self.data setObject:dic forKey:name];
 }
 
