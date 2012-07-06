@@ -4,6 +4,7 @@
 //
 
 #import "TransactionsViewController.h"
+#import "TransactionGroupViewController.h"
 #import "TransactionsTableViewCell.h"
 
 #import "TransactionsController.h"
@@ -22,7 +23,7 @@
 
 @implementation TransactionsViewController
 
-@synthesize sortType, isSort, list, cellEditing;
+@synthesize sortType, groupType, isSort, list, cellEditing;
 
 #pragma mark -
 #pragma mark Initializate
@@ -50,7 +51,10 @@
 #pragma mark Notifications
 
 - (void)notificationTransactionUpdate:(NSNotification *)notification {
-	[self setClearEdit];
+    if (groupType == GroupInfin) {
+        [self setClearEdit];
+    }
+	self.groupType = [[NSUserDefaults standardUserDefaults] integerForKey:@"group_transactions"];
 	[self loadData];
 }
 
@@ -105,13 +109,15 @@
 	
 	// Set sort type
 	self.sortType = [[NSUserDefaults standardUserDefaults] integerForKey:@"sort_transactions"];
+    self.groupType = [[NSUserDefaults standardUserDefaults] integerForKey:@"group_transactions"];
 }
 
 #pragma mark -
 #pragma mark Actions
 
 - (void)actionGroup {
-	
+    TransactionGroupViewController *groupViewController = [MainController getViewController:@"TransactionGroupViewController"];
+    [[RootViewController shared] presentModalViewController:groupViewController animated:YES];
 }
 
 - (void)actionSort {
@@ -130,7 +136,12 @@
 - (void)loadData {
 	
 	// Load transactions
-	self.list = [TransactionsController loadTransactions:sortType];
+    if (groupType == GroupInfin) {
+        self.list = [TransactionsController loadTransactions:sortType];
+    }else {
+        self.list = [TransactionsController loadTransactions:sortType groupBy:groupType];
+    }
+	
 	
 	// Set data
 	[self setData];
@@ -245,7 +256,10 @@
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	// Disable edit state
-	[self setClearEdit];
+    if (groupType == GroupInfin) {
+        [self setClearEdit];
+    }
+	
 }
 
 - (void)tableView:(UITableView *)_tableView didRemoveCellAtIndexPath:(NSIndexPath *)indexPath {

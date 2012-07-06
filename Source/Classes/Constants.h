@@ -43,6 +43,13 @@ typedef enum {
 } SortType;
 
 typedef enum {
+    GroupDay        = 1,
+    GroupWeek       = 2,
+    GroupMonth      = 3,
+    GroupInfin      = 4
+} GroupType;
+
+typedef enum {
     SegmentedLeft	= 0,
 	SegmentedCenter	= 1,
 	SegmentedRight	= 2,

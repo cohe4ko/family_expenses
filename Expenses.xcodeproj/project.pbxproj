@@ -615,6 +615,12 @@
 		D1FBCFD9155B061C00F2AF36 /* background_report_box_separator.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FBCFD7155B061C00F2AF36 /* background_report_box_separator.png */; };
 		D1FBCFDA155B061C00F2AF36 /* background_report_box_separator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FBCFD8155B061C00F2AF36 /* background_report_box_separator@2x.png */; };
 		D1FBCFDE155B069900F2AF36 /* ReportBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FBCFDD155B069900F2AF36 /* ReportBox.m */; };
+		FA6FB24E15A6A3560067F043 /* TransactionsGrouped.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FB24D15A6A3560067F043 /* TransactionsGrouped.m */; };
+		FA6FB26115A6EE860067F043 /* TransactionGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FB26015A6EE860067F043 /* TransactionGroupedTableViewCell.m */; };
+		FA6FB26315A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6FB26215A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib */; };
+		FA79E81E15A606180066EDAB /* TransactionGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E81D15A606180066EDAB /* TransactionGroupViewController.m */; };
+		FA79E82015A606700066EDAB /* TransactionGroupViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA79E81F15A606700066EDAB /* TransactionGroupViewController_iPhone.xib */; };
+		FA79E84815A624620066EDAB /* TransactionGroupViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1409,6 +1415,16 @@
 		D1FBCFD8155B061C00F2AF36 /* background_report_box_separator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_report_box_separator@2x.png"; sourceTree = "<group>"; };
 		D1FBCFDC155B069900F2AF36 /* ReportBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportBox.h; sourceTree = "<group>"; };
 		D1FBCFDD155B069900F2AF36 /* ReportBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportBox.m; sourceTree = "<group>"; };
+		FA6FB24C15A6A3560067F043 /* TransactionsGrouped.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsGrouped.h; sourceTree = "<group>"; };
+		FA6FB24D15A6A3560067F043 /* TransactionsGrouped.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsGrouped.m; sourceTree = "<group>"; };
+		FA6FB25F15A6EE850067F043 /* TransactionGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionGroupedTableViewCell.h; sourceTree = "<group>"; };
+		FA6FB26015A6EE860067F043 /* TransactionGroupedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionGroupedTableViewCell.m; sourceTree = "<group>"; };
+		FA6FB26215A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionGroupedTableViewCell_iPhone.xib; sourceTree = "<group>"; };
+		FA79E81C15A606180066EDAB /* TransactionGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionGroupViewController.h; sourceTree = "<group>"; };
+		FA79E81D15A606180066EDAB /* TransactionGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionGroupViewController.m; sourceTree = "<group>"; };
+		FA79E81F15A606700066EDAB /* TransactionGroupViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionGroupViewController_iPhone.xib; sourceTree = "<group>"; };
+		FA79E84615A624620066EDAB /* TransactionGroupViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionGroupViewController_iPhone.h; sourceTree = "<group>"; };
+		FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionGroupViewController_iPhone.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2455,6 +2471,8 @@
 			children = (
 				D129E2E01527976900D4BC9B /* Transactions.h */,
 				D129E2E11527976900D4BC9B /* Transactions.m */,
+				FA6FB24C15A6A3560067F043 /* TransactionsGrouped.h */,
+				FA6FB24D15A6A3560067F043 /* TransactionsGrouped.m */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";
@@ -2784,6 +2802,8 @@
 			children = (
 				D10EC7A014E3F79D00A22FC6 /* TransactionsViewController_iPhone.xib */,
 				D1266C041533A3F600F240F3 /* TransactionsTableViewCell_iPhone.xib */,
+				FA79E81F15A606700066EDAB /* TransactionGroupViewController_iPhone.xib */,
+				FA6FB26215A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -2914,6 +2934,10 @@
 				D178CE4114E3F61400AA0705 /* TransactionsViewController.m */,
 				D1266BFD1533A2A000F240F3 /* TransactionsTableViewCell.h */,
 				D1266BFE1533A2A000F240F3 /* TransactionsTableViewCell.m */,
+				FA79E81C15A606180066EDAB /* TransactionGroupViewController.h */,
+				FA79E81D15A606180066EDAB /* TransactionGroupViewController.m */,
+				FA6FB25F15A6EE850067F043 /* TransactionGroupedTableViewCell.h */,
+				FA6FB26015A6EE860067F043 /* TransactionGroupedTableViewCell.m */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -2930,6 +2954,8 @@
 			children = (
 				D178CE4314E3F63500AA0705 /* TransactionsViewController_iPhone.h */,
 				D178CE4414E3F63500AA0705 /* TransactionsViewController_iPhone.m */,
+				FA79E84615A624620066EDAB /* TransactionGroupViewController_iPhone.h */,
+				FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -3795,6 +3821,8 @@
 				D1969625155B1B3A00C486F4 /* icon_calendar_report@2x.png in Resources */,
 				D1969628155B1C1D00C486F4 /* background_report_len.png in Resources */,
 				D1969629155B1C1D00C486F4 /* background_report_len@2x.png in Resources */,
+				FA79E82015A606700066EDAB /* TransactionGroupViewController_iPhone.xib in Resources */,
+				FA6FB26315A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3994,6 +4022,10 @@
 				D1FBCFDE155B069900F2AF36 /* ReportBox.m in Sources */,
 				5F5A47AE1563D9E9006622F7 /* DraggableViewController.m in Sources */,
 				5FD9C788157B77EE008B2357 /* OrdinalNumberFormatter.m in Sources */,
+				FA79E81E15A606180066EDAB /* TransactionGroupViewController.m in Sources */,
+				FA79E84815A624620066EDAB /* TransactionGroupViewController_iPhone.m in Sources */,
+				FA6FB24E15A6A3560067F043 /* TransactionsGrouped.m in Sources */,
+				FA6FB26115A6EE860067F043 /* TransactionGroupedTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

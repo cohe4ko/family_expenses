@@ -141,6 +141,7 @@ static AppDelegate *app = NULL;
 - (void)initializeUserDefaults {
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:
 						 [NSNumber numberWithInt:SortSumm], @"sort_transactions",
+                         [NSNumber numberWithInt:GroupInfin],@"group_transactions",
 						 [NSNumber numberWithBool:NO], @"is_transactions_temp",
 						 nil];
 	
