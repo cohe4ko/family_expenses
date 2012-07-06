@@ -16,6 +16,7 @@
     IBOutlet UIButton *doneButton;
     IBOutlet UIDatePicker *datePicker;
     IBOutlet UILabel *labelTitle;
+    NSInteger selectedButton;
 }
 
 @end

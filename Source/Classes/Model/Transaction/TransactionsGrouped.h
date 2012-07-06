@@ -11,15 +11,16 @@
 @interface TransactionsGrouped : DbObject{
     NSInteger time;
     CGFloat amount;
+    NSString *groupStr;
 }
 
 @property (nonatomic, assign) NSInteger time;
 @property (nonatomic, assign) CGFloat amount;
+@property (nonatomic, retain) NSString *groupStr;
 
 + (TransactionsGrouped *)withDictionary:(NSDictionary *)dic;
 - (TransactionsGrouped *)initWithDictionary:(NSDictionary *)dic;
 - (NSString *)price;
 - (NSDate*)date;
-- (NSString*)dateAsString;
 
 @end

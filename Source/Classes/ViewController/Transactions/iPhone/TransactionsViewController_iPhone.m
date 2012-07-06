@@ -48,13 +48,15 @@
         
         return cell;
     }else {
-        static NSString *cellIdentifer = @"groupCellIdentifier";
-        TransactionGroupedTableViewCell *cell = (TransactionGroupedTableViewCell *)[_tableView dequeueReusableCellWithIdentifier:cellIdentifer];
+        static NSString *groupedCellIdentifer = @"groupCellIdentifier";
+        TransactionGroupedTableViewCell *cell = (TransactionGroupedTableViewCell *)[_tableView dequeueReusableCellWithIdentifier:groupedCellIdentifer];
         if (cell == nil) {
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"TransactionGroupedTableViewCell_iPhone" owner:self options:nil];
             cell = [nib objectAtIndex:0];
+            
+            cell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_row.png"]] autorelease];
         }
-        NSString *format = @"";
+        NSString *format = @"transactions_date_format";
         switch (groupType) {
             case GroupDay:
                 format = @"transactions_grouped_day_date_format";
@@ -68,7 +70,7 @@
             default:
                 break;
         }
-        [cell setTransaction:[list objectAtIndex:indexPath.row] dateFormat:format];
+        [cell setTransaction:[list objectAtIndex:indexPath.row] dateFormat:NSLocalizedString(format, @"")];
         return cell;
     }
 
@@ -78,13 +80,15 @@
 #pragma mark UITableView delegate
 -(void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [super tableView:_tableView didSelectRowAtIndexPath:indexPath];
-    AddBillViewController *controller = [MainController getViewController:@"AddBillViewController"];
-    Transactions *item = [list objectAtIndex:indexPath.row];
-    [controller setTransaction:item];
-    [controller setAmount:item.amount];
-    [controller setCategory:item.categories];
-    [controller setHidesBottomBarWhenPushed:YES];
-    [self.navigationController pushViewController:controller animated:YES];
+    if (groupType == GroupInfin) {
+        AddBillViewController *controller = [MainController getViewController:@"AddBillViewController"];
+        Transactions *item = [list objectAtIndex:indexPath.row];
+        [controller setTransaction:item];
+        [controller setAmount:item.amount];
+        [controller setCategory:item.categories];
+        [controller setHidesBottomBarWhenPushed:YES];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 #pragma mark -
 

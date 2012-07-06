@@ -51,7 +51,10 @@
 #pragma mark Notifications
 
 - (void)notificationTransactionUpdate:(NSNotification *)notification {
-	[self setClearEdit];
+    if (groupType == GroupInfin) {
+        [self setClearEdit];
+    }
+	self.groupType = [[NSUserDefaults standardUserDefaults] integerForKey:@"group_transactions"];
 	[self loadData];
 }
 
@@ -133,7 +136,12 @@
 - (void)loadData {
 	
 	// Load transactions
-	self.list = [TransactionsController loadTransactions:sortType];
+    if (groupType == GroupInfin) {
+        self.list = [TransactionsController loadTransactions:sortType];
+    }else {
+        self.list = [TransactionsController loadTransactions:sortType groupBy:groupType];
+    }
+	
 	
 	// Set data
 	[self setData];
@@ -248,7 +256,10 @@
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	// Disable edit state
-	[self setClearEdit];
+    if (groupType == GroupInfin) {
+        [self setClearEdit];
+    }
+	
 }
 
 - (void)tableView:(UITableView *)_tableView didRemoveCellAtIndexPath:(NSIndexPath *)indexPath {

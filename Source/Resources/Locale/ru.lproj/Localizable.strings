@@ -56,6 +56,11 @@
 "transactions_grouped_week_date_format"			= "w MMMM yyyy";
 "transactions_grouped_month_date_format"        = "MMMM yyyy";
 "transactions_total"							= "Итого";
+"transactions_group_title"                      = "Период";
+"transactions_group_day"                        = "День";
+"transactions_group_week"                       = "Неделя";
+"transactions_group_month"                      = "Месяц";
+"transactions_group_infin"                      = "∞";
 
 // Budget
 "budget_hint"									= "Список ваших бюджетов";

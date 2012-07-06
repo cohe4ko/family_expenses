@@ -14,7 +14,7 @@
 #pragma mark -
 #pragma mark Initializate
 
-@synthesize time, amount;
+@synthesize time, amount, groupStr;
 
 + (TransactionsGrouped *)withDictionary:(NSDictionary *)dic {
 	return [[[TransactionsGrouped alloc] initWithDictionary:dic] autorelease];
@@ -35,10 +35,6 @@
 	return [NSDate dateWithTimeIntervalSince1970:time];
 }
 
-- (NSString*)dateAsString{
-    
-}
-
 - (NSString *)price {
 	return [NSString stringWithFormat:@"%@ %@", [NSString formatCurrency:self.amount def:@"0"], @"руб"];
 }
@@ -48,6 +44,7 @@
 #pragma mark Memory managment
 
 - (void)dealloc {
+    self.groupStr = nil;
 	[super dealloc];
 }
 

@@ -37,17 +37,17 @@
     if (group == GroupDay) {
         groupField = @"t.time";
     }else if(group == GroupWeek){
-        groupField = @"strftime(%w-%m-%Y, time)";
+        groupField = @"strftime('%Y%W', t.time, 'unixepoch')";
     }else if(group == GroupMonth){
-        groupField = @"strftime(%m-%Y, time)";
+        groupField = @"strftime('%Y%m', t.time, 'unixepoch')";
     }
 	
     if (sort == SortCategores) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT sum(amount) amount, max(time) time FROM Transactions t WHERE state = %d GROUP BY %@", TransactionsStateNormal, groupField];
+        NSString *sql = [NSString stringWithFormat:@"SELECT sum(t.amount) amount, max(t.time) time, %@ groupStr FROM Transactions t WHERE state = %d GROUP BY groupStr", groupField, TransactionsStateNormal];
         return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
     }else {
-        NSString *sql = [NSString stringWithFormat:@"SELECT sum(amount) amount, max(time) time FROM Transactions t WHERE state = %d GROUP BY %@ ORDER BY %@", TransactionsStateNormal, groupField, sortField];
-        return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+        NSString *sql = [NSString stringWithFormat:@"SELECT sum(t.amount) amount, max(t.time) time, %@ groupStr FROM Transactions t WHERE state = %d GROUP BY groupStr ORDER BY %@", groupField, TransactionsStateNormal, sortField];
+        return [[[Db shared] loadAndFill:sql theClass:[TransactionsGrouped class]] mutableCopy];
     }
     
 

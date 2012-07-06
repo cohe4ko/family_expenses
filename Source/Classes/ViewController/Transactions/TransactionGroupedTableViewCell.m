@@ -16,10 +16,16 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        labelDate.adjustsFontSizeToFitWidth = YES;
-        labelPrice.adjustsFontSizeToFitWidth = YES;
+        
     }
     return self;
+}
+
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    labelDate.adjustsFontSizeToFitWidth = YES;
+    labelPrice.adjustsFontSizeToFitWidth = YES;
 }
 
 -(void)setTransaction:(TransactionsGrouped*)_item dateFormat:(NSString*)dateFormat{
@@ -35,7 +41,7 @@
             return;
         }
         labelPrice.text = _item.price;
-        labelDate.text = [_item.date dateFormat:dateFormat];
+        labelDate.text = [_item.date dateFormat:/*dateFormat*/NSLocalizedString(@"transactions_date_format", @"")];
         categoryImageView.image = nil;
     }
 }
