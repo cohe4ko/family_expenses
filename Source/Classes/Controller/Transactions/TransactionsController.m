@@ -32,11 +32,25 @@
 		sortField = @"amount";
 	else if (sort == SortDate)
 		sortField = @"time";
-	else if (sort == SortCategores)
-		sortField = @"categoriesParentId, categoriesId";
+    
+    NSString *groupField = @"";
+    if (group == GroupDay) {
+        groupField = @"t.time";
+    }else if(group == GroupWeek){
+        groupField = @"strftime(%w-%m-%Y, time)";
+    }else if(group == GroupMonth){
+        groupField = @"strftime(%m-%Y, time)";
+    }
 	
-	NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Transactions WHERE state = %d ORDER BY %@", TransactionsStateNormal, sortField];
-	return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+    if (sort == SortCategores) {
+        NSString *sql = [NSString stringWithFormat:@"SELECT sum(amount) amount, max(time) time FROM Transactions t WHERE state = %d GROUP BY %@", TransactionsStateNormal, groupField];
+        return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+    }else {
+        NSString *sql = [NSString stringWithFormat:@"SELECT sum(amount) amount, max(time) time FROM Transactions t WHERE state = %d GROUP BY %@ ORDER BY %@", TransactionsStateNormal, groupField, sortField];
+        return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+    }
+    
+
 }
 
 + (NSMutableDictionary *)transactionsChartBy:(TransactionsType)type fromDate:(NSDate *)dateFrom toDate:(NSDate *)dateTo parentCid:(NSUInteger)pCid {

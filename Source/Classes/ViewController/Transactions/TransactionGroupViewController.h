@@ -8,6 +8,14 @@
 
 #import "ViewController.h"
 
-@interface TransactionGroupViewController : ViewController
+@interface TransactionGroupViewController : ViewController{
+    IBOutlet UIButton *daysButton;
+    IBOutlet UIButton *weeksButton;
+    IBOutlet UIButton *monthesButton;
+    IBOutlet UIButton *infinButton;
+    IBOutlet UIButton *doneButton;
+    IBOutlet UIDatePicker *datePicker;
+    IBOutlet UILabel *labelTitle;
+}
 
 @end

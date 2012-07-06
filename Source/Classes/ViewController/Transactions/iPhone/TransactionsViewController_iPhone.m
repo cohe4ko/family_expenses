@@ -6,6 +6,7 @@
 #import "TransactionsViewController_iPhone.h"
 #import "AddBillViewController_iPhone.h"
 #import "TransactionsTableViewCell.h"
+#import "TransactionGroupedTableViewCell.h"
 
 @interface TransactionsViewController_iPhone (Private)
 @end
@@ -31,21 +32,46 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)_tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	static NSString *cellIdentifer = @"cellIdentifier";
-	
-	TransactionsTableViewCell *cell = (TransactionsTableViewCell *)[_tableView dequeueReusableCellWithIdentifier:cellIdentifer];
-	if (cell == nil) {
-		NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"TransactionsTableViewCell_iPhone" owner:self options:nil];
-		cell = [nib objectAtIndex:0];
-		
-		cell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_row.png"]] autorelease];
-	}
-	
-	cell.parent = self;
-	cell.item = [list objectAtIndex:indexPath.row];
-	
-	return cell;
+	if (groupType == GroupInfin) {
+        static NSString *cellIdentifer = @"cellIdentifier";
+        
+        TransactionsTableViewCell *cell = (TransactionsTableViewCell *)[_tableView dequeueReusableCellWithIdentifier:cellIdentifer];
+        if (cell == nil) {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"TransactionsTableViewCell_iPhone" owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+            
+            cell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_row.png"]] autorelease];
+        }
+        
+        cell.parent = self;
+        cell.item = [list objectAtIndex:indexPath.row];
+        
+        return cell;
+    }else {
+        static NSString *cellIdentifer = @"groupCellIdentifier";
+        TransactionGroupedTableViewCell *cell = (TransactionGroupedTableViewCell *)[_tableView dequeueReusableCellWithIdentifier:cellIdentifer];
+        if (cell == nil) {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"TransactionGroupedTableViewCell_iPhone" owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        NSString *format = @"";
+        switch (groupType) {
+            case GroupDay:
+                format = @"transactions_grouped_day_date_format";
+                break;
+            case GroupWeek:
+                format = @"transactions_grouped_week_date_format";
+                break;
+            case GroupMonth:
+                format = @"transactions_grouped_month_date_format";
+                break;
+            default:
+                break;
+        }
+        [cell setTransaction:[list objectAtIndex:indexPath.row] dateFormat:format];
+        return cell;
+    }
+
 }
 
 #pragma mark -
