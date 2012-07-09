@@ -28,21 +28,21 @@
     labelPrice.adjustsFontSizeToFitWidth = YES;
 }
 
--(void)setTransaction:(TransactionsGrouped*)_item dateFormat:(NSString*)dateFormat{
+-(void)setTransaction:(TransactionsGrouped*)_item date:(NSString*)date{
     if (item != _item) {
         if (item) {
             [item release];
             item = nil;
         }
+        labelDate.text = date;
         if (!_item) {
             labelPrice.text = nil;
-            labelDate.text = nil;
             categoryImageView.image = nil;
             return;
         }
-        labelPrice.text = _item.price;
-        labelDate.text = [_item.date dateFormat:/*dateFormat*/NSLocalizedString(@"transactions_date_format", @"")];
-        categoryImageView.image = nil;
+        item = [_item retain];
+        [categoryImageView setImage:[item categories].imageNormal];
+        labelPrice.text = item.price;
     }
 }
 

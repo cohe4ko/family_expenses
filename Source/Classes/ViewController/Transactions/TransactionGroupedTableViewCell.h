@@ -17,6 +17,6 @@
     TransactionsGrouped *item;
 }
 
--(void)setTransaction:(TransactionsGrouped*)_item dateFormat:(NSString*)dateFormat;
+-(void)setTransaction:(TransactionsGrouped*)_item date:(NSString*)date;
 
 @end

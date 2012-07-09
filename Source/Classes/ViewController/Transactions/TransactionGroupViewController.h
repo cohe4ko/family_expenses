@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "TransactionCalendarView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface TransactionGroupViewController : ViewController{
     IBOutlet UIButton *daysButton;
@@ -16,7 +18,10 @@
     IBOutlet UIButton *doneButton;
     IBOutlet UIDatePicker *datePicker;
     IBOutlet UILabel *labelTitle;
+    IBOutlet TransactionCalendarView *firstCalendarView;
     NSInteger selectedButton;
 }
+
+@property(nonatomic,retain)TransactionCalendarView *firstCalendarView;
 
 @end

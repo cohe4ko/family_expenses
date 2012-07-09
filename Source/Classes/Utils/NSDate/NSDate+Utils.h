@@ -36,4 +36,8 @@
 + (NSMutableDictionary *)calculateDates:(NSDate *)fromDate toDate:(NSDate *)toDate;
 - (NSDate *)roundDateToCeilingMinutes:(int)minute;
 
+- (NSInteger)dayOfWeek;
+- (NSInteger)year;
+- (NSInteger)yearDay;
+
 @end

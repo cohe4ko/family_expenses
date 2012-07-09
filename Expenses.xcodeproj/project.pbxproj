@@ -621,6 +621,8 @@
 		FA79E81E15A606180066EDAB /* TransactionGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E81D15A606180066EDAB /* TransactionGroupViewController.m */; };
 		FA79E82015A606700066EDAB /* TransactionGroupViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA79E81F15A606700066EDAB /* TransactionGroupViewController_iPhone.xib */; };
 		FA79E84815A624620066EDAB /* TransactionGroupViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */; };
+		FADFD46315AAAFE0008A86BA /* TransactionCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */; };
+		FADFD46615AAB2E6008A86BA /* TransactionCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1425,6 +1427,9 @@
 		FA79E81F15A606700066EDAB /* TransactionGroupViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionGroupViewController_iPhone.xib; sourceTree = "<group>"; };
 		FA79E84615A624620066EDAB /* TransactionGroupViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionGroupViewController_iPhone.h; sourceTree = "<group>"; };
 		FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionGroupViewController_iPhone.m; sourceTree = "<group>"; };
+		FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCalendarView.xib; sourceTree = "<group>"; };
+		FADFD46415AAB2E6008A86BA /* TransactionCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCalendarView.h; sourceTree = "<group>"; };
+		FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCalendarView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2786,6 +2791,7 @@
 			children = (
 				D178CE3314E3F17700AA0705 /* iPhone */,
 				D178CE3214E3F17700AA0705 /* iPad */,
+				FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -2938,6 +2944,8 @@
 				FA79E81D15A606180066EDAB /* TransactionGroupViewController.m */,
 				FA6FB25F15A6EE850067F043 /* TransactionGroupedTableViewCell.h */,
 				FA6FB26015A6EE860067F043 /* TransactionGroupedTableViewCell.m */,
+				FADFD46415AAB2E6008A86BA /* TransactionCalendarView.h */,
+				FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -3823,6 +3831,7 @@
 				D1969629155B1C1D00C486F4 /* background_report_len@2x.png in Resources */,
 				FA79E82015A606700066EDAB /* TransactionGroupViewController_iPhone.xib in Resources */,
 				FA6FB26315A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib in Resources */,
+				FADFD46315AAAFE0008A86BA /* TransactionCalendarView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4026,6 +4035,7 @@
 				FA79E84815A624620066EDAB /* TransactionGroupViewController_iPhone.m in Sources */,
 				FA6FB24E15A6A3560067F043 /* TransactionsGrouped.m in Sources */,
 				FA6FB26115A6EE860067F043 /* TransactionGroupedTableViewCell.m in Sources */,
+				FADFD46615AAB2E6008A86BA /* TransactionCalendarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

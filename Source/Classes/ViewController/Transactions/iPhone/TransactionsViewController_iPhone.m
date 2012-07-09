@@ -56,21 +56,24 @@
             
             cell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_row.png"]] autorelease];
         }
-        NSString *format = @"transactions_date_format";
-        switch (groupType) {
-            case GroupDay:
-                format = @"transactions_grouped_day_date_format";
-                break;
-            case GroupWeek:
-                format = @"transactions_grouped_week_date_format";
-                break;
-            case GroupMonth:
-                format = @"transactions_grouped_month_date_format";
-                break;
-            default:
-                break;
+        if (groupType == GroupWeek) {
+            [cell setTransaction:[list objectAtIndex:indexPath.row] date:[[list objectAtIndex:indexPath.row] dateAsWeekTimeInterval]];
+        }else {
+            NSString *format = @"";
+            switch (groupType) {
+                case GroupDay:
+                    format = @"transactions_grouped_day_date_format";
+                    break;
+                case GroupMonth:
+                    format = @"transactions_grouped_month_date_format";
+                    break;
+                default:
+                    break;
+            }
+            [cell setTransaction:[list objectAtIndex:indexPath.row] date:[[[list objectAtIndex:indexPath.row] date] dateFormat:NSLocalizedString(format, @"")]];
         }
-        [cell setTransaction:[list objectAtIndex:indexPath.row] dateFormat:NSLocalizedString(format, @"")];
+        
+        
         return cell;
     }
 

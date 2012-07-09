@@ -7,14 +7,17 @@
 //
 
 #import "TransactionsGrouped.h"
+#import "CategoriesController.h"
 #import "NSString+Utils.h"
+#import "NSDate+Utils.h"
+#import "NSDate+DateFunctions.h"
 
 @implementation TransactionsGrouped
 
 #pragma mark -
 #pragma mark Initializate
 
-@synthesize time, amount, groupStr;
+@synthesize time, amount, groupStr, categoriesId;
 
 + (TransactionsGrouped *)withDictionary:(NSDictionary *)dic {
 	return [[[TransactionsGrouped alloc] initWithDictionary:dic] autorelease];
@@ -32,13 +35,30 @@
 #pragma mark Getters
 
 - (NSDate *)date {
-	return [NSDate dateWithTimeIntervalSince1970:time];
+	return [NSDate dateWithTimeIntervalSince1970:time-1];
 }
 
 - (NSString *)price {
 	return [NSString stringWithFormat:@"%@ %@", [NSString formatCurrency:self.amount def:@"0"], @"руб"];
 }
 
+- (NSString*)dateAsWeekTimeInterval{
+    NSInteger day = [self.date dayOfWeek];
+    NSDate *d1 = [self.date addDays:-day+1];
+    NSDate *d2 = [self.date addDays:7-day];
+    if ([d1 year] != [d2 year]) {
+        if ([self.date year] != [d1 year]) {
+            d1 = [d1 addDays:-[self.date yearDay]+1];
+        }else {
+            d2 = [d2 addDays:-[d2 yearDay]];
+        }
+    }
+    return [NSString stringWithFormat:@"%@ - %@ %d",[d1 dateFormat:NSLocalizedString(@"transactions_grouped_week_interval_format", @"")],[d2 dateFormat:NSLocalizedString(@"transactions_grouped_week_interval_format", @"")],[self.date year]];
+}
+
+- (Categories *)categories {
+	return [CategoriesController getById:categoriesId];
+}
 
 #pragma mark -
 #pragma mark Memory managment

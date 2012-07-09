@@ -232,4 +232,24 @@
 	return d;
 }
 
+- (NSInteger)dayOfWeek{
+    NSCalendar *gregorian = [[[NSCalendar alloc]
+                             initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:self];
+    return [weekdayComponents weekday];
+}
+
+- (NSInteger)year{
+    NSCalendar *gregorian = [[[NSCalendar alloc]
+                              initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    NSDateComponents *yearComponents = [gregorian components:NSYearCalendarUnit fromDate:self];
+    return [yearComponents year];
+}
+
+- (NSInteger)yearDay{
+    NSCalendar *gregorian = [[[NSCalendar alloc]
+                              initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    return [gregorian ordinalityOfUnit:NSDayCalendarUnit inUnit:NSYearCalendarUnit forDate:self];;
+}
+
 @end
