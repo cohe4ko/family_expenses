@@ -18,10 +18,9 @@
     IBOutlet UIButton *doneButton;
     IBOutlet UIDatePicker *datePicker;
     IBOutlet UILabel *labelTitle;
-    IBOutlet TransactionCalendarView *firstCalendarView;
+    TransactionCalendarView *firstCalendarView;
+    TransactionCalendarView *secondCalendarView;
     NSInteger selectedButton;
 }
-
-@property(nonatomic,retain)TransactionCalendarView *firstCalendarView;
 
 @end

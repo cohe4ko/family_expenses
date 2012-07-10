@@ -14,10 +14,15 @@
 - (void)selectButtonWithTag:(NSInteger)tag;
 - (void)deselectButtonWithTag:(NSInteger)tag;
 - (void)deselectAllButtons;
+- (void)clearAll;
+@end
+
+@interface TransactionGroupViewController (Target)
+- (void)firstDateTapped:(UITapGestureRecognizer*)sender;
+- (void)secondDateTapped:(UITapGestureRecognizer*)sender;
 @end
 
 @implementation TransactionGroupViewController
-@synthesize firstCalendarView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,6 +49,7 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+    [self clearAll];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -86,34 +92,14 @@
 	[mask setCornerRadius:5.0f];
 	[datePicker.layer setMask:mask];
 	[mask release];
+    
+    
 }
 
 - (void)selectButtonWithTag:(NSInteger)tag{
-    UIButton *b = (UIButton*)[self.view viewWithTag:tag];
-    if (tag == 100) {
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood-selected.png"] forState:UIControlStateNormal];
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood-selected.png"] forState:UIControlStateHighlighted];
-    }else if (tag == 103) {
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_right_wood-selected.png"] forState:UIControlStateNormal];
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_right_wood-selected.png"] forState:UIControlStateHighlighted];
-    }else {
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood-selected.png"] forState:UIControlStateNormal];
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood-selected.png"] forState:UIControlStateHighlighted];
-    }
-    selectedButton = b.tag;
 }
 - (void)deselectButtonWithTag:(NSInteger)tag{
-    UIButton *b = (UIButton*)[self.view viewWithTag:tag];
-    if (tag == 100) {
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood.png"] forState:UIControlStateNormal];
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood.png"] forState:UIControlStateHighlighted];
-    }else if (tag == 103) {
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_right_wood.png"] forState:UIControlStateNormal];
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_right_wood.png"] forState:UIControlStateHighlighted];
-    }else {
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood.png"] forState:UIControlStateNormal];
-        [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood.png"] forState:UIControlStateHighlighted];
-    }
+    
 }
 - (void)deselectAllButtons{
     for (int i = 100; i<104; i++) {
@@ -160,13 +146,58 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
 }
 
+- (void)firstDateTapped:(UITapGestureRecognizer*)sender{
+    if (!firstCalendarView.selected) {
+        firstCalendarView.selected = YES;
+        secondCalendarView.selected = NO;
+    }
+}
+- (void)secondDateTapped:(UITapGestureRecognizer*)sender{
+    if (!secondCalendarView.selected) {
+        firstCalendarView.selected = NO;
+        secondCalendarView.selected = YES;
+    }
+}
+
 #pragma mark -
 
 #pragma mark -
 #pragma mark Memory management
 
+- (void)clearAll{
+    if (daysButton) {
+        [daysButton release];
+        daysButton = nil;
+    }
+    if (weeksButton) {
+        [weeksButton release];
+        weeksButton = nil;
+    }
+    if (monthesButton) {
+        [monthesButton release];
+        monthesButton = nil;
+    }
+    if (infinButton) {
+        [infinButton release];
+        infinButton = nil;
+    }
+    if (doneButton) {
+        [doneButton release];
+        doneButton = nil;
+    }
+    if (datePicker) {
+        [datePicker release];
+        datePicker = nil;
+    }
+    if (labelTitle) {
+        [labelTitle release];
+        labelTitle = nil;
+    }
+    
+}
+
 - (void)dealloc{
-    self.firstCalendarView = nil;
+    [self clearAll];
     [super dealloc];
 }
 

@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TransactionCalendarView : UIView
+@interface TransactionCalendarView : UIView{
+    IBOutlet UILabel *titleLabel;
+    IBOutlet UILabel *detailLabel;
+    BOOL selected;
+}
+
+@property(nonatomic,readwrite)BOOL selected;
 
 @end

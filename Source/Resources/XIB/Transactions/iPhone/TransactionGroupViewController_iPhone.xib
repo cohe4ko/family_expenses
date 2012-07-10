@@ -50,30 +50,13 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">background_pickerview.png</string>
+							<string key="NSResourceName">background_transaction_group.png</string>
 						</object>
-					</object>
-					<object class="IBUIView" id="386224325">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{10, 90}, {300, 50}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1066937589"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MQA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace">
-								<int key="NSID">2</int>
-							</object>
-						</object>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 					<object class="IBUIButton" id="55375359">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{95, 39}, {55, 30}}</string>
+						<string key="NSFrame">{{95, 33}, {55, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="345471138"/>
@@ -98,26 +81,26 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">button_segmented_left_wood-selected.png</string>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="842767000">
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">button_segmented_left_wood.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="285044382">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="281545162">
 							<string key="name">HelveticaNeue-Bold</string>
 							<string key="family">Helvetica Neue</string>
 							<int key="traits">2</int>
-							<double key="pointSize">14</double>
+							<double key="pointSize">12</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="171250290">
+						<object class="NSFont" key="IBUIFont" id="912322676">
 							<string key="NSName">HelveticaNeue-Bold</string>
-							<double key="NSSize">14</double>
+							<double key="NSSize">12</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
 					<object class="IBUIButton" id="345471138">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{149, 39}, {55, 30}}</string>
+						<string key="NSFrame">{{149, 33}, {55, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="250015967"/>
@@ -133,14 +116,17 @@
 						<reference key="IBUINormalTitleColor" ref="1009434073"/>
 						<reference key="IBUINormalTitleShadowColor" ref="529311818"/>
 						<reference key="IBUISelectedBackgroundImage" ref="238061512"/>
-						<reference key="IBUINormalBackgroundImage" ref="842767000"/>
-						<reference key="IBUIFontDescription" ref="285044382"/>
-						<reference key="IBUIFont" ref="171250290"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="59538533">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">button_segment_middle.png</string>
+						</object>
+						<reference key="IBUIFontDescription" ref="281545162"/>
+						<reference key="IBUIFont" ref="912322676"/>
 					</object>
 					<object class="IBUIButton" id="250015967">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{201, 39}, {55, 30}}</string>
+						<string key="NSFrame">{{201, 33}, {55, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="152566013"/>
@@ -156,26 +142,17 @@
 						<reference key="IBUINormalTitleColor" ref="1009434073"/>
 						<reference key="IBUINormalTitleShadowColor" ref="529311818"/>
 						<reference key="IBUISelectedBackgroundImage" ref="238061512"/>
-						<reference key="IBUINormalBackgroundImage" ref="842767000"/>
-						<object class="IBUIFontDescription" key="IBUIFontDescription">
-							<string key="name">HelveticaNeue-Bold</string>
-							<string key="family">Helvetica Neue</string>
-							<int key="traits">2</int>
-							<double key="pointSize">16</double>
-						</object>
-						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">HelveticaNeue-Bold</string>
-							<double key="NSSize">16</double>
-							<int key="NSfFlags">16</int>
-						</object>
+						<reference key="IBUINormalBackgroundImage" ref="59538533"/>
+						<reference key="IBUIFontDescription" ref="281545162"/>
+						<reference key="IBUIFont" ref="912322676"/>
 					</object>
 					<object class="IBUIButton" id="152566013">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{255, 39}, {55, 30}}</string>
+						<string key="NSFrame">{{255, 33}, {55, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="386224325"/>
+						<reference key="NSNextKeyView" ref="1066937589"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">103</int>
@@ -200,18 +177,18 @@
 							<string key="name">HelveticaNeue-Bold</string>
 							<string key="family">Helvetica Neue</string>
 							<int key="traits">2</int>
-							<double key="pointSize">23</double>
+							<double key="pointSize">24</double>
 						</object>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">HelveticaNeue-Bold</string>
-							<double key="NSSize">23</double>
+							<double key="NSSize">24</double>
 							<int key="NSfFlags">16</int>
 						</object>
 					</object>
 					<object class="IBUILabel" id="666306122">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{7, 43}, {70, 21}}</string>
+						<string key="NSFrame">{{7, 37}, {70, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="55375359"/>
@@ -253,10 +230,9 @@
 					<object class="IBUIButton" id="58612176">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{24, 399}, {273, 41}}</string>
+						<string key="NSFrame">{{24, 409}, {273, 41}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -289,7 +265,7 @@
 					<object class="IBUIDatePicker" id="1066937589">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{0, 151}, {320, 216}}</string>
+						<string key="NSFrame">{{0, 181}, {320, 216}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="58612176"/>
@@ -465,13 +441,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<array class="NSMutableArray" key="children">
 							<reference ref="38027718"/>
 							<reference ref="152566013"/>
-							<reference ref="250015967"/>
 							<reference ref="345471138"/>
 							<reference ref="55375359"/>
 							<reference ref="666306122"/>
-							<reference ref="58612176"/>
 							<reference ref="1066937589"/>
-							<reference ref="386224325"/>
+							<reference ref="58612176"/>
+							<reference ref="250015967"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -532,11 +507,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<reference key="object" ref="1066937589"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">28</int>
-						<reference key="object" ref="386224325"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -547,8 +517,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="28.CustomClassName">TransactionCalendarView</string>
-				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="2" key="4.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
@@ -569,14 +537,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">TransactionCalendarView</string>
-					<string key="superclassName">UIView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/TransactionCalendarView.h</string>
-					</object>
-				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">TransactionGroupViewController</string>
 					<string key="superclassName">ViewController</string>
@@ -665,7 +625,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="background_pickerview.png">{320, 323}</string>
+			<string key="background_transaction_group.png">{320, 432}</string>
+			<string key="button_segment_middle.png">{56, 30}</string>
 			<string key="button_segmented_left_wood-selected.png">{84, 30}</string>
 			<string key="button_segmented_left_wood.png">{84, 30}</string>
 			<string key="button_segmented_right_wood.png">{84, 30}</string>
