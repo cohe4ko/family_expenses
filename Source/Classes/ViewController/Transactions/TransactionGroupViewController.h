@@ -21,6 +21,7 @@
     TransactionCalendarView *firstCalendarView;
     TransactionCalendarView *secondCalendarView;
     NSInteger selectedButton;
+    BOOL isShouldUpdate;
 }
 
 @end

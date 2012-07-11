@@ -35,7 +35,7 @@
 #pragma mark Getters
 
 - (NSDate *)date {
-	return [NSDate dateWithTimeIntervalSince1970:time-1];
+	return [NSDate dateWithTimeIntervalSince1970:time];
 }
 
 - (NSString *)price {

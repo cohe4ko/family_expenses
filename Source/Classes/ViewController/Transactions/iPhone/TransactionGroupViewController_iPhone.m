@@ -23,23 +23,15 @@
         firstCalendarView = [xib objectAtIndex:0];
         firstCalendarView.selected = YES;
         firstCalendarView.frame = CGRectMake(10, 70, 300, 50);
-        [self.view addSubview:firstCalendarView];
         
         xib = [[NSBundle mainBundle] loadNibNamed:@"TransactionCalendarView" owner:self options:nil];
         secondCalendarView = [xib objectAtIndex:0];
         secondCalendarView.selected = NO;
         secondCalendarView.frame = CGRectMake(10, 125, 300, 50);
+        
+        [self.view addSubview:firstCalendarView];
         [self.view addSubview:secondCalendarView];
-        
-        UITapGestureRecognizer *fTap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                               action:@selector(firstDateTapped:)];
-        [firstCalendarView addGestureRecognizer:fTap];
-        [fTap release];
-        
-        UITapGestureRecognizer *sTap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                               action:@selector(secondDateTapped:)];
-        [secondCalendarView addGestureRecognizer:sTap];
-        [sTap release];
+             
     }
     return self;
 }

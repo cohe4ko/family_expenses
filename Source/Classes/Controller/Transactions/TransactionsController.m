@@ -25,6 +25,19 @@
 	return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
 }
 
++ (NSMutableArray *)loadTransactions:(SortType)sort minDate:(NSDate*)minDate maxDate:(NSDate*)maxDate{
+    NSString *sortField = @"";
+	if (sort == SortSumm)
+		sortField = @"amount";
+	else if (sort == SortDate)
+		sortField = @"time";
+	else if (sort == SortCategores)
+		sortField = @"categoriesParentId, categoriesId";
+	
+	NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Transactions WHERE state = %d and time >= %d and time <= %d ORDER BY %@", TransactionsStateNormal,(int)[minDate timeIntervalSince1970], (int)[maxDate timeIntervalSince1970], sortField];
+	return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+}
+
 + (NSMutableArray *)loadTransactions:(SortType)sort groupBy:(GroupType)group{
 	
 	NSString *sortField = @"";
@@ -51,6 +64,31 @@
     }
     
 
+}
+
++ (NSMutableArray *)loadTransactions:(SortType)sort groupBy:(GroupType)group minDate:(NSDate*)minDate maxDate:(NSDate*)maxDate{
+    NSString *sortField = @"";
+	if (sort == SortSumm)
+		sortField = @"amount";
+	else if (sort == SortDate)
+		sortField = @"time";
+    
+    NSString *groupField = @"";
+    if (group == GroupDay) {
+        groupField = @"t.time";
+    }else if(group == GroupWeek){
+        groupField = @"strftime('%Y%W', t.time, 'unixepoch')";
+    }else if(group == GroupMonth){
+        groupField = @"strftime('%Y%m', t.time, 'unixepoch')";
+    }
+	
+    if (sort == SortCategores) {
+        NSString *sql = [NSString stringWithFormat:@"SELECT sum(t.amount) amount, max(t.time) time, t.categoriesId categoriesId, %@ groupStr FROM Transactions t WHERE state = %d and time >= %d and time <= %d GROUP BY groupStr", groupField, TransactionsStateNormal,(int)[minDate timeIntervalSince1970],(int)[maxDate timeIntervalSince1970]];
+        return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+    }else {
+        NSString *sql = [NSString stringWithFormat:@"SELECT sum(t.amount) amount, max(t.time) time, t.categoriesId categoriesId, %@ groupStr FROM Transactions t WHERE state = %d and time >= %d and time <= %d GROUP BY groupStr ORDER BY %@", groupField, TransactionsStateNormal, (int)[minDate timeIntervalSince1970],(int)[maxDate timeIntervalSince1970], sortField];
+        return [[[Db shared] loadAndFill:sql theClass:[TransactionsGrouped class]] mutableCopy];
+    }
 }
 
 + (NSMutableDictionary *)transactionsChartBy:(TransactionsType)type fromDate:(NSDate *)dateFrom toDate:(NSDate *)dateTo parentCid:(NSUInteger)pCid {
@@ -103,6 +141,17 @@
 	}
 	
 	return dic;
+}
+
++ (NSDate*)minumDate{
+    NSString *sql = [NSString stringWithFormat:@"SELECT MIN(time) FROM Transactions"];
+    NSInteger timestamp = [[Db shared] intValue:sql];
+    return [NSDate dateWithTimeIntervalSince1970:timestamp];
+}
++ (NSDate*)maximumDate{
+    NSString *sql = [NSString stringWithFormat:@"SELECT MAX(time) FROM Transactions"];
+    NSInteger timestamp = [[Db shared] intValue:sql];
+    return [NSDate dateWithTimeIntervalSince1970:timestamp];
 }
 
 + (void)createTmpTransactions {

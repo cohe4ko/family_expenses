@@ -62,6 +62,9 @@
 "transactions_group_week"                       = "Неделя";
 "transactions_group_month"                      = "Месяц";
 "transactions_group_infin"                      = "∞";
+"transactions_group_date_cell_from"             = "От";
+"transactions_group_date_cell_to"               = "До";
+"transactions_group_date_cell_format"           = "dd MMM, yyyy";
 
 // Budget
 "budget_hint"									= "Список ваших бюджетов";
