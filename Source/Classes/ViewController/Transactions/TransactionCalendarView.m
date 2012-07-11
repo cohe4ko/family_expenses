@@ -10,6 +10,8 @@
 
 @implementation TransactionCalendarView
 @synthesize selected;
+@synthesize titleLabel;
+@synthesize detailLabel;
 
 -(void)awakeFromNib{
     titleLabel.textColor = [UIColor colorWithRed:26.0/255.0 green:26.0/255.0 blue:26.0/255.0 alpha:1.0];
@@ -51,7 +53,7 @@
         [roundedBound fill];
         [roundedBound stroke];
         [roundedBound setLineWidth:1.0];
-        CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:102.0/255.0 green:21.0/255.0 blue:22.0/255.0 alpha:1.0].CGColor);
+        CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:102.0/255.0 green:21.0/255.0 blue:22.0/255.0 alpha:2.0].CGColor);
         [roundedBound stroke];
     }else {
         CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:102.0/255.0 green:21.0/255.0 blue:22.0/255.0 alpha:0.9].CGColor);

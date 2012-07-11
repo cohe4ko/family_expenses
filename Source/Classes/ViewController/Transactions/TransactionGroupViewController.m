@@ -7,14 +7,17 @@
 //
 
 #import "TransactionGroupViewController.h"
+#import "TransactionsController.h"
 
 @interface TransactionGroupViewController (Private)
 - (void)makeLocales;
 - (void)makeItems;
+- (void)loadData;
 - (void)selectButtonWithTag:(NSInteger)tag;
 - (void)deselectButtonWithTag:(NSInteger)tag;
 - (void)deselectAllButtons;
 - (void)clearAll;
+- (void)initCurrentDate;
 @end
 
 @interface TransactionGroupViewController (Target)
@@ -29,6 +32,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        isShouldUpdate = NO;
     }
     return self;
 }
@@ -43,6 +47,9 @@
     
     //make items
     [self makeItems];
+    
+    //load data
+    [self loadData];
 }
 
 - (void)viewDidUnload
@@ -93,7 +100,27 @@
 	[datePicker.layer setMask:mask];
 	[mask release];
     
+    [datePicker addTarget:self
+                   action:@selector(actionPickerDateChanged:)
+         forControlEvents:UIControlEventValueChanged];
     
+    UITapGestureRecognizer *fTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                           action:@selector(firstDateTapped:)];
+    [firstCalendarView addGestureRecognizer:fTap];
+    [fTap release];
+    
+    UITapGestureRecognizer *sTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                           action:@selector(secondDateTapped:)];
+    [secondCalendarView addGestureRecognizer:sTap];
+    [sTap release];
+    
+    firstCalendarView.titleLabel.text = NSLocalizedString(@"transactions_group_date_cell_from", @"");
+    secondCalendarView.titleLabel.text = NSLocalizedString(@"transactions_group_date_cell_to", @"");
+    
+}
+
+- (void)loadData{
+    [self initCurrentDate];
 }
 
 - (void)selectButtonWithTag:(NSInteger)tag{
@@ -107,12 +134,32 @@
     }
 }
 
+- (void)initCurrentDate{
+    NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_begin_date"];
+    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_end_date"];
+    if (!beginDate) {
+        beginDate = [TransactionsController minumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"transaction_filter_begin_date"];
+    }
+    if (!endDate) {
+        endDate = [TransactionsController maximumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"transaction_filter_end_date"];
+    }
+    datePicker.date = beginDate;
+    datePicker.maximumDate = endDate;
+    firstCalendarView.detailLabel.text = [beginDate dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
+    secondCalendarView.detailLabel.text = [endDate dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
+}
+
 #pragma mark -
 
 #pragma mark -
 #pragma mark action
 
 -(IBAction)actionDone:(id)sender{
+    if (isShouldUpdate) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
+    }
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -143,20 +190,46 @@
         default:
             break;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
+    isShouldUpdate = YES;
 }
 
 - (void)firstDateTapped:(UITapGestureRecognizer*)sender{
     if (!firstCalendarView.selected) {
         firstCalendarView.selected = YES;
         secondCalendarView.selected = NO;
+        NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_begin_date"];
+        NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_end_date"];
+        datePicker.date = beginDate;
+        firstCalendarView.detailLabel.text = [beginDate dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
+        datePicker.minimumDate = nil;
+        datePicker.maximumDate = endDate;
+        isShouldUpdate = YES;
     }
 }
 - (void)secondDateTapped:(UITapGestureRecognizer*)sender{
     if (!secondCalendarView.selected) {
         firstCalendarView.selected = NO;
         secondCalendarView.selected = YES;
+        NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_begin_date"];
+        NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_end_date"];
+        datePicker.date = endDate;
+        secondCalendarView.detailLabel.text = [endDate dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
+        datePicker.minimumDate = beginDate;
+        datePicker.maximumDate = nil;
+        isShouldUpdate = YES;
     }
+}
+
+- (void)actionPickerDateChanged:(id)sender{
+    if (firstCalendarView.selected) {
+        [[NSUserDefaults standardUserDefaults] setObject:datePicker.date forKey:@"transaction_filter_begin_date"];
+        firstCalendarView.detailLabel.text = [datePicker.date dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
+    }
+    if (secondCalendarView.selected) {
+        [[NSUserDefaults standardUserDefaults] setObject:datePicker.date forKey:@"transaction_filter_end_date"];
+        secondCalendarView.detailLabel.text = [datePicker.date dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
+    }
+    isShouldUpdate = YES;
 }
 
 #pragma mark -

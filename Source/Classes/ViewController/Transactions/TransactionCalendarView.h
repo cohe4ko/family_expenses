@@ -15,5 +15,7 @@
 }
 
 @property(nonatomic,readwrite)BOOL selected;
+@property(nonatomic,retain)UILabel *titleLabel;
+@property(nonatomic,retain)UILabel *detailLabel;
 
 @end

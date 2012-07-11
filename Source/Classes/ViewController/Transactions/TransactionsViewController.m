@@ -136,10 +136,21 @@
 - (void)loadData {
 	
 	// Load transactions
+    NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_begin_date"];
+    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_end_date"];
+    if (!beginDate) {
+        beginDate = [TransactionsController minumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"transaction_filter_begin_date"];
+    }
+    if (!endDate) {
+        endDate = [TransactionsController maximumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"transaction_filter_end_date"];
+    }
+    
     if (groupType == GroupInfin) {
-        self.list = [TransactionsController loadTransactions:sortType];
+        self.list = [TransactionsController loadTransactions:sortType minDate:beginDate maxDate:endDate];
     }else {
-        self.list = [TransactionsController loadTransactions:sortType groupBy:groupType];
+        self.list = [TransactionsController loadTransactions:sortType groupBy:groupType minDate:beginDate maxDate:endDate];
     }
 	
 	

@@ -48,6 +48,7 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="572902084"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
@@ -90,6 +91,7 @@
 								<string key="NSFrame">{{154, 14}, {139, 21}}</string>
 								<reference key="NSSuperview" ref="680120256"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
