@@ -9,12 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingsTableViewCell : UITableViewCell {
-	IBOutlet UIImageView *imageIcon;
-	IBOutlet UILabel *labelName;
-	
-	NSString *item;
+    IBOutlet UILabel *detailLabel;
 }
 
-@property (nonatomic, retain) NSString *item;
+@property(nonatomic,readonly)UILabel *detailLabel;
 
 @end

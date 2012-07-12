@@ -131,3 +131,12 @@
 // Report
 "report_segmented_diagram"						= "Диаграмма";
 "report_segmented_chart"						= "График";
+
+//Settings
+"settings_settings"                             = "Настройки";
+"settings_devices"                              = "Устройства";
+"settings_database"                             = "База данных";
+"settings_password"                             = "Защита паролем";
+"settings_currency"                             = "Валюта";
+"settings_clear_database"                       = "Очистить базу данных";
+"settings_send_by_email"                        = "Отправить на почту";
