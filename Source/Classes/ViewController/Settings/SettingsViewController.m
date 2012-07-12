@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface SettingsViewController (Private)
 - (void)makeToolBar;
@@ -51,16 +52,31 @@
 	
 	// Init array
 	list = [[NSMutableArray alloc] init];
-	if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"is_login"] boolValue])
-		[list addObject:@"contacts"];
-	[list addObject:@"help"];
-	[list addObject:@"feedback"];
-	[list addObject:@"update"];
-	
-	[list removeAllObjects];
+    NSMutableDictionary *settingsDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"settings_settings",@"title", @"icon_settings_settings.png", @"icon", nil];
+	NSMutableArray *settingsArray = [NSMutableArray array];
+    [settingsArray addObject:[NSArray arrayWithObjects:@"password",@"", nil]];
+	[settingsArray addObject:[NSArray arrayWithObjects:@"currency",@"Рубль", nil]];
+    [settingsDic setObject:settingsArray forKey:@"list"];
+    [list addObject:settingsDic];
+    
+    NSMutableDictionary *devicesDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"settings_devices", @"title", @"icon_settings_device.png", @"icon", nil];
+    NSMutableArray *devicesArray = [NSMutableArray array];
+    [devicesArray addObject:[NSArray arrayWithObjects:@"devices",@"", nil]];
+    [devicesDic setObject:devicesArray forKey:@"list"];
+    [list addObject:devicesDic];
+    
+    NSMutableDictionary *sendDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"settings_database", @"title", @"icon_settings_database.png", @"icon", nil];
+    NSMutableArray *sendArray = [NSMutableArray array];
+    [sendArray addObject:[NSArray arrayWithObjects:@"clear_database",@"", nil]];
+    [sendArray addObject:[NSArray arrayWithObjects:@"send_by_email",@"", nil]];
+    [sendDic setObject:sendArray forKey:@"list"];
+    [list addObject:sendDic];
+    
+	tableView.separatorColor = [UIColor colorWithRed:77.0/255.0 green:31.0/255.0 blue:23.0/255.0 alpha:1.0];
+
 	
 	// Set data
-	[self setData];
+    [self setData];
 }
 
 #pragma mark -

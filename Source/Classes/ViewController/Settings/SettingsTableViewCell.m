@@ -9,8 +9,7 @@
 #import "SettingsTableViewCell.h"
 
 @implementation SettingsTableViewCell
-
-@synthesize item;
+@synthesize detailLabel;
 
 #pragma mark -
 #pragma mark Initializate
@@ -22,24 +21,27 @@
     return self;
 }
 
-#pragma mark -
-#pragma mark Set
-
-- (void)setItem:(NSString *)_item {
-	if (item != _item) {
-		[item release];
-		item = nil;
-		item = [_item retain];
-		
-		// Set name
-		NSString *name = [NSString stringWithFormat:@"settings_%@", item];
-		[labelName setText:NSLocalizedString(name, @"")];
-		
-		// Set icon
-		NSString *icon = [NSString stringWithFormat:@"icon_%@.png", item];
-		[imageIcon setImage:[UIImage imageNamed:icon]];
-	}
+- (void)awakeFromNib{
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.backgroundColor = [UIColor colorWithRed:224.0/255.0 green:202.0/255.0 blue:183.0/255.0 alpha:1.0];
+    
+    self.textLabel.textColor = [UIColor blackColor];
+    self.textLabel.backgroundColor = [UIColor clearColor];
+    self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16];
+    
+    self.detailLabel.textColor = [UIColor blackColor];
+    self.detailLabel.backgroundColor = [UIColor clearColor];
+    self.detailLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+    self.detailLabel.adjustsFontSizeToFitWidth = YES;
+    
 }
+
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    self.textLabel.frame = CGRectMake(10, self.textLabel.frame.origin.y, 200, self.textLabel.frame.size.height);
+    self.detailLabel.frame = CGRectMake(170, self.textLabel.frame.origin.y, 100, self.textLabel.frame.size.height);
+}
+
 
 #pragma mark -
 #pragma mark Other
@@ -52,7 +54,7 @@
 #pragma mark Memory managment
 
 - (void)dealloc {
-	[item release];
+    [detailLabel release];
     [super dealloc];
 }
 
