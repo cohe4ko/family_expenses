@@ -101,6 +101,17 @@
 	r.origin.x = self.view.frame.size.width - r.size.width;
 	r.origin.y = 0.0f;
 	viewSort.frame = r;
+    
+    //bind group action to the dates
+    UITapGestureRecognizer *groupTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                action:@selector(actionGroup)];
+    [labelDateStart addGestureRecognizer:groupTap1];
+    [groupTap1 release];
+    
+    UITapGestureRecognizer *groupTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                action:@selector(actionGroup)];
+    [labelDateEnd addGestureRecognizer:groupTap2];
+    [groupTap2 release];
 	
 	// Set buttons sort tag
 	[buttonSortSumm setTag:SortSumm];
@@ -140,12 +151,21 @@
     NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_end_date"];
     if (!beginDate) {
         beginDate = [TransactionsController minumDate];
+        if ([beginDate timeIntervalSince1970] <= 0) {
+            beginDate = [NSDate date];
+        }
         [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"transaction_filter_begin_date"];
     }
     if (!endDate) {
         endDate = [TransactionsController maximumDate];
+        if ([endDate timeIntervalSince1970] <= 0) {
+            endDate = [NSDate date];
+        }
         [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"transaction_filter_end_date"];
     }
+    
+    labelDateStart.text = [beginDate dateFormat:NSLocalizedString(@"transactions_interval_date_format", @"")];
+    labelDateEnd.text = [endDate dateFormat:NSLocalizedString(@"transactions_interval_date_format", @"")];
     
     if (groupType == GroupInfin) {
         self.list = [TransactionsController loadTransactions:sortType minDate:beginDate maxDate:endDate];
