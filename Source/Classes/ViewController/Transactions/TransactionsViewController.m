@@ -23,7 +23,7 @@
 
 @implementation TransactionsViewController
 
-@synthesize sortType, groupType, isSort, list, cellEditing;
+@synthesize sortType, groupType, isSort, isGroup, list, cellEditing;
 
 #pragma mark -
 #pragma mark Initializate
@@ -64,7 +64,7 @@
 - (void)makeToolBar {
 	
 	// Add group button
-	[self setButtonLeftWithImage:[UIImage imageNamed:@"icon_group.png"] withSelector:@selector(actionGroup)];
+	[self setButtonLeftWithImage:[UIImage imageNamed:@"icon_group.png"] withSelector:@selector(actionGroupType)];
 	
 	// Set filter button
 	[self setButtonRightWithImage:[UIImage imageNamed:@"icon_sort.png"] withSelector:@selector(actionSort)];
@@ -76,6 +76,7 @@
 	[labelHint setText:NSLocalizedString(@"transactions_hint", @"")];
 	
 	[labelSortHeader setText:NSLocalizedString(@"transactions_sort_header", @"")];
+    [labelGroupHeader setText:NSLocalizedString(@"transactions_group_header", @"")];
 	
 	[labelTotalName setText:NSLocalizedString(@"transactions_total", @"")];
 	[labelTotalName sizeToFit];
@@ -83,6 +84,10 @@
 	[buttonSortSumm setTitle:NSLocalizedString(@"transactions_sort_by_summ", @"") forState:UIControlStateNormal];
 	[buttonSortDate setTitle:NSLocalizedString(@"transactions_sort_by_date", @"") forState:UIControlStateNormal];
 	[buttonSortCategories setTitle:NSLocalizedString(@"transactions_sort_by_categories", @"") forState:UIControlStateNormal];
+    [buttonGroupDay setTitle:NSLocalizedString(@"transactions_group_by_day", @"") forState:UIControlStateNormal];
+	[buttonGroupWeek setTitle:NSLocalizedString(@"transactions_group_by_week", @"") forState:UIControlStateNormal];
+	[buttonGroupMonth setTitle:NSLocalizedString(@"transactions_group_by_month", @"") forState:UIControlStateNormal];
+    [buttonGroupAll setTitle:NSLocalizedString(@"transactions_group_by_all", @"") forState:UIControlStateNormal];
 }
 
 - (void)makeItems {
@@ -102,6 +107,24 @@
 	r.origin.y = 0.0f;
 	viewSort.frame = r;
     
+    // Set buttons sort tag
+	[buttonSortSumm setTag:SortSumm];
+	[buttonSortDate setTag:SortDate];
+	[buttonSortCategories setTag:SortCategores];
+    
+    [self.view addSubview:viewGroup];
+    [viewGroup setAlpha:0.0f];
+    r = viewGroup.frame;
+	r.origin.x = 0.0;
+	r.origin.y = 0.0f;
+	viewGroup.frame = r;
+    
+    //Set buttons group tag
+    [buttonGroupDay setTag:GroupDay];
+    [buttonGroupWeek setTag:GroupWeek];
+    [buttonGroupMonth setTag:GroupMonth];
+    [buttonGroupAll setTag:GroupInfin];
+    
     //bind group action to the dates
     UITapGestureRecognizer *groupTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                 action:@selector(actionGroup)];
@@ -113,10 +136,7 @@
     [labelDateEnd addGestureRecognizer:groupTap2];
     [groupTap2 release];
 	
-	// Set buttons sort tag
-	[buttonSortSumm setTag:SortSumm];
-	[buttonSortDate setTag:SortDate];
-	[buttonSortCategories setTag:SortCategores];
+	
 	
 	// Set sort type
 	self.sortType = [[NSUserDefaults standardUserDefaults] integerForKey:@"sort_transactions"];
@@ -139,6 +159,16 @@
 	self.sortType = sender.tag;
 	
 	[self loadData];
+}
+
+- (void)actionGroupType {
+    self.isGroup = !self.isGroup;
+}
+
+- (IBAction)actionGroupButton:(UIButton*)sender{
+    self.groupType = sender.tag;
+    
+    [self loadData];
 }
 
 #pragma mark -
@@ -193,6 +223,27 @@
 	[tableView reloadData];
 }
 
+- (void)setGroupType:(GroupType)_groupType{
+    if (groupType != _groupType) {
+		groupType = _groupType;
+		
+		// Set sort buttons image
+		[buttonGroupDay setImage:((groupType == GroupDay) ? [UIImage imageNamed:@"radio_checked.png"] : [UIImage imageNamed:@"radio.png"]) forState:UIControlStateNormal];
+		[buttonGroupWeek setImage:((groupType == GroupWeek) ? [UIImage imageNamed:@"radio_checked.png"] : [UIImage imageNamed:@"radio.png"]) forState:UIControlStateNormal];
+		[buttonGroupMonth setImage:((groupType == GroupMonth) ? [UIImage imageNamed:@"radio_checked.png"] : [UIImage imageNamed:@"radio.png"]) forState:UIControlStateNormal];
+        
+  		[buttonGroupAll setImage:((groupType == GroupInfin) ? [UIImage imageNamed:@"radio_checked.png"] : [UIImage imageNamed:@"radio.png"]) forState:UIControlStateNormal];
+		
+		// Hide sort
+		self.isGroup = NO;
+		
+		// Save sort
+		[[NSUserDefaults standardUserDefaults] setInteger:groupType forKey:@"group_transactions"];
+		[[NSUserDefaults standardUserDefaults] synchronize];
+	}
+}
+
+
 - (void)setSortType:(SortType)_sortType {
 	if (sortType != _sortType) {
 		sortType = _sortType;
@@ -214,9 +265,25 @@
 - (void)setIsSort:(BOOL)_isSort {
 	if (isSort != _isSort) {
 		isSort = _isSort;
-		
+        if (self.isGroup) {
+            self.isGroup = NO;
+        }
 		[UIView animateWithDuration:0.3 animations:^{
 			[viewSort setAlpha:(isSort) ? 1.0f : 0.0f];
+		}];
+	}
+}
+
+- (void)setIsGroup:(BOOL)_isGroup{
+    if (isGroup != _isGroup) {
+		isGroup = _isGroup;
+        if (self.isSort) {
+            self.isSort = NO;    
+            
+        }
+		
+		[UIView animateWithDuration:0.3 animations:^{
+			[viewGroup setAlpha:(isGroup) ? 1.0f : 0.0f];
 		}];
 	}
 }
@@ -343,15 +410,27 @@
 	[labelHint release];
 	labelHint = nil;
 	[viewSort release];
-	viewSort = nil;
+    viewSort = nil;
+    [viewGroup release];
+    viewGroup = nil;
 	[labelSortHeader release];
 	labelSortHeader = nil;
+    [labelGroupHeader release];
+    labelGroupHeader = nil;
 	[buttonSortSumm release];
 	buttonSortSumm = nil;
 	[buttonSortDate release];
 	buttonSortDate = nil;
 	[buttonSortCategories release];
 	buttonSortCategories = nil;
+    [buttonGroupDay release];
+    buttonGroupDay = nil;
+    [buttonGroupWeek release];
+    buttonGroupWeek = nil;
+    [buttonGroupMonth release];
+    buttonGroupMonth = nil;
+    [buttonGroupAll release];
+    buttonGroupAll = nil;
     [tableView release];
     tableView = nil;
 	[imageNotepadFooter release];
@@ -373,10 +452,16 @@
 	
 	[labelHint release];
 	[viewSort release];
+    [viewGroup release];
 	[labelSortHeader release];
+    [labelGroupHeader release];
 	[buttonSortSumm release];
-	[buttonSortDate release];
+    [buttonSortDate release];
 	[buttonSortCategories release];
+    [buttonGroupDay release];
+    [buttonGroupWeek release];
+    [buttonGroupMonth release];
+    [buttonGroupAll release];
 	[list release];
     [tableView release];
 	[imageNotepadFooter release];
