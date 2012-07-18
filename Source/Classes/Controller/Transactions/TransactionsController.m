@@ -144,12 +144,12 @@
 }
 
 + (NSDate*)minumDate{
-    NSString *sql = [NSString stringWithFormat:@"SELECT MIN(time) FROM Transactions"];
+    NSString *sql = [NSString stringWithFormat:@"SELECT min(time) FROM Transactions"];
     NSInteger timestamp = [[Db shared] intValue:sql];
     return [NSDate dateWithTimeIntervalSince1970:timestamp];
 }
 + (NSDate*)maximumDate{
-    NSString *sql = [NSString stringWithFormat:@"SELECT MAX(time) FROM Transactions"];
+    NSString *sql = [NSString stringWithFormat:@"SELECT max(time) FROM Transactions"];
     NSInteger timestamp = [[Db shared] intValue:sql];
     return [NSDate dateWithTimeIntervalSince1970:timestamp];
 }

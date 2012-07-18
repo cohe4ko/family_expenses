@@ -12,9 +12,11 @@
 	IBOutlet UIImageView *imageNotepadFooter;
 	
 	IBOutlet UIView *viewSort;
+    IBOutlet UIView *viewGroup;
 	
 	IBOutlet UILabel *labelHint;
 	IBOutlet UILabel *labelSortHeader;
+    IBOutlet UILabel *labelGroupHeader;
 	IBOutlet UILabel *labelDateStart;
 	IBOutlet UILabel *labelDateEnd;
 	IBOutlet UILabel *labelTotal;
@@ -23,6 +25,10 @@
 	IBOutlet UIButton *buttonSortSumm;
 	IBOutlet UIButton *buttonSortDate;
 	IBOutlet UIButton *buttonSortCategories;
+    IBOutlet UIButton *buttonGroupDay;
+    IBOutlet UIButton *buttonGroupWeek;
+    IBOutlet UIButton *buttonGroupMonth;
+    IBOutlet UIButton *buttonGroupAll;
 	
 	NSMutableDictionary *cellEditing;
 	
@@ -30,6 +36,7 @@
     GroupType groupType;
 	
 	BOOL isSort;
+    BOOL isGroup;
 	
 	NSMutableArray *list;
 }
@@ -38,6 +45,7 @@
 @property (nonatomic, assign) SortType sortType;
 @property (nonatomic, assign) GroupType groupType;
 @property (nonatomic, assign) BOOL isSort;
+@property (nonatomic, assign) BOOL isGroup;
 
 @property (nonatomic, retain) NSMutableArray *list;
 
