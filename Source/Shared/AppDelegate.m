@@ -55,7 +55,6 @@ static AppDelegate *app = NULL;
 	
 	// Setup TestFlight
 	[TestFlight takeOff:@"9027be7eee7b774169b20eb1dab3e276_NTQxMzEyMDEyLTAxLTE2IDA3OjMwOjAxLjk1MzgzMw"];
-	
 	// Set status bar style
     [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 	

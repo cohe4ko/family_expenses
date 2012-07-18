@@ -19,5 +19,6 @@
 + (void)createTmpTransactions;
 + (NSDate*)minumDate;
 + (NSDate*)maximumDate;
++ (void)clearTransactions;
 
 @end

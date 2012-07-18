@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIAlertView (UIAlertView_Autorelease)
-
+@interface UIAlertView (Autorelease)
++(void)showMessage:(NSString*)title forMessage:(NSString*)message forButtonTitle:(NSString*)buttonTitle;
 @end

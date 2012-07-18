@@ -635,6 +635,8 @@
 		FAEB233515ACBBDC0034BA76 /* button_segment_middle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEB233115ACBBDC0034BA76 /* button_segment_middle@2x.png */; };
 		FAEB233815ACBBF40034BA76 /* background_transaction_group.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEB233615ACBBF40034BA76 /* background_transaction_group.png */; };
 		FAEB233915ACBBF40034BA76 /* background_transaction_group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEB233715ACBBF40034BA76 /* background_transaction_group@2x.png */; };
+		FAECAFA015B7440A0037DAC2 /* UIAlertView+Autorelease.m in Sources */ = {isa = PBXBuildFile; fileRef = FAECAF9F15B744090037DAC2 /* UIAlertView+Autorelease.m */; };
+		FAECAFA215B74A140037DAC2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAECAFA115B74A140037DAC2 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1454,6 +1456,9 @@
 		FAEB233115ACBBDC0034BA76 /* button_segment_middle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_segment_middle@2x.png"; sourceTree = "<group>"; };
 		FAEB233615ACBBF40034BA76 /* background_transaction_group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_transaction_group.png; sourceTree = "<group>"; };
 		FAEB233715ACBBF40034BA76 /* background_transaction_group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_transaction_group@2x.png"; sourceTree = "<group>"; };
+		FAECAF9E15B744080037DAC2 /* UIAlertView+Autorelease.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Autorelease.h"; sourceTree = "<group>"; };
+		FAECAF9F15B744090037DAC2 /* UIAlertView+Autorelease.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Autorelease.m"; sourceTree = "<group>"; };
+		FAECAFA115B74A140037DAC2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1461,6 +1466,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAECAFA215B74A140037DAC2 /* MessageUI.framework in Frameworks */,
 				5F5A49491563EB22006622F7 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				D158276014477E3A00592F3D /* QuartzCore.framework in Frameworks */,
 				D10EC7FF14E44AEA00A22FC6 /* CoreText.framework in Frameworks */,
@@ -2613,6 +2619,8 @@
 				D1FA6EE314669B3500C27E06 /* TSAlertView */,
 				D156C9FB1455B7E6001A2F5C /* SBTableAlert.h */,
 				D156C9FC1455B7E6001A2F5C /* SBTableAlert.m */,
+				FAECAF9E15B744080037DAC2 /* UIAlertView+Autorelease.h */,
+				FAECAF9F15B744090037DAC2 /* UIAlertView+Autorelease.m */,
 			);
 			path = UIAlertView;
 			sourceTree = "<group>";
@@ -3180,6 +3188,7 @@
 		D1E5B57813569A6C00966AAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAECAFA115B74A140037DAC2 /* MessageUI.framework */,
 				D10EC7FE14E44AEA00A22FC6 /* CoreText.framework */,
 				D158275B14477E3A00592F3D /* CoreGraphics.framework */,
 				D158275D14477E3A00592F3D /* CoreLocation.framework */,
@@ -4084,6 +4093,7 @@
 				FA6FB24E15A6A3560067F043 /* TransactionsGrouped.m in Sources */,
 				FA6FB26115A6EE860067F043 /* TransactionGroupedTableViewCell.m in Sources */,
 				FADFD46615AAB2E6008A86BA /* TransactionCalendarView.m in Sources */,
+				FAECAFA015B7440A0037DAC2 /* UIAlertView+Autorelease.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

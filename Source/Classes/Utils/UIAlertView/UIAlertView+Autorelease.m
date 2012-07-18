@@ -6,8 +6,18 @@
 //  Copyright (c) 2012 AppMake.Ru. All rights reserved.
 //
 
-#import "UIAlertView+UIAlertView_Autorelease.h"
+#import "UIAlertView+Autorelease.h"
 
-@implementation UIAlertView (UIAlertView_Autorelease)
+@implementation UIAlertView (Autorelease)
+
++(void)showMessage:(NSString*)title forMessage:(NSString*)message forButtonTitle:(NSString*)buttonTitle{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+													message:message
+												   delegate:nil
+										  cancelButtonTitle:buttonTitle
+										  otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+}
 
 @end

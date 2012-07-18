@@ -7,6 +7,8 @@
 //
 
 #import "SettingsViewController.h"
+#import "TransactionsController.h"
+#import "BudgetController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface SettingsViewController (Private)
@@ -83,9 +85,61 @@
 #pragma mark UITableView delegate
 
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
 	[_tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.section) {
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:{
+            if (indexPath.row == 0) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"settings_alert_title", @"")
+                                           message:NSLocalizedString(@"settings_clear_database_message", @"")
+                                          delegate:self
+                                 cancelButtonTitle:NSLocalizedString(@"settings_alert_no", @"")
+                                 otherButtonTitles:NSLocalizedString(@"settings_alert_ok", @""), nil];
+                [alertView show];
+                [alertView release];
+            }else if(indexPath.row == 1) {
+                [self sentDatabaseByEmail];
+            }
+            break;
+        }
+        default:
+            break;
+    }
 }
+
+#pragma mark -
+#pragma mark UIAlertView delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if ([alertView cancelButtonIndex] != buttonIndex) {
+        [TransactionsController clearTransactions];
+        [BudgetController clearBudget];
+
+        [UIAlertView showMessage:NSLocalizedString(@"settings_alert_title", @"")
+                      forMessage:NSLocalizedString(@"settings_clear_database_done", @"")
+                  forButtonTitle:NSLocalizedString(@"settings_alert_close", @"")];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_BUDGET_UPDATE object:nil];
+    }
+}
+
+#pragma mark -
+#pragma mark MFMailComposerDelegate
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    if (result == MFMailComposeResultSent) {
+        [UIAlertView showMessage:NSLocalizedString(@"settings_alert_title", @"")
+                      forMessage:NSLocalizedString(@"settings_send_database_success", @"") forButtonTitle:NSLocalizedString(@"settings_alert_close", @"")];
+    }else if(result == MFMailComposeResultFailed) {
+        [UIAlertView showMessage:NSLocalizedString(@"settings_alert_title", @"")
+                      forMessage:NSLocalizedString(@"settings_send_database_error", @"") forButtonTitle:NSLocalizedString(@"settings_alert_close", @"")];
+    }
+    [controller dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark -
 
 #pragma mark -
 #pragma mark Actions
@@ -98,6 +152,29 @@
 	// Reload tableview
 	[tableView reloadData];
 }
+
+#pragma mark -
+#pragma mark Private
+- (void)sentDatabaseByEmail{
+    if ([MFMailComposeViewController canSendMail]) {
+        NSString *dbPath = [[Db shared] path];
+        if (dbPath && [[NSFileManager defaultManager] fileExistsAtPath:dbPath]) {
+            NSData *data = [NSData dataWithContentsOfFile:dbPath];
+            MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
+            [mailController setSubject:NSLocalizedString(@"settings_send_database_subject", @"")];
+            [mailController setMessageBody:NSLocalizedString(@"settings_send_database_content", @"") isHTML:NO];
+            [mailController addAttachmentData:data mimeType:@"sqlite" fileName:[dbPath lastPathComponent]];
+            [[(AppDelegate*)[UIApplication sharedApplication].delegate tabBarController] presentModalViewController:mailController animated:YES];
+            mailController.mailComposeDelegate = self;
+            [mailController release];
+        }
+    }else {
+        [UIAlertView showMessage:NSLocalizedString(@"settings_alert_title", @"")
+                      forMessage:NSLocalizedString(@"settings_send_database_cant", @"") forButtonTitle:NSLocalizedString(@"settings_alert_close", @"")];
+    }
+}
+
+#pragma mark -
 
 #pragma mark -
 #pragma mark Other
