@@ -28,6 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        isShouldUpdate = NO;
         [self loadData];
     }
     return self;
@@ -147,13 +148,19 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    
+    isShouldUpdate = YES;
 }
 
 #pragma mark -
 #pragma mark Actions
 
 - (IBAction)actionDone:(id)sender {
+    if (isShouldUpdate) {
+        NSDictionary *currencyDic = [codesArray objectAtIndex:[pickerView selectedRowInComponent:0]];
+        NSString *countryCode = [currencyDic objectForKey:@"countryCode"];
+        [[NSUserDefaults standardUserDefaults] setObject:countryCode forKey:@"settings_country_code"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CURRENCY_UPDATE object:nil];
+    }
 	[UIView animateWithDuration:0.2 animations:^{
 		[overlayView setAlpha:0.0f];
 	} completion:^(BOOL finished) {

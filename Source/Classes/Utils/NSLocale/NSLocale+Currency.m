@@ -27,7 +27,20 @@
 }
 
 + (NSString*)currentCurrencyCode{
-    return [[NSLocale currentLocale] currencyCode];
+    return [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+}
+
++ (NSString*)currencySymbolForCountryCode:(NSString*)countryCode{
+    NSDictionary *components = [NSDictionary dictionaryWithObject:countryCode forKey:NSLocaleCountryCode];
+    NSString *localeIdent = [NSLocale localeIdentifierFromComponents:components]; 
+    NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:localeIdent] autorelease];
+    return [locale objectForKey:NSLocaleCurrencySymbol];
+}
++ (NSString*)currencyCodeForCountryCode:(NSString*)countryCode{
+    NSDictionary *components = [NSDictionary dictionaryWithObject:countryCode forKey:NSLocaleCountryCode];
+    NSString *localeIdent = [NSLocale localeIdentifierFromComponents:components]; 
+    NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:localeIdent] autorelease];
+    return [locale objectForKey:NSLocaleCurrencyCode];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "UILabel+Utils.h"
 #import "NSDate+Utils.h"
+#import "NSLocale+Currency.h"
 
 @interface TransactionsTableViewCell (Private)
 - (NSIndexPath *)indexPath;
@@ -85,9 +86,7 @@
 		r.origin.y = labelDesc.frame.origin.y + labelDesc.frame.size.height;
 		labelDate.frame = r;
 		
-		// Set price
-		[labelPrice setText:item.price];
-		
+				
 		// Set repeat icon
 		[imageViewRepeat setHidden:!item.isRepeat];
 		[imageViewRepeat setCenter:CGPointMake(imageViewRepeat.center.x, labelDate.center.y)];
@@ -95,6 +94,11 @@
 		r.origin.x = labelDate.frame.origin.x + labelDate.frame.size.width + 3.0f;
 		imageViewRepeat.frame = r;
 	}
+    
+    // Set price
+    NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"settings_country_code"];
+    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"]-1;
+    [labelPrice setText:[item priceForCurrency:[NSLocale currencyCodeForCountryCode:countryCode] points:points]];
 }
 
 - (void)layoutSubviews {

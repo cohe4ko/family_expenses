@@ -9,6 +9,7 @@
 
 #import "TransactionsController.h"
 #import "Transactions.h"
+#import "NSLocale+Currency.h"
 
 @interface TransactionsViewController (Private)
 - (void)makeToolBar;
@@ -33,6 +34,7 @@
 	
 	// Register notifications
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationTransactionUpdate:) name:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationCurrencyChanged:) name:NOTIFICATION_CURRENCY_UPDATE object:nil];
  	
 	// Make toolbar
 	[self makeToolBar];
@@ -56,6 +58,10 @@
     }
 	self.groupType = [[NSUserDefaults standardUserDefaults] integerForKey:@"group_transactions"];
 	[self loadData];
+}
+
+- (void)notificationCurrencyChanged:(NSNotification*)notification{
+    [self setData];
 }
 
 #pragma mark -
@@ -298,7 +304,9 @@
 		amountTotal += m.amount;
 	
 	// Set total amount
-	[labelTotal setText:[NSString stringWithFormat:@"%@ %@", [NSString formatCurrency:amountTotal def:@"0"], @"руб"]];
+    NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"settings_country_code"];
+    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"]-1;
+	[labelTotal setText:[NSString formatCurrency:amountTotal currencyCode:[NSLocale currencyCodeForCountryCode:countryCode] numberOfPoints:points]];
 	[labelTotal sizeToFit];
 	r = labelTotal.frame;
 	if (r.size.width > 130.0f)

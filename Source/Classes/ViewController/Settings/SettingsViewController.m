@@ -11,11 +11,13 @@
 #import "PickerCurrencyViewController.h"
 #import "BudgetController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "NSLocale+Currency.h"
 
 @interface SettingsViewController (Private)
 - (void)makeToolBar;
 - (void)makeLocale;
 - (void)makeItems;
+- (void)updateList;
 - (void)setData;
 - (void)sentDatabaseByEmail;
 - (void)loadCurrencyPicker;
@@ -29,6 +31,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(actionCurrencyChanged:)
+                                                 name:NOTIFICATION_CURRENCY_UPDATE
+                                               object:nil];
+    
 	// Make toolbar
 	[self makeToolBar];
 	
@@ -55,27 +62,7 @@
 
 - (void)makeItems {
 	
-	// Init array
-	list = [[NSMutableArray alloc] init];
-    NSMutableDictionary *settingsDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"settings_settings",@"title", @"icon_settings_settings.png", @"icon", nil];
-	NSMutableArray *settingsArray = [NSMutableArray array];
-    [settingsArray addObject:[NSArray arrayWithObjects:@"password",@"", nil]];
-	[settingsArray addObject:[NSArray arrayWithObjects:@"currency",@"Рубль", nil]];
-    [settingsDic setObject:settingsArray forKey:@"list"];
-    [list addObject:settingsDic];
-    
-    NSMutableDictionary *devicesDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"settings_devices", @"title", @"icon_settings_device.png", @"icon", nil];
-    NSMutableArray *devicesArray = [NSMutableArray array];
-    [devicesArray addObject:[NSArray arrayWithObjects:@"devices",@"", nil]];
-    [devicesDic setObject:devicesArray forKey:@"list"];
-    [list addObject:devicesDic];
-    
-    NSMutableDictionary *sendDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"settings_database", @"title", @"icon_settings_database.png", @"icon", nil];
-    NSMutableArray *sendArray = [NSMutableArray array];
-    [sendArray addObject:[NSArray arrayWithObjects:@"clear_database",@"", nil]];
-    [sendArray addObject:[NSArray arrayWithObjects:@"send_by_email",@"", nil]];
-    [sendDic setObject:sendArray forKey:@"list"];
-    [list addObject:sendDic];
+	[self updateList];
     
 	tableView.separatorColor = [UIColor colorWithRed:77.0/255.0 green:31.0/255.0 blue:23.0/255.0 alpha:1.0];
 
@@ -152,6 +139,10 @@
 
 #pragma mark -
 #pragma mark Actions
+- (void)actionCurrencyChanged:(NSNotification*)notification{
+    [self updateList];
+    [tableView reloadData];
+}
 
 #pragma mark -
 #pragma mark Set
@@ -160,6 +151,36 @@
 	
 	// Reload tableview
 	[tableView reloadData];
+}
+
+- (void)updateList{
+    // Init array
+    if (list) {
+        [list removeAllObjects];
+    }else {
+        list = [[NSMutableArray alloc] init];
+    }
+	
+    NSMutableDictionary *settingsDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"settings_settings",@"title", @"icon_settings_settings.png", @"icon", nil];
+	NSMutableArray *settingsArray = [NSMutableArray array];
+    [settingsArray addObject:[NSArray arrayWithObjects:@"password",@"", nil]];
+    NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"settings_country_code"];
+	[settingsArray addObject:[NSArray arrayWithObjects:@"currency",[NSLocale currencySymbolForCountryCode:countryCode], nil]];
+    [settingsDic setObject:settingsArray forKey:@"list"];
+    [list addObject:settingsDic];
+    
+    NSMutableDictionary *devicesDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"settings_devices", @"title", @"icon_settings_device.png", @"icon", nil];
+    NSMutableArray *devicesArray = [NSMutableArray array];
+    [devicesArray addObject:[NSArray arrayWithObjects:@"devices",@"", nil]];
+    [devicesDic setObject:devicesArray forKey:@"list"];
+    [list addObject:devicesDic];
+    
+    NSMutableDictionary *sendDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"settings_database", @"title", @"icon_settings_database.png", @"icon", nil];
+    NSMutableArray *sendArray = [NSMutableArray array];
+    [sendArray addObject:[NSArray arrayWithObjects:@"clear_database",@"", nil]];
+    [sendArray addObject:[NSArray arrayWithObjects:@"send_by_email",@"", nil]];
+    [sendDic setObject:sendArray forKey:@"list"];
+    [list addObject:sendDic];
 }
 
 #pragma mark -
@@ -205,11 +226,13 @@
 }
 
 - (void)viewDidUnload {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super viewDidUnload];
 }
 
 - (void)dealloc {
 	[list release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 

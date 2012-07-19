@@ -11,4 +11,6 @@
 @interface NSLocale (Currency)
 + (NSArray*)supportedCurrencyList;
 + (NSString*)currentCurrencyCode;
++ (NSString*)currencySymbolForCountryCode:(NSString*)countryCode;
++ (NSString*)currencyCodeForCountryCode:(NSString*)countryCode;
 @end

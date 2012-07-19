@@ -19,6 +19,9 @@
 - (NSString *)uppercaseFirst;
 + (NSString *)formatCurrency:(int)number;
 + (NSString *)formatCurrency:(int)number def:(NSString *)def;
++ (NSString *)formatCurrency:(float)number
+                currencyCode:(NSString*)currencyCode
+              numberOfPoints:(int)numberOfPoints;
 + (NSString *)intOnly:(NSString *)string;
 
 @end
