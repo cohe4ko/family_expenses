@@ -20,9 +20,14 @@
         NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:localeIdent] autorelease];
         NSString *countryName = [[NSLocale currentLocale] displayNameForKey:NSLocaleCountryCode value:countryCode];
         NSString *currencyCode = [locale objectForKey: NSLocaleCurrencyCode];
-        NSDictionary *currencyDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:countryName, @"country", currencyCode, @"currency", nil];
+        NSDictionary *currencyDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:countryName, @"country", currencyCode, @"currency", countryCode,@"countryCode", nil];
         [currencyList addObject:currencyDic];
     }
     return currencyList;
 }
+
++ (NSString*)currentCurrencyCode{
+    return [[NSLocale currentLocale] currencyCode];
+}
+
 @end

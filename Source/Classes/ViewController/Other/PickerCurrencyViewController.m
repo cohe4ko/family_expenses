@@ -92,6 +92,16 @@
 	[mask setCornerRadius:5.0f];
 	[pickerView.layer setMask:mask];
 	[mask release];
+    
+    NSString *countryCode = [[NSUserDefaults standardUserDefaults] stringForKey:@"settings_country_code"];
+    for (int i = 0; i < [codesArray count]; i++) {
+        NSDictionary *currencyDic = [codesArray objectAtIndex:i];
+        if ([[currencyDic objectForKey:@"countryCode"] isEqualToString:countryCode]) {
+            [pickerView selectRow:i inComponent:0 animated:YES];
+            break;
+        }
+    }
+
 }
 
 #pragma mark -
