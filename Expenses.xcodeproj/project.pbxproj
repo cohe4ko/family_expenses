@@ -629,6 +629,10 @@
 		FA79E84815A624620066EDAB /* TransactionGroupViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */; };
 		FADFD46315AAAFE0008A86BA /* TransactionCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */; };
 		FADFD46615AAB2E6008A86BA /* TransactionCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */; };
+		FAE2B99A15B7D0F300A36AC2 /* NSLocale+Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE2B99915B7D0F300A36AC2 /* NSLocale+Currency.m */; };
+		FAE2B99C15B7D8B300A36AC2 /* PickerCurrencyViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B99B15B7D8B300A36AC2 /* PickerCurrencyViewController_iPhone.xib */; };
+		FAE2B99F15B7E4BF00A36AC2 /* PickerCurrencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE2B99E15B7E4BF00A36AC2 /* PickerCurrencyViewController.m */; };
+		FAE2B9A215B7E51A00A36AC2 /* PickerCurrencyViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE2B9A115B7E51A00A36AC2 /* PickerCurrencyViewController_iPhone.m */; };
 		FAEB233215ACBBDC0034BA76 /* button_segment_middle-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEB232E15ACBBDC0034BA76 /* button_segment_middle-selected.png */; };
 		FAEB233315ACBBDC0034BA76 /* button_segment_middle-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEB232F15ACBBDC0034BA76 /* button_segment_middle-selected@2x.png */; };
 		FAEB233415ACBBDC0034BA76 /* button_segment_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEB233015ACBBDC0034BA76 /* button_segment_middle.png */; };
@@ -1450,6 +1454,13 @@
 		FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCalendarView.xib; sourceTree = "<group>"; };
 		FADFD46415AAB2E6008A86BA /* TransactionCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCalendarView.h; sourceTree = "<group>"; };
 		FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCalendarView.m; sourceTree = "<group>"; };
+		FAE2B99815B7D0F300A36AC2 /* NSLocale+Currency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLocale+Currency.h"; sourceTree = "<group>"; };
+		FAE2B99915B7D0F300A36AC2 /* NSLocale+Currency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLocale+Currency.m"; sourceTree = "<group>"; };
+		FAE2B99B15B7D8B300A36AC2 /* PickerCurrencyViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerCurrencyViewController_iPhone.xib; sourceTree = "<group>"; };
+		FAE2B99D15B7E4BF00A36AC2 /* PickerCurrencyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerCurrencyViewController.h; sourceTree = "<group>"; };
+		FAE2B99E15B7E4BF00A36AC2 /* PickerCurrencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerCurrencyViewController.m; sourceTree = "<group>"; };
+		FAE2B9A115B7E51A00A36AC2 /* PickerCurrencyViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerCurrencyViewController_iPhone.m; sourceTree = "<group>"; };
+		FAE2B9A315B7E56400A36AC2 /* PickerCurrencyViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerCurrencyViewController_iPhone.h; sourceTree = "<group>"; };
 		FAEB232E15ACBBDC0034BA76 /* button_segment_middle-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_segment_middle-selected.png"; sourceTree = "<group>"; };
 		FAEB232F15ACBBDC0034BA76 /* button_segment_middle-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_segment_middle-selected@2x.png"; sourceTree = "<group>"; };
 		FAEB233015ACBBDC0034BA76 /* button_segment_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_segment_middle.png; sourceTree = "<group>"; };
@@ -1685,6 +1696,7 @@
 		D1002C62140D3C92001503F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FAE2B99715B7D0D200A36AC2 /* NSLocale */,
 				D11168601510253600D1C666 /* UIScrollView */,
 				D12E360D144236AA00DE8B3C /* BCTabBarController */,
 				D1AAA97F14E07042007C2E2C /* UISwitch */,
@@ -2661,6 +2673,8 @@
 				D16BDBD3154C095700908704 /* CalculatorViewController.m */,
 				D16BDBE1154C2A7400908704 /* PickerDateViewController.h */,
 				D16BDBE2154C2A7400908704 /* PickerDateViewController.m */,
+				FAE2B99D15B7E4BF00A36AC2 /* PickerCurrencyViewController.h */,
+				FAE2B99E15B7E4BF00A36AC2 /* PickerCurrencyViewController.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -2679,6 +2693,8 @@
 				D16BDBD7154C095700908704 /* CalculatorViewController_iPhone.m */,
 				D16BDBE4154C2A8900908704 /* PickerDateViewController_iPhone.h */,
 				D16BDBE5154C2A8900908704 /* PickerDateViewController_iPhone.m */,
+				FAE2B9A315B7E56400A36AC2 /* PickerCurrencyViewController_iPhone.h */,
+				FAE2B9A115B7E51A00A36AC2 /* PickerCurrencyViewController_iPhone.m */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -2704,6 +2720,7 @@
 			children = (
 				D16BDBDF154C2A4E00908704 /* PickerDateViewController_iPhone.xib */,
 				D16BDBDD154C099700908704 /* CalculatorViewController_iPhone.xib */,
+				FAE2B99B15B7D8B300A36AC2 /* PickerCurrencyViewController_iPhone.xib */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -3382,6 +3399,15 @@
 			path = Report;
 			sourceTree = "<group>";
 		};
+		FAE2B99715B7D0D200A36AC2 /* NSLocale */ = {
+			isa = PBXGroup;
+			children = (
+				FAE2B99815B7D0F300A36AC2 /* NSLocale+Currency.h */,
+				FAE2B99915B7D0F300A36AC2 /* NSLocale+Currency.m */,
+			);
+			path = NSLocale;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3889,6 +3915,7 @@
 				FA20BEF315AE9C6D006E4CA3 /* icon_settings_device@2x.png in Resources */,
 				FA20BEF415AE9C6D006E4CA3 /* icon_settings_settings.png in Resources */,
 				FA20BEF515AE9C6D006E4CA3 /* icon_settings_settings@2x.png in Resources */,
+				FAE2B99C15B7D8B300A36AC2 /* PickerCurrencyViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4094,6 +4121,9 @@
 				FA6FB26115A6EE860067F043 /* TransactionGroupedTableViewCell.m in Sources */,
 				FADFD46615AAB2E6008A86BA /* TransactionCalendarView.m in Sources */,
 				FAECAFA015B7440A0037DAC2 /* UIAlertView+Autorelease.m in Sources */,
+				FAE2B99A15B7D0F300A36AC2 /* NSLocale+Currency.m in Sources */,
+				FAE2B99F15B7E4BF00A36AC2 /* PickerCurrencyViewController.m in Sources */,
+				FAE2B9A215B7E51A00A36AC2 /* PickerCurrencyViewController_iPhone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

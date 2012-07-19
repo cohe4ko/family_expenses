@@ -18,6 +18,7 @@
     IBOutlet UIButton *doneButton;
     IBOutlet UIDatePicker *datePicker;
     IBOutlet UILabel *labelTitle;
+    IBOutlet UIView *overlayView;
     TransactionCalendarView *firstCalendarView;
     TransactionCalendarView *secondCalendarView;
     NSInteger selectedButton;

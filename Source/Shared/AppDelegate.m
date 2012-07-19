@@ -142,6 +142,7 @@ static AppDelegate *app = NULL;
 						 [NSNumber numberWithInt:SortSumm], @"sort_transactions",
                          [NSNumber numberWithInt:GroupInfin],@"group_transactions",
 						 [NSNumber numberWithBool:NO], @"is_transactions_temp",
+                         [NSNumber numberWithInt:1], @"settings_currency_points",
 						 nil];
 	
     for (id key in dic) {

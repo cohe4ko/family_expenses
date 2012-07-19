@@ -8,6 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "TransactionsController.h"
+#import "PickerCurrencyViewController.h"
 #import "BudgetController.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -16,6 +17,8 @@
 - (void)makeLocale;
 - (void)makeItems;
 - (void)setData;
+- (void)sentDatabaseByEmail;
+- (void)loadCurrencyPicker;
 @end
 
 @implementation SettingsViewController
@@ -87,8 +90,14 @@
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[_tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
-        case 0:
+        case 0:{
+            if (indexPath.row == 0) {
+                
+            }else if(indexPath.row == 1) {
+                [self loadCurrencyPicker];
+            }
             break;
+        }
         case 1:
             break;
         case 2:{
@@ -172,6 +181,11 @@
         [UIAlertView showMessage:NSLocalizedString(@"settings_alert_title", @"")
                       forMessage:NSLocalizedString(@"settings_send_database_cant", @"") forButtonTitle:NSLocalizedString(@"settings_alert_close", @"")];
     }
+}
+
+- (void)loadCurrencyPicker{
+    PickerCurrencyViewController *currencyViewController = [MainController getViewController:@"PickerCurrencyViewController"];
+    [[RootViewController shared] presentModalViewController:currencyViewController animated:YES];
 }
 
 #pragma mark -
