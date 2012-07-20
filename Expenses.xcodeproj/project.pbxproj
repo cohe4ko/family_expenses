@@ -615,6 +615,9 @@
 		D1FBCFD9155B061C00F2AF36 /* background_report_box_separator.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FBCFD7155B061C00F2AF36 /* background_report_box_separator.png */; };
 		D1FBCFDA155B061C00F2AF36 /* background_report_box_separator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FBCFD8155B061C00F2AF36 /* background_report_box_separator@2x.png */; };
 		D1FBCFDE155B069900F2AF36 /* ReportBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FBCFDD155B069900F2AF36 /* ReportBox.m */; };
+		FA0BA3F815B92BF9000B2602 /* PickerPasswordViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA0BA3F715B92BF9000B2602 /* PickerPasswordViewController_iPhone.xib */; };
+		FA0BA3FB15B92D80000B2602 /* PickerPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0BA3FA15B92D80000B2602 /* PickerPasswordViewController.m */; };
+		FA0BA3FE15B92DC1000B2602 /* PickerPasswordViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0BA3FD15B92DC1000B2602 /* PickerPasswordViewController_iPhone.m */; };
 		FA20BEF015AE9C6D006E4CA3 /* icon_settings_database.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEEA15AE9C53006E4CA3 /* icon_settings_database.png */; };
 		FA20BEF115AE9C6D006E4CA3 /* icon_settings_database@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEEB15AE9C56006E4CA3 /* icon_settings_database@2x.png */; };
 		FA20BEF215AE9C6D006E4CA3 /* icon_settings_device.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEEC15AE9C5A006E4CA3 /* icon_settings_device.png */; };
@@ -1435,6 +1438,11 @@
 		D1FBCFD8155B061C00F2AF36 /* background_report_box_separator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_report_box_separator@2x.png"; sourceTree = "<group>"; };
 		D1FBCFDC155B069900F2AF36 /* ReportBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportBox.h; sourceTree = "<group>"; };
 		D1FBCFDD155B069900F2AF36 /* ReportBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportBox.m; sourceTree = "<group>"; };
+		FA0BA3F715B92BF9000B2602 /* PickerPasswordViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerPasswordViewController_iPhone.xib; sourceTree = "<group>"; };
+		FA0BA3F915B92D80000B2602 /* PickerPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerPasswordViewController.h; sourceTree = "<group>"; };
+		FA0BA3FA15B92D80000B2602 /* PickerPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerPasswordViewController.m; sourceTree = "<group>"; };
+		FA0BA3FC15B92DC1000B2602 /* PickerPasswordViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerPasswordViewController_iPhone.h; sourceTree = "<group>"; };
+		FA0BA3FD15B92DC1000B2602 /* PickerPasswordViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerPasswordViewController_iPhone.m; sourceTree = "<group>"; };
 		FA20BEEA15AE9C53006E4CA3 /* icon_settings_database.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_database.png; sourceTree = "<group>"; };
 		FA20BEEB15AE9C56006E4CA3 /* icon_settings_database@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_database@2x.png"; sourceTree = "<group>"; };
 		FA20BEEC15AE9C5A006E4CA3 /* icon_settings_device.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_device.png; sourceTree = "<group>"; };
@@ -2675,6 +2683,8 @@
 				D16BDBE2154C2A7400908704 /* PickerDateViewController.m */,
 				FAE2B99D15B7E4BF00A36AC2 /* PickerCurrencyViewController.h */,
 				FAE2B99E15B7E4BF00A36AC2 /* PickerCurrencyViewController.m */,
+				FA0BA3F915B92D80000B2602 /* PickerPasswordViewController.h */,
+				FA0BA3FA15B92D80000B2602 /* PickerPasswordViewController.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -2695,6 +2705,8 @@
 				D16BDBE5154C2A8900908704 /* PickerDateViewController_iPhone.m */,
 				FAE2B9A315B7E56400A36AC2 /* PickerCurrencyViewController_iPhone.h */,
 				FAE2B9A115B7E51A00A36AC2 /* PickerCurrencyViewController_iPhone.m */,
+				FA0BA3FC15B92DC1000B2602 /* PickerPasswordViewController_iPhone.h */,
+				FA0BA3FD15B92DC1000B2602 /* PickerPasswordViewController_iPhone.m */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -2721,6 +2733,7 @@
 				D16BDBDF154C2A4E00908704 /* PickerDateViewController_iPhone.xib */,
 				D16BDBDD154C099700908704 /* CalculatorViewController_iPhone.xib */,
 				FAE2B99B15B7D8B300A36AC2 /* PickerCurrencyViewController_iPhone.xib */,
+				FA0BA3F715B92BF9000B2602 /* PickerPasswordViewController_iPhone.xib */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -3916,6 +3929,7 @@
 				FA20BEF415AE9C6D006E4CA3 /* icon_settings_settings.png in Resources */,
 				FA20BEF515AE9C6D006E4CA3 /* icon_settings_settings@2x.png in Resources */,
 				FAE2B99C15B7D8B300A36AC2 /* PickerCurrencyViewController_iPhone.xib in Resources */,
+				FA0BA3F815B92BF9000B2602 /* PickerPasswordViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4124,6 +4138,8 @@
 				FAE2B99A15B7D0F300A36AC2 /* NSLocale+Currency.m in Sources */,
 				FAE2B99F15B7E4BF00A36AC2 /* PickerCurrencyViewController.m in Sources */,
 				FAE2B9A215B7E51A00A36AC2 /* PickerCurrencyViewController_iPhone.m in Sources */,
+				FA0BA3FB15B92D80000B2602 /* PickerPasswordViewController.m in Sources */,
+				FA0BA3FE15B92DC1000B2602 /* PickerPasswordViewController_iPhone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -144,6 +144,7 @@ static AppDelegate *app = NULL;
 						 [NSNumber numberWithBool:NO], @"is_transactions_temp",
                          [NSNumber numberWithInt:1], @"settings_currency_points",
                          [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode],@"settings_country_code",
+                         [NSNumber numberWithInt:0],@"settings_password_type",
 						 nil];
 	
     for (id key in dic) {

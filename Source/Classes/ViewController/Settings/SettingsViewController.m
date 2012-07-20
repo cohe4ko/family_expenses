@@ -9,6 +9,7 @@
 #import "SettingsViewController.h"
 #import "TransactionsController.h"
 #import "PickerCurrencyViewController.h"
+#import "PickerPasswordViewController.h"
 #import "BudgetController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSLocale+Currency.h"
@@ -21,6 +22,7 @@
 - (void)setData;
 - (void)sentDatabaseByEmail;
 - (void)loadCurrencyPicker;
+- (void)loadPasswordPicker;
 @end
 
 @implementation SettingsViewController
@@ -79,7 +81,7 @@
     switch (indexPath.section) {
         case 0:{
             if (indexPath.row == 0) {
-                
+                [self loadPasswordPicker];
             }else if(indexPath.row == 1) {
                 [self loadCurrencyPicker];
             }
@@ -207,6 +209,11 @@
 - (void)loadCurrencyPicker{
     PickerCurrencyViewController *currencyViewController = [MainController getViewController:@"PickerCurrencyViewController"];
     [[RootViewController shared] presentModalViewController:currencyViewController animated:YES];
+}
+
+- (void)loadPasswordPicker{
+    PickerPasswordViewController *passwordViewController = [MainController getViewController:@"PickerPasswordViewController"];
+    [[RootViewController shared] presentModalViewController:passwordViewController animated:YES];
 }
 
 #pragma mark -

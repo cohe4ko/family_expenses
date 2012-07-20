@@ -159,5 +159,9 @@
 "settings_send_database_error"                  = "Во время отправки письма произошла ошибка. Пожалуйста попробуйте позже.";
 "settings_currency_picker_title"                = "Валюта";
 "settings_currency_picker_nopoint"              = "1";
-"settings_currency_picker_onepoint"             = "1.0";
-"settings_currency_picker_twopoint"             = "1.00";
+"settings_currency_picker_onepoint"             = "1,0";
+"settings_currency_picker_twopoint"             = "1,00";
+"settings_password_picker_header"                = "Защита паролем";
+"settings_password_picker_no_password"           = "Никогда";
+"settings_password_picker_transaction"           = "Только транзакции";
+"settings_password_picker_all"                   = "Всегда";
