@@ -615,6 +615,12 @@
 		D1FBCFD9155B061C00F2AF36 /* background_report_box_separator.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FBCFD7155B061C00F2AF36 /* background_report_box_separator.png */; };
 		D1FBCFDA155B061C00F2AF36 /* background_report_box_separator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FBCFD8155B061C00F2AF36 /* background_report_box_separator@2x.png */; };
 		D1FBCFDE155B069900F2AF36 /* ReportBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FBCFDD155B069900F2AF36 /* ReportBox.m */; };
+		FA0B52D615BC7BA9001FC0B6 /* ALPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0B52CF15BC7BA9001FC0B6 /* ALPickerView.m */; };
+		FA0B52D715BC7BA9001FC0B6 /* ALPickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0B52D115BC7BA9001FC0B6 /* ALPickerViewCell.m */; };
+		FA0B52D815BC7BA9001FC0B6 /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0B52D215BC7BA9001FC0B6 /* check@2x.png */; };
+		FA0B52D915BC7BA9001FC0B6 /* check_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0B52D315BC7BA9001FC0B6 /* check_selected@2x.png */; };
+		FA0B52DA15BC7BA9001FC0B6 /* wheel_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0B52D415BC7BA9001FC0B6 /* wheel_bg@2x.png */; };
+		FA0B52DB15BC7BA9001FC0B6 /* wheel_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0B52D515BC7BA9001FC0B6 /* wheel_shadow@2x.png */; };
 		FA0BA3F815B92BF9000B2602 /* PickerPasswordViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA0BA3F715B92BF9000B2602 /* PickerPasswordViewController_iPhone.xib */; };
 		FA0BA3FB15B92D80000B2602 /* PickerPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0BA3FA15B92D80000B2602 /* PickerPasswordViewController.m */; };
 		FA0BA3FE15B92DC1000B2602 /* PickerPasswordViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0BA3FD15B92DC1000B2602 /* PickerPasswordViewController_iPhone.m */; };
@@ -1438,6 +1444,14 @@
 		D1FBCFD8155B061C00F2AF36 /* background_report_box_separator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_report_box_separator@2x.png"; sourceTree = "<group>"; };
 		D1FBCFDC155B069900F2AF36 /* ReportBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportBox.h; sourceTree = "<group>"; };
 		D1FBCFDD155B069900F2AF36 /* ReportBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportBox.m; sourceTree = "<group>"; };
+		FA0B52CE15BC7BA9001FC0B6 /* ALPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALPickerView.h; sourceTree = "<group>"; };
+		FA0B52CF15BC7BA9001FC0B6 /* ALPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALPickerView.m; sourceTree = "<group>"; };
+		FA0B52D015BC7BA9001FC0B6 /* ALPickerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALPickerViewCell.h; sourceTree = "<group>"; };
+		FA0B52D115BC7BA9001FC0B6 /* ALPickerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALPickerViewCell.m; sourceTree = "<group>"; };
+		FA0B52D215BC7BA9001FC0B6 /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
+		FA0B52D315BC7BA9001FC0B6 /* check_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_selected@2x.png"; sourceTree = "<group>"; };
+		FA0B52D415BC7BA9001FC0B6 /* wheel_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wheel_bg@2x.png"; sourceTree = "<group>"; };
+		FA0B52D515BC7BA9001FC0B6 /* wheel_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wheel_shadow@2x.png"; sourceTree = "<group>"; };
 		FA0BA3F715B92BF9000B2602 /* PickerPasswordViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerPasswordViewController_iPhone.xib; sourceTree = "<group>"; };
 		FA0BA3F915B92D80000B2602 /* PickerPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerPasswordViewController.h; sourceTree = "<group>"; };
 		FA0BA3FA15B92D80000B2602 /* PickerPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerPasswordViewController.m; sourceTree = "<group>"; };
@@ -1704,6 +1718,7 @@
 		D1002C62140D3C92001503F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FA0B52CD15BC7BA9001FC0B6 /* ALPickerView */,
 				FAE2B99715B7D0D200A36AC2 /* NSLocale */,
 				D11168601510253600D1C666 /* UIScrollView */,
 				D12E360D144236AA00DE8B3C /* BCTabBarController */,
@@ -3412,6 +3427,21 @@
 			path = Report;
 			sourceTree = "<group>";
 		};
+		FA0B52CD15BC7BA9001FC0B6 /* ALPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				FA0B52CE15BC7BA9001FC0B6 /* ALPickerView.h */,
+				FA0B52CF15BC7BA9001FC0B6 /* ALPickerView.m */,
+				FA0B52D015BC7BA9001FC0B6 /* ALPickerViewCell.h */,
+				FA0B52D115BC7BA9001FC0B6 /* ALPickerViewCell.m */,
+				FA0B52D215BC7BA9001FC0B6 /* check@2x.png */,
+				FA0B52D315BC7BA9001FC0B6 /* check_selected@2x.png */,
+				FA0B52D415BC7BA9001FC0B6 /* wheel_bg@2x.png */,
+				FA0B52D515BC7BA9001FC0B6 /* wheel_shadow@2x.png */,
+			);
+			path = ALPickerView;
+			sourceTree = "<group>";
+		};
 		FAE2B99715B7D0D200A36AC2 /* NSLocale */ = {
 			isa = PBXGroup;
 			children = (
@@ -3930,6 +3960,10 @@
 				FA20BEF515AE9C6D006E4CA3 /* icon_settings_settings@2x.png in Resources */,
 				FAE2B99C15B7D8B300A36AC2 /* PickerCurrencyViewController_iPhone.xib in Resources */,
 				FA0BA3F815B92BF9000B2602 /* PickerPasswordViewController_iPhone.xib in Resources */,
+				FA0B52D815BC7BA9001FC0B6 /* check@2x.png in Resources */,
+				FA0B52D915BC7BA9001FC0B6 /* check_selected@2x.png in Resources */,
+				FA0B52DA15BC7BA9001FC0B6 /* wheel_bg@2x.png in Resources */,
+				FA0B52DB15BC7BA9001FC0B6 /* wheel_shadow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4140,6 +4174,8 @@
 				FAE2B9A215B7E51A00A36AC2 /* PickerCurrencyViewController_iPhone.m in Sources */,
 				FA0BA3FB15B92D80000B2602 /* PickerPasswordViewController.m in Sources */,
 				FA0BA3FE15B92DC1000B2602 /* PickerPasswordViewController_iPhone.m in Sources */,
+				FA0B52D615BC7BA9001FC0B6 /* ALPickerView.m in Sources */,
+				FA0B52D715BC7BA9001FC0B6 /* ALPickerViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@
 - (void)makeItems;
 - (void)setData;
 - (void)clean;
+- (void)initPickerView;
 @end
 
 @implementation PickerPasswordViewController
@@ -53,15 +54,11 @@
 #pragma mark -
 #pragma mark PickerView delegate
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+- (NSInteger)numberOfRowsForPickerView:(ALPickerView *)_pickerView{
     return 3;
 }
 
-- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+- (NSString *)pickerView:(ALPickerView *)_pickerView textForRow:(NSInteger)row{
     switch (row) {
         case 0:
             return NSLocalizedString(@"settings_password_picker_no_password", @"");
@@ -77,9 +74,20 @@
     return nil;
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+- (BOOL)pickerView:(ALPickerView *)_pickerView selectionStateForRow:(NSInteger)row{
+    NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
+    return passwordType == row;
+}
+
+// Inform the delegate that a row got selected, if row = -1 all rows are selected
+- (void)pickerView:(ALPickerView *)_pickerView didCheckRow:(NSInteger)row{
     [[NSUserDefaults standardUserDefaults] setInteger:row forKey:@"settings_password_type"];
     isShouldUpdate = YES;
+    [pickerView reloadAllComponents];
+}
+// Inform the delegate that a row got deselected, if row = -1 all rows are deselected
+- (void)pickerView:(ALPickerView *)_pickerView didUncheckRow:(NSInteger)row{
+    [pickerView reloadAllComponents];
 }
 
 #pragma mark -
@@ -89,6 +97,9 @@
 }
 
 - (void)makeItems{
+    [self initPickerView];
+    pickerView.allOptionTitle = nil;
+    pickerView.delegate = self;
     CALayer *mask = [[CALayer alloc] init];
 	[mask setBackgroundColor:[UIColor blackColor].CGColor];
 	[mask setFrame:CGRectMake(15.0f, 11.0f, pickerView.frame.size.width - 30.0f, pickerView.frame.size.height - 22.0f)];
@@ -97,11 +108,14 @@
 	[mask release];
 }
 
+- (void)initPickerView{
+    
+}
+
 #pragma mark -
 #pragma mark Set
 - (void)setData{
-    NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
-    [pickerView selectRow:passwordType inComponent:0 animated:NO];
+    
 }
 
 #pragma mark -

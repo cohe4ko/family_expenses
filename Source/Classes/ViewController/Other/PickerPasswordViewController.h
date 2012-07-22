@@ -7,10 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "ALPickerView.h"
 
-@interface PickerPasswordViewController : ViewController<UIPickerViewDelegate,UIPickerViewDataSource>{
+@interface PickerPasswordViewController : ViewController<ALPickerViewDelegate>{
     IBOutlet UILabel *labelHeader;
-    IBOutlet UIPickerView *pickerView;
+    ALPickerView *pickerView;
     IBOutlet UIButton *buttonDone;
     IBOutlet UIView *viewOverlay;
     

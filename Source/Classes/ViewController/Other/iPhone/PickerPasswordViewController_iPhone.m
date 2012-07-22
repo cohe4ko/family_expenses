@@ -40,4 +40,12 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark -
+#pragma mark Init
+- (void)initPickerView{
+    pickerView = [[ALPickerView alloc] initWithFrame:CGRectMake(0, 181, 320, 216)];
+    [self.view addSubview:pickerView];
+}
+
+
 @end
