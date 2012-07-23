@@ -42,6 +42,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    [imageNavigationbarShadow setHidden:YES];
+    
     //make locales
     [self makeLocales];
     
@@ -57,6 +59,13 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     [self clearAll];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [UIView animateWithDuration:0.3 animations:^{
+		[overlayView setAlpha:1.0f];
+	}];
+    [super viewDidAppear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -160,7 +169,12 @@
     if (isShouldUpdate) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
     }
-    [self dismissModalViewControllerAnimated:YES];
+    [UIView animateWithDuration:0.2 animations:^{
+		[overlayView setAlpha:0.0f];
+	} completion:^(BOOL finished) {
+		[self dismissModalViewControllerAnimated:YES];
+	}];
+    
 }
 
 -(IBAction)actionGrouped:(id)sender{
@@ -266,7 +280,10 @@
         [labelTitle release];
         labelTitle = nil;
     }
-    
+    if (overlayView) {
+        [overlayView release];
+        overlayView = nil;
+    }
 }
 
 - (void)dealloc{

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface SettingsViewController : ViewController <UITableViewDelegate> {
+@interface SettingsViewController : ViewController <UITableViewDelegate,UIAlertViewDelegate,MFMailComposeViewControllerDelegate> {
 	IBOutlet UITableView *tableView;
 	
 	NSMutableArray *list;

@@ -47,6 +47,8 @@ typedef enum {
 - (void)save;
 - (void)remove;
 
+- (NSString*)priceForCurrency:(NSString*)currencyCode points:(NSInteger)points;
+
 - (NSDate *)date;
 - (NSString *)repeatName;
 - (NSString *)price;

@@ -79,7 +79,7 @@ static RootViewController *rootViewController = NULL;
 	if (CREATE_TMP_TRANSACTIONS) {
 		BOOL isCreate = [[NSUserDefaults standardUserDefaults] boolForKey:@"is_transactions_temp"];
 		if (!isCreate) {
-			//[TransactionsController createTmpTransactions];
+			[TransactionsController createTmpTransactions];
 			[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"is_transactions_temp"];
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}

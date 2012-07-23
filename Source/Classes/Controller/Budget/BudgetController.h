@@ -11,5 +11,6 @@
 }
 
 + (NSMutableArray *)loadBudget;
++ (void)clearBudget;
 
 @end

@@ -55,7 +55,6 @@ static AppDelegate *app = NULL;
 	
 	// Setup TestFlight
 	[TestFlight takeOff:@"9027be7eee7b774169b20eb1dab3e276_NTQxMzEyMDEyLTAxLTE2IDA3OjMwOjAxLjk1MzgzMw"];
-	
 	// Set status bar style
     [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 	
@@ -143,6 +142,9 @@ static AppDelegate *app = NULL;
 						 [NSNumber numberWithInt:SortSumm], @"sort_transactions",
                          [NSNumber numberWithInt:GroupInfin],@"group_transactions",
 						 [NSNumber numberWithBool:NO], @"is_transactions_temp",
+                         [NSNumber numberWithInt:1], @"settings_currency_points",
+                         [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode],@"settings_country_code",
+                         [NSNumber numberWithInt:0],@"settings_password_type",
 						 nil];
 	
     for (id key in dic) {

@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController_iPhone.h"
+#import "PickerCurrencyViewController_iPhone.h"
 #import "SettingsTableViewCell.h"
 
 @interface SettingsViewController_iPhone (Private)
@@ -97,6 +98,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
 
 #pragma mark -
 #pragma mark Memory managment

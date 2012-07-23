@@ -42,6 +42,12 @@
 	return [NSString stringWithFormat:@"%@ %@", [NSString formatCurrency:self.amount def:@"0"], @"руб"];
 }
 
+- (NSString*)priceForCurrency:(NSString*)currencyCode points:(NSInteger)points{
+    return [NSString formatCurrency:self.amount
+                       currencyCode:currencyCode
+                     numberOfPoints:points];
+}
+
 - (NSString*)dateAsWeekTimeInterval{
     NSInteger day = [self.date dayOfWeek];
     NSDate *d1 = [self.date addDays:-day+1];

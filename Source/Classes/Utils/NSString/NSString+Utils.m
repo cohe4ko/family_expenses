@@ -96,6 +96,17 @@
 	return (number) ? [numberFormatter stringFromNumber:[NSNumber numberWithInt:number]] : def;
 }
 
++ (NSString *)formatCurrency:(float)number
+                currencyCode:(NSString*)currencyCode
+              numberOfPoints:(int)numberOfPoints{
+    NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
+	[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+	[numberFormatter setCurrencyCode:currencyCode];
+	[numberFormatter setMaximumFractionDigits:numberOfPoints];
+	//[numberFormatter setPositiveFormat:@"# ###"];
+	return [numberFormatter stringFromNumber:[NSNumber numberWithFloat:number]];
+}
+
 + (NSString *)intOnly:(NSString *)string {
 	NSMutableString *res = [[[NSMutableString alloc] init] autorelease];
 	for(int i = 0; i < [string length]; i++) {

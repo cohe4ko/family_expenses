@@ -12,4 +12,8 @@
 	return [[[Db shared] loadAndFill:sql theClass:[Budget class]] mutableCopy];
 }
 
++ (void)clearBudget{
+    [[Db shared] execute:@"DELETE FROM Budget"];
+}
+
 @end
