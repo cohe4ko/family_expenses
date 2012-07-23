@@ -211,8 +211,14 @@
 	[[RootViewController shared] presentModalViewController:controller animated:YES];
 }
 
-- (IBAction)actionButtonPage:(UIButton *)sender {
-	
+- (IBAction)actionButtonPageLeft:(UIButton *)sender {
+	selectedIndex--;
+    [scrollView selectIndex:selectedIndex];
+}
+
+- (IBAction)actionButtonPageRight:(UIButton *)sender {
+    selectedIndex++;
+    [scrollView selectIndex:selectedIndex];
 }
 
 - (void)actionPickerSelect:(NSDictionary *)item {
