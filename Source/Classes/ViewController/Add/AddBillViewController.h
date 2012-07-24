@@ -10,14 +10,12 @@
 
 #import "Categories.h"
 
-#import "ISHScrollView.h"
-
 #import "AMTextView.h"
 
 #import "Transactions.h"
 
-@interface AddBillViewController : ViewController <UIScrollViewDelegate, UITextViewDelegate, ISScrollViewDelegate> {
-	IBOutlet ISHScrollView *scrollView;
+@interface AddBillViewController : ViewController <UIScrollViewDelegate, UITextViewDelegate> {
+	IBOutlet UIScrollView *scrollView;
 	
 	IBOutlet UIView *viewOverlay;
 	
@@ -64,6 +62,5 @@
 - (IBAction)actionDone:(id)sender;
 - (IBAction)actionDate:(id)sender;
 - (IBAction)actionRecurring:(id)sender;
-- (IBAction)actionButtonPage:(UIButton *)sender;
 
 @end

@@ -19,7 +19,12 @@
 - (void)setButtonPage;
 - (void)setCategoryName;
 - (void)setPrice:(NSNumber*)price;
+- (void)setSelectedViewForIndex:(NSInteger)_index;
+- (void)updateSelectedIndex;
 @end
+
+#define kIconImageTag 200
+#define kIconViewTag 300
 
 @implementation AddBillViewController
 
@@ -157,10 +162,43 @@
 	iconWidth = self.view.frame.size.width / 5.0f;
 	iconHeight = 71.0f;
 	
-	[scrollView setWidth:iconWidth andHeight:iconHeight];
-	[scrollView setIsdelegate:self];
-    [scrollView setContentSize:CGSizeMake([self.list count] * iconWidth , scrollView.contentSize.height)];
-    [scrollView setPickRect:CGRectZero andDefaultIndex:selectedIndex];
+	[scrollView setDelegate:self];
+    [scrollView setShowsHorizontalScrollIndicator:NO];
+    [scrollView setContentSize:CGSizeMake(([self.list count]+4) * iconWidth , scrollView.contentSize.height)];
+
+    for (int i = 0; i < [self.list count]; i++) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake((i+2)*iconWidth, 0, iconWidth, iconHeight)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self                                                                            action:@selector(actionScrollTap:)];
+        [view addGestureRecognizer:tap];
+        [view setTag:kIconViewTag+i];
+        [tap release];
+        
+		UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, iconWidth - 2.0f, iconHeight)] autorelease];
+		[imageView setContentMode:UIViewContentModeCenter];
+		[imageView setTag:kIconImageTag];
+		[view addSubview:imageView];
+        
+        UIImageView *tmpImage = [self.listCategories objectAtIndex:i];
+        [imageView setAlpha:0.6f];
+        [imageView setImage:tmpImage.image];
+        [scrollView addSubview:view];
+        [view release];
+    }
+    [self setSelectedViewForIndex:selectedIndex];
+}
+
+- (void)setSelectedViewForIndex:(NSInteger)_index{
+    for (int i = 0; i<[self.list count]; i++) {
+        UIView *view = [scrollView viewWithTag:kIconViewTag+i];
+        UIImageView *imageView = (UIImageView*)[view viewWithTag:kIconImageTag];
+        if (i != _index) {
+            [imageView setAlpha:0.6];
+        }else {
+            [imageView setAlpha:1.0];
+        }
+    }
+    [scrollView setContentOffset:CGPointMake(_index*iconWidth, 0) animated:YES];
+    [self setCategoryName];
 }
 
 #pragma mark -
@@ -212,13 +250,13 @@
 }
 
 - (IBAction)actionButtonPageLeft:(UIButton *)sender {
-	selectedIndex--;
-    [scrollView selectIndex:selectedIndex];
+	selectedIndex = (selectedIndex-1+[self.list count])%[self.list count];
+    [self setSelectedViewForIndex:selectedIndex];
 }
 
 - (IBAction)actionButtonPageRight:(UIButton *)sender {
-    selectedIndex++;
-    [scrollView selectIndex:selectedIndex];
+    selectedIndex = (selectedIndex+1)%[self.list count];
+    [self setSelectedViewForIndex:selectedIndex];
 }
 
 - (void)actionPickerSelect:(NSDictionary *)item {
@@ -253,8 +291,9 @@
 }
 
 -(void)actionScrollTap:(UITapGestureRecognizer*)sender{
-    ISView *view = (ISView*)sender.view;
-    [scrollView selectIndex:[scrollView.viewArray indexOfObject:view]];
+    UIView *view = sender.view;
+    selectedIndex = view.tag-kIconViewTag;
+    [self setSelectedViewForIndex:selectedIndex];
 }
 
 #pragma mark -
@@ -292,7 +331,7 @@
 		// Set category name
 		[labelName setText:c.name];
 		[labelName sizeToFit];
-		[labelName setCenter:CGPointMake(self.view.frame.size.width / 2, imageViewName.center.y)];
+        [labelName setFrame:CGRectMake(roundf(self.view.frame.size.width / 2-labelName.frame.size.width / 2), roundf(imageViewName.center.y-labelName.frame.size.height / 2-1), labelName.frame.size.width, labelName.frame.size.height)];
 		
 		// Change image background name rect and center
 		r = imageViewName.frame;
@@ -300,6 +339,7 @@
 		imageViewName.frame = r;
 		
 		[imageViewName setCenter:CGPointMake(self.view.frame.size.width / 2, imageViewName.center.y)];
+        [imageViewName setFrame:CGRectMake(roundf(self.view.frame.size.width / 2 - imageViewName.frame.size.width / 2), imageViewName.frame.origin.y, imageViewName.frame.size.width, imageViewName.frame.size.height)];
 		
 		[UIView animateWithDuration:0.2f animations:^{
 			[labelName setAlpha:1.0f];
@@ -311,53 +351,25 @@
 #pragma mark -
 #pragma mark ISScrollViewDelegate
 
-- (NSInteger)numberOfSubViews:(ISScrollView *)_scrollView {
-    return [self.list count];
-}
-
-- (ISView *)viewForScroll:(ISScrollView *)_scrollView AtIndex:(NSInteger)_index {
-    static NSString *indentifier = @"cell";
-    ISView *view = [_scrollView dequeueReusableCellWithIdentifier:indentifier];
-    if (view == nil) {
-        view = [[ISView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, iconWidth - 2.0f, iconHeight) andIndentifier:indentifier];
-        view.backgroundColor = [UIColor clearColor];
-
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self                                                                            action:@selector(actionScrollTap:)];
-        [view addGestureRecognizer:tap];
-        [tap release];
-        
-		UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, iconWidth - 2.0f, iconHeight)] autorelease];
-		[imageView setContentMode:UIViewContentModeCenter];
-		[imageView setTag:200];
-		[view addSubview:imageView];
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (!decelerate) {
+        [self updateSelectedIndex];
+        [self setSelectedViewForIndex:selectedIndex];
     }
-	
-	UIImageView *tmpImage = [self.listCategories objectAtIndex:_index];
-	UIImageView *imageView = (UIImageView *)[view viewWithTag:200];
-	[imageView setAlpha:0.6f];
-	[imageView setImage:tmpImage.image];
-    	
-    return view;
 }
 
-- (void)scrollView:(ISScrollView *)_scrollView ChangeSelectedFrom:(NSIndexPath *)selOld to:(NSIndexPath *)selNew {
-	
-	// Set selected index
-	selectedIndex = selNew.row;
-	
-	// Clear old
-	for (ISView *view in _scrollView.viewArray) {
-		UIImageView *imageView = (UIImageView *)[view viewWithTag:200];
-		[imageView setAlpha:0.6f];
-	}
-	
-	// Set new
-	ISView *view = [scrollView currentSelect];
-	UIImageView *imageView = (UIImageView *)[view viewWithTag:200];
-	[imageView setAlpha:1.0f];
-	
-	// Set category name
-	[self setCategoryName];
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [self updateSelectedIndex];
+    [self setSelectedViewForIndex:selectedIndex];
+}
+
+- (void)updateSelectedIndex{
+    NSInteger cIndex = (NSInteger)(scrollView.contentOffset.x/iconWidth);
+    CGFloat diff  = scrollView.contentOffset.x/iconWidth-cIndex;
+    if (diff > 0.5) {
+        cIndex++;
+    }
+    selectedIndex = cIndex;
 }
 
 #pragma mark -
@@ -402,8 +414,6 @@
 #pragma mark Memory managment
 
 - (void)viewDidUnload {
-	[scrollView release];
-	scrollView = nil;
 	[labelHint release];
 	labelHint = nil;
 	[buttonDone release];

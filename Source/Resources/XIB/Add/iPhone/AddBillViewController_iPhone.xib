@@ -471,6 +471,7 @@
 						<string key="NSFrame">{{16, 120}, {290, 65}}</string>
 						<reference key="NSSuperview" ref="626997932"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="1014287630"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -501,6 +502,7 @@
 								<string key="NSFrame">{{44, 9}, {233, 41}}</string>
 								<reference key="NSSuperview" ref="797162386"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:225</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -941,7 +943,6 @@
 				<string key="29.CustomClassName">AMTextView</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="33.CustomClassName">ISHScrollView</string>
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="37.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -977,16 +978,11 @@
 					<string key="className">AddBillViewController</string>
 					<string key="superclassName">ViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="actionButtonPage:">UIButton</string>
 						<string key="actionDate:">id</string>
 						<string key="actionDone:">id</string>
 						<string key="actionRecurring:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="actionButtonPage:">
-							<string key="name">actionButtonPage:</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
 						<object class="IBActionInfo" key="actionDate:">
 							<string key="name">actionDate:</string>
 							<string key="candidateClassName">id</string>
@@ -1014,7 +1010,7 @@
 						<string key="labelName">UILabel</string>
 						<string key="labelPrice">UILabel</string>
 						<string key="labelRecurring">UILabel</string>
-						<string key="scrollView">ISHScrollView</string>
+						<string key="scrollView">UIScrollView</string>
 						<string key="textView">AMTextView</string>
 						<string key="viewOverlay">UIView</string>
 					</dictionary>
@@ -1073,7 +1069,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="scrollView">
 							<string key="name">scrollView</string>
-							<string key="candidateClassName">ISHScrollView</string>
+							<string key="candidateClassName">UIScrollView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="textView">
 							<string key="name">textView</string>
@@ -1087,22 +1083,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/AddBillViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ISHScrollView</string>
-					<string key="superclassName">ISScrollView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ISHScrollView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">ISScrollView</string>
-					<string key="superclassName">UIScrollView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/ISScrollView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

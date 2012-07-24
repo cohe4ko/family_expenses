@@ -61,8 +61,8 @@
   selectionState_ = selectionState;
   
   if (selectionState_ != NO) {
-    self.imageView.image = [UIImage imageNamed:@"check"];
-    self.imageView.highlightedImage = [UIImage imageNamed:@"check_selected"];
+    self.imageView.image = [UIImage imageNamed:@"icon_picker_check.png"];
+    self.imageView.highlightedImage = [UIImage imageNamed:@"icon_picker_check.png"];
     self.textLabel.textColor = [UIColor colorWithRed:33/256. green:80/256. blue:134/256. alpha:1];
   }
   else {
@@ -81,7 +81,7 @@
 - (void)layoutSubviews {
   [super layoutSubviews];
   
-  self.imageView.frame = CGRectMake(15, 12, 18, 18);
+  self.imageView.frame = CGRectMake(15, 15, 13, 13);
   self.textLabel.frame = CGRectMake(44, 9, self.frame.size.width - 54, 24);
 }
 
