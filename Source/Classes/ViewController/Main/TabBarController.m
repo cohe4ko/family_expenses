@@ -12,10 +12,12 @@
 
 #import "MainController.h"
 #import "UIImage+ScaledImage.h"
+#import "PasswordViewController.h"
 
 #import "Constants.h"
 
 @interface TabBarController (Private)
+- (void)checkPassword;
 @end
 
 @implementation TabBarController
@@ -93,6 +95,21 @@
 	self.selectedIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tabbar_selected"] intValue];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CHECK_UPDATE object:self];
+}
+
+- (void)setSelectedViewController:(UIViewController *)_selectedViewController{
+    [super setSelectedViewController:_selectedViewController];
+    [self checkPassword];
+}
+
+- (void)checkPassword{
+    NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
+    
+    if ((passwordType == 1 && self.selectedIndex == 0) || passwordType == 2) {
+        PasswordViewController *passwordController = [MainController getViewController:@"PasswordViewController"];
+        passwordController.editType = PasswordEditTypeCheck;
+        [[RootViewController shared] presentModalViewController:passwordController animated:NO];
+    }
 }
 
 @end

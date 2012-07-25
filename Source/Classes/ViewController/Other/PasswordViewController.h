@@ -20,7 +20,15 @@ typedef enum {
     IBOutlet UIButton *buttonSave;
     IBOutlet UIButton *buttonCancel;
     IBOutlet UILabel *labelHeader;
+    IBOutlet UILabel *labelCode1;
+    IBOutlet UILabel *labelCode2;
+    IBOutlet UILabel *labelCode3;
+    IBOutlet UILabel *labelCode4;
     PasswordEditType editType;
+    NSInteger step;
+    NSInteger code;
 }
+
+@property(nonatomic,readwrite)PasswordEditType editType;
 
 @end

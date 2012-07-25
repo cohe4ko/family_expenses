@@ -15,6 +15,7 @@
 - (void)setData;
 - (void)clean;
 - (void)initPickerView;
+- (void)notificationPost;
 @end
 
 @implementation PickerPasswordViewController
@@ -121,16 +122,21 @@
 #pragma mark -
 #pragma mark Action
 - (IBAction)actionDone{
-    if (isShouldUpdate) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CURRENCY_UPDATE object:nil];
-    }
 	[UIView animateWithDuration:0.2 animations:^{
 		[viewOverlay setAlpha:0.0f];
 	} completion:^(BOOL finished) {
 		[self dismissModalViewControllerAnimated:YES];
+        [self performSelector:@selector(notificationPost)
+                   withObject:nil
+                   afterDelay:0.5];
 	}];
 }
 
+- (void)notificationPost{
+    if (isShouldUpdate) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PASSWORD_UPDATE object:nil];
+    }
+}
 
 #pragma mark -
 #pragma mark Memory management

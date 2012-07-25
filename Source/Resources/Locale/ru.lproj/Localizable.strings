@@ -165,3 +165,7 @@
 "settings_password_picker_no_password"           = "Никогда";
 "settings_password_picker_transaction"           = "Только транзакции";
 "settings_password_picker_all"                   = "Всегда";
+
+"password_enter_password"                        = "Введите пароль";
+"password_new_password"                          = "Новый пароль";
+"password_old_password"                          = "Старый пароль";

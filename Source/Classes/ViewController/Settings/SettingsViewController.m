@@ -10,9 +10,11 @@
 #import "TransactionsController.h"
 #import "PickerCurrencyViewController.h"
 #import "PickerPasswordViewController.h"
+#import "PasswordViewController.h"
 #import "BudgetController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSLocale+Currency.h"
+
 
 @interface SettingsViewController (Private)
 - (void)makeToolBar;
@@ -23,6 +25,7 @@
 - (void)sentDatabaseByEmail;
 - (void)loadCurrencyPicker;
 - (void)loadPasswordPicker;
+- (void)passwordUpdate;
 @end
 
 @implementation SettingsViewController
@@ -36,6 +39,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(actionCurrencyChanged:)
                                                  name:NOTIFICATION_CURRENCY_UPDATE
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(passwordUpdate)
+                                                 name:NOTIFICATION_PASSWORD_UPDATE
                                                object:nil];
     
 	// Make toolbar
@@ -214,6 +221,14 @@
 - (void)loadPasswordPicker{
     PickerPasswordViewController *passwordViewController = [MainController getViewController:@"PickerPasswordViewController"];
     [[RootViewController shared] presentModalViewController:passwordViewController animated:YES];
+}
+
+- (void)passwordUpdate{
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"user_password"]) {
+        PasswordViewController *passwordController = [MainController getViewController:@"PasswordViewController"];
+        passwordController.editType = PasswordEditTypeAdd;
+        [[RootViewController shared] presentModalViewController:passwordController animated:NO];
+    }
 }
 
 #pragma mark -
