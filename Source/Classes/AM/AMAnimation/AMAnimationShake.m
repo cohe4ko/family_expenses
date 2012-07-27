@@ -9,6 +9,7 @@
 #import "AMAnimationShake.h"
 
 @implementation AMAnimationShake
+@synthesize object;
 
 + (id)shakeXWithObject:(id)theObject {
 	return [[[AMAnimationShake alloc] initShakeXWithObject:theObject] autorelease];

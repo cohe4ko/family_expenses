@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BCTabBarController.h"
 
-@interface TabBarController : BCTabBarController
+@interface TabBarController : BCTabBarController{
+    NSInteger shouldOpenIndexAfterPassword;
+}
 
 - (void)loadTabs;
 

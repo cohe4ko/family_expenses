@@ -17,7 +17,8 @@
 #import "Constants.h"
 
 @interface TabBarController (Private)
-- (void)checkPassword;
+- (BOOL)checkPassword:(NSInteger)index;
+- (void)clean;
 @end
 
 @implementation TabBarController
@@ -26,6 +27,10 @@
 #pragma mark Initializate 
 
 - (void)awakeFromNib {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(actionPasswordChecked)
+                                                 name:NOTIFICATION_PASSWORD_CORRECT
+                                               object:nil];
     [self loadTabs];
 }
 
@@ -88,28 +93,77 @@
 		c++;
 	}
 	
-	if ([controllers count]) {
+    if ([controllers count]) {
 		self.viewControllers = controllers;
 	}
-	
-	self.selectedIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tabbar_selected"] intValue];
+	    
+    NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
+    NSInteger index = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tabbar_selected"] intValue];
     
+    if (passwordType == 1 && index == 0) {
+        self.selectedIndex = 1;
+    }else {
+        self.selectedIndex = index;
+    }
+    
+      
+ 
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CHECK_UPDATE object:self];
 }
 
 - (void)setSelectedViewController:(UIViewController *)_selectedViewController{
-    [super setSelectedViewController:_selectedViewController];
-    [self checkPassword];
-}
-
-- (void)checkPassword{
-    NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
-    
-    if ((passwordType == 1 && self.selectedIndex == 0) || passwordType == 2) {
-        PasswordViewController *passwordController = [MainController getViewController:@"PasswordViewController"];
-        passwordController.editType = PasswordEditTypeCheck;
-        [[RootViewController shared] presentModalViewController:passwordController animated:NO];
+    shouldOpenIndexAfterPassword = [self.viewControllers indexOfObject:_selectedViewController];
+    if (![self checkPassword:shouldOpenIndexAfterPassword]) {
+        [super setSelectedViewController:_selectedViewController];
     }
 }
+
+- (BOOL)checkPassword:(NSInteger)index{
+    NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
+    
+    if ((passwordType == 1 && index == 0) || passwordType == 2) {
+        UIViewController *currentModalController = [RootViewController shared].modalViewController;
+        if (!currentModalController) {
+            PasswordViewController *passwordController = [MainController getViewController:@"PasswordViewController"];
+            passwordController.editType = PasswordEditTypeCheck;
+            [[RootViewController shared] presentModalViewController:passwordController animated:NO];
+        }
+
+        return YES;
+    }else {
+        UIViewController *currentModalController = [RootViewController shared].modalViewController;
+        if (currentModalController) {
+            [[RootViewController shared] dismissModalViewControllerAnimated:YES];
+        }
+        return NO;
+    }
+    
+}
+
+#pragma mark -
+#pragma mark Password
+- (void)actionPasswordChecked{
+    [super setSelectedViewController:[self.viewControllers objectAtIndex:shouldOpenIndexAfterPassword]];
+}
+
+
+#pragma mark -
+#pragma mark MemoryManagement
+
+- (void)clean{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)viewDidUnload{
+    [self clean];
+    [super viewDidUnload];
+}
+
+- (void)dealloc{
+    [self clean];
+    [super dealloc];
+}
+
+
 
 @end

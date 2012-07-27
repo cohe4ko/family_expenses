@@ -13,6 +13,8 @@
 	UIView *object;
 }
 
+@property(nonatomic,retain)UIView *object;
+
 + (id)shakeXWithObject:(UIView *)theObject;
 - (id)initShakeXWithObject:(UIView *)theObject;
 

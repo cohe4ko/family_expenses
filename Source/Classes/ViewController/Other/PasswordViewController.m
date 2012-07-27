@@ -7,6 +7,7 @@
 //
 
 #import "PasswordViewController.h"
+#import "AMAnimationShake.h"
 
 @interface PasswordViewController ()
 - (void)makeItems;
@@ -51,9 +52,11 @@
 #pragma mark -
 #pragma mark Make
 - (void)makeItems{
+    NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
     if (editType == PasswordEditTypeCheck) {
         buttonSave.hidden = YES;
-        buttonCancel.hidden = YES;
+        if(passwordType == 2)
+            buttonBarCancel.hidden = YES;
     }else if(editType == PasswordEditTypeAdd) {
         buttonSave.hidden = YES;
     }
@@ -61,6 +64,12 @@
     labelCode2.hidden = YES;
     labelCode3.hidden = YES;
     labelCode4.hidden = YES;
+    
+    labelTopTitle.text = NSLocalizedString(@"app_title", @"");
+    [labelTopTitle setTextColor:[UIColor colorWithHexString:@"caa7a7"]];
+    [labelTopTitle setFont:[UIFont fontWithName:@"LeckerliOneCTT" size:23]];
+    
+    [buttonBarCancel setBackgroundImage:[[UIImage imageNamed:@"button.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5] forState:UIControlStateNormal];
 }
 
 - (void)makeLocale{
@@ -120,6 +129,11 @@
 
 }
 
+- (IBAction)actionBarCancel:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PASSWORD_CANCELED object:nil];
+    [self closeView];
+}
+
 #pragma mark -
 
 #pragma mark -
@@ -144,8 +158,12 @@
     }else if(editType == PasswordEditTypeCheck) {
         NSInteger cCode = [[NSUserDefaults standardUserDefaults] integerForKey:@"user_password"];
         if (cCode == code) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PASSWORD_CORRECT object:nil];
             [self closeView];
         }else {
+            AMAnimationShake *shake = [[[AMAnimationShake alloc] init] autorelease];
+            shake.object = contentView;
+            [shake shakeXWithOffset:12.0 breakFactor:0.9f duration:0.5f maxShakes:5];
             [self actionCancel:nil];
         }
     }else if(editType == PasswordEditTypeReplace) {
@@ -162,6 +180,7 @@
         }
     }
 }
+
 
 - (void)closeView{
     [self dismissModalViewControllerAnimated:YES];
@@ -207,6 +226,18 @@
     if(labelCode4){
         [labelCode4 release];
         labelCode4 = nil;
+    }
+    if (labelTopTitle) {
+        [labelTopTitle release];
+        labelTopTitle = nil;
+    }
+    if (buttonBarCancel) {
+        [buttonBarCancel release];
+        buttonBarCancel = nil;
+    }
+    if (contentView) {
+        [contentView release];
+        contentView = nil;
     }
 }
 
