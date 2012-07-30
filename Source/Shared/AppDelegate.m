@@ -16,11 +16,13 @@
 #import "Model.h"
 
 #import "Constants.h"
+#import "iRate.h"
 
 @interface AppDelegate (Private)
 - (void)reachabilityChanged:(NSNotification *)note;
 - (void)updateStatus;
 - (void)initializeUserDefaults;
+-(void)iRateInit;
 @end
 
 @implementation AppDelegate
@@ -55,6 +57,8 @@ static AppDelegate *app = NULL;
 	
     //clear password session
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password_session"];
+    
+    [self iRateInit];
     
 	// Setup TestFlight
 	[TestFlight takeOff:@"9027be7eee7b774169b20eb1dab3e276_NTQxMzEyMDEyLTAxLTE2IDA3OjMwOjAxLjk1MzgzMw"];
@@ -117,6 +121,24 @@ static AppDelegate *app = NULL;
 	
 	return YES;
 }
+
+#pragma mark -
+#pragma mark iRate
+-(void)iRateInit{
+#warning uncomment and set appStore id
+    [iRate sharedInstance].appStoreID = 536550435; 
+    
+    [iRate sharedInstance].applicationName = NSLocalizedString(@"app_title", @"");
+    [iRate sharedInstance].messageTitle = NSLocalizedString(@"irate_message_title",@"");
+    [iRate sharedInstance].rateButtonLabel = NSLocalizedString(@"irate_rate_button_title", @"");
+    [iRate sharedInstance].cancelButtonLabel = NSLocalizedString(@"irate_cancel_button_title", @"");
+    [iRate sharedInstance].remindButtonLabel = NSLocalizedString(@"irate_remind_button_title", @"");
+    [iRate sharedInstance].daysUntilPrompt = 2;
+    [iRate sharedInstance].usesUntilPrompt = 3;
+    [iRate sharedInstance].remindPeriod = 1;
+}
+
+#pragma mark -
 
 - (void)run:(NSTimer *)timer {
 	

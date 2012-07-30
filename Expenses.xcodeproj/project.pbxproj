@@ -630,6 +630,7 @@
 		FA20BEF315AE9C6D006E4CA3 /* icon_settings_device@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEED15AE9C5F006E4CA3 /* icon_settings_device@2x.png */; };
 		FA20BEF415AE9C6D006E4CA3 /* icon_settings_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEEE15AE9C63006E4CA3 /* icon_settings_settings.png */; };
 		FA20BEF515AE9C6D006E4CA3 /* icon_settings_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEEF15AE9C69006E4CA3 /* icon_settings_settings@2x.png */; };
+		FA2D2A6F15C65E3B00727671 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2D2A6E15C65E3B00727671 /* iRate.m */; };
 		FA354ADD15BEA652004670F0 /* bottom_shutter.png in Resources */ = {isa = PBXBuildFile; fileRef = FA354AD515BEA652004670F0 /* bottom_shutter.png */; };
 		FA354ADE15BEA652004670F0 /* bottom_shutter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA354AD615BEA652004670F0 /* bottom_shutter@2x.png */; };
 		FA354ADF15BEA652004670F0 /* password_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = FA354AD715BEA652004670F0 /* password_bg.png */; };
@@ -1476,6 +1477,8 @@
 		FA20BEED15AE9C5F006E4CA3 /* icon_settings_device@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_device@2x.png"; sourceTree = "<group>"; };
 		FA20BEEE15AE9C63006E4CA3 /* icon_settings_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_settings.png; sourceTree = "<group>"; };
 		FA20BEEF15AE9C69006E4CA3 /* icon_settings_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_settings@2x.png"; sourceTree = "<group>"; };
+		FA2D2A6D15C65E3B00727671 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
+		FA2D2A6E15C65E3B00727671 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		FA354AD515BEA652004670F0 /* bottom_shutter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_shutter.png; sourceTree = "<group>"; };
 		FA354AD615BEA652004670F0 /* bottom_shutter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom_shutter@2x.png"; sourceTree = "<group>"; };
 		FA354AD715BEA652004670F0 /* password_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password_bg.png; sourceTree = "<group>"; };
@@ -1746,6 +1749,7 @@
 		D1002C62140D3C92001503F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FA2D2A6C15C65E3B00727671 /* iRate */,
 				FA0B52CD15BC7BA9001FC0B6 /* ALPickerView */,
 				FAE2B99715B7D0D200A36AC2 /* NSLocale */,
 				D11168601510253600D1C666 /* UIScrollView */,
@@ -3478,6 +3482,15 @@
 			path = ALPickerView;
 			sourceTree = "<group>";
 		};
+		FA2D2A6C15C65E3B00727671 /* iRate */ = {
+			isa = PBXGroup;
+			children = (
+				FA2D2A6D15C65E3B00727671 /* iRate.h */,
+				FA2D2A6E15C65E3B00727671 /* iRate.m */,
+			);
+			path = iRate;
+			sourceTree = "<group>";
+		};
 		FA354AD415BEA652004670F0 /* PasswordProtect */ = {
 			isa = PBXGroup;
 			children = (
@@ -4240,6 +4253,7 @@
 				FA0B52D715BC7BA9001FC0B6 /* ALPickerViewCell.m in Sources */,
 				FA354AE915BEB1C0004670F0 /* PasswordViewController.m in Sources */,
 				FA354AEC15BEB1E5004670F0 /* PasswordViewController_iPhone.m in Sources */,
+				FA2D2A6F15C65E3B00727671 /* iRate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
