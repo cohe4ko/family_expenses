@@ -53,6 +53,9 @@ static AppDelegate *app = NULL;
 	
 	app = self;
 	
+    //clear password session
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password_session"];
+    
 	// Setup TestFlight
 	[TestFlight takeOff:@"9027be7eee7b774169b20eb1dab3e276_NTQxMzEyMDEyLTAxLTE2IDA3OjMwOjAxLjk1MzgzMw"];
 	// Set status bar style
@@ -189,16 +192,25 @@ static AppDelegate *app = NULL;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password_session"];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
 	[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CHECK_UPDATE object:self];
+    NSInteger selectedIndex = self.tabBarController.selectedIndex;
+    NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
+    if (passwordType == 1 && selectedIndex != 2) {
+        self.tabBarController.selectedIndex = 2;
+    }else if(passwordType == 2) {
+        self.tabBarController.selectedIndex = selectedIndex;
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password_session"];
 }
 
 #pragma mark -

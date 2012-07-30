@@ -168,4 +168,5 @@
 
 "password_enter_password"                        = "Введите пароль";
 "password_new_password"                          = "Новый пароль";
+"password_accept_password"                       = "Подтверждение пароля";
 "password_old_password"                          = "Старый пароль";

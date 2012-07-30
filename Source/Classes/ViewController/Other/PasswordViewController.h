@@ -27,9 +27,12 @@ typedef enum {
     IBOutlet UILabel *labelTopTitle;
     IBOutlet UIButton *buttonBarCancel;
     IBOutlet UIView *contentView;
+    IBOutlet UIView *viewTopBar;
     PasswordEditType editType;
     NSInteger step;
     NSInteger code;
+    NSInteger newCode;
+    NSInteger notCorEntCount;
 }
 
 

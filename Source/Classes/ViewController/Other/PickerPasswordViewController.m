@@ -25,7 +25,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        isShouldUpdate = NO;
+        initMode = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
+        
     }
     return self;
 }
@@ -83,7 +84,6 @@
 // Inform the delegate that a row got selected, if row = -1 all rows are selected
 - (void)pickerView:(ALPickerView *)_pickerView didCheckRow:(NSInteger)row{
     [[NSUserDefaults standardUserDefaults] setInteger:row forKey:@"settings_password_type"];
-    isShouldUpdate = YES;
     [pickerView reloadAllComponents];
 }
 // Inform the delegate that a row got deselected, if row = -1 all rows are deselected
@@ -133,7 +133,7 @@
 }
 
 - (void)notificationPost{
-    if (isShouldUpdate) {
+    if (initMode != [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PASSWORD_UPDATE object:nil];
     }
 }
@@ -149,10 +149,23 @@
 }
 
 - (void)clean{
-    [labelHeader release];
-    [pickerView release];
-    [buttonDone release];
-    [viewOverlay release];
+    if (labelHeader) {
+        [labelHeader release];
+        labelHeader = nil;
+    }
+    if (pickerView) {
+        [pickerView release];
+        pickerView = nil;
+    }
+    if (buttonDone) {
+        [buttonDone release];
+        buttonDone = nil;
+    }
+    if (viewOverlay) {
+        [viewOverlay release];
+        viewOverlay = nil;
+    }
+    
 }
 
 - (void)dealloc{

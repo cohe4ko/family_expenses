@@ -31,6 +31,7 @@
                                              selector:@selector(actionPasswordChecked)
                                                  name:NOTIFICATION_PASSWORD_CORRECT
                                                object:nil];
+
     [self loadTabs];
 }
 
@@ -100,8 +101,8 @@
     NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
     NSInteger index = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tabbar_selected"] intValue];
     
-    if (passwordType == 1 && index == 0) {
-        self.selectedIndex = 1;
+    if (passwordType == 1) {
+        self.selectedIndex = 2;
     }else {
         self.selectedIndex = index;
     }
@@ -121,7 +122,7 @@
 - (BOOL)checkPassword:(NSInteger)index{
     NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
     
-    if ((passwordType == 1 && index == 0) || passwordType == 2) {
+    if (((passwordType == 1 && index != 2) || passwordType == 2) && ![[NSUserDefaults standardUserDefaults] objectForKey:@"password_session"]) {
         UIViewController *currentModalController = [RootViewController shared].modalViewController;
         if (!currentModalController) {
             PasswordViewController *passwordController = [MainController getViewController:@"PasswordViewController"];
@@ -143,6 +144,7 @@
 #pragma mark -
 #pragma mark Password
 - (void)actionPasswordChecked{
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"password_session"];
     [super setSelectedViewController:[self.viewControllers objectAtIndex:shouldOpenIndexAfterPassword]];
 }
 

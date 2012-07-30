@@ -30,6 +30,7 @@
         // Custom initialization
         step = 0;
         code = 0;
+        newCode = -1;
     }
     return self;
 }
@@ -59,6 +60,7 @@
             buttonBarCancel.hidden = YES;
     }else if(editType == PasswordEditTypeAdd) {
         buttonSave.hidden = YES;
+        buttonBarCancel.hidden = YES;
     }
     labelCode1.hidden = YES;
     labelCode2.hidden = YES;
@@ -75,7 +77,12 @@
 - (void)makeLocale{
     switch (editType) {
         case PasswordEditTypeAdd:
-            labelHeader.text = NSLocalizedString(@"password_new_password", @"");
+            if (step == 0) {
+                labelHeader.text = NSLocalizedString(@"password_new_password", @"");
+            }else{
+                labelHeader.text = NSLocalizedString(@"password_accept_password", @"");
+            }
+            
             break;
         case PasswordEditTypeCheck:
             labelHeader.text = NSLocalizedString(@"password_enter_password", @"");
@@ -153,8 +160,30 @@
 
 - (void)passwordEntered{
     if (editType == PasswordEditTypeAdd) {
-        [[NSUserDefaults standardUserDefaults] setInteger:code forKey:@"user_password"];
-        [self closeView];
+        if (step == 0) {
+            newCode = code;
+            labelHeader.text = NSLocalizedString(@"password_accept_password", @"");
+            [self actionCancel:buttonCancel];
+            step = 1;
+            notCorEntCount = 0;
+        }else if(step == 1) {
+            if (code == newCode) {
+                [[NSUserDefaults standardUserDefaults] setInteger:code forKey:@"user_password"];
+                [self closeView];
+            }else {
+                AMAnimationShake *shake = [[[AMAnimationShake alloc] init] autorelease];
+                shake.object = contentView;
+                [shake shakeXWithOffset:12.0 breakFactor:0.9f duration:0.5f maxShakes:5];
+                [self actionCancel:nil];
+                notCorEntCount++;
+                if (notCorEntCount>2) {
+                    step = 0;
+                    labelHeader.text = NSLocalizedString(@"password_new_password", @"");
+                }
+            }
+            
+        }
+        
     }else if(editType == PasswordEditTypeCheck) {
         NSInteger cCode = [[NSUserDefaults standardUserDefaults] integerForKey:@"user_password"];
         if (cCode == code) {
@@ -183,7 +212,7 @@
 
 
 - (void)closeView{
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:NO];
 }
 
 #pragma mark -
@@ -239,6 +268,11 @@
         [contentView release];
         contentView = nil;
     }
+    if (viewTopBar) {
+        [viewTopBar release];
+        viewTopBar = nil;
+    }
+
 }
 
 - (void)viewDidUnload
