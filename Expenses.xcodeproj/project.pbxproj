@@ -648,6 +648,9 @@
 		FA79E81E15A606180066EDAB /* TransactionGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E81D15A606180066EDAB /* TransactionGroupViewController.m */; };
 		FA79E82015A606700066EDAB /* TransactionGroupViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA79E81F15A606700066EDAB /* TransactionGroupViewController_iPhone.xib */; };
 		FA79E84815A624620066EDAB /* TransactionGroupViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */; };
+		FA9BC45E15C7B572006068AF /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9BC45D15C7B572006068AF /* libstdc++.dylib */; };
+		FA9BC46015C7B581006068AF /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9BC45F15C7B581006068AF /* libc++.dylib */; };
+		FA9BC4AD15C7DD33006068AF /* libESLocale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9BC4A615C7DD04006068AF /* libESLocale.a */; };
 		FADFD46315AAAFE0008A86BA /* TransactionCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */; };
 		FADFD46615AAB2E6008A86BA /* TransactionCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */; };
 		FAE2B99A15B7D0F300A36AC2 /* NSLocale+Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE2B99915B7D0F300A36AC2 /* NSLocale+Currency.m */; };
@@ -687,6 +690,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = D1E5B57413569A6C00966AAF;
 			remoteInfo = inVip;
+		};
+		FA9BC4A515C7DD04006068AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA9BC49C15C7DD04006068AF /* ESLocale.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7ED3E57715400C1E008268CF;
+			remoteInfo = ESLocale;
+		};
+		FA9BC4A715C7DD04006068AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA9BC49C15C7DD04006068AF /* ESLocale.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7ED3E58715400C1E008268CF;
+			remoteInfo = ESLocaleTests;
+		};
+		FA9BC4A915C7DD04006068AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA9BC49C15C7DD04006068AF /* ESLocale.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7ED3E5B515400C8E008268CF;
+			remoteInfo = "ESLocaleTests-CI";
+		};
+		FA9BC4AB15C7DD29006068AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA9BC49C15C7DD04006068AF /* ESLocale.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7ED3E57615400C1E008268CF;
+			remoteInfo = ESLocale;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1502,6 +1533,9 @@
 		FA79E81F15A606700066EDAB /* TransactionGroupViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionGroupViewController_iPhone.xib; sourceTree = "<group>"; };
 		FA79E84615A624620066EDAB /* TransactionGroupViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionGroupViewController_iPhone.h; sourceTree = "<group>"; };
 		FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionGroupViewController_iPhone.m; sourceTree = "<group>"; };
+		FA9BC45D15C7B572006068AF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		FA9BC45F15C7B581006068AF /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		FA9BC49C15C7DD04006068AF /* ESLocale.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ESLocale.xcodeproj; path = ESLocale/ESLocale.xcodeproj; sourceTree = "<group>"; };
 		FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCalendarView.xib; sourceTree = "<group>"; };
 		FADFD46415AAB2E6008A86BA /* TransactionCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCalendarView.h; sourceTree = "<group>"; };
 		FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCalendarView.m; sourceTree = "<group>"; };
@@ -1530,6 +1564,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9BC4AD15C7DD33006068AF /* libESLocale.a in Frameworks */,
+				FA9BC46015C7B581006068AF /* libc++.dylib in Frameworks */,
+				FA9BC45E15C7B572006068AF /* libstdc++.dylib in Frameworks */,
 				FAECAFA215B74A140037DAC2 /* MessageUI.framework in Frameworks */,
 				5F5A49491563EB22006622F7 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				D158276014477E3A00592F3D /* QuartzCore.framework in Frameworks */,
@@ -1749,6 +1786,7 @@
 		D1002C62140D3C92001503F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FA9BC49B15C7DCF4006068AF /* ESLocale */,
 				FA2D2A6C15C65E3B00727671 /* iRate */,
 				FA0B52CD15BC7BA9001FC0B6 /* ALPickerView */,
 				FAE2B99715B7D0D200A36AC2 /* NSLocale */,
@@ -3271,6 +3309,8 @@
 		D1E5B57813569A6C00966AAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA9BC45F15C7B581006068AF /* libc++.dylib */,
+				FA9BC45D15C7B572006068AF /* libstdc++.dylib */,
 				FAECAFA115B74A140037DAC2 /* MessageUI.framework */,
 				D10EC7FE14E44AEA00A22FC6 /* CoreText.framework */,
 				D158275B14477E3A00592F3D /* CoreGraphics.framework */,
@@ -3506,6 +3546,24 @@
 			path = PasswordProtect;
 			sourceTree = "<group>";
 		};
+		FA9BC49B15C7DCF4006068AF /* ESLocale */ = {
+			isa = PBXGroup;
+			children = (
+				FA9BC49C15C7DD04006068AF /* ESLocale.xcodeproj */,
+			);
+			name = ESLocale;
+			sourceTree = "<group>";
+		};
+		FA9BC49D15C7DD04006068AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA9BC4A615C7DD04006068AF /* libESLocale.a */,
+				FA9BC4A815C7DD04006068AF /* ESLocaleTests.octest */,
+				FA9BC4AA15C7DD04006068AF /* ESLocaleTests copy.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		FAE2B99715B7D0D200A36AC2 /* NSLocale */ = {
 			isa = PBXGroup;
 			children = (
@@ -3530,6 +3588,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FA9BC4AC15C7DD29006068AF /* PBXTargetDependency */,
 				5F121681157BA0A20042B3CD /* PBXTargetDependency */,
 			);
 			name = Expenses;
@@ -3563,6 +3622,10 @@
 					ProductGroup = 5F5A493D1563EAEA006622F7 /* Products */;
 					ProjectRef = 5F5A493C1563EAEA006622F7 /* CorePlot-CocoaTouch.xcodeproj */;
 				},
+				{
+					ProductGroup = FA9BC49D15C7DD04006068AF /* Products */;
+					ProjectRef = FA9BC49C15C7DD04006068AF /* ESLocale.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -3578,6 +3641,27 @@
 			fileType = archive.ar;
 			path = "libCorePlot-CocoaTouch.a";
 			remoteRef = 5F5A49451563EAEA006622F7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FA9BC4A615C7DD04006068AF /* libESLocale.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libESLocale.a;
+			remoteRef = FA9BC4A515C7DD04006068AF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FA9BC4A815C7DD04006068AF /* ESLocaleTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ESLocaleTests.octest;
+			remoteRef = FA9BC4A715C7DD04006068AF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FA9BC4AA15C7DD04006068AF /* ESLocaleTests copy.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "ESLocaleTests copy.octest";
+			remoteRef = FA9BC4A915C7DD04006068AF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -4270,6 +4354,11 @@
 			target = D1E5B57413569A6C00966AAF /* Expenses */;
 			targetProxy = D10BAF93141EB39000155F3F /* PBXContainerItemProxy */;
 		};
+		FA9BC4AC15C7DD29006068AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ESLocale;
+			targetProxy = FA9BC4AB15C7DD29006068AF /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -4337,13 +4426,16 @@
 		D10BAFB5141EB48B00155F3F /* AppStore_Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Source/Frameworks/**",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Source/App-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
@@ -4351,12 +4443,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Frameworks/TestFlight\"",
+					"\"$(SRCROOT)/Source/Classes/Utils/ESLocale/**",
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/** \"$(SRCROOT)/Source/Classes/Utils/ESLocale/**";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4416,13 +4509,16 @@
 		D1E5B59C13569A6C00966AAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Source/Frameworks/**",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Source/App-Prefix.pch";
@@ -4431,12 +4527,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Frameworks/TestFlight\"",
+					"\"$(SRCROOT)/Source/Classes/Utils/ESLocale/**",
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/** \"$(SRCROOT)/Source/Classes/Utils/ESLocale/**";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4445,13 +4542,16 @@
 		D1E5B59D13569A6C00966AAF /* AdHoc_Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Source/Frameworks/**",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Source/App-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
@@ -4459,12 +4559,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Frameworks/TestFlight\"",
+					"\"$(SRCROOT)/Source/Classes/Utils/ESLocale/**",
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/** \"$(SRCROOT)/Source/Classes/Utils/ESLocale/**";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};

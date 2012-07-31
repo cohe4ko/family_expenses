@@ -35,6 +35,7 @@
     [self loadTabs];
 }
 
+
 - (void)loadTabs {
 	
 	NSMutableArray *dic = [MainController loadPlist:@"Tabbar"];
@@ -114,27 +115,34 @@
 
 - (void)setSelectedViewController:(UIViewController *)_selectedViewController{
     shouldOpenIndexAfterPassword = [self.viewControllers indexOfObject:_selectedViewController];
+
     if (![self checkPassword:shouldOpenIndexAfterPassword]) {
         [super setSelectedViewController:_selectedViewController];
     }
+
+    
 }
 
 - (BOOL)checkPassword:(NSInteger)index{
     NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
     
     if (((passwordType == 1 && index != 2) || passwordType == 2) && ![[NSUserDefaults standardUserDefaults] objectForKey:@"password_session"]) {
-        UIViewController *currentModalController = [RootViewController shared].modalViewController;
+        UIViewController *currentModalController = [RootViewController  shared].modalViewController;
         if (!currentModalController) {
             PasswordViewController *passwordController = [MainController getViewController:@"PasswordViewController"];
             passwordController.editType = PasswordEditTypeCheck;
-            [[RootViewController shared] presentModalViewController:passwordController animated:NO];
+            [[RootViewController  shared] presentModalViewController:passwordController animated:NO];
         }
 
         return YES;
     }else {
-        UIViewController *currentModalController = [RootViewController shared].modalViewController;
+        UIViewController *currentModalController = [RootViewController  shared].modalViewController;
         if (currentModalController) {
-            [[RootViewController shared] dismissModalViewControllerAnimated:YES];
+            [[RootViewController shared] dismissViewControllerAnimated:NO
+                                     completion:^{
+                                         [RootViewController shared].view.userInteractionEnabled = NO;
+                                         
+                                     }];
         }
         return NO;
     }

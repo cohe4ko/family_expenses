@@ -11,6 +11,12 @@
 #import "Constants.h"
 #import "File.h"
 
+#import "SqliteFunctions.h"
+
+@interface Db (Private)
+- (void)registerFunctions;
+@end
+
 @implementation Db
 
 @synthesize path, theDb,isOpen;
@@ -22,6 +28,7 @@ static Db *sharedDB = NULL;
 + (Db *)shared {
     if (!sharedDB) {
         sharedDB = [[Db alloc] init];
+        [sharedDB registerFunctions];
     }
     return sharedDB;
 }
@@ -780,6 +787,21 @@ static Db *sharedDB = NULL;
 	NSNumber *value = [self numericValue:sql];
 
 	return [NSDecimalNumber decimalNumberWithDecimal:[value decimalValue]];;
+}
+
+#pragma mark -
+#pragma mark Private
+- (void)registerFunctions{
+    /*sqlite3_create_function
+    ( 
+     [sharedDB.theDb sqliteHandle], // HANDLE базы данных, полученный из sqlite3_open
+     "ObjcFormatAnsiDateUsingLocale", // имя функции для запроса
+     3, // количество параметров. SQLite сам проверит их соответствие
+     SQLITE_UTF8, //для iOS этой кодировки достаточно
+     NULL,
+     &ObjcFormatAnsiDateUsingLocale, // реализация функции
+     NULL, NULL // Так нужно. Функция не аггрегатная.
+     );*/
 }
 
 #pragma mark Pragma functions

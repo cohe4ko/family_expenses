@@ -11,6 +11,7 @@
 #import "Transactions.h"
 #import "NSLocale+Currency.h"
 
+
 @interface TransactionsViewController (Private)
 - (void)makeToolBar;
 - (void)makeLocales;

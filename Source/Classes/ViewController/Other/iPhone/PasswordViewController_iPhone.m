@@ -7,6 +7,7 @@
 //
 
 #import "PasswordViewController_iPhone.h"
+#import "AppDelegate.h"
 
 @interface PasswordViewController_iPhone ()
 
@@ -52,8 +53,12 @@
                         contentView.frame = CGRectMake(0, 460, contentView.frame.size.width, contentView.frame.size.height); 
                      }
                      completion:^(BOOL finished){
-                         self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-                         [self dismissModalViewControllerAnimated:YES];
+                         
+                         [self dismissViewControllerAnimated:NO
+                                                  completion:^{
+                                                      [RootViewController shared].view.userInteractionEnabled = NO;
+                                                      
+                                                  }];
                      }];
 }
 

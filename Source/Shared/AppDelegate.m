@@ -18,6 +18,7 @@
 #import "Constants.h"
 #import "iRate.h"
 
+
 @interface AppDelegate (Private)
 - (void)reachabilityChanged:(NSNotification *)note;
 - (void)updateStatus;
@@ -125,7 +126,7 @@ static AppDelegate *app = NULL;
 #pragma mark -
 #pragma mark iRate
 -(void)iRateInit{
-#warning uncomment and set appStore id
+#warning appStore id should be set
     [iRate sharedInstance].appStoreID = 536550435; 
     
     [iRate sharedInstance].applicationName = NSLocalizedString(@"app_title", @"");
