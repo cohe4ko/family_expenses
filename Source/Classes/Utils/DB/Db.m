@@ -28,7 +28,6 @@ static Db *sharedDB = NULL;
 + (Db *)shared {
     if (!sharedDB) {
         sharedDB = [[Db alloc] init];
-        [sharedDB registerFunctions];
     }
     return sharedDB;
 }
@@ -39,6 +38,7 @@ static Db *sharedDB = NULL;
 	sharedDB = [db retain];
 	[db release];
 	
+    
 	if ([File checkAndMakeDir:[[self class] getDbPath]])
 		[Db createEditableCopyOfDatabaseIfNeeded:NO];
 	return;
@@ -187,7 +187,9 @@ static Db *sharedDB = NULL;
 		//Some optimization tweaks
 		[self execute:@"PRAGMA cache_size=100"];
 		[self execute:@"PRAGMA foreign_keys = ON"];
-
+        
+        [sharedDB registerFunctions];
+        
 		if (DB_DEBUG)
 			NSLog(@"Db: %@",self.path);
 	}
@@ -792,16 +794,16 @@ static Db *sharedDB = NULL;
 #pragma mark -
 #pragma mark Private
 - (void)registerFunctions{
-    /*sqlite3_create_function
+    sqlite3_create_function
     ( 
      [sharedDB.theDb sqliteHandle], // HANDLE базы данных, полученный из sqlite3_open
-     "ObjcFormatAnsiDateUsingLocale", // имя функции для запроса
+     "ObjcFormatAnsiDateUsingLocale_int", // имя функции для запроса
      3, // количество параметров. SQLite сам проверит их соответствие
      SQLITE_UTF8, //для iOS этой кодировки достаточно
      NULL,
-     &ObjcFormatAnsiDateUsingLocale, // реализация функции
+     &ObjcFormatAnsiDateUsingLocale_int, // реализация функции
      NULL, NULL // Так нужно. Функция не аггрегатная.
-     );*/
+     );
 }
 
 #pragma mark Pragma functions

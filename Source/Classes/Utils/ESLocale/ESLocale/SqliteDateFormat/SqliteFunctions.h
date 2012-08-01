@@ -36,6 +36,7 @@ EXTERN_BEGIN
      */
     EXTERN void ObjcFormatAnsiDateUsingLocale( sqlite3_context* ctx_,int argc_,sqlite3_value** argv_ );
     EXTERN void ObjcFormatAnsiDateUsingLocale_v2( sqlite3_context* ctx_,int argc_,sqlite3_value** argv_ );
+    EXTERN void ObjcFormatAnsiDateUsingLocale_int( sqlite3_context* ctx_,int argc_,sqlite3_value** argv_ );
 
 
     /**

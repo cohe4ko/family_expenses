@@ -50,7 +50,7 @@
     if (group == GroupDay) {
         groupField = @"t.time";
     }else if(group == GroupWeek){
-        groupField = @"strftime('%Y%W', t.time, 'unixepoch')";
+        groupField = @"ObjcFormatAnsiDateUsingLocale_int('YYYY-ww', t.time, 'en_US')";
     }else if(group == GroupMonth){
         groupField = @"strftime('%Y%m', t.time, 'unixepoch')";
     }
@@ -77,7 +77,7 @@
     if (group == GroupDay) {
         groupField = @"t.time";
     }else if(group == GroupWeek){
-        groupField = @"ObjcFormatAnsiDateUsingLocale('YYYY-ww', t.time, 'en_US')";
+        groupField = @"ObjcFormatAnsiDateUsingLocale_int('YYYY-ww', t.time, 'en_US')";
     }else if(group == GroupMonth){
         groupField = @"strftime('%Y%m', t.time, 'unixepoch')";
     }
