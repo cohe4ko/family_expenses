@@ -54,11 +54,10 @@
                      }
                      completion:^(BOOL finished){
                          
-                         [self dismissViewControllerAnimated:NO
-                                                  completion:^{
-                                                      [RootViewController shared].view.userInteractionEnabled = NO;
+                         [self dismissModalViewControllerAnimated:NO];
+                        [RootViewController shared].view.userInteractionEnabled = NO;
                                                       
-                                                  }];
+                                                      
                      }];
 }
 

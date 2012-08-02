@@ -138,11 +138,8 @@
     }else {
         UIViewController *currentModalController = [RootViewController  shared].modalViewController;
         if (currentModalController) {
-            [[RootViewController shared] dismissViewControllerAnimated:NO
-                                     completion:^{
-                                         [RootViewController shared].view.userInteractionEnabled = NO;
-                                         
-                                     }];
+            [[RootViewController shared] dismissModalViewControllerAnimated:NO];
+            [RootViewController shared].view.userInteractionEnabled = NO;
         }
         return NO;
     }
