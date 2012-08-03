@@ -18,6 +18,7 @@
 - (void) makeLocales;
 - (void) makeItems;
 - (BOOL) setData;
+- (void) fadeHostedView:(CGFloat)delay;
 @end
 
 @implementation ReportDiagramViewController
@@ -82,7 +83,7 @@
     hostingView.tag = 1010;
 
     [scrollView addSubview:hostingView];
-    CPTGraph *graph = [[[CPTXYGraph alloc] initWithFrame:hostingView.bounds] autorelease];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:hostingView.bounds];
     hostingView.hostedGraph = graph;
     [graph release];
     [hostingView release];
@@ -100,10 +101,11 @@
     CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
     whiteLineStyle.lineColor = [CPTColor whiteColor];
     
-    CPTMutableShadow *whiteShadow = [CPTMutableShadow shadow];
+    /*CPTMutableShadow *whiteShadow = [CPTMutableShadow shadow];
     whiteShadow.shadowOffset     = CGSizeMake(2.0, -4.0);
     whiteShadow.shadowBlurRadius = 4.0;
-    whiteShadow.shadowColor      = [[CPTColor whiteColor] colorWithAlphaComponent:0.25];
+    whiteShadow.shadowColor      = [[CPTColor whiteColor] colorWithAlphaComponent:0.25];*/
+
     
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
@@ -116,11 +118,14 @@
     piePlot.startAngle      = M_PI_2;
     piePlot.endAngle        = M_PI_2;
     piePlot.sliceDirection  = CPTPieDirectionClockwise;
-    piePlot.shadow          = whiteShadow;
+    //piePlot.shadow          = whiteShadow;
     piePlot.delegate        = self;
     
     [graph addPlot:piePlot];
     [piePlot release];
+    
+    graph.rasterizationScale = 2.0;
+    graph.shouldRasterize = YES;
     
     [scrollView bringSubviewToFront:lensView];
     
@@ -237,18 +242,33 @@
     level = 0;
     parentCid = 0;
     [self setData];
+    [self fadeHostedView:0.0f];
 }
 
 - (IBAction)onLens:(id)sender {
 
-    if(!(level - 1))
-        return;
+    if(!(level - 1)){
+        [self onLevelUp:sender];
         
-    if([self setData])
+        return;
+    }
+        
+    if([self setData]){
         ++level;
+        [self fadeHostedView:0.0f];
+    }
 
     
 
+}
+
+- (void) fadeHostedView:(CGFloat)delay{
+    CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
+    hostingView.alpha = 0.0;
+    [UIView animateWithDuration:0.25f delay:delay options:UIViewAnimationOptionTransitionNone animations:^{
+            hostingView.alpha = 1.0;
+        } completion:^(BOOL finished){
+        }];
 }
 
 
