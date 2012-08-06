@@ -1511,8 +1511,6 @@
 		FA97009615CAFBD4009D01A3 /* SqliteFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteFunctions.m; sourceTree = "<group>"; };
 		FA97009B15CAFCF2009D01A3 /* ESLocaleFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLocaleFactory.h; sourceTree = "<group>"; };
 		FA97009C15CAFCF2009D01A3 /* ESLocaleFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLocaleFactory.m; sourceTree = "<group>"; };
-		FA9BC45D15C7B572006068AF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
-		FA9BC45F15C7B581006068AF /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCalendarView.xib; sourceTree = "<group>"; };
 		FADFD46415AAB2E6008A86BA /* TransactionCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCalendarView.h; sourceTree = "<group>"; };
 		FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCalendarView.m; sourceTree = "<group>"; };
@@ -3287,8 +3285,6 @@
 		D1E5B57813569A6C00966AAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FA9BC45F15C7B581006068AF /* libc++.dylib */,
-				FA9BC45D15C7B572006068AF /* libstdc++.dylib */,
 				FAECAFA115B74A140037DAC2 /* MessageUI.framework */,
 				D10EC7FE14E44AEA00A22FC6 /* CoreText.framework */,
 				D158275B14477E3A00592F3D /* CoreGraphics.framework */,
