@@ -8,12 +8,15 @@
 
 #import "ReportBoxView.h"
 #import "framework/CorePlot-CocoaTouch.h"
+#import "RIRoundView.h"
 
 @class DraggableViewController;
 
 @interface ReportDiagramViewController : ViewController <UIScrollViewDelegate, CPTPlotDataSource, CPTPieChartDelegate> {
 	IBOutlet UIScrollView *scrollView;
 	
+    RIRoundView *roundView;
+    
 	IBOutlet ReportBoxView *viewBox;
 	
 	IBOutlet UILabel *labelHint;
@@ -28,10 +31,8 @@
     
     
 @private
-    NSArray* values;
-    
+   
     NSUInteger parentCategoryId;
-    NSMutableDictionary* categories;
     NSDictionary* chartByDay;
     
     CGFloat overAllTotal;
@@ -41,11 +42,12 @@
     NSUInteger level;
 }
 
-@property (nonatomic, retain) NSArray* values;
-@property (nonatomic, retain) NSMutableDictionary* categories;
 @property (nonatomic, retain) NSDictionary* chartByDay;
+@property (nonatomic, retain) UIScrollView *scrollView;
 
 - (IBAction)actionDateRange:(id)sender;
+
+-(void) setValues:(NSArray *)val;
 
 - (IBAction)onLevelUp:(id)sender;
 - (IBAction)onLens:(id)sender;

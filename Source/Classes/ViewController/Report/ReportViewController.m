@@ -37,7 +37,13 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    [self setData];
+    [self.view bringSubviewToFront:loadingView];
+    [loadingView startAnimating];
+    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = NO;
+    diagramViewController.scrollView.hidden = YES;
+    chartViewController.scrollView.hidden = YES;
+    
+    [self performSelector:@selector(setData) withObject:nil afterDelay:0.25f];
 }
 #pragma mark -
 #pragma mark Make
@@ -131,9 +137,13 @@
  	NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Transactions WHERE state = %d ORDER BY time", TransactionsStateNormal];
 	NSArray* values = [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
 
-    diagramViewController.values = values;
-    chartViewController.values = values;
+    [diagramViewController setValues:values];
+    [chartViewController setValues:values];
     
+    [loadingView stopAnimating];
+    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = YES;
+    diagramViewController.scrollView.hidden = NO;
+    chartViewController.scrollView.hidden = NO;
 }
 
 #pragma mark -
@@ -149,6 +159,7 @@
 - (void)dealloc {
 	[diagramViewController release];
 	[chartViewController release];
+    [loadingView release];
     [super dealloc];
 }
 

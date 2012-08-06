@@ -24,8 +24,6 @@
     
     @private
     
-    NSArray* values;
-    
     NSMutableArray* charts;
     
     NSDictionary* chartByDay;
@@ -42,7 +40,6 @@
 
 @property (nonatomic, retain) NSDate* dateFrom;
 @property (nonatomic, retain) NSDate* dateTo;
-@property (nonatomic, retain) NSArray* values;
 @property (nonatomic, retain) NSMutableDictionary* categories;
 @property (nonatomic, retain) NSMutableDictionary* minDates;
 @property (nonatomic, retain) NSMutableDictionary* maxDates;
@@ -51,8 +48,10 @@
 @property (nonatomic, retain) NSDictionary* chartByDay;
 @property (nonatomic, retain) NSDictionary* chartByWeek;
 @property (nonatomic, retain) NSDictionary* chartByMonth;
+@property (nonatomic, retain) UIScrollView *scrollView;
 
 
 - (IBAction)actionDateRange:(id)sender;
+-(void) setValues:(NSArray *)val;
 
 @end

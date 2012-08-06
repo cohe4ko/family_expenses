@@ -19,8 +19,9 @@
 
 @implementation ReportChartViewController
 
-@synthesize values, categories, minDates, maxDates, chartByDay
-, chartByWeek, chartByMonth, dateFrom, dateTo;
+@synthesize categories, minDates, maxDates, chartByDay
+, chartByWeek, chartByMonth, dateFrom, dateTo, scrollView;
+
 
 #pragma mark -
 #pragma mark Initializate
@@ -118,10 +119,7 @@
 
 -(void) setValues:(NSArray *)val 
 {
-    [val retain];
-    [values release];
-    values = val;
-    
+   
     [self setData];
     
     if(!charts)
@@ -142,7 +140,7 @@
     CGFloat maxAmount = 0;
     NSTimeInterval minDate = 0;
     NSTimeInterval maxDate = 0;
-    for(Transactions* tr in values)
+    for(Transactions* tr in val)
     {
         
         
@@ -319,6 +317,9 @@
         
     }
     
+    graph.rasterizationScale = [UIScreen mainScreen].scale;
+    graph.shouldRasterize = YES;
+    
     scrollView.contentSize = CGSizeMake(offsetX, dh);
             
     
@@ -454,7 +455,6 @@
     [maxDates release];
     [categories release];
     [charts release];
-    [values release];
 	[labelHint release];
 	[viewBox release];
     [buttonDateRange release];
