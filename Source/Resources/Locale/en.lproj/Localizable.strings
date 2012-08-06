@@ -168,4 +168,10 @@
 
 "password_enter_password"                        = "Введите пароль";
 "password_new_password"                          = "Новый пароль";
+"password_accept_password"                       = "Подтверждение пароля";
 "password_old_password"                          = "Старый пароль";
+
+"irate_message_title"                            = "Очень надеемся, что Вам понравилось наше приложение. Будем очень благодарны за отзыв в AppStore. Он будет способствовать развитию этого проекта";
+"irate_rate_button_title"                        = "Оставить отзыв";
+"irate_cancel_button_title"                      = "Нет, спасибо";
+"irate_remind_button_title"                      = "Напомнить позже";

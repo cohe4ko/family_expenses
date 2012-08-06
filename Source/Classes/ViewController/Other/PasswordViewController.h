@@ -24,10 +24,17 @@ typedef enum {
     IBOutlet UILabel *labelCode2;
     IBOutlet UILabel *labelCode3;
     IBOutlet UILabel *labelCode4;
+    IBOutlet UILabel *labelTopTitle;
+    IBOutlet UIButton *buttonBarCancel;
+    IBOutlet UIView *contentView;
+    IBOutlet UIView *viewTopBar;
     PasswordEditType editType;
     NSInteger step;
     NSInteger code;
+    NSInteger newCode;
+    NSInteger notCorEntCount;
 }
+
 
 @property(nonatomic,readwrite)PasswordEditType editType;
 

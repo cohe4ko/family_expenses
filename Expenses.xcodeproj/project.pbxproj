@@ -630,6 +630,7 @@
 		FA20BEF315AE9C6D006E4CA3 /* icon_settings_device@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEED15AE9C5F006E4CA3 /* icon_settings_device@2x.png */; };
 		FA20BEF415AE9C6D006E4CA3 /* icon_settings_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEEE15AE9C63006E4CA3 /* icon_settings_settings.png */; };
 		FA20BEF515AE9C6D006E4CA3 /* icon_settings_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEEF15AE9C69006E4CA3 /* icon_settings_settings@2x.png */; };
+		FA2D2A6F15C65E3B00727671 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2D2A6E15C65E3B00727671 /* iRate.m */; };
 		FA354ADD15BEA652004670F0 /* bottom_shutter.png in Resources */ = {isa = PBXBuildFile; fileRef = FA354AD515BEA652004670F0 /* bottom_shutter.png */; };
 		FA354ADE15BEA652004670F0 /* bottom_shutter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA354AD615BEA652004670F0 /* bottom_shutter@2x.png */; };
 		FA354ADF15BEA652004670F0 /* password_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = FA354AD715BEA652004670F0 /* password_bg.png */; };
@@ -641,12 +642,15 @@
 		FA354AE615BEAA19004670F0 /* PasswordViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA354AE515BEAA19004670F0 /* PasswordViewController_iPhone.xib */; };
 		FA354AE915BEB1C0004670F0 /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA354AE815BEB1C0004670F0 /* PasswordViewController.m */; };
 		FA354AEC15BEB1E5004670F0 /* PasswordViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FA354AEB15BEB1E5004670F0 /* PasswordViewController_iPhone.m */; };
+		FA4C95AA15CF6F1E00236CC4 /* RIRoundView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4C95A915CF6F1E00236CC4 /* RIRoundView.m */; };
 		FA6FB24E15A6A3560067F043 /* TransactionsGrouped.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FB24D15A6A3560067F043 /* TransactionsGrouped.m */; };
 		FA6FB26115A6EE860067F043 /* TransactionGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FB26015A6EE860067F043 /* TransactionGroupedTableViewCell.m */; };
 		FA6FB26315A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6FB26215A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib */; };
 		FA79E81E15A606180066EDAB /* TransactionGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E81D15A606180066EDAB /* TransactionGroupViewController.m */; };
 		FA79E82015A606700066EDAB /* TransactionGroupViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA79E81F15A606700066EDAB /* TransactionGroupViewController_iPhone.xib */; };
 		FA79E84815A624620066EDAB /* TransactionGroupViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */; };
+		FA97009715CAFBD4009D01A3 /* SqliteFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA97009615CAFBD4009D01A3 /* SqliteFunctions.m */; };
+		FA97009D15CAFCF2009D01A3 /* ESLocaleFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FA97009C15CAFCF2009D01A3 /* ESLocaleFactory.m */; };
 		FADFD46315AAAFE0008A86BA /* TransactionCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */; };
 		FADFD46615AAB2E6008A86BA /* TransactionCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */; };
 		FAE2B99A15B7D0F300A36AC2 /* NSLocale+Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE2B99915B7D0F300A36AC2 /* NSLocale+Currency.m */; };
@@ -1476,6 +1480,8 @@
 		FA20BEED15AE9C5F006E4CA3 /* icon_settings_device@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_device@2x.png"; sourceTree = "<group>"; };
 		FA20BEEE15AE9C63006E4CA3 /* icon_settings_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_settings.png; sourceTree = "<group>"; };
 		FA20BEEF15AE9C69006E4CA3 /* icon_settings_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_settings@2x.png"; sourceTree = "<group>"; };
+		FA2D2A6D15C65E3B00727671 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
+		FA2D2A6E15C65E3B00727671 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		FA354AD515BEA652004670F0 /* bottom_shutter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_shutter.png; sourceTree = "<group>"; };
 		FA354AD615BEA652004670F0 /* bottom_shutter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom_shutter@2x.png"; sourceTree = "<group>"; };
 		FA354AD715BEA652004670F0 /* password_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password_bg.png; sourceTree = "<group>"; };
@@ -1489,6 +1495,8 @@
 		FA354AE815BEB1C0004670F0 /* PasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController.m; sourceTree = "<group>"; };
 		FA354AEA15BEB1E5004670F0 /* PasswordViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordViewController_iPhone.h; sourceTree = "<group>"; };
 		FA354AEB15BEB1E5004670F0 /* PasswordViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController_iPhone.m; sourceTree = "<group>"; };
+		FA4C95A815CF6F1E00236CC4 /* RIRoundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIRoundView.h; sourceTree = "<group>"; };
+		FA4C95A915CF6F1E00236CC4 /* RIRoundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIRoundView.m; sourceTree = "<group>"; };
 		FA6FB24C15A6A3560067F043 /* TransactionsGrouped.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsGrouped.h; sourceTree = "<group>"; };
 		FA6FB24D15A6A3560067F043 /* TransactionsGrouped.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsGrouped.m; sourceTree = "<group>"; };
 		FA6FB25F15A6EE850067F043 /* TransactionGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionGroupedTableViewCell.h; sourceTree = "<group>"; };
@@ -1499,6 +1507,12 @@
 		FA79E81F15A606700066EDAB /* TransactionGroupViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionGroupViewController_iPhone.xib; sourceTree = "<group>"; };
 		FA79E84615A624620066EDAB /* TransactionGroupViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionGroupViewController_iPhone.h; sourceTree = "<group>"; };
 		FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionGroupViewController_iPhone.m; sourceTree = "<group>"; };
+		FA97009515CAFBD4009D01A3 /* SqliteFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SqliteFunctions.h; sourceTree = "<group>"; };
+		FA97009615CAFBD4009D01A3 /* SqliteFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteFunctions.m; sourceTree = "<group>"; };
+		FA97009B15CAFCF2009D01A3 /* ESLocaleFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLocaleFactory.h; sourceTree = "<group>"; };
+		FA97009C15CAFCF2009D01A3 /* ESLocaleFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLocaleFactory.m; sourceTree = "<group>"; };
+		FA9BC45D15C7B572006068AF /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		FA9BC45F15C7B581006068AF /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCalendarView.xib; sourceTree = "<group>"; };
 		FADFD46415AAB2E6008A86BA /* TransactionCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCalendarView.h; sourceTree = "<group>"; };
 		FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCalendarView.m; sourceTree = "<group>"; };
@@ -1733,6 +1747,10 @@
 		D1002C61140D3C92001503F6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FA97009B15CAFCF2009D01A3 /* ESLocaleFactory.h */,
+				FA97009C15CAFCF2009D01A3 /* ESLocaleFactory.m */,
+				FA97009515CAFBD4009D01A3 /* SqliteFunctions.h */,
+				FA97009615CAFBD4009D01A3 /* SqliteFunctions.m */,
 				D1FBCFDB155B068800F2AF36 /* Report */,
 				D16BDBCA154BF0C500908704 /* Budget */,
 				D129E2DF1527975B00D4BC9B /* Transaction */,
@@ -1746,6 +1764,8 @@
 		D1002C62140D3C92001503F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FA4C95A715CF6EC800236CC4 /* RIRoundView */,
+				FA2D2A6C15C65E3B00727671 /* iRate */,
 				FA0B52CD15BC7BA9001FC0B6 /* ALPickerView */,
 				FAE2B99715B7D0D200A36AC2 /* NSLocale */,
 				D11168601510253600D1C666 /* UIScrollView */,
@@ -3267,6 +3287,8 @@
 		D1E5B57813569A6C00966AAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA9BC45F15C7B581006068AF /* libc++.dylib */,
+				FA9BC45D15C7B572006068AF /* libstdc++.dylib */,
 				FAECAFA115B74A140037DAC2 /* MessageUI.framework */,
 				D10EC7FE14E44AEA00A22FC6 /* CoreText.framework */,
 				D158275B14477E3A00592F3D /* CoreGraphics.framework */,
@@ -3478,6 +3500,15 @@
 			path = ALPickerView;
 			sourceTree = "<group>";
 		};
+		FA2D2A6C15C65E3B00727671 /* iRate */ = {
+			isa = PBXGroup;
+			children = (
+				FA2D2A6D15C65E3B00727671 /* iRate.h */,
+				FA2D2A6E15C65E3B00727671 /* iRate.m */,
+			);
+			path = iRate;
+			sourceTree = "<group>";
+		};
 		FA354AD415BEA652004670F0 /* PasswordProtect */ = {
 			isa = PBXGroup;
 			children = (
@@ -3491,6 +3522,15 @@
 				FA354ADC15BEA652004670F0 /* top_shutter@2x.png */,
 			);
 			path = PasswordProtect;
+			sourceTree = "<group>";
+		};
+		FA4C95A715CF6EC800236CC4 /* RIRoundView */ = {
+			isa = PBXGroup;
+			children = (
+				FA4C95A815CF6F1E00236CC4 /* RIRoundView.h */,
+				FA4C95A915CF6F1E00236CC4 /* RIRoundView.m */,
+			);
+			path = RIRoundView;
 			sourceTree = "<group>";
 		};
 		FAE2B99715B7D0D200A36AC2 /* NSLocale */ = {
@@ -4240,6 +4280,10 @@
 				FA0B52D715BC7BA9001FC0B6 /* ALPickerViewCell.m in Sources */,
 				FA354AE915BEB1C0004670F0 /* PasswordViewController.m in Sources */,
 				FA354AEC15BEB1E5004670F0 /* PasswordViewController_iPhone.m in Sources */,
+				FA2D2A6F15C65E3B00727671 /* iRate.m in Sources */,
+				FA97009715CAFBD4009D01A3 /* SqliteFunctions.m in Sources */,
+				FA97009D15CAFCF2009D01A3 /* ESLocaleFactory.m in Sources */,
+				FA4C95AA15CF6F1E00236CC4 /* RIRoundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4323,13 +4367,16 @@
 		D10BAFB5141EB48B00155F3F /* AppStore_Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Source/Frameworks/**",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Source/App-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
@@ -4337,12 +4384,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Frameworks/TestFlight\"",
+					"\"$(SRCROOT)/Source/Classes/Utils/ESLocale/**",
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/** \"$(SRCROOT)/Source/Classes/Utils/ESLocale/**";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4402,13 +4450,16 @@
 		D1E5B59C13569A6C00966AAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Source/Frameworks/**",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Source/App-Prefix.pch";
@@ -4417,12 +4468,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Frameworks/TestFlight\"",
+					"\"$(SRCROOT)/Source/Classes/Utils/ESLocale/**",
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/** \"$(SRCROOT)/Source/Classes/Utils/ESLocale/**";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4431,13 +4483,16 @@
 		D1E5B59D13569A6C00966AAF /* AdHoc_Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Source/Frameworks/**",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Source/App-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
@@ -4445,12 +4500,13 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Frameworks/TestFlight\"",
+					"\"$(SRCROOT)/Source/Classes/Utils/ESLocale/**",
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/** \"$(SRCROOT)/Source/Classes/Utils/ESLocale/**";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};

@@ -16,11 +16,14 @@
 #import "Model.h"
 
 #import "Constants.h"
+#import "iRate.h"
+
 
 @interface AppDelegate (Private)
 - (void)reachabilityChanged:(NSNotification *)note;
 - (void)updateStatus;
 - (void)initializeUserDefaults;
+-(void)iRateInit;
 @end
 
 @implementation AppDelegate
@@ -53,6 +56,11 @@ static AppDelegate *app = NULL;
 	
 	app = self;
 	
+    //clear password session
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password_session"];
+    
+    [self iRateInit];
+    
 	// Setup TestFlight
 	[TestFlight takeOff:@"9027be7eee7b774169b20eb1dab3e276_NTQxMzEyMDEyLTAxLTE2IDA3OjMwOjAxLjk1MzgzMw"];
 	// Set status bar style
@@ -114,6 +122,24 @@ static AppDelegate *app = NULL;
 	
 	return YES;
 }
+
+#pragma mark -
+#pragma mark iRate
+-(void)iRateInit{
+#warning appStore id should be set
+    [iRate sharedInstance].appStoreID = 536550435; 
+    
+    [iRate sharedInstance].applicationName = NSLocalizedString(@"app_title", @"");
+    [iRate sharedInstance].messageTitle = NSLocalizedString(@"irate_message_title",@"");
+    [iRate sharedInstance].rateButtonLabel = NSLocalizedString(@"irate_rate_button_title", @"");
+    [iRate sharedInstance].cancelButtonLabel = NSLocalizedString(@"irate_cancel_button_title", @"");
+    [iRate sharedInstance].remindButtonLabel = NSLocalizedString(@"irate_remind_button_title", @"");
+    [iRate sharedInstance].daysUntilPrompt = 2;
+    [iRate sharedInstance].usesUntilPrompt = 3;
+    [iRate sharedInstance].remindPeriod = 1;
+}
+
+#pragma mark -
 
 - (void)run:(NSTimer *)timer {
 	
@@ -189,16 +215,25 @@ static AppDelegate *app = NULL;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+   [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password_session"];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
 	[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CHECK_UPDATE object:self];
+    NSInteger selectedIndex = self.tabBarController.selectedIndex;
+    NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
+    if (passwordType == 1 && selectedIndex != 2) {
+        self.tabBarController.selectedIndex = 2;
+    }else if(passwordType == 2) {
+        self.tabBarController.selectedIndex = selectedIndex;
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password_session"];
 }
 
 #pragma mark -

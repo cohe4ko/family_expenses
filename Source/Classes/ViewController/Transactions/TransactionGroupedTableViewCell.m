@@ -27,6 +27,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     labelDate.adjustsFontSizeToFitWidth = YES;
     labelPrice.adjustsFontSizeToFitWidth = YES;
+    categoryImageView.image = nil;
 }
 
 -(void)setTransaction:(TransactionsGrouped*)_item date:(NSString*)date{
@@ -42,7 +43,8 @@
             return;
         }
         item = [_item retain];
-        [categoryImageView setImage:[item categories].imageNormal];
+        UIImage *image = [item categories].imageNormal;
+        categoryImageView.image = image;
     }
     // Set price
     NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"settings_country_code"];
@@ -63,6 +65,7 @@
 - (void)dealloc {
     if (item) {
         [item release];
+        item = nil;
     }
     [labelDate release];
     [labelPrice release];

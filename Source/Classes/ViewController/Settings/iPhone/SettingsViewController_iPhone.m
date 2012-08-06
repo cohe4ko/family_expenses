@@ -46,11 +46,7 @@
 	if (cell == nil) {
 		NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SettingsTableViewCell_iPhone" owner:self options:nil];
 		cell = [nib objectAtIndex:0];
-		
-		UIImageView *accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tableview_accessory_view.png"]];
-		[accessoryView setHighlightedImage:[UIImage imageNamed:@"tableview_accessory_view_highlighted.png"]];
-		cell.accessoryView = accessoryView;
-		[accessoryView release];
+				
 	}
 	NSDictionary *sectionDic = [list objectAtIndex:indexPath.section];
     NSArray *sectionList = [sectionDic objectForKey:@"list"];

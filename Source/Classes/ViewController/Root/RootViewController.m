@@ -252,7 +252,6 @@ static TSAlertView *sAlert = nil;
 }
 
 - (void)dealloc {
-	[super dealloc];
 	[master release];
 	[viewLoading release];
 	[viewConnection release];
@@ -262,6 +261,7 @@ static TSAlertView *sAlert = nil;
 	[connectionCheckUpdate release];
 	[indicatorSplash release];
 	[labelSplash release];
+   	[super dealloc];
 }
 
 @end

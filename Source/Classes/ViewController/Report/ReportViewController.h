@@ -16,6 +16,8 @@
 	UIButton *buttonSegmentRight;
 	
 	SegmentedState segmentedState;
+    
+    IBOutlet UIActivityIndicatorView *loadingView;
 }
 
 @property (nonatomic, retain) ReportDiagramViewController *diagramViewController;

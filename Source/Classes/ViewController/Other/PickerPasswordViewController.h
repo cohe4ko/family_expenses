@@ -14,8 +14,8 @@
     ALPickerView *pickerView;
     IBOutlet UIButton *buttonDone;
     IBOutlet UIView *viewOverlay;
-    
-    BOOL isShouldUpdate;
+
+    NSInteger initMode;
 }
 
 @end

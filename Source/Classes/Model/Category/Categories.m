@@ -61,14 +61,21 @@
 
 - (UIImage *)imageNormal {
 	if (!imageNormal) {
-		imageNormal = [UIImage imageNamed:[NSString stringWithFormat:@"categories_%d.png", Id]];
+		UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"categories_%d.png", Id]];
+        if (img) {
+            imageNormal = [img retain];
+        }
 	}
 	return imageNormal;
 }
 
 - (UIImage *)imageBordered {
 	if (!imageBordered) {
-		imageBordered = [UIImage imageNamed:[NSString stringWithFormat:@"categories_%db.png", Id]];;
+        UIImage *img = [UIImage imageNamed:[NSString stringWithFormat:@"categories_%db.png", Id]];
+        if (img) {
+            imageBordered =  [img retain];
+        }
+		
 	}
 	return imageBordered;
 }

@@ -34,6 +34,7 @@
 		[labelColor setBackgroundColor:[UIColor colorWithHexString:item.color]];
 		
 		// Set name
+
 		[labelName setText:item.name];
 		
 		// Set amount

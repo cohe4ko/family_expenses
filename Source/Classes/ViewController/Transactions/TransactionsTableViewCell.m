@@ -18,6 +18,7 @@
 
 @synthesize item, parent, edit;
 
+
 #pragma mark -
 #pragma mark Initializate
 
@@ -171,17 +172,48 @@
 #pragma mark Memory managment
 
 - (void)dealloc {
-	[item release];
-	[parent release];
-    [imageViewIcon release];
-	[labelCategories release];
-	[labelDesc release];
-	[labelDate release];
-	[labelPrice release];
-	[imageViewRepeat release];
-	[viewDelete release];
-	[buttonDelete release];
-	[viewContent release];
+    self.item = nil;
+	self.parent = nil;
+    
+    if (imageViewIcon) {
+        [imageViewIcon release];
+        imageViewIcon = nil;
+    }
+    if (labelCategories) {
+        [labelCategories release];
+        labelCategories = nil;
+    }
+    if (labelDesc) {
+        [labelDesc release];
+        labelDesc = nil;
+    }
+	if (labelDate) {
+        [labelDate release];
+        labelDate = nil;
+    }
+	if (labelPrice) {
+        [labelPrice release];
+        labelPrice = nil;
+    }
+	if (imageViewRepeat) {
+        [imageViewRepeat release];
+        imageViewRepeat = nil;
+    }
+	if (viewDelete) {
+      	[viewDelete release];
+        viewDelete = nil;
+    }
+	if (buttonDelete) {
+      	[buttonDelete release];
+        buttonDelete = nil;
+    }
+    if (viewContent) {
+        [viewContent release];
+        viewContent = nil;
+    }
+
+	
+    
     [super dealloc];
 }
 

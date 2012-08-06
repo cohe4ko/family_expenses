@@ -72,7 +72,7 @@
 - (void)makeItems {
 	
 	[self updateList];
-    
+    tableView.backgroundColor = [UIColor clearColor];
 	tableView.separatorColor = [UIColor colorWithRed:77.0/255.0 green:31.0/255.0 blue:23.0/255.0 alpha:1.0];
 
 	
@@ -224,11 +224,10 @@
 }
 
 - (void)passwordUpdate{
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"user_password"]) {
-        PasswordViewController *passwordController = [MainController getViewController:@"PasswordViewController"];
-        passwordController.editType = PasswordEditTypeAdd;
-        [[RootViewController shared] presentModalViewController:passwordController animated:NO];
-    }
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"password_session"];
+    PasswordViewController *passwordController = [MainController getViewController:@"PasswordViewController"];
+    passwordController.editType = PasswordEditTypeAdd;
+    [[RootViewController shared] presentModalViewController:passwordController animated:NO];
 }
 
 #pragma mark -

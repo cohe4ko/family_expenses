@@ -11,6 +11,7 @@
 #import "Transactions.h"
 #import "NSLocale+Currency.h"
 
+
 @interface TransactionsViewController (Private)
 - (void)makeToolBar;
 - (void)makeLocales;
@@ -20,6 +21,7 @@
 - (void)setClearEdit;
 - (void)setTableViewFooter:(BOOL)animated;
 - (void)setTotalAmount;
+- (void)clean;
 @end
 
 @implementation TransactionsViewController
@@ -145,7 +147,9 @@
 	
 	
 	// Set sort type
+    sortType = -1;
 	self.sortType = [[NSUserDefaults standardUserDefaults] integerForKey:@"sort_transactions"];
+    groupType = -1;
     self.groupType = [[NSUserDefaults standardUserDefaults] integerForKey:@"group_transactions"];
 }
 
@@ -415,68 +419,92 @@
 #pragma mark Memory managment
 
 - (void)viewDidUnload {
-	[labelHint release];
-	labelHint = nil;
-	[viewSort release];
-    viewSort = nil;
-    [viewGroup release];
-    viewGroup = nil;
-	[labelSortHeader release];
-	labelSortHeader = nil;
-    [labelGroupHeader release];
-    labelGroupHeader = nil;
-	[buttonSortSumm release];
-	buttonSortSumm = nil;
-	[buttonSortDate release];
-	buttonSortDate = nil;
-	[buttonSortCategories release];
-	buttonSortCategories = nil;
-    [buttonGroupDay release];
-    buttonGroupDay = nil;
-    [buttonGroupWeek release];
-    buttonGroupWeek = nil;
-    [buttonGroupMonth release];
-    buttonGroupMonth = nil;
-    [buttonGroupAll release];
-    buttonGroupAll = nil;
-    [tableView release];
-    tableView = nil;
-	[imageNotepadFooter release];
-	imageNotepadFooter = nil;
-	[labelDateStart release];
-	labelDateStart = nil;
-	[labelDateEnd release];
-	labelDateEnd = nil;
-	[labelTotal release];
-	labelTotal = nil;
-	[labelTotalName release];
-	labelTotalName = nil;
+	[self clean];
 	[super viewDidUnload];
+}
+
+- (void)clean{
+    if (labelHint) {
+        [labelHint release];
+        labelHint = nil;
+    }
+    if (viewSort) {
+        [viewSort release];
+        viewSort = nil;
+    }
+	if (viewGroup) {
+        [viewGroup release];
+        viewGroup = nil;
+    }
+    if (labelSortHeader) {
+        [labelSortHeader release];
+        labelSortHeader = nil;
+    }
+	if (labelGroupHeader) {
+        [labelGroupHeader release];
+        labelGroupHeader = nil;
+    }
+    if (buttonSortSumm) {
+        [buttonSortSumm release];
+        buttonSortSumm = nil;
+    }
+    if (buttonSortDate) {
+        [buttonSortDate release];
+        buttonSortDate = nil;
+    }
+    if (buttonSortCategories) {
+        [buttonSortCategories release];
+        buttonSortCategories = nil;
+    }
+    if (buttonGroupAll) {
+        [buttonGroupAll release];
+        buttonGroupAll = nil;
+    }
+    if (buttonGroupDay) {
+        [buttonGroupDay release];
+        buttonGroupDay = nil;
+    }
+    if (buttonGroupWeek) {
+        [buttonGroupWeek release];
+        buttonGroupWeek = nil;
+    }
+    if (buttonGroupMonth) {
+        [buttonGroupMonth release];
+        buttonGroupMonth = nil;
+    }
+    if (tableView) {
+        [tableView release];
+        tableView = nil;
+    }
+    if (imageNotepadFooter) {
+        [imageNotepadFooter release];
+        imageNotepadFooter = nil;
+    }
+    if (labelDateStart) {
+        [labelDateStart release];
+        labelDateStart = nil;
+    }
+	if (labelDateEnd) {
+        [labelDateEnd release];
+        labelDateEnd = nil;
+    }
+	if (labelTotal) {
+        [labelTotal release];
+        labelTotal = nil;
+    }
+    if (labelTotalName) {
+        [labelTotalName release];
+        labelTotalName = nil;
+    }
+	
+	
 }
 
 - (void)dealloc {
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
-	[labelHint release];
-	[viewSort release];
-    [viewGroup release];
-	[labelSortHeader release];
-    [labelGroupHeader release];
-	[buttonSortSumm release];
-    [buttonSortDate release];
-	[buttonSortCategories release];
-    [buttonGroupDay release];
-    [buttonGroupWeek release];
-    [buttonGroupMonth release];
-    [buttonGroupAll release];
-	[list release];
-    [tableView release];
-	[imageNotepadFooter release];
-	[labelDateStart release];
-	[labelDateEnd release];
-	[labelTotal release];
-	[labelTotalName release];
+	[self clean];
     [super dealloc];
 }
 
