@@ -4,6 +4,8 @@
 //
 
 #import "ReportViewController.h"
+#import "TransactionsController.h"
+#import "CategoriesController.h"
 #import "Transactions.h"
 
 @interface ReportViewController (Private)
@@ -134,11 +136,57 @@
 #pragma mark Set
 
 - (void)setData {
- 	NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Transactions WHERE state = %d ORDER BY time", TransactionsStateNormal];
-	NSArray* values = [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+    
+    NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"graph_filter_begin_date"];
+    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"graph_filter_end_date"];
+    if (!beginDate) {
+        beginDate = [TransactionsController minumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"graph_filter_begin_date"];
+    }
+    if (!endDate) {
+        endDate = [TransactionsController maximumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"graph_filter_end_date"];
+    }
+    
+    NSArray *values = [TransactionsController loadTransactions:SortDate minDate:beginDate maxDate:endDate];
 
-    [diagramViewController setValues:values];
-    [chartViewController setValues:values];
+    NSMutableDictionary *chartByDay = nil;
+    if (values) {
+        chartByDay = [NSMutableDictionary dictionary];
+        for (Transactions *t in values) {
+            
+            NSMutableDictionary *catDic = [chartByDay objectForKey:[NSNumber numberWithInt:t.categoriesParentId]];
+            if(!catDic) {
+                catDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:0],@"total",[NSMutableDictionary dictionary],@"subCat",[NSNumber numberWithInt:t.categoriesParentId],@"cid", nil];
+                Categories *c = [CategoriesController getById:t.categoriesParentId];
+                if (c && c.name) {
+                    [catDic setObject:c.name forKey:@"name"];
+                }
+            }
+            NSNumber *total = [catDic objectForKey:@"total"];
+            [catDic setObject:[NSNumber numberWithDouble:[total doubleValue]+t.amount] forKey:@"total"];
+            
+            //update subcategory
+            NSMutableDictionary *subCat = [catDic objectForKey:@"subCat"];
+            NSMutableDictionary *subCatDic = [subCat objectForKey:[NSNumber numberWithInt:t.categoriesId]];
+            if (!subCatDic) {
+                subCatDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:0],@"total",[NSNumber numberWithInt:t.categoriesId],@"cid", nil];
+                Categories *c = [CategoriesController getById:t.categoriesId];
+                if (c && c.name) {
+                    [subCatDic setObject:c.name forKey:@"name"];
+                }
+            }
+            total = [subCatDic objectForKey:@"total"];
+            [subCatDic setObject:[NSNumber numberWithDouble:[total doubleValue]+t.amount] forKey:@"total"];
+            [subCat setObject:subCatDic forKey:[NSNumber numberWithInt:t.categoriesId]];
+            [catDic setObject:subCat forKey:@"subCat"];
+            [chartByDay setObject:catDic forKey:[NSNumber numberWithInt:t.categoriesParentId]];
+        }
+    }
+    
+    
+    [diagramViewController setValues:values forDic:chartByDay];
+    [chartViewController setValues:values forDic:chartByDay];
     
     [loadingView stopAnimating];
     [UIApplication sharedApplication].keyWindow.userInteractionEnabled = YES;

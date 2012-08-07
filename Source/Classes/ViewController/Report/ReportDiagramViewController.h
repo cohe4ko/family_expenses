@@ -47,7 +47,7 @@
 
 - (IBAction)actionDateRange:(id)sender;
 
--(void) setValues:(NSArray *)val;
+-(void) setValues:(NSArray *)val forDic:(NSDictionary*)chart;
 
 - (IBAction)onLevelUp:(id)sender;
 - (IBAction)onLens:(id)sender;

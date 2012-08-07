@@ -48,7 +48,7 @@
 
 -(NSDictionary*)curentChart
 {
-    NSDictionary* chartData = nil;
+    /*NSDictionary* chartData = nil;
     
     switch (currentChart) {
         case 0:
@@ -63,36 +63,12 @@
             
         default:
             break;
-    }
-    return chartData;
+    }*/
+    return self.chartByDay;
 }
 
 - (void)setData {
-    
-    // repleace with setters
-    self.dateFrom = [NSDate dateFromString:@"01-01-2012"];
-    self.dateTo = [NSDate dateFromString:@"31-12-2012"];
-	
-    // Get transactions by day
-	NSMutableDictionary *d = [TransactionsController transactionsChartBy:TransactionsDay fromDate:[NSDate dateStringToDate:@"01-01-2012" dateFormat:@"dd-MM-yyyy"] toDate:[NSDate dateStringToDate:@"31-12-2012" dateFormat:@"dd-MM-yyyy"] parentCid:0];
-	//NSLog(@"day - %@", d);
-    
-    self.chartByDay = d;
-    
-    NSLog(@"%@", [[d objectForKey:[NSNumber numberWithInt:0]] objectForKey:@"name"]);
-	
-	// Get transactions by week
-	NSMutableDictionary *w = [TransactionsController transactionsChartBy:TransactionsWeek fromDate:[NSDate dateStringToDate:@"01-01-2012" dateFormat:@"dd-MM-yyyy"] toDate:[NSDate dateStringToDate:@"31-12-2012" dateFormat:@"dd-MM-yyyy"] parentCid:0];
-	//NSLog(@"week - %@", w);
-    
-    self.chartByWeek = w;
-	
-	// Get transactions by month
-	NSMutableDictionary *m = [TransactionsController transactionsChartBy:TransactionsMonth fromDate:[NSDate dateStringToDate:@"01-01-2012" dateFormat:@"dd-MM-yyyy"] toDate:[NSDate dateStringToDate:@"31-12-2012" dateFormat:@"dd-MM-yyyy"] parentCid:0];
-    //NSLog(@"month - %@", m);
-    
-    self.chartByMonth = m;
-    
+        
     NSDictionary* chartData = [self curentChart];
 	NSMutableArray *arr = [[NSMutableArray alloc] init];
     for(NSNumber* cid in chartData.allKeys)
@@ -117,9 +93,9 @@
 }
 
 
--(void) setValues:(NSArray *)val 
+-(void) setValues:(NSArray *)val forDic:(NSDictionary*)chart 
 {
-   
+    self.chartByDay = chart;
     [self setData];
     
     if(!charts)
@@ -446,6 +422,7 @@
 }
 
 - (void)dealloc {
+    self.chartByDay = nil;
     [dateFrom release];
     [dateTo release];
     [chartByMonth release];

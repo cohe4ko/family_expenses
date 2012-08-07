@@ -167,6 +167,7 @@ static AppDelegate *app = NULL;
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:
 						 [NSNumber numberWithInt:SortSumm], @"sort_transactions",
                          [NSNumber numberWithInt:GroupInfin],@"group_transactions",
+                         [NSNumber numberWithInt:GroupInfin],@"graph_group_transactions",
 						 [NSNumber numberWithBool:NO], @"is_transactions_temp",
                          [NSNumber numberWithInt:1], @"settings_currency_points",
                          [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode],@"settings_country_code",
