@@ -11,11 +11,17 @@
 #define kStepAngle 5*M_PI/180.0
 
 @interface RIRoundView(Private)
+
 - (void)animateDrawing;
 
 @end
 
+@interface RIRoundView()
+@property(nonatomic,copy) void (^onCompletion)();
+@end
+
 @implementation RIRoundView
+@synthesize onCompletion;
 
 - (id)initWithFrame:(CGRect)frame
          firstAngle:(CGFloat)fA
@@ -53,7 +59,8 @@
     [self setNeedsDisplay];
 }
 
-- (void)drawFill:(BOOL)animating{
+- (void)drawFill:(BOOL)animating completion:(void (^)(void))onCompletionBlock{
+    self.onCompletion = onCompletionBlock;
     if (animating) {
         isDrawing = YES;
         [self animateDrawing];
@@ -61,6 +68,9 @@
         firstAngle = 0;
         secondAngle = 2*M_PI;
         [self setNeedsDisplay];
+        if (self.onCompletion) {
+            self.onCompletion();
+        }
     }
 }
 
@@ -73,12 +83,13 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextBeginPath(context);
     CGPoint center = CGPointMake(roundf(rect.size.width/2.0), roundf(rect.size.height/2.0));
-    CGContextMoveToPoint(context, center.x, center.y);
     CGContextSetFillColorWithColor(context, drawColor.CGColor);
     if (2*M_PI+firstAngle <= secondAngle) {
         CGContextAddArc(context, center.x, center.y, center.y, 0, 2*M_PI,0);
+        CGContextAddArc(context, center.x, center.y, innerRadius, 0, 2*M_PI,0);
     }else {
         CGContextAddArc(context, center.x, center.y, center.y, firstAngle, secondAngle,0);
+        CGContextAddArc(context, center.x, center.y, innerRadius, firstAngle, secondAngle,0);
     }
     
     CGContextClosePath(context);
@@ -87,13 +98,14 @@
     if (isDrawing) {
         [self performSelector:@selector(animateDrawing)
                    withObject:nil
-                   afterDelay:0.05f];
+                   afterDelay:0.025f];
     }
 }
 
 
 - (void)dealloc{
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    self.onCompletion = nil;
     [drawColor release];
     [super dealloc];
 }
@@ -105,6 +117,10 @@
     
     if (2*M_PI+firstAngle <= secondAngle || !isDrawing) {
         isDrawing = NO;
+        if (self.onCompletion) {
+            self.onCompletion();
+        }
+
         return;
     }
     

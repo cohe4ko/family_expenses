@@ -4380,13 +4380,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Frameworks/TestFlight\"",
-					"\"$(SRCROOT)/Source/Classes/Utils/ESLocale/**",
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/** \"$(SRCROOT)/Source/Classes/Utils/ESLocale/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4464,13 +4463,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Frameworks/TestFlight\"",
-					"\"$(SRCROOT)/Source/Classes/Utils/ESLocale/**",
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/** \"$(SRCROOT)/Source/Classes/Utils/ESLocale/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4496,13 +4494,12 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Source/Frameworks/TestFlight\"",
-					"\"$(SRCROOT)/Source/Classes/Utils/ESLocale/**",
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/** \"$(SRCROOT)/Source/Classes/Utils/ESLocale/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
 			};

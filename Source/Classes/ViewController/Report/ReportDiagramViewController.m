@@ -18,7 +18,7 @@
 - (void) makeLocales;
 - (void) makeItems;
 - (BOOL) setData;
-- (void) fadeHostedView:(CGFloat)delay;
+- (void) animateSettingData;
 @end
 
 @implementation ReportDiagramViewController
@@ -57,9 +57,10 @@
 }
 
 
--(void) setValues:(NSArray *)val
+-(void) setValues:(NSArray *)val forDic:(NSDictionary*)chart
 {
-        
+    self.chartByDay = chart;
+    [self setData];
 }
 
 -(void) builfGraphForParentCategoryId
@@ -134,20 +135,40 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [chartByDay count];
+    if (parentCategoryId > 0) {
+        return [[[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"] count];
+    }else {
+        return [chartByDay count];
+    }
+    
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)_index
 {
-    NSNumber* catNum = [chartByDay.allKeys objectAtIndex:_index];
-    NSNumber* total = [[chartByDay objectForKey:catNum] objectForKey:@"total"];
+    NSNumber* total;
+    if (parentCategoryId > 0) {
+        NSDictionary *subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
+        NSNumber* catNum = [subCat.allKeys objectAtIndex:_index];
+        total = [[subCat objectForKey:catNum] objectForKey:@"total"];
+    }else {
+        NSNumber* catNum = [chartByDay.allKeys objectAtIndex:_index];
+        total = [[chartByDay objectForKey:catNum] objectForKey:@"total"];
+    }
+    
     return total;
     
 }
 
 -(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)_index
 {
-    NSUInteger catId = [[chartByDay.allKeys objectAtIndex:_index] integerValue];
+    NSUInteger catId;
+    if (parentCategoryId > 0) {
+        NSDictionary *subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
+        catId = [[subCat.allKeys objectAtIndex:_index] integerValue];
+    }else {
+        catId = [[chartByDay.allKeys objectAtIndex:_index] integerValue];
+    }
+    
     return [CPTFill fillWithColor:[CPTColor colorWithCGColor:[UIColor colorWithHexString:[Categories colorStringForCategiryId:catId]].CGColor]];
 }
 
@@ -160,10 +181,16 @@
     CGFloat midPointAngle = 0;
     // main idea is integrating all amounts before selected slice and find angle
     // from normalization of values
-    
-    NSNumber* selectedCatNum = [chartByDay.allKeys objectAtIndex:_index];
-    
-    NSDictionary* data = [chartByDay objectForKey:selectedCatNum];
+    NSDictionary* data = nil;
+    if (parentCategoryId > 0) {
+        NSDictionary* subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
+        NSNumber *selectedNum = [subCat.allKeys objectAtIndex:_index];
+        data = [subCat objectForKey:selectedNum];
+    }else {
+        NSNumber *selectedNum = [chartByDay.allKeys objectAtIndex:_index];
+        data = [chartByDay objectForKey:selectedNum];
+    }
+       
 
     // set label, image, etc
     CGFloat selectedTotal =  [[data objectForKey:@"total"] floatValue];
@@ -180,8 +207,16 @@
     CGFloat subTotal = 0;
     for(NSUInteger i = 0; i <= _index; ++i)
     {
-        NSNumber* catNum = [chartByDay.allKeys objectAtIndex:i];
-        subTotal += [[[chartByDay objectForKey:catNum] objectForKey:@"total"] floatValue];
+        if (parentCategoryId > 0) {
+            NSDictionary *subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
+            NSNumber* catNum = [subCat.allKeys objectAtIndex:i];
+            subTotal += [[[subCat objectForKey:catNum] objectForKey:@"total"] floatValue];
+        }else {
+            NSNumber* catNum = [chartByDay.allKeys objectAtIndex:i];
+            subTotal += [[[chartByDay objectForKey:catNum] objectForKey:@"total"] floatValue];
+        }
+
+
     }
     
     subTotal -= (selectedTotal * 0.5f); // amount to the middle of selected slice
@@ -224,7 +259,7 @@
 	roundView = [[RIRoundView alloc] initWithFrame:CGRectMake(10, 10, scrollView.frame.size.width-20, scrollView.frame.size.height-20) firstAngle:0.0 secondAngle:2*M_PI innerRadius:(scrollView.frame.size.width-20)/2.5 color:[UIColor whiteColor]];
     [scrollView addSubview:roundView];
     [roundView release];
-    roundView.hidden = YES;
+    roundView.hidden = 0.0;
 }
 
 #pragma mark -
@@ -238,10 +273,30 @@
     if(!level)
         return;
 
+    selectedIndex = [chartByDay.allKeys indexOfObject:[NSNumber numberWithInt:parentCategoryId]];
+    parentCategoryId = 0;
     level = 0;
     parentCid = 0;
-    [self setData];
-    [self fadeHostedView:0.0f];
+    //animation block
+    
+    NSNumber* catNum = [chartByDay.allKeys objectAtIndex:selectedIndex];
+    NSNumber* total = [[chartByDay objectForKey:catNum] objectForKey:@"total"];
+    UIColor *color = [UIColor colorWithHexString:[Categories colorStringForCategiryId:[catNum integerValue]]];
+    
+    CGFloat totalAngle = 2*M_PI*[total doubleValue]/overAllTotal;
+    [roundView resetValuesForFirstAngle:-totalAngle/2.0-M_PI_2 secondAngle:totalAngle/2.0-M_PI_2 innerRadius:roundView.frame.size.width/3.7 color:color];
+    [scrollView bringSubviewToFront:roundView];
+    [scrollView bringSubviewToFront:lensView];
+    roundView.alpha = 1.0;
+    [roundView drawFill:YES completion:^{
+        [self setData];
+        CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
+        hostingView.alpha = 0.0;
+        [UIView animateWithDuration:0.25 animations:^{
+            roundView.alpha = 0.0;
+            hostingView.alpha = 1.0;
+        }];
+    }];
 }
 
 - (IBAction)onLens:(id)sender {
@@ -252,24 +307,30 @@
         return;
     }
     
+    //animation block
+    
     NSNumber* catNum = [chartByDay.allKeys objectAtIndex:selectedIndex];
+    parentCategoryId = [catNum intValue];
     NSNumber* total = [[chartByDay objectForKey:catNum] objectForKey:@"total"];
     UIColor *color = [UIColor colorWithHexString:[Categories colorStringForCategiryId:[catNum integerValue]]];
     
     CGFloat totalAngle = 2*M_PI*[total doubleValue]/overAllTotal;
-    [roundView resetValuesForFirstAngle:-totalAngle/2.0-M_PI_2 secondAngle:totalAngle/2.0-M_PI_2 innerRadius:roundView.frame.size.width/2.5 color:color];
+    [roundView resetValuesForFirstAngle:-totalAngle/2.0-M_PI_2 secondAngle:totalAngle/2.0-M_PI_2 innerRadius:roundView.frame.size.width/3.7 color:color];
     [scrollView bringSubviewToFront:roundView];
     [scrollView bringSubviewToFront:lensView];
-    roundView.hidden = NO;
-    [roundView drawFill:YES];
-    
-    /*if([self setData]){
-        ++level;
-        [self fadeHostedView:0.0f];
-    }*/
+    roundView.alpha = 1.0;
 
-    
-
+    [roundView drawFill:YES completion:^{
+        if([self setData]){
+            ++level;
+            CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
+            hostingView.alpha = 0.0;
+            [UIView animateWithDuration:0.25 animations:^{
+                roundView.alpha = 0.0;
+                hostingView.alpha = 1.0;
+            }];
+        }
+    }];
 }
 
 - (void) fadeHostedView:(CGFloat)delay{
@@ -286,18 +347,19 @@
 #pragma mark Set
 
 - (BOOL)setData {
-	
-    NSMutableDictionary *d = [TransactionsController transactionsChartBy:TransactionsDay fromDate:[NSDate dateStringToDate:@"01-01-2012" dateFormat:@"dd-MM-yyyy"] toDate:[NSDate dateStringToDate:@"31-12-2012" dateFormat:@"dd-MM-yyyy"] parentCid:parentCid];
-
-    NSLog(@"parentCid = %d", parentCid);
-    
-    if(![d count])
+	   
+    if(!chartByDay){
         return NO;
+    }
     
-    NSDictionary* chartData = d;
-    self.chartByDay = d;
+    NSDictionary* chartData = chartByDay;
     
-	NSMutableArray *arr = [[NSMutableArray alloc] init];
+    if (parentCategoryId>0) {
+        chartData = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
+    }
+    
+    
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
     overAllTotal = 0;
     for(NSNumber* cid in chartData.allKeys)
     {
@@ -346,7 +408,7 @@
 }
 
 - (void)dealloc {
-    [chartByDay release];
+    self.chartByDay = nil;
     [labelHint release];
     [viewBox release];
     [buttonDateRange release];

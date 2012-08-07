@@ -22,6 +22,6 @@
         innerRadius:(CGFloat)iR
               color:(UIColor*)color;
 - (void)resetValuesForFirstAngle:(CGFloat)fA secondAngle:(CGFloat)sA innerRadius:(CGFloat)iR color:(UIColor*)color;
-- (void)drawFill:(BOOL)animating;
+- (void)drawFill:(BOOL)animating completion:(void (^)(void))onCompletionBlock;
 
 @end

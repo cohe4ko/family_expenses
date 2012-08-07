@@ -52,6 +52,6 @@
 
 
 - (IBAction)actionDateRange:(id)sender;
--(void) setValues:(NSArray *)val;
+-(void) setValues:(NSArray *)val forDic:(NSDictionary*)chart;
 
 @end
