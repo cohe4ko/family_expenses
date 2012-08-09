@@ -529,7 +529,7 @@
                                                       MIN(startViewPoint.y, endViewPoint.y),
                                                       ABS(endViewPoint.x - startViewPoint.x),
                                                       ABS(endViewPoint.y - startViewPoint.y) );
-                        [bandFill fillRect:CPTAlignRectToUserSpace(context, fillRect) inContext:context];
+                        [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                     }
                 }
 
@@ -561,7 +561,7 @@
                                                   MIN(startViewPoint.y, endViewPoint.y),
                                                   ABS(endViewPoint.x - startViewPoint.x),
                                                   ABS(endViewPoint.y - startViewPoint.y) );
-                    [bandFill fillRect:CPTAlignRectToUserSpace(context, fillRect) inContext:context];
+                    [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
                 }
             }
 
@@ -622,7 +622,7 @@
                                                   MIN(startViewPoint.y, endViewPoint.y),
                                                   ABS(endViewPoint.x - startViewPoint.x),
                                                   ABS(endViewPoint.y - startViewPoint.y) );
-                    [bandFill fillRect:CPTAlignRectToUserSpace(context, fillRect) inContext:context];
+                    [bandFill fillRect:CPTAlignIntegralRectToUserSpace(context, fillRect) inContext:context];
 
                     [bandRange release];
                 }
@@ -759,7 +759,7 @@
                 break;
 
             default:
-                [NSException raise:NSInvalidArgumentException format:@"Invalid coordinate: %lu", newCoordinate];
+                [NSException raise:NSInvalidArgumentException format:@"Invalid coordinate: %lu", (unsigned long)newCoordinate];
                 break;
         }
     }

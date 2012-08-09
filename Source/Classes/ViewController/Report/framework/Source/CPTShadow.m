@@ -104,7 +104,6 @@
                                 self.shadowOffset,
                                 self.shadowBlurRadius,
                                 self.shadowColor.cgColor);
-    
 }
 
 #pragma mark -
