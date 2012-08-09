@@ -10,6 +10,7 @@
 
 #import "TransactionsController.h"
 #import "OrdinalNumberFormatter.h"
+#import "ReportDateFilterViewController.h"
 
 @interface ReportChartViewController (Private)
 - (void)makeLocales;
@@ -305,7 +306,9 @@
 #pragma mark Actions
 
 - (IBAction)actionDateRange:(id)sender {
-	
+    ReportDateFilterViewController *reportDateRangeViewController = [[ReportDateFilterViewController alloc] initWithNibName:@"TransactionGroupViewController_iPhone" bundle:nil];
+    [[RootViewController shared] presentModalViewController:reportDateRangeViewController animated:YES];
+    [reportDateRangeViewController release];
 }
 
 

@@ -31,7 +31,6 @@
         
         [self.view addSubview:firstCalendarView];
         [self.view addSubview:secondCalendarView];
-             
     }
     return self;
 }

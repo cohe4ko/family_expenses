@@ -12,6 +12,7 @@
 #import "Transactions.h"
 #import "TransactionsController.h"
 #import "CategoriesController.h"
+#import "ReportDateFilterViewController.h"
 
 @interface ReportDiagramViewController (Private)
 - (void) builfGraphForParentCategoryId;
@@ -266,7 +267,9 @@
 #pragma mark Actions
 
 - (IBAction)actionDateRange:(id)sender {
-
+    ReportDateFilterViewController *reportDateRangeViewController = [[ReportDateFilterViewController alloc] initWithNibName:@"TransactionGroupViewController_iPhone" bundle:nil];
+    [[RootViewController shared] presentModalViewController:reportDateRangeViewController animated:YES];
+    [reportDateRangeViewController release];
 }
 
 - (IBAction)onLevelUp:(id)sender {
