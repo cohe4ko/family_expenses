@@ -4374,8 +4374,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ivan Dzyamulych (5QW6ML2DR8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ivan Dzyamulych (5QW6ML2DR8)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4384,6 +4384,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Source/App-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "App-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4391,7 +4392,8 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "308D2EC7-A74B-4EA4-9F40-1FCEB988BC86";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "308D2EC7-A74B-4EA4-9F40-1FCEB988BC86";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
 				VALIDATE_PRODUCT = NO;
@@ -4456,7 +4458,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ivan Dzyamulych (5QW6ML2DR8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4467,6 +4469,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Source/App-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "App-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4476,6 +4479,7 @@
 				OTHER_CPLUSPLUSFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
+				PROVISIONING_PROFILE = "308D2EC7-A74B-4EA4-9F40-1FCEB988BC86";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
@@ -4490,8 +4494,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ivan Dzyamulych (5QW6ML2DR8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ivan Dzyamulych (5QW6ML2DR8)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4500,6 +4504,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Source/App-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "App-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4507,7 +4512,8 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "308D2EC7-A74B-4EA4-9F40-1FCEB988BC86";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "308D2EC7-A74B-4EA4-9F40-1FCEB988BC86";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
 				VALIDATE_PRODUCT = NO;
