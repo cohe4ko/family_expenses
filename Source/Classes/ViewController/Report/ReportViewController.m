@@ -22,6 +22,14 @@
 #pragma mark -
 #pragma mark Initializate
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(actionDateChangedNotification:) name:NOTIFICATION_REPORT_UPDATE object:nil];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
  	
@@ -37,15 +45,8 @@
 //    [self setData];
 }
 
--(void) viewWillAppear:(BOOL)animated
-{
-    [self.view bringSubviewToFront:loadingView];
-    [loadingView startAnimating];
-    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = NO;
-    diagramViewController.scrollView.hidden = YES;
-    chartViewController.scrollView.hidden = YES;
-    
-    [self performSelector:@selector(setData) withObject:nil afterDelay:0.25f];
+-(void) viewWillAppear:(BOOL)animated{
+    [self actionDateChangedNotification:nil];
 }
 #pragma mark -
 #pragma mark Make
@@ -132,6 +133,16 @@
 	} completion:^(BOOL finished) {}];
 }
 
+- (void)actionDateChangedNotification:(NSNotification*)notification{
+    [self.view bringSubviewToFront:loadingView];
+    [loadingView startAnimating];
+    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = NO;
+    diagramViewController.scrollView.hidden = YES;
+    chartViewController.scrollView.hidden = YES;
+    
+    [self performSelector:@selector(setData) withObject:nil afterDelay:0.25f];
+}
+
 #pragma mark -
 #pragma mark Set
 
@@ -205,6 +216,7 @@
 #pragma mark Memory managment
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[diagramViewController release];
 	[chartViewController release];
     [loadingView release];

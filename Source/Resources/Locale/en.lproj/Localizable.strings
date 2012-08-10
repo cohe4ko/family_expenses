@@ -137,6 +137,7 @@
 // Report
 "report_segmented_diagram"						= "Диаграмма";
 "report_segmented_chart"						= "График";
+"report_date_format"                            = "dd MMMM yyyy";
 
 //Settings
 "settings_settings"                             = "Настройки";

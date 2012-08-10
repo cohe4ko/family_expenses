@@ -62,6 +62,7 @@
 {
     self.chartByDay = chart;
     [self setData];
+    [self makeLocales];
 }
 
 -(void) builfGraphForParentCategoryId
@@ -253,7 +254,20 @@
 #pragma mark Make
 
 - (void)makeLocales {
-	
+	NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"graph_filter_begin_date"];
+    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"graph_filter_end_date"];
+    if (!beginDate) {
+        beginDate = [TransactionsController minumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"graph_filter_begin_date"];
+    }
+    if (!endDate) {
+        endDate = [TransactionsController maximumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"graph_filter_end_date"];
+    }
+    
+    NSString *buttonTitle = [NSString stringWithFormat:@"%@ - %@",[beginDate dateFormat:NSLocalizedString(@"report_date_format", @"")],[endDate dateFormat:NSLocalizedString(@"report_date_format", @"")]];
+    [buttonDateRange setTitle:buttonTitle forState:UIControlStateNormal];
+    
 }
 
 - (void)makeItems {
