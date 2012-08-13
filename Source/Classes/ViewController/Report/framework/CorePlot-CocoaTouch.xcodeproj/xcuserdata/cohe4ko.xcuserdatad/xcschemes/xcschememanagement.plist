@@ -4,25 +4,35 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Expenses.xcscheme</key>
+		<key>CorePlot-CocoaTouch.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
-		<key>Hockeyapp.xcscheme</key>
+		<key>Documentation.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>3</integer>
+		</dict>
+		<key>Universal Library.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>D10BAF8B141EB37500155F3F</key>
+		<key>0799D97A137318CF0026072C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D1E5B57413569A6C00966AAF</key>
+		<key>BC9B83460FB8A0A40035D8DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C3566B8010EED04900FB3866</key>
 		<dict>
 			<key>primary</key>
 			<true/>
