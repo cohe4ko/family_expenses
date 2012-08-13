@@ -13,6 +13,7 @@
 #import "MainController.h"
 #import "UIImage+ScaledImage.h"
 #import "PasswordViewController.h"
+#import "BCTabBarView.h"
 
 #import "Constants.h"
 
@@ -145,6 +146,31 @@
     }
     
 }
+
+#pragma mark -
+#pragma mark Orientation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+    if (self.selectedIndex == 3) {
+        return YES;
+    }else {
+        return toInterfaceOrientation == UIInterfaceOrientationPortrait;
+    }
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    if (toInterfaceOrientation == UIInterfaceOrientationPortrait || toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        [self showTabBar:NO isPush:NO];
+    }else {
+        [self hideTabBar:NO isPush:NO];
+    }
+    if (self.selectedIndex == 3) {
+        [[(UINavigationController*)self.selectedViewController topViewController] willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    }
+    
+    
+}
+
 
 #pragma mark -
 #pragma mark Password

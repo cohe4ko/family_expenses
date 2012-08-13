@@ -6,8 +6,6 @@
 #import "ReportChartViewController.h"
 
 #import "ReportBox.h"
-#import "DraggableViewController.h"
-
 #import "TransactionsController.h"
 #import "OrdinalNumberFormatter.h"
 #import "ReportDateFilterViewController.h"
@@ -21,7 +19,9 @@
 @implementation ReportChartViewController
 
 @synthesize categories, minDates, maxDates, chartByDay
-, chartByWeek, chartByMonth, dateFrom, dateTo, scrollView;
+, chartByWeek, chartByMonth, dateFrom, dateTo, scrollView,labelLowData,buttonDateRange;
+@synthesize reportViewBox = viewBox;
+@synthesize draggableViewController;
 
 
 #pragma mark -
@@ -42,6 +42,10 @@
     draggableController.useAutoclose = YES;
     f.origin.y = self.view.frame.size.height - draggableController.draggableHeaderView.frame.size.height + 8.0f;
 	draggableController.view.frame = f;
+}
+
+- (void)renderToInterfaceOrientation:(UIInterfaceOrientation)orientation{
+
 }
 
 #pragma mark -
@@ -102,7 +106,7 @@
 }
 
 - (void)makeItems {
-	
+
 }
 
 

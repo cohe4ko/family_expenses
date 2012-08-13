@@ -5,12 +5,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
-
+#import "DraggableViewController.h"
 #import "ReportBoxView.h"
 #import "framework/CorePlot-CocoaTouch.h"
 #import "RIRoundView.h"
-
-@class DraggableViewController;
 
 @interface ReportDiagramViewController : ViewController <UIScrollViewDelegate, CPTPlotDataSource, CPTPieChartDelegate> {
 	IBOutlet UIScrollView *scrollView;
@@ -20,6 +18,7 @@
 	IBOutlet ReportBoxView *viewBox;
 	
 	IBOutlet UILabel *labelHint;
+    IBOutlet UILabel *labelLowData;
 	
 	IBOutlet UIButton *buttonDateRange;
     
@@ -29,6 +28,7 @@
     IBOutlet UILabel *selectedAmountLabel;
     IBOutlet UIButton *lensButton;
     
+    IBOutlet UIImageView *imageViewBg;
     
 @private
    
@@ -43,7 +43,12 @@
 }
 
 @property (nonatomic, retain) NSDictionary* chartByDay;
-@property (nonatomic, retain) UIScrollView *scrollView;
+@property (nonatomic, readonly) UIScrollView *scrollView;
+@property (nonatomic, readonly) UILabel *labelLowData;
+@property (nonatomic, readonly) ReportBoxView *reportBoxView;
+@property (nonatomic, readonly) UIButton *buttonDateRange;
+@property (nonatomic, readonly) DraggableViewController *draggableViewController;
+
 
 - (IBAction)actionDateRange:(id)sender;
 
@@ -51,4 +56,7 @@
 
 - (IBAction)onLevelUp:(id)sender;
 - (IBAction)onLens:(id)sender;
+
+- (void)renderToInterfaceOrientation:(UIInterfaceOrientation)orientation;
+
 @end

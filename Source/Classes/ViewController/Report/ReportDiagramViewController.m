@@ -6,7 +6,6 @@
 #import "ReportDiagramViewController.h"
 
 #import "ReportBox.h"
-#import "DraggableViewController.h"
 #import "Transactions.h"
 #import "UIColor-Expanded.h"
 #import "Transactions.h"
@@ -25,6 +24,10 @@
 @implementation ReportDiagramViewController
 @synthesize chartByDay;
 @synthesize scrollView;
+@synthesize labelLowData;
+@synthesize reportBoxView = viewBox;
+@synthesize buttonDateRange;
+@synthesize draggableViewController;
 
 #pragma mark -
 #pragma mark Initializate
@@ -130,6 +133,10 @@
     
     [self pieChart:piePlot sliceWasSelectedAtRecordIndex:0];
     
+}
+
+- (void)renderToInterfaceOrientation:(UIInterfaceOrientation)orientation{
+   
 }
 
 #pragma mark -
@@ -421,6 +428,10 @@
     selectedAmountLabel = nil;
     [lensButton release];
     lensButton = nil;
+    [imageViewBg release];
+    imageViewBg = nil;
+    [labelLowData release];
+    labelLowData = nil;
     [super viewDidUnload];
 }
 
@@ -434,6 +445,8 @@
     [selectednameLabel release];
     [selectedAmountLabel release];
     [lensButton release];
+    [imageViewBg release];
+    [labelLowData release];
     [super dealloc];
 }
 
