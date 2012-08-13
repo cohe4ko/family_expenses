@@ -6,10 +6,9 @@
 #import "ReportChartViewController.h"
 
 #import "ReportBox.h"
-#import "DraggableViewController.h"
-
 #import "TransactionsController.h"
 #import "OrdinalNumberFormatter.h"
+#import "ReportDateFilterViewController.h"
 
 @interface ReportChartViewController (Private)
 - (void)makeLocales;
@@ -20,7 +19,9 @@
 @implementation ReportChartViewController
 
 @synthesize categories, minDates, maxDates, chartByDay
-, chartByWeek, chartByMonth, dateFrom, dateTo, scrollView;
+, chartByWeek, chartByMonth, dateFrom, dateTo, scrollView,labelLowData,buttonDateRange;
+@synthesize reportViewBox = viewBox;
+@synthesize draggableViewController;
 
 
 #pragma mark -
@@ -41,6 +42,10 @@
     draggableController.useAutoclose = YES;
     f.origin.y = self.view.frame.size.height - draggableController.draggableHeaderView.frame.size.height + 8.0f;
 	draggableController.view.frame = f;
+}
+
+- (void)renderToInterfaceOrientation:(UIInterfaceOrientation)orientation{
+
 }
 
 #pragma mark -
@@ -85,11 +90,23 @@
 #pragma mark Make
 
 - (void)makeLocales {
-	
+	NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"graph_filter_begin_date"];
+    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"graph_filter_end_date"];
+    if (!beginDate) {
+        beginDate = [TransactionsController minumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"graph_filter_begin_date"];
+    }
+    if (!endDate) {
+        endDate = [TransactionsController maximumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"graph_filter_end_date"];
+    }
+    
+    NSString *buttonTitle = [NSString stringWithFormat:@"%@ - %@",[beginDate dateFormat:NSLocalizedString(@"report_date_format", @"")],[endDate dateFormat:NSLocalizedString(@"report_date_format", @"")]];
+    [buttonDateRange setTitle:buttonTitle forState:UIControlStateNormal];
 }
 
 - (void)makeItems {
-	
+
 }
 
 
@@ -298,14 +315,16 @@
     
     scrollView.contentSize = CGSizeMake(offsetX, dh);
             
-    
+    [self makeLocales];
 }
 
 #pragma mark -
 #pragma mark Actions
 
 - (IBAction)actionDateRange:(id)sender {
-	
+    ReportDateFilterViewController *reportDateRangeViewController = [[ReportDateFilterViewController alloc] initWithNibName:@"TransactionGroupViewController_iPhone" bundle:nil];
+    [[RootViewController shared] presentModalViewController:reportDateRangeViewController animated:YES];
+    [reportDateRangeViewController release];
 }
 
 

@@ -25,4 +25,7 @@
 @property (nonatomic) int selectedIndex;
 @property (nonatomic, readonly) BOOL visible;
 
+- (void)hideTabBar:(BOOL)animated isPush:(BOOL)isPush;
+- (void)showTabBar:(BOOL)animated isPush:(BOOL)isPush;
+
 @end

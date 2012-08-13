@@ -55,13 +55,49 @@
 						<string key="NSFrame">{{0, 6}, {320, 352}}</string>
 						<reference key="NSSuperview" ref="330804832"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="992983205"/>
+						<reference key="NSNextKeyView" ref="357641584"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="IBUIContentStretch">{{0.5, 0.49999999999999994}, {1, 1}}</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">background_notepad_report.png</string>
+						</object>
+					</object>
+					<object class="IBUILabel" id="357641584">
+						<reference key="NSNextResponder" ref="330804832"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{5, 40}, {310, 287}}</string>
+						<reference key="NSSuperview" ref="330804832"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="992983205"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">7</int>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<string key="IBUIText">Недостаточно данных для отображения графика</string>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MCAwIDAAA</bytes>
+						</object>
+						<nil key="IBUIHighlightedColor"/>
+						<int key="IBUIBaselineAdjustment">0</int>
+						<float key="IBUIMinimumFontSize">10</float>
+						<int key="IBUINumberOfLines">0</int>
+						<int key="IBUITextAlignment">1</int>
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
+							<string key="name">HelveticaNeue-Bold</string>
+							<string key="family">Helvetica Neue</string>
+							<int key="traits">2</int>
+							<double key="pointSize">17</double>
+						</object>
+						<object class="NSFont" key="IBUIFont">
+							<string key="NSName">HelveticaNeue-Bold</string>
+							<double key="NSSize">17</double>
+							<int key="NSfFlags">16</int>
 						</object>
 					</object>
 					<object class="IBUIScrollView" id="677680772">
@@ -164,7 +200,6 @@
 						<string key="NSFrame">{{281, 31}, {23, 21}}</string>
 						<reference key="NSSuperview" ref="330804832"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -487,6 +522,22 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">labelLowData</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="357641584"/>
+					</object>
+					<int key="connectionID">62</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imageViewBg</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="149987033"/>
+					</object>
+					<int key="connectionID">63</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">tableView</string>
 						<reference key="source" ref="935039569"/>
 						<reference key="destination" ref="523686800"/>
@@ -668,6 +719,7 @@
 							<reference ref="149987033"/>
 							<reference ref="531066441"/>
 							<reference ref="677680772"/>
+							<reference ref="357641584"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -769,6 +821,11 @@
 						<reference key="object" ref="685152759"/>
 						<reference key="parent" ref="212699738"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">61</int>
+						<reference key="object" ref="357641584"/>
+						<reference key="parent" ref="330804832"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -816,6 +873,7 @@
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.CustomClassName">ReportBoxView</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="61.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -824,7 +882,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">60</int>
+			<int key="maxID">63</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -899,7 +957,9 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="buttonDateRange">UIButton</string>
 						<string key="draggableController">DraggableViewController</string>
+						<string key="imageViewBg">UIImageView</string>
 						<string key="labelHint">UILabel</string>
+						<string key="labelLowData">UILabel</string>
 						<string key="lensButton">UIButton</string>
 						<string key="lensView">UIView</string>
 						<string key="scrollView">UIScrollView</string>
@@ -916,8 +976,16 @@
 							<string key="name">draggableController</string>
 							<string key="candidateClassName">DraggableViewController</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="imageViewBg">
+							<string key="name">imageViewBg</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="labelHint">
 							<string key="name">labelHint</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="labelLowData">
+							<string key="name">labelLowData</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="lensButton">

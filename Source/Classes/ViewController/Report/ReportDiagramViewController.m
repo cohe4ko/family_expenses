@@ -6,12 +6,12 @@
 #import "ReportDiagramViewController.h"
 
 #import "ReportBox.h"
-#import "DraggableViewController.h"
 #import "Transactions.h"
 #import "UIColor-Expanded.h"
 #import "Transactions.h"
 #import "TransactionsController.h"
 #import "CategoriesController.h"
+#import "ReportDateFilterViewController.h"
 
 @interface ReportDiagramViewController (Private)
 - (void) builfGraphForParentCategoryId;
@@ -24,6 +24,10 @@
 @implementation ReportDiagramViewController
 @synthesize chartByDay;
 @synthesize scrollView;
+@synthesize labelLowData;
+@synthesize reportBoxView = viewBox;
+@synthesize buttonDateRange;
+@synthesize draggableViewController;
 
 #pragma mark -
 #pragma mark Initializate
@@ -61,6 +65,7 @@
 {
     self.chartByDay = chart;
     [self setData];
+    [self makeLocales];
 }
 
 -(void) builfGraphForParentCategoryId
@@ -128,6 +133,10 @@
     
     [self pieChart:piePlot sliceWasSelectedAtRecordIndex:0];
     
+}
+
+- (void)renderToInterfaceOrientation:(UIInterfaceOrientation)orientation{
+   
 }
 
 #pragma mark -
@@ -252,7 +261,20 @@
 #pragma mark Make
 
 - (void)makeLocales {
-	
+	NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"graph_filter_begin_date"];
+    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"graph_filter_end_date"];
+    if (!beginDate) {
+        beginDate = [TransactionsController minumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"graph_filter_begin_date"];
+    }
+    if (!endDate) {
+        endDate = [TransactionsController maximumDate];
+        [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"graph_filter_end_date"];
+    }
+    
+    NSString *buttonTitle = [NSString stringWithFormat:@"%@ - %@",[beginDate dateFormat:NSLocalizedString(@"report_date_format", @"")],[endDate dateFormat:NSLocalizedString(@"report_date_format", @"")]];
+    [buttonDateRange setTitle:buttonTitle forState:UIControlStateNormal];
+    
 }
 
 - (void)makeItems {
@@ -266,7 +288,9 @@
 #pragma mark Actions
 
 - (IBAction)actionDateRange:(id)sender {
-
+    ReportDateFilterViewController *reportDateRangeViewController = [[ReportDateFilterViewController alloc] initWithNibName:@"TransactionGroupViewController_iPhone" bundle:nil];
+    [[RootViewController shared] presentModalViewController:reportDateRangeViewController animated:YES];
+    [reportDateRangeViewController release];
 }
 
 - (IBAction)onLevelUp:(id)sender {
@@ -404,6 +428,10 @@
     selectedAmountLabel = nil;
     [lensButton release];
     lensButton = nil;
+    [imageViewBg release];
+    imageViewBg = nil;
+    [labelLowData release];
+    labelLowData = nil;
     [super viewDidUnload];
 }
 
@@ -417,6 +445,8 @@
     [selectednameLabel release];
     [selectedAmountLabel release];
     [lensButton release];
+    [imageViewBg release];
+    [labelLowData release];
     [super dealloc];
 }
 

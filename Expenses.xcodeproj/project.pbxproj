@@ -630,6 +630,7 @@
 		FA20BEF415AE9C6D006E4CA3 /* icon_settings_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEEE15AE9C63006E4CA3 /* icon_settings_settings.png */; };
 		FA20BEF515AE9C6D006E4CA3 /* icon_settings_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEEF15AE9C69006E4CA3 /* icon_settings_settings@2x.png */; };
 		FA229F6B15D3CCFA008AEA10 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA229F6815D3CC2F008AEA10 /* libCorePlot-CocoaTouch.a */; };
+		FA229F6E15D3DB3A008AEA10 /* ReportDateFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA229F6D15D3DB3A008AEA10 /* ReportDateFilterViewController.m */; };
 		FA2D2A6F15C65E3B00727671 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2D2A6E15C65E3B00727671 /* iRate.m */; };
 		FA354ADD15BEA652004670F0 /* bottom_shutter.png in Resources */ = {isa = PBXBuildFile; fileRef = FA354AD515BEA652004670F0 /* bottom_shutter.png */; };
 		FA354ADE15BEA652004670F0 /* bottom_shutter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA354AD615BEA652004670F0 /* bottom_shutter@2x.png */; };
@@ -1480,8 +1481,11 @@
 		FA20BEEE15AE9C63006E4CA3 /* icon_settings_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_settings.png; sourceTree = "<group>"; };
 		FA20BEEF15AE9C69006E4CA3 /* icon_settings_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_settings@2x.png"; sourceTree = "<group>"; };
 		FA229F5E15D3CC2E008AEA10 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
+		FA229F6C15D3DB3A008AEA10 /* ReportDateFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportDateFilterViewController.h; sourceTree = "<group>"; };
+		FA229F6D15D3DB3A008AEA10 /* ReportDateFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDateFilterViewController.m; sourceTree = "<group>"; };
 		FA2D2A6D15C65E3B00727671 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		FA2D2A6E15C65E3B00727671 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
+		FA2FAC9315D3E2280090FB3E /* TransactionGroupViewControllerSubclass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransactionGroupViewControllerSubclass.h; sourceTree = "<group>"; };
 		FA354AD515BEA652004670F0 /* bottom_shutter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_shutter.png; sourceTree = "<group>"; };
 		FA354AD615BEA652004670F0 /* bottom_shutter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom_shutter@2x.png"; sourceTree = "<group>"; };
 		FA354AD715BEA652004670F0 /* password_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password_bg.png; sourceTree = "<group>"; };
@@ -3034,6 +3038,8 @@
 				D1C73D6D155AFF4200629DBA /* ReportBoxView.m */,
 				D1FBCFCE155B031800F2AF36 /* ReportBoxTableViewCell.h */,
 				D1FBCFCF155B031800F2AF36 /* ReportBoxTableViewCell.m */,
+				FA229F6C15D3DB3A008AEA10 /* ReportDateFilterViewController.h */,
+				FA229F6D15D3DB3A008AEA10 /* ReportDateFilterViewController.m */,
 			);
 			path = Report;
 			sourceTree = "<group>";
@@ -3073,6 +3079,7 @@
 				FA6FB26015A6EE860067F043 /* TransactionGroupedTableViewCell.m */,
 				FADFD46415AAB2E6008A86BA /* TransactionCalendarView.h */,
 				FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */,
+				FA2FAC9315D3E2280090FB3E /* TransactionGroupViewControllerSubclass.h */,
 			);
 			path = Transactions;
 			sourceTree = "<group>";
@@ -4280,6 +4287,7 @@
 				FA97009715CAFBD4009D01A3 /* SqliteFunctions.m in Sources */,
 				FA97009D15CAFCF2009D01A3 /* ESLocaleFactory.m in Sources */,
 				FA4C95AA15CF6F1E00236CC4 /* RIRoundView.m in Sources */,
+				FA229F6E15D3DB3A008AEA10 /* ReportDateFilterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

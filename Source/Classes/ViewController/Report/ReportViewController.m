@@ -22,6 +22,14 @@
 #pragma mark -
 #pragma mark Initializate
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(actionDateChangedNotification:) name:NOTIFICATION_REPORT_UPDATE object:nil];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
  	
@@ -37,15 +45,8 @@
 //    [self setData];
 }
 
--(void) viewWillAppear:(BOOL)animated
-{
-    [self.view bringSubviewToFront:loadingView];
-    [loadingView startAnimating];
-    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = NO;
-    diagramViewController.scrollView.hidden = YES;
-    chartViewController.scrollView.hidden = YES;
-    
-    [self performSelector:@selector(setData) withObject:nil afterDelay:0.25f];
+-(void) viewWillAppear:(BOOL)animated{
+    [self actionDateChangedNotification:nil];
 }
 #pragma mark -
 #pragma mark Make
@@ -132,6 +133,19 @@
 	} completion:^(BOOL finished) {}];
 }
 
+- (void)actionDateChangedNotification:(NSNotification*)notification{
+    [self.view bringSubviewToFront:loadingView];
+    [loadingView startAnimating];
+    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = NO;
+    diagramViewController.scrollView.hidden = YES;
+    diagramViewController.labelLowData.hidden = YES;
+    chartViewController.scrollView.hidden = YES;
+    chartViewController.labelLowData.hidden = YES;
+    
+    
+    [self performSelector:@selector(setData) withObject:nil afterDelay:0.25f];
+}
+
 #pragma mark -
 #pragma mark Set
 
@@ -190,21 +204,58 @@
     
     [loadingView stopAnimating];
     [UIApplication sharedApplication].keyWindow.userInteractionEnabled = YES;
-    diagramViewController.scrollView.hidden = NO;
-    chartViewController.scrollView.hidden = NO;
+    
+    if (!values || [values count] == 0) {
+        diagramViewController.scrollView.hidden = YES;
+        diagramViewController.labelLowData.hidden = NO;
+        chartViewController.scrollView.hidden = YES;
+        chartViewController.labelLowData.hidden = NO;
+    }else {
+        diagramViewController.scrollView.hidden = NO;
+        diagramViewController.labelLowData.hidden = YES;
+        chartViewController.scrollView.hidden = NO;
+        chartViewController.labelLowData.hidden = YES;
+    }
+    
 }
 
 #pragma mark -
 #pragma mark Other
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return interfaceOrientation == UIInterfaceOrientationPortrait;
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    
+    if (toInterfaceOrientation == UIInterfaceOrientationPortrait || toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        diagramViewController.draggableViewController.draggableHeaderView.hidden = NO;
+        diagramViewController.reportBoxView.hidden = NO;
+        diagramViewController.draggableViewController.draggableCloseHeaderView.hidden = NO;
+        chartViewController.draggableViewController.draggableHeaderView.hidden = NO;
+        chartViewController.reportViewBox.hidden = NO;
+        chartViewController.draggableViewController.draggableCloseHeaderView.hidden = NO;
+    }else {
+        diagramViewController.draggableViewController.draggableHeaderView.hidden = YES;
+        diagramViewController.draggableViewController.draggableCloseHeaderView.hidden = YES;
+        diagramViewController.reportBoxView.hidden = YES;
+        chartViewController.draggableViewController.draggableHeaderView.hidden = YES;
+        chartViewController.reportViewBox.hidden = YES;
+        chartViewController.draggableViewController.draggableCloseHeaderView.hidden = YES;
+        
+    }
+    if(segmentedState == SegmentedLeft){
+        [self actionSegment:buttonSegmentLeft];
+    }else {
+        [self actionSegment:buttonSegmentRight];
+    }
 }
 
 #pragma mark -
 #pragma mark Memory managment
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[diagramViewController release];
 	[chartViewController release];
     [loadingView release];
