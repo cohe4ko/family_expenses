@@ -20,6 +20,7 @@
 	IBOutlet UIButton *buttonDateRange;
     
     IBOutlet DraggableViewController* draggableController;
+    IBOutlet UIImageView *imageViewBg;
     
     @private
     
@@ -56,5 +57,7 @@
 
 - (IBAction)actionDateRange:(id)sender;
 -(void) setValues:(NSArray *)val forDic:(NSDictionary*)chart;
+
+- (void)renderToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 
 @end
