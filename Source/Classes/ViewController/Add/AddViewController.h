@@ -33,6 +33,7 @@
 	BOOL isWiggling;
 	BOOL isAppear;
 	BOOL isDragging;
+    BOOL isShouldLoadEdit;
 }
 
 @property (nonatomic, retain) NSMutableArray *list;
