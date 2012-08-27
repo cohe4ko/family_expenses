@@ -43,7 +43,7 @@
 	
 	// Set data
 	[self setData];
-    
+        
     [self.view addSubview:draggableController.view];
     CGRect f = draggableController.view.frame;
     f.origin.y = self.view.frame.size.height - draggableController.draggableHeaderView.frame.size.height + 8.0f;
@@ -71,13 +71,14 @@
 -(void) builfGraphForParentCategoryId
 {
     CGFloat offsetX = 0;
-    CGFloat wd = scrollView.frame.size.width;
-    CGFloat dh = scrollView.frame.size.height;
+    CGFloat wd = 310;
+    CGFloat dh = 287;
 
     CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
     
     if(hostingView)
     {
+        offsetX = hostingView.frame.origin.x;
         [hostingView removeFromSuperview];
     }
     
@@ -130,13 +131,42 @@
     graph.shouldRasterize = YES;
     
     [scrollView bringSubviewToFront:lensView];
+    lensView.center = hostingView.center;
+    roundView.frame = CGRectMake(offsetX+10, 10, roundView.frame.size.width, roundView.frame.size.height);
     
     [self pieChart:piePlot sliceWasSelectedAtRecordIndex:0];
     
 }
 
 - (void)renderToInterfaceOrientation:(UIInterfaceOrientation)orientation{
-   
+    CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
+    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
+        self.draggableViewController.draggableHeaderView.hidden = NO;
+        self.draggableViewController.draggableCloseHeaderView.hidden = NO;
+        self.reportBoxView.hidden = NO;
+        buttonDateRange.hidden = NO;
+        labelHint.hidden = NO;
+        imageViewBg.frame = CGRectMake(0, 6, 320, 352);
+        scrollView.frame = CGRectMake(5, 60, 310, 287);
+        if (hostingView) {
+            hostingView.frame = CGRectMake(0, 0, 310, 287);
+            lensView.center = hostingView.center;
+        }
+        roundView.frame = CGRectMake(10, 10, roundView.frame.size.width, roundView.frame.size.height);
+    }else {
+        self.draggableViewController.draggableHeaderView.hidden = YES;
+        self.draggableViewController.draggableCloseHeaderView.hidden = YES;
+        self.reportBoxView.hidden = YES;
+        buttonDateRange.hidden = YES;
+        labelHint.hidden = YES;
+        imageViewBg.frame = CGRectMake(0, 0, 480, 300);
+        scrollView.frame = CGRectMake(0, 0, 480, 300);
+        if (hostingView) {
+            hostingView.frame = CGRectMake(80, 0, 310, 287);
+            lensView.center = hostingView.center;
+        }
+        roundView.frame = CGRectMake(90, 10, roundView.frame.size.width, roundView.frame.size.height);
+    }
 }
 
 #pragma mark -

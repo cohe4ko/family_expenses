@@ -45,7 +45,32 @@
 }
 
 - (void)renderToInterfaceOrientation:(UIInterfaceOrientation)orientation{
-
+    CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
+    if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
+        self.draggableViewController.draggableHeaderView.hidden = NO;
+        viewBox.hidden = NO;
+        self.draggableViewController.draggableCloseHeaderView.hidden = NO;
+        buttonDateRange.hidden = NO;
+        labelHint.hidden = NO;
+        imageViewBg.frame = CGRectMake(0, 6, 320, 352);
+        scrollView.frame = CGRectMake(5, 60, 320, 287);
+        scrollView.contentSize = CGSizeMake(320, 287);
+        if (hostingView) {
+            hostingView.frame = CGRectMake(0, 0, 320, 287);
+        }
+    }else {
+        self.draggableViewController.draggableHeaderView.hidden = YES;
+        self.draggableViewController.draggableCloseHeaderView.hidden = YES;
+        viewBox.hidden = YES;
+        buttonDateRange.hidden = YES;
+        labelHint.hidden = YES;
+        imageViewBg.frame = CGRectMake(0, 0, 480, 300);
+        scrollView.frame = CGRectMake(0, 0, 480, 300);
+        scrollView.contentSize = CGSizeMake(480, 300);
+        if (hostingView) {
+            hostingView.frame = CGRectMake(0, 0, 480, 300);
+        }
+    }
 }
 
 #pragma mark -
@@ -192,6 +217,7 @@
 
     CPTGraphHostingView *hostingView = [[CPTGraphHostingView alloc] initWithFrame:CGRectMake(offsetX,0,wd, dh)];
     offsetX += wd;
+    hostingView.tag = 1010;
     
     [charts addObject:hostingView];
     
@@ -437,6 +463,8 @@
     buttonDateRange = nil;
     [scrollView release];
     scrollView = nil;
+    [imageViewBg release];
+    imageViewBg = nil;
 	[super viewDidUnload];
 }
 
@@ -455,6 +483,7 @@
 	[viewBox release];
     [buttonDateRange release];
     [scrollView release];
+    [imageViewBg release];
     [super dealloc];
 }
 

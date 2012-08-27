@@ -73,8 +73,8 @@
 		controller.tabBarItem.image = [UIImage imageNamed:itemImage];
 		controller.tabBarItem.title = NSLocalizedString(itemName, @"");
 		controller.index = i;
-		
-		if (controller) {
+        
+        if (controller) {
 			if (itemNavigation) {
 				NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:controller];
 				[navigationController setNavigationBarHidden:itemNavigationHide];
@@ -84,6 +84,7 @@
 				backBarButtonItem.title = NSLocalizedString(itemName, @"");
 				controller.navigationItem.backBarButtonItem = backBarButtonItem;
 				[controllers addObject:navigationController];
+                
 			}
 			else {
 				[controllers addObject:controller];

@@ -102,12 +102,13 @@
 "add_bill_hint"									= "Выберите дополнительные параметры";
 "add_bill_button_recurring"						= "Повторять";
 "add_bill_button_done"							= "Готово";
-"add_bill_date_format"							= "MMM dd, yyyy";
+"add_bill_date_format"							= "dd.MM.yyyy";
 "add_bill_note_placeholder"						= "Напишите заметку";
 
 // Add picker
 "add_picker_button_recurring_left"				= "Неделя";
-"add_picker_button_recurring_right"				= "Месяц";
+"add_picker_button_recurring_middle"            = "Месяц";
+"add_picker_button_recurring_right"             = "Не повторять";
 "add_picker_button_done"						= "Готово";
 "add_picker_header_recurring"					= "Повторять";
 "add_picker_header_date"						= "Дата";

@@ -31,6 +31,14 @@
 #pragma mark -
 #pragma mark Initializate
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        isShouldLoadEdit = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
@@ -45,6 +53,12 @@
 	
 	// Make categories
 	[self makeCategories];
+    
+    if (list && [list count] == 0 && isShouldLoadEdit) {
+        [self performSelector:@selector(actionEdit:) withObject:nil afterDelay:0.25f];
+    }
+    
+    isShouldLoadEdit = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

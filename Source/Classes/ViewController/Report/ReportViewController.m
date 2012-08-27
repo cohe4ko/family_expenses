@@ -228,22 +228,8 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     
-    if (toInterfaceOrientation == UIInterfaceOrientationPortrait || toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-        diagramViewController.draggableViewController.draggableHeaderView.hidden = NO;
-        diagramViewController.reportBoxView.hidden = NO;
-        diagramViewController.draggableViewController.draggableCloseHeaderView.hidden = NO;
-        chartViewController.draggableViewController.draggableHeaderView.hidden = NO;
-        chartViewController.reportViewBox.hidden = NO;
-        chartViewController.draggableViewController.draggableCloseHeaderView.hidden = NO;
-    }else {
-        diagramViewController.draggableViewController.draggableHeaderView.hidden = YES;
-        diagramViewController.draggableViewController.draggableCloseHeaderView.hidden = YES;
-        diagramViewController.reportBoxView.hidden = YES;
-        chartViewController.draggableViewController.draggableHeaderView.hidden = YES;
-        chartViewController.reportViewBox.hidden = YES;
-        chartViewController.draggableViewController.draggableCloseHeaderView.hidden = YES;
-        
-    }
+    [diagramViewController renderToInterfaceOrientation:toInterfaceOrientation];
+    [chartViewController renderToInterfaceOrientation:toInterfaceOrientation];
     if(segmentedState == SegmentedLeft){
         [self actionSegment:buttonSegmentLeft];
     }else {

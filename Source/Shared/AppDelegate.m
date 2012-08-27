@@ -173,6 +173,7 @@ static AppDelegate *app = NULL;
                          [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode],@"settings_country_code",
                          [NSNumber numberWithInt:0],@"settings_password_type",
                          [NSNumber numberWithInt:GroupInfin],@"report_group",
+                         [NSNumber numberWithInt:2],@"tabbar_selected",
 						 nil];
 	
     for (id key in dic) {
