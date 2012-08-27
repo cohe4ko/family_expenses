@@ -11,6 +11,7 @@
 typedef enum {
     PickerTypeWeek	= 0,
 	PickerTypeMonth = 1,
+    PickerTypeDontRepeat = 2
 } PickerType;
 
 @interface AddPickerViewController : ViewController <UIPickerViewDataSource, UIPickerViewDelegate> {
@@ -21,6 +22,7 @@ typedef enum {
 	
 	IBOutlet UIButton *buttonLeft;
 	IBOutlet UIButton *buttonRight;
+    IBOutlet UIButton *buttonMiddle;
 	IBOutlet UIButton *buttonDone;
 	
 	IBOutlet UILabel *labelHeader;

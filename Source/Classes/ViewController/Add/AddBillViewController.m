@@ -241,10 +241,16 @@
 
 - (IBAction)actionRecurring:(id)sender {
 	AddPickerViewController *controller = [MainController getViewController:@"AddPickerViewController"];
-	if (transaction.repeatType >= 0 && transaction.repeatValue >= 0) {
-		[controller setValue:[NSNumber numberWithInt:transaction.repeatValue]];
-		[controller setPickerType:transaction.repeatType];
-	}
+	
+    if (transaction.repeatType < 0 || transaction.repeatValue < 0) {
+        [controller setValue:[NSNumber numberWithInt:transaction.repeatValue]];
+        [controller setPickerType:PickerTypeDontRepeat];
+    }else {
+        [controller setValue:[NSNumber numberWithInt:transaction.repeatValue]];
+        [controller setPickerType:transaction.repeatType];
+    }    
+		
+	
 	[controller setParent:self];
 	[[RootViewController shared] presentModalViewController:controller animated:YES];
 }

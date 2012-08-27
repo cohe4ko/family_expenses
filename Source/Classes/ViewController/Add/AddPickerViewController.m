@@ -52,6 +52,7 @@
 
 - (void)makeLocales {
 	[buttonLeft setTitle:NSLocalizedString(@"add_picker_button_recurring_left", @"") forState:UIControlStateNormal];
+    [buttonMiddle setTitle:NSLocalizedString(@"add_picker_button_recurring_middle", @"") forState:UIControlStateNormal];
 	[buttonRight setTitle:NSLocalizedString(@"add_picker_button_recurring_right", @"") forState:UIControlStateNormal];
 	[buttonDone setTitle:NSLocalizedString(@"add_picker_button_done", @"") forState:UIControlStateNormal];
 	
@@ -61,7 +62,8 @@
 - (void)makeItems {
 	
 	[buttonLeft setSelected:(pickerType == PickerTypeWeek)];
-	[buttonRight setSelected:(pickerType == PickerTypeMonth)];
+    [buttonMiddle setSelected:(pickerType == PickerTypeMonth)];
+	[buttonRight setSelected:(pickerType == PickerTypeDontRepeat)];
 	
 	CALayer *mask = [[CALayer alloc] init];
 	[mask setBackgroundColor:[UIColor blackColor].CGColor];
@@ -69,24 +71,35 @@
 	[mask setCornerRadius:5.0f];
 	[pickerView.layer setMask:mask];
 	[mask release];
-	
-	NSInteger idx = 0;
-	NSMutableArray *tmp = [NSMutableArray arrayWithObjects:[NSMutableArray array], [NSMutableArray array], nil];
-	for (NSInteger i = 0; i < 7; i++) {
-		NSString *s = [NSString stringWithFormat:@"transaction_week_%d", i];
-		[[tmp objectAtIndex:0] addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i], @"value", NSLocalizedString(s, @""), @"name", nil]];
-		if (pickerType == PickerTypeWeek && i == [value intValue])
-			idx = i;
-	}
-	for (NSInteger i = 1; i <= 12; i++) {
-		NSString *s = [NSString stringWithFormat:@"transaction_month_%d", i];
-		[[tmp objectAtIndex:1] addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i], @"value", NSLocalizedString(s, @""), @"name", nil]];
-		if (pickerType == PickerTypeMonth && i == [value intValue])
-			idx = i - 1;
-	}
-	self.list = tmp;
-	
-	[pickerView selectRow:idx inComponent:0 animated:NO];
+    
+    pickerView.hidden = NO;
+    
+    NSInteger idx = 0;
+    NSMutableArray *tmp = [NSMutableArray arrayWithObjects:[NSMutableArray array], [NSMutableArray array], nil];
+    for (NSInteger i = 0; i < 7; i++) {
+        NSString *s = [NSString stringWithFormat:@"transaction_week_%d", i];
+        [[tmp objectAtIndex:0] addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i], @"value", NSLocalizedString(s, @""), @"name", nil]];
+        if (pickerType == PickerTypeWeek && i == [value intValue])
+            idx = i;
+    }
+     
+    for (NSInteger i = 1; i <= 12; i++) {
+        NSString *s = [NSString stringWithFormat:@"transaction_month_%d", i];
+        [[tmp objectAtIndex:1] addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i], @"value", NSLocalizedString(s, @""), @"name", nil]];
+        if (pickerType == PickerTypeMonth && i == [value intValue])
+            idx = i - 1;
+    }
+
+        
+    self.list = tmp;
+    [pickerView selectRow:idx inComponent:0 animated:NO];
+    
+    if (pickerType == PickerTypeDontRepeat) {
+        pickerView.hidden = YES;
+    }else {
+        pickerView.hidden = NO;
+    }
+
 }
 
 #pragma mark -
@@ -95,8 +108,18 @@
 
 - (IBAction)actionSwitch:(UIButton *)sender {
 	[buttonLeft setSelected:(sender == buttonLeft)];
+    [buttonMiddle setSelected:(sender == buttonMiddle)];
 	[buttonRight setSelected:(sender == buttonRight)];
-	self.pickerType = (buttonLeft.selected) ? PickerTypeWeek : PickerTypeMonth;
+
+    if (buttonLeft.selected) {
+        self.pickerType = PickerTypeWeek;
+    }else if(buttonRight.selected) {
+        self.pickerType = PickerTypeDontRepeat;
+    }else if(buttonMiddle.selected){
+        self.pickerType = PickerTypeMonth;
+    }
+    
+	
 }
 
 - (IBAction)actionDone:(id)sender {
@@ -108,11 +131,19 @@
 		[self dismissModalViewControllerAnimated:YES];
 		
 		if ([parent respondsToSelector:@selector(actionPickerSelect:)]) {
-			NSDictionary *d = [[list objectAtIndex:pickerType] objectAtIndex:[pickerView selectedRowInComponent:0]];
-			NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
-			[item setObject:[NSNumber numberWithInt:pickerType] forKey:@"type"];
-			[item setObject:[d objectForKey:@"value"] forKey:@"value"];
-			[parent performSelector:@selector(actionPickerSelect:) withObject:item];
+            if (pickerType == PickerTypeWeek || pickerType == PickerTypeMonth) {
+                NSDictionary *d = [[list objectAtIndex:pickerType] objectAtIndex:[pickerView selectedRowInComponent:0]];
+                NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
+                [item setObject:[NSNumber numberWithInt:pickerType] forKey:@"type"];
+                [item setObject:[d objectForKey:@"value"] forKey:@"value"];
+                [parent performSelector:@selector(actionPickerSelect:) withObject:item];
+            }else if(pickerType == PickerTypeDontRepeat){
+                NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
+                [item setObject:[NSNumber numberWithInt:-1] forKey:@"type"];
+                [item setObject:[NSNumber numberWithInt:-1] forKey:@"value"];
+                [parent performSelector:@selector(actionPickerSelect:) withObject:item];
+            }
+			
 		}
 	}];
 }
@@ -131,9 +162,16 @@
 		if (!isLoaded)
 			return;
 		
-		value = [[[list objectAtIndex:pickerType] objectAtIndex:0] objectForKey:@"value"];
-		[pickerView reloadAllComponents];
-		[pickerView selectRow:0 inComponent:0 animated:NO];
+        if (pickerType == PickerTypeWeek || pickerType == PickerTypeMonth) {
+            pickerView.hidden = NO;
+            value = [[[list objectAtIndex:pickerType] objectAtIndex:0] objectForKey:@"value"];
+            [pickerView reloadAllComponents];
+            [pickerView selectRow:0 inComponent:0 animated:NO];
+        }else {
+            pickerView.hidden = YES;
+            value = [NSNumber numberWithInt:-1];
+        }
+		
 	}
 }
 
@@ -145,7 +183,10 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)_pickerView numberOfRowsInComponent:(NSInteger)component {
-	return [[list objectAtIndex:pickerType] count];
+    if (pickerType == PickerTypeWeek || pickerType == PickerTypeMonth) {
+        return [[list objectAtIndex:pickerType] count];
+    }
+	return 0;
 }
 
 - (UIView *)pickerView:(UIPickerView *)_pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)theView {
@@ -209,19 +250,22 @@
 	buttonDone = nil;
 	[buttonLeft release];
 	buttonLeft = nil;
+    [buttonMiddle release];
+    buttonMiddle = nil;
 	[buttonRight release];
 	buttonRight = nil;
 	[labelHeader release];
 	labelHeader = nil;
 	[viewOverlay release];
 	viewOverlay = nil;
-	[super viewDidUnload];
+    [super viewDidUnload];
 }
 
 - (void)dealloc {
 	[pickerView release];
 	[buttonDone release];
 	[buttonLeft release];
+    [buttonMiddle release];
 	[buttonRight release];
 	[labelHeader release];
 	[parent release];
