@@ -652,6 +652,7 @@
 		FA79E84815A624620066EDAB /* TransactionGroupViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */; };
 		FA97009715CAFBD4009D01A3 /* SqliteFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA97009615CAFBD4009D01A3 /* SqliteFunctions.m */; };
 		FA97009D15CAFCF2009D01A3 /* ESLocaleFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FA97009C15CAFCF2009D01A3 /* ESLocaleFactory.m */; };
+		FAC9D77915F910E000C6CCFA /* comment_close.png in Resources */ = {isa = PBXBuildFile; fileRef = FAC9D77815F910E000C6CCFA /* comment_close.png */; };
 		FADFD46315AAAFE0008A86BA /* TransactionCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */; };
 		FADFD46615AAB2E6008A86BA /* TransactionCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */; };
 		FAE2B99A15B7D0F300A36AC2 /* NSLocale+Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE2B99915B7D0F300A36AC2 /* NSLocale+Currency.m */; };
@@ -1515,6 +1516,7 @@
 		FA97009615CAFBD4009D01A3 /* SqliteFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteFunctions.m; sourceTree = "<group>"; };
 		FA97009B15CAFCF2009D01A3 /* ESLocaleFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLocaleFactory.h; sourceTree = "<group>"; };
 		FA97009C15CAFCF2009D01A3 /* ESLocaleFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLocaleFactory.m; sourceTree = "<group>"; };
+		FAC9D77815F910E000C6CCFA /* comment_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_close.png; sourceTree = "<group>"; };
 		FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCalendarView.xib; sourceTree = "<group>"; };
 		FADFD46415AAB2E6008A86BA /* TransactionCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCalendarView.h; sourceTree = "<group>"; };
 		FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCalendarView.m; sourceTree = "<group>"; };
@@ -3303,6 +3305,7 @@
 		D1E783E01438A14600FAB2A7 /* Button */ = {
 			isa = PBXGroup;
 			children = (
+				FAC9D77815F910E000C6CCFA /* comment_close.png */,
 				FAEB232E15ACBBDC0034BA76 /* button_segment_middle-selected.png */,
 				FAEB232F15ACBBDC0034BA76 /* button_segment_middle-selected@2x.png */,
 				FAEB233015ACBBDC0034BA76 /* button_segment_middle.png */,
@@ -4069,6 +4072,7 @@
 				FA354AE315BEA652004670F0 /* top_shutter.png in Resources */,
 				FA354AE415BEA652004670F0 /* top_shutter@2x.png in Resources */,
 				FA354AE615BEAA19004670F0 /* PasswordViewController_iPhone.xib in Resources */,
+				FAC9D77915F910E000C6CCFA /* comment_close.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

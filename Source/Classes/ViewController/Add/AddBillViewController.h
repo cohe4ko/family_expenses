@@ -37,6 +37,7 @@
 	IBOutlet UIButton *buttonRecurring;
 	IBOutlet UIButton *buttonPageLeft;
 	IBOutlet UIButton *buttonPageRight;
+    IBOutlet UIButton *buttonClearText;
 	
 	NSMutableArray *list;
 	NSMutableArray *listCategories;
