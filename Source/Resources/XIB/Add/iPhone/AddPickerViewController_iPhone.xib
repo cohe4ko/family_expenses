@@ -169,7 +169,7 @@
 						<reference key="IBUIHighlightedTitleColor" ref="531278608"/>
 						<reference key="IBUINormalTitleColor" ref="531278608"/>
 						<reference key="IBUINormalTitleShadowColor" ref="66786261"/>
-						<object class="NSCustomResource" key="IBUISelectedBackgroundImage" id="810543341">
+						<object class="NSCustomResource" key="IBUISelectedBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">button_segmented_right_wood-selected.png</string>
 						</object>
@@ -245,7 +245,10 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwLjcAA</bytes>
 						</object>
-						<reference key="IBUISelectedBackgroundImage" ref="810543341"/>
+						<object class="NSCustomResource" key="IBUISelectedBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">button_segment_middle-selected.png</string>
+						</object>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">button_segment_middle.png</string>
@@ -483,12 +486,12 @@
 				</array>
 				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="0.0" key="11.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="2" key="11.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="0.0" key="12.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="0.0" key="22.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="2" key="22.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -604,6 +607,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="background_pickerview.png">{320, 323}</string>
+			<string key="button_segment_middle-selected.png">{56, 30}</string>
 			<string key="button_segment_middle.png">{56, 30}</string>
 			<string key="button_segmented_left_wood-selected.png">{84, 30}</string>
 			<string key="button_segmented_left_wood.png">{84, 30}</string>
