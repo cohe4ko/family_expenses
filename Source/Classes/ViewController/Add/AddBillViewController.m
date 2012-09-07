@@ -107,15 +107,18 @@
 		Transactions *t = [Transactions create];
 		t.amount = amount;
 		self.transaction = t;
+        btype = BillTypeAdd;
 	}else {
         textView.text = transaction.desc;
-        [self textChanged:nil];
         labelPrice.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                               action:@selector(actionEditPrice:)];
         [labelPrice addGestureRecognizer:tap];
         [tap release];
+        btype = BillTypeEdit;
     }
+    
+    [self textChanged:nil];
 	
 	// Set background image
 	[buttonDate setBackgroundImage:[[buttonDate backgroundImageForState:UIControlStateNormal] stretchableImageWithLeftCapWidth:10.0f topCapHeight:10.0f] forState:UIControlStateNormal];
@@ -228,7 +231,9 @@
 	[transaction save];
 	
 	// Send notification
-	[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
+    
+	
 	
 	// Go back
 	[self.navigationController popToRootViewControllerAnimated:YES];
@@ -240,6 +245,10 @@
 	
 	// Change tab
 	[[AppDelegate shared].tabBarController setSelectedIndex:0];
+    if (btype == BillTypeAdd) {
+        [[AppDelegate shared].tabBarController performSelector:@selector(animationTransactionAdding:) withObject:transaction afterDelay:0.25f];
+    }
+    
 }
 
 - (IBAction)actionDate:(id)sender {

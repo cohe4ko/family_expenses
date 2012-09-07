@@ -22,6 +22,8 @@
 - (void)setTableViewFooter:(BOOL)animated;
 - (void)setTotalAmount;
 - (void)clean;
+- (void)animatedAddObjectForIndex:(NSDictionary*)dic;
+- (void)scrollToRowWithIndex:(NSNumber*)rIndex;
 @end
 
 @implementation TransactionsViewController
@@ -51,6 +53,54 @@
 	[self loadData];
 }
 
+- (void)addTransactionAnimated:(Transactions*)t{
+    if (t && groupType == GroupInfin && list) {
+        long foundIndex = -1;
+        for (int i = 0; i < [list count]; i++) {
+            Transactions *t1 = [list objectAtIndex:i];
+            if (t1.Id == t.Id) {
+                foundIndex = i;
+                break;
+            }
+        }
+        if (foundIndex >= 0) {
+            [list removeObjectAtIndex:foundIndex];
+            [tableView reloadData];
+            
+            if (foundIndex == 0) {
+                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0
+                                                                     inSection:0]
+                                 atScrollPosition:UITableViewScrollPositionMiddle
+                                         animated:NO];
+            }else if(foundIndex == [list count]) {
+                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:foundIndex-1
+                                                                     inSection:0]
+                                 atScrollPosition:UITableViewScrollPositionMiddle
+                                         animated:NO];
+            }else {
+                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:foundIndex
+                                                                     inSection:0]
+                                 atScrollPosition:UITableViewScrollPositionMiddle
+                                         animated:NO];
+            }
+            
+            [self performSelector:@selector(animatedAddObjectForIndex:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:t,@"object",[NSNumber numberWithInt:foundIndex],@"index", nil] afterDelay:0.25];
+            
+        }
+    }
+}
+
+- (void)animatedAddObjectForIndex:(NSDictionary*)dic{
+    [list insertObject:[dic objectForKey:@"object"] atIndex:[[dic objectForKey:@"index"] intValue]];
+    [tableView beginUpdates];
+    
+    [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[[dic objectForKey:@"index"] intValue] inSection:0]]
+                     withRowAnimation:UITableViewRowAnimationMiddle];
+    [tableView endUpdates];
+    
+    [self performSelector:@selector(scrollToRowWithIndex:) withObject:[dic objectForKey:@"index"] afterDelay:0.25];
+}
+
 #pragma mark -
 #pragma mark Notifications
 
@@ -60,10 +110,18 @@
     }
 	self.groupType = [[NSUserDefaults standardUserDefaults] integerForKey:@"group_transactions"];
 	[self loadData];
+    
 }
 
 - (void)notificationCurrencyChanged:(NSNotification*)notification{
     [self setData];
+}
+
+- (void)scrollToRowWithIndex:(NSNumber*)rIndex{
+    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[rIndex intValue]
+                                                         inSection:0]
+                     atScrollPosition:UITableViewScrollPositionMiddle
+                             animated:YES];
 }
 
 #pragma mark -
