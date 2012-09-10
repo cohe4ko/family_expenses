@@ -79,7 +79,6 @@
                      animations:^{
                         viewTopShutter.frame = CGRectMake(0, -viewTopShutter.frame.size.height, viewTopShutter.frame.size.width, viewTopShutter.frame.size.height);
                         viewBottomShutter.frame = CGRectMake(0, 460, viewBottomShutter.frame.size.width, viewBottomShutter.frame.size.height);
-                        viewTopBar.frame = CGRectMake(0, -viewTopBar.frame.size.height, viewTopBar.frame.size.width, viewTopBar.frame.size.height);
                          [contentView.layer removeAllAnimations];
                         contentView.frame = CGRectMake(320, 0, contentView.frame.size.width, contentView.frame.size.height); 
                      }
