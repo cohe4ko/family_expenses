@@ -110,9 +110,7 @@
     }else {
         self.selectedIndex = index;
     }
-    
-      
- 
+     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CHECK_UPDATE object:self];
 }
 

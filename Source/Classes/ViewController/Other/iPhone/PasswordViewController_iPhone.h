@@ -8,6 +8,8 @@
 
 #import "PasswordViewController.h"
 
-@interface PasswordViewController_iPhone : PasswordViewController
+@interface PasswordViewController_iPhone : PasswordViewController{
+
+}
 
 @end
