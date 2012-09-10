@@ -60,7 +60,7 @@
             buttonBarCancel.hidden = YES;
     }else if(editType == PasswordEditTypeAdd) {
         buttonSave.hidden = YES;
-        buttonBarCancel.hidden = YES;
+        //buttonBarCancel.hidden = YES;
     }
     labelCode1.hidden = YES;
     labelCode2.hidden = YES;
@@ -137,8 +137,14 @@
 }
 
 - (IBAction)actionBarCancel:(id)sender{
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PASSWORD_CANCELED object:nil];
-    [self closeView];
+    if (editType == PasswordEditTypeAdd) {
+        [self actionCancel:nil];
+        step = 0;
+        labelHeader.text = NSLocalizedString(@"password_new_password", @"");
+    }else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PASSWORD_CANCELED object:nil];
+        [self closeView];
+    }
 }
 
 #pragma mark -
