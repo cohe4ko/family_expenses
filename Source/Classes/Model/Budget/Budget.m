@@ -52,9 +52,9 @@
 
 - (UIImage *)progressImage {
 	CGFloat p = self.progressPercent;
-	NSString *n = @"red";
+	NSString *n = @"green";
 	if (p >= 66)
-		n = @"green";
+		n = @"red";
 	else if (p >= 33)
 		n = @"orange";
 	UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"budget_progress_%@.png", n]];

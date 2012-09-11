@@ -56,9 +56,19 @@
     
     if (list && [list count] == 0 && isShouldLoadEdit) {
         [self performSelector:@selector(actionEdit:) withObject:nil afterDelay:0.25f];
+    }else {
+        [[AppDelegate shared].tabBarController showTabBar:NO isPush:NO];
     }
     
     isShouldLoadEdit = NO;
+}
+
+- (void)updateTabBar{
+    if (list && [list count] == 0 && isShouldLoadEdit) {
+        [self performSelector:@selector(actionEdit:) withObject:nil afterDelay:0.25f];
+    }else {
+        [[AppDelegate shared].tabBarController showTabBar:NO isPush:NO];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

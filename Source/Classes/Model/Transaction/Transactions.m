@@ -63,9 +63,15 @@
 	if (repeatValue < 0 || repeatType < 0)
 		s = NSLocalizedString(@"transaction_no_repeat", @"");
 	else {
-		NSString *ss = [NSString stringWithFormat:@"transaction_%@_%d", ((repeatType) ? @"month" : @"week"), repeatValue];
-		s = NSLocalizedString(ss, @"");
-	}
+        NSString *ss;
+        if (repeatType == 0) {
+            ss = [NSString stringWithFormat:@"transaction_week_%d", repeatValue];
+       		s = NSLocalizedString(ss, @"");
+        }else {
+            s = [NSString stringWithFormat:NSLocalizedString(@"transaction_month", @""), repeatValue];
+        }
+		
+    }
 	return s;
 }
 

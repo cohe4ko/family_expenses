@@ -471,11 +471,37 @@
 						<string key="NSFrame">{{16, 120}, {290, 65}}</string>
 						<reference key="NSSuperview" ref="626997932"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1014287630"/>
+						<reference key="NSNextKeyView" ref="642652116"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<reference key="IBUIImage" ref="74264346"/>
+					</object>
+					<object class="IBUIButton" id="642652116">
+						<reference key="NSNextResponder" ref="626997932"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{288, 120}, {15, 15}}</string>
+						<reference key="NSSuperview" ref="626997932"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="1014287630"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentHorizontalAlignment">0</int>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<int key="IBUIButtonType">1</int>
+						<reference key="IBUIHighlightedTitleColor" ref="690277048"/>
+						<object class="NSColor" key="IBUINormalTitleColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="841044186"/>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">comment_close.png</string>
+						</object>
+						<reference key="IBUIFontDescription" ref="568607802"/>
+						<reference key="IBUIFont" ref="602228357"/>
 					</object>
 					<object class="IBUIView" id="797162386">
 						<reference key="NSNextResponder" ref="626997932"/>
@@ -502,7 +528,6 @@
 								<string key="NSFrame">{{44, 9}, {233, 41}}</string>
 								<reference key="NSSuperview" ref="797162386"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:225</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -680,6 +705,14 @@
 					<int key="connectionID">51</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">buttonClearText</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="642652116"/>
+					</object>
+					<int key="connectionID">58</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">actionDone:</string>
 						<reference key="source" ref="725578634"/>
@@ -732,6 +765,15 @@
 					</object>
 					<int key="connectionID">55</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">actionClearText:</string>
+						<reference key="source" ref="642652116"/>
+						<reference key="destination" ref="841351856"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">57</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -773,6 +815,7 @@
 							<reference ref="552746995"/>
 							<reference ref="759116326"/>
 							<reference ref="442070095"/>
+							<reference ref="642652116"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -889,6 +932,11 @@
 						<reference key="parent" ref="626997932"/>
 						<string key="objectName">viewOverlay</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">56</int>
+						<reference key="object" ref="642652116"/>
+						<reference key="parent" ref="626997932"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -953,6 +1001,7 @@
 				<string key="46.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="50.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<array class="NSMutableArray" key="8.IBUserGuides"/>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -962,7 +1011,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">55</int>
+			<int key="maxID">58</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -997,6 +1046,7 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="buttonClearText">UIButton</string>
 						<string key="buttonDate">UIButton</string>
 						<string key="buttonDone">UIButton</string>
 						<string key="buttonPageLeft">UIButton</string>
@@ -1015,6 +1065,10 @@
 						<string key="viewOverlay">UIView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="buttonClearText">
+							<string key="name">buttonClearText</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="buttonDate">
 							<string key="name">buttonDate</string>
 							<string key="candidateClassName">UIButton</string>
@@ -1133,6 +1187,7 @@
 			<string key="background_round.png">{47, 47}</string>
 			<string key="button_dark_big.png">{233, 41}</string>
 			<string key="calculator_bottombar.png">{320, 55}</string>
+			<string key="comment_close.png">{7, 8}</string>
 			<string key="icon_calendar.png">{13, 14}</string>
 			<string key="icon_category_left.png">{43, 23}</string>
 			<string key="icon_category_right.png">{43, 23}</string>

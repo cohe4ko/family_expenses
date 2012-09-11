@@ -14,6 +14,7 @@
 #import "UIImage+ScaledImage.h"
 #import "PasswordViewController.h"
 #import "BCTabBarView.h"
+#import "TransactionsViewController.h"
 
 #import "Constants.h"
 
@@ -103,15 +104,13 @@
 	    
     NSInteger passwordType = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
     NSInteger index = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tabbar_selected"] intValue];
-    
+
     if (passwordType == 1) {
         self.selectedIndex = 2;
     }else {
         self.selectedIndex = index;
     }
-    
-      
- 
+     
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CHECK_UPDATE object:self];
 }
 
@@ -146,6 +145,10 @@
         return NO;
     }
     
+}
+
+- (void)animationTransactionAdding:(Transactions*)t{
+    [(TransactionsViewController*)[[(UINavigationController*)[self.viewControllers objectAtIndex:0] viewControllers] objectAtIndex:0] addTransactionAnimated:t];
 }
 
 #pragma mark -

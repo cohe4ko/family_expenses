@@ -21,6 +21,7 @@
 - (void)setPrice:(NSNumber*)price;
 - (void)setSelectedViewForIndex:(NSInteger)_index;
 - (void)updateSelectedIndex;
+- (void)textChanged:(NSNotification*)notification;
 @end
 
 #define kIconImageTag 200
@@ -32,6 +33,14 @@
 
 #pragma mark -
 #pragma mark Initializate
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChanged:) name:UITextViewTextDidChangeNotification object:nil];
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -98,6 +107,7 @@
 		Transactions *t = [Transactions create];
 		t.amount = amount;
 		self.transaction = t;
+        btype = BillTypeAdd;
 	}else {
         textView.text = transaction.desc;
         labelPrice.userInteractionEnabled = YES;
@@ -105,7 +115,10 @@
                                                                               action:@selector(actionEditPrice:)];
         [labelPrice addGestureRecognizer:tap];
         [tap release];
+        btype = BillTypeEdit;
     }
+    
+    [self textChanged:nil];
 	
 	// Set background image
 	[buttonDate setBackgroundImage:[[buttonDate backgroundImageForState:UIControlStateNormal] stretchableImageWithLeftCapWidth:10.0f topCapHeight:10.0f] forState:UIControlStateNormal];
@@ -218,7 +231,9 @@
 	[transaction save];
 	
 	// Send notification
-	[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
+    
+	
 	
 	// Go back
 	[self.navigationController popToRootViewControllerAnimated:YES];
@@ -230,6 +245,10 @@
 	
 	// Change tab
 	[[AppDelegate shared].tabBarController setSelectedIndex:0];
+    if (btype == BillTypeAdd) {
+        [[AppDelegate shared].tabBarController performSelector:@selector(animationTransactionAdding:) withObject:transaction afterDelay:0.25f];
+    }
+    
 }
 
 - (IBAction)actionDate:(id)sender {
@@ -260,6 +279,11 @@
     [self setSelectedViewForIndex:selectedIndex];
 }
 
+- (IBAction)actionClearText:(id)sender{
+    textView.text = @"";
+    buttonClearText.hidden = YES;
+}
+
 - (IBAction)actionButtonPageRight:(UIButton *)sender {
     selectedIndex = (selectedIndex+1)%[self.list count];
     [self setSelectedViewForIndex:selectedIndex];
@@ -287,6 +311,17 @@
 - (void)actionKeyboardHide {
 	[textView resignFirstResponder];
 }
+
+- (void)textChanged:(NSNotification*)notification{
+    if (textView && buttonClearText) {
+        if ([textView.text isEqualToString:@""]) {
+            buttonClearText.hidden = YES;
+        }else {
+            buttonClearText.hidden = NO;
+        }
+    }
+}
+
 
 - (void)actionEditPrice:(UITapGestureRecognizer*)sender{
     CalculatorViewController *controller = [MainController getViewController:@"CalculatorViewController"];
@@ -452,6 +487,8 @@
 	viewOverlay = nil;
 	[imageCommentBorder release];
 	imageCommentBorder = nil;
+    [buttonClearText release];
+    buttonClearText = nil;
 	[super viewDidUnload];
 }
 
@@ -476,6 +513,8 @@
 	[labelPrice release];
 	[viewOverlay release];
 	[imageCommentBorder release];
+    [buttonClearText release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 

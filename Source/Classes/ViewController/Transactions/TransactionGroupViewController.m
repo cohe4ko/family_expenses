@@ -104,7 +104,7 @@
     
     CALayer *mask = [[CALayer alloc] init];
 	[mask setBackgroundColor:[UIColor blackColor].CGColor];
-	[mask setFrame:CGRectMake(20.0f, 10.0f, datePicker.frame.size.width - 40.0f, datePicker.frame.size.height - 20.0f)];
+	[mask setFrame:CGRectMake(20.0f, 10.0f, datePicker.frame.size.width - 40.0f, datePicker.frame.size.height - 15.0f)];
 	[mask setCornerRadius:5.0f];
 	[datePicker.layer setMask:mask];
 	[mask release];

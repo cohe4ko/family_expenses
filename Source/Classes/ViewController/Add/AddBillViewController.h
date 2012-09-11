@@ -14,6 +14,11 @@
 
 #import "Transactions.h"
 
+typedef enum {
+ BillTypeAdd,
+ BillTypeEdit
+}BillType;
+
 @interface AddBillViewController : ViewController <UIScrollViewDelegate, UITextViewDelegate> {
 	IBOutlet UIScrollView *scrollView;
 	
@@ -37,6 +42,7 @@
 	IBOutlet UIButton *buttonRecurring;
 	IBOutlet UIButton *buttonPageLeft;
 	IBOutlet UIButton *buttonPageRight;
+    IBOutlet UIButton *buttonClearText;
 	
 	NSMutableArray *list;
 	NSMutableArray *listCategories;
@@ -50,6 +56,8 @@
 	Categories *category;
 	Transactions *transaction;
 	
+    BillType btype;
+    
 	int rows;
 }
 

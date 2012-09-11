@@ -50,5 +50,6 @@
 @property (nonatomic, retain) NSMutableArray *list;
 
 - (IBAction)actionSortButton:(UIButton *)sender;
+- (void)addTransactionAnimated:(Transactions*)t;
 
 @end

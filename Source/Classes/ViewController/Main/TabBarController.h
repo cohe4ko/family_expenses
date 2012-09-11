@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "BCTabBarController.h"
 
+@class Transactions;
+
 @interface TabBarController : BCTabBarController{
     NSInteger shouldOpenIndexAfterPassword;
 }
 
 - (void)loadTabs;
+- (void)animationTransactionAdding:(Transactions*)t;
 
 @end

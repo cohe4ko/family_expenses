@@ -83,9 +83,9 @@
             idx = i;
     }
      
-    for (NSInteger i = 1; i <= 12; i++) {
-        NSString *s = [NSString stringWithFormat:@"transaction_month_%d", i];
-        [[tmp objectAtIndex:1] addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i], @"value", NSLocalizedString(s, @""), @"name", nil]];
+    for (NSInteger i = 1; i <= 31; i++) {
+        NSString *s = [NSString stringWithFormat:NSLocalizedString(@"transaction_month", @""),i];
+        [[tmp objectAtIndex:1] addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:i], @"value", s, @"name", nil]];
         if (pickerType == PickerTypeMonth && i == [value intValue])
             idx = i - 1;
     }
@@ -197,7 +197,12 @@
 	[theView setBackgroundColor:[UIColor clearColor]];
 	
 	UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-	[label setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20]];
+    if (pickerType == PickerTypeWeek) {
+        [label setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:20]];
+    }else {
+        [label setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:17]];
+    }
+	
 	[label setBackgroundColor:[UIColor clearColor]];
 	[label setTextColor:[UIColor colorWithHexString:@"000000"]];
 	[label setText:name];

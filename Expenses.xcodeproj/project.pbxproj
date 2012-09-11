@@ -647,11 +647,13 @@
 		FA6FB24E15A6A3560067F043 /* TransactionsGrouped.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FB24D15A6A3560067F043 /* TransactionsGrouped.m */; };
 		FA6FB26115A6EE860067F043 /* TransactionGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FB26015A6EE860067F043 /* TransactionGroupedTableViewCell.m */; };
 		FA6FB26315A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6FB26215A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib */; };
+		FA709C9115FDA25200C1142F /* FIAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA709C9015FDA25200C1142F /* FIAnimationController.m */; };
 		FA79E81E15A606180066EDAB /* TransactionGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E81D15A606180066EDAB /* TransactionGroupViewController.m */; };
 		FA79E82015A606700066EDAB /* TransactionGroupViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA79E81F15A606700066EDAB /* TransactionGroupViewController_iPhone.xib */; };
 		FA79E84815A624620066EDAB /* TransactionGroupViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79E84715A624620066EDAB /* TransactionGroupViewController_iPhone.m */; };
 		FA97009715CAFBD4009D01A3 /* SqliteFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA97009615CAFBD4009D01A3 /* SqliteFunctions.m */; };
 		FA97009D15CAFCF2009D01A3 /* ESLocaleFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FA97009C15CAFCF2009D01A3 /* ESLocaleFactory.m */; };
+		FAC9D77915F910E000C6CCFA /* comment_close.png in Resources */ = {isa = PBXBuildFile; fileRef = FAC9D77815F910E000C6CCFA /* comment_close.png */; };
 		FADFD46315AAAFE0008A86BA /* TransactionCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */; };
 		FADFD46615AAB2E6008A86BA /* TransactionCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */; };
 		FAE2B99A15B7D0F300A36AC2 /* NSLocale+Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE2B99915B7D0F300A36AC2 /* NSLocale+Currency.m */; };
@@ -1506,6 +1508,8 @@
 		FA6FB25F15A6EE850067F043 /* TransactionGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionGroupedTableViewCell.h; sourceTree = "<group>"; };
 		FA6FB26015A6EE860067F043 /* TransactionGroupedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionGroupedTableViewCell.m; sourceTree = "<group>"; };
 		FA6FB26215A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionGroupedTableViewCell_iPhone.xib; sourceTree = "<group>"; };
+		FA709C8F15FDA25200C1142F /* FIAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FIAnimationController.h; sourceTree = "<group>"; };
+		FA709C9015FDA25200C1142F /* FIAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FIAnimationController.m; sourceTree = "<group>"; };
 		FA79E81C15A606180066EDAB /* TransactionGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionGroupViewController.h; sourceTree = "<group>"; };
 		FA79E81D15A606180066EDAB /* TransactionGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionGroupViewController.m; sourceTree = "<group>"; };
 		FA79E81F15A606700066EDAB /* TransactionGroupViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionGroupViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -1515,6 +1519,7 @@
 		FA97009615CAFBD4009D01A3 /* SqliteFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SqliteFunctions.m; sourceTree = "<group>"; };
 		FA97009B15CAFCF2009D01A3 /* ESLocaleFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLocaleFactory.h; sourceTree = "<group>"; };
 		FA97009C15CAFCF2009D01A3 /* ESLocaleFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLocaleFactory.m; sourceTree = "<group>"; };
+		FAC9D77815F910E000C6CCFA /* comment_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_close.png; sourceTree = "<group>"; };
 		FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCalendarView.xib; sourceTree = "<group>"; };
 		FADFD46415AAB2E6008A86BA /* TransactionCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCalendarView.h; sourceTree = "<group>"; };
 		FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCalendarView.m; sourceTree = "<group>"; };
@@ -1590,6 +1595,7 @@
 		D1002C34140D3C92001503F6 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FA709C8E15FDA25200C1142F /* FIAnimation */,
 				D1002C5B140D3C92001503F6 /* Controller */,
 				D1002C61140D3C92001503F6 /* Model */,
 				D1002D47140D3C92001503F6 /* ViewController */,
@@ -3303,6 +3309,7 @@
 		D1E783E01438A14600FAB2A7 /* Button */ = {
 			isa = PBXGroup;
 			children = (
+				FAC9D77815F910E000C6CCFA /* comment_close.png */,
 				FAEB232E15ACBBDC0034BA76 /* button_segment_middle-selected.png */,
 				FAEB232F15ACBBDC0034BA76 /* button_segment_middle-selected@2x.png */,
 				FAEB233015ACBBDC0034BA76 /* button_segment_middle.png */,
@@ -3534,6 +3541,16 @@
 				FA4C95A915CF6F1E00236CC4 /* RIRoundView.m */,
 			);
 			path = RIRoundView;
+			sourceTree = "<group>";
+		};
+		FA709C8E15FDA25200C1142F /* FIAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				FA709C8F15FDA25200C1142F /* FIAnimationController.h */,
+				FA709C9015FDA25200C1142F /* FIAnimationController.m */,
+			);
+			name = FIAnimation;
+			path = Utils/FIAnimation;
 			sourceTree = "<group>";
 		};
 		FAE2B99715B7D0D200A36AC2 /* NSLocale */ = {
@@ -4069,6 +4086,7 @@
 				FA354AE315BEA652004670F0 /* top_shutter.png in Resources */,
 				FA354AE415BEA652004670F0 /* top_shutter@2x.png in Resources */,
 				FA354AE615BEAA19004670F0 /* PasswordViewController_iPhone.xib in Resources */,
+				FAC9D77915F910E000C6CCFA /* comment_close.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4288,6 +4306,7 @@
 				FA97009D15CAFCF2009D01A3 /* ESLocaleFactory.m in Sources */,
 				FA4C95AA15CF6F1E00236CC4 /* RIRoundView.m in Sources */,
 				FA229F6E15D3DB3A008AEA10 /* ReportDateFilterViewController.m in Sources */,
+				FA709C9115FDA25200C1142F /* FIAnimationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

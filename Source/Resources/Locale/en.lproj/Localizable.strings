@@ -83,8 +83,8 @@
 "budget_edit_button_date_from"					= "Начало";
 "budget_edit_button_date_to"					= "Окончание";
 "budget_edit_button_done"						= "Принять";
-"budget_edit_button_repeat_weekly"				= "Каждую неделю";
-"budget_edit_button_repeat_monthly"				= "Каждый месяц";
+"budget_edit_button_repeat_weekly"				= "Неделя";
+"budget_edit_button_repeat_monthly"				= "Месяц";
 "budget_edit_date_format"						= "dd MMMM yyyy";
 
 // Add
@@ -122,18 +122,7 @@
 "transaction_week_4"							= "Каждую пятницу";
 "transaction_week_5"							= "Каждую субботу";
 "transaction_week_6"							= "Каждое воскресенье";
-"transaction_month_1"							= "Каждый январь";
-"transaction_month_2"							= "Каждый февраль";
-"transaction_month_3"							= "Каждый март";
-"transaction_month_4"							= "Каждый апрель";
-"transaction_month_5"							= "Каждый май";
-"transaction_month_6"							= "Каждый июнь";
-"transaction_month_7"							= "Каждый июль";
-"transaction_month_8"							= "Каждый август";
-"transaction_month_9"							= "Каждый сентябрь";
-"transaction_month_10"							= "Каждый октябрь";
-"transaction_month_11"							= "Каждый ноябрь";
-"transaction_month_12"							= "Каждый декабрь";
+"transaction_month"                             = "Каждый %d-й день месяца";
 
 // Report
 "report_segmented_diagram"						= "Диаграмма";

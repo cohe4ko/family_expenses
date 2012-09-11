@@ -39,5 +39,6 @@
 @property (nonatomic, retain) NSMutableArray *list;
 
 - (IBAction)actionPage:(id)sender;
+- (void)updateTabBar;
 
 @end
