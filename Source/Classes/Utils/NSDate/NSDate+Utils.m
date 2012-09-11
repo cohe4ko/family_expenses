@@ -239,6 +239,12 @@
     return [weekdayComponents weekday];
 }
 
+- (NSInteger)dayOfMonth{
+    NSDateFormatter *df = [[[NSDateFormatter alloc] init] autorelease];
+    [df setDateFormat:@"dd"];
+    return [[df stringFromDate:self] intValue];
+}
+
 - (NSInteger)year{
     NSCalendar *gregorian = [[[NSCalendar alloc]
                               initWithCalendarIdentifier:NSGregorianCalendar] autorelease];

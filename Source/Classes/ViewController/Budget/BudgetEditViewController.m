@@ -7,6 +7,7 @@
 
 #import "CalculatorViewController.h"
 #import "PickerDateViewController.h"
+#import "NSDate+Utils.h"
 
 #import "AMAnimationShake.h"
 
@@ -166,16 +167,65 @@
 - (void)setDateFrom:(NSDate *)date {
 	self.budget.timeFrom = [date timeIntervalSince1970];
 	[buttonDateFrom setValue:[self.budget.dateFrom dateFormat:NSLocalizedString(@"budget_edit_date_format", @"")]];
+    self.budget.repeat = BudgetRepeatNone;
+    [buttonRepeatLeft setSelected:NO];
+	[buttonRepeatRight setSelected:NO];
 }
 
 - (void)setDateTo:(NSDate *)date {
 	self.budget.timeTo = [date timeIntervalSince1970];
 	[buttonDateTo setValue:[self.budget.dateTo dateFormat:NSLocalizedString(@"budget_edit_date_format", @"")]];
+    self.budget.repeat = BudgetRepeatNone;
+    [buttonRepeatLeft setSelected:NO];
+	[buttonRepeatRight setSelected:NO];
 }
 
 - (void)setButtonsRepeat {
 	[buttonRepeatLeft setSelected:(self.budget.repeat == BudgetRepeatWeek)];
 	[buttonRepeatRight setSelected:(self.budget.repeat == BudgetRepeatMonth)];
+    
+    if (self.budget.repeat == BudgetRepeatWeek) {
+        NSDate *date = [NSDate date];
+        NSDate *beginDate = nil;
+        NSDate *endDate = nil;
+        NSInteger weekDay = [date dayOfWeek];
+        if (weekDay < 3) {
+            if (weekDay == 2) {
+                beginDate = [date addDays:-1];
+            }
+            
+        }else {
+            beginDate = [date addDays:8-weekDay];
+        }
+        endDate = [beginDate addDays:7];
+        
+        self.budget.timeFrom = [beginDate timeIntervalSince1970];
+        [buttonDateFrom setValue:[self.budget.dateFrom dateFormat:NSLocalizedString(@"budget_edit_date_format", @"")]];
+        
+        self.budget.timeTo = [endDate timeIntervalSince1970];
+        [buttonDateTo setValue:[self.budget.dateTo dateFormat:NSLocalizedString(@"budget_edit_date_format", @"")]];
+    }else if(self.budget.repeat == BudgetRepeatMonth) {
+        NSDate *date = [NSDate date];
+        NSDate *beginDate = nil;
+        NSDate *endDate = nil;
+        NSInteger monthDay = [date dayOfMonth];
+        if (monthDay < 15) {
+            beginDate = [date addDays:-monthDay+1];
+        }else {
+            beginDate = [beginDate monthNext];
+            monthDay = [date dayOfMonth];
+            beginDate = [beginDate addMonths:-monthDay+1];
+        }
+        endDate = [beginDate monthNext];
+        
+        self.budget.timeFrom = [beginDate timeIntervalSince1970];
+        [buttonDateFrom setValue:[self.budget.dateFrom dateFormat:NSLocalizedString(@"budget_edit_date_format", @"")]];
+        
+        self.budget.timeTo = [endDate timeIntervalSince1970];
+        [buttonDateTo setValue:[self.budget.dateTo dateFormat:NSLocalizedString(@"budget_edit_date_format", @"")]];
+    }
+    
+    
 }
 
 #pragma mark -

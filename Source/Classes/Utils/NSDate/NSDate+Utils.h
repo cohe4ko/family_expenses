@@ -37,6 +37,7 @@
 - (NSDate *)roundDateToCeilingMinutes:(int)minute;
 
 - (NSInteger)dayOfWeek;
+- (NSInteger)dayOfMonth;
 - (NSInteger)year;
 - (NSInteger)yearDay;
 
