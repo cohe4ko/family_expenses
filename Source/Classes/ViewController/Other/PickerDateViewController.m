@@ -63,7 +63,7 @@
 	
 	CALayer *mask = [[CALayer alloc] init];
 	[mask setBackgroundColor:[UIColor blackColor].CGColor];
-	[mask setFrame:CGRectMake(27.0f, 11.0f, pickerView.frame.size.width - 54.0f, pickerView.frame.size.height - 22.0f)];
+	[mask setFrame:CGRectMake(20.0f, 10.0f, pickerView.frame.size.width - 40.0f, pickerView.frame.size.height - 15.0f)];
 	[mask setCornerRadius:5.0f];
 	[pickerView.layer setMask:mask];
 	[mask release];
