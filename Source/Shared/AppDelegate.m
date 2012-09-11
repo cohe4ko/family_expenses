@@ -10,6 +10,7 @@
 #import "RootViewController.h"
 
 #import "MainController.h"
+#import "AddViewController.h"
 
 #import "NSTimer+Pause.h"
 
@@ -229,6 +230,15 @@ static AppDelegate *app = NULL;
         self.tabBarController.selectedIndex = 2;
     }else if(passwordType == 2) {
         self.tabBarController.selectedIndex = selectedIndex;
+    }
+    
+    if (self.tabBarController.selectedIndex == 2) {
+        UINavigationController *nav = [self.tabBarController.viewControllers objectAtIndex:2];
+        if (nav && [nav.topViewController isEqual:[nav.viewControllers objectAtIndex:0]]) {
+            AddViewController *addViewController = (AddViewController*)nav.topViewController;
+            [addViewController updateTabBar];
+        }
+        
     }
 }
 
