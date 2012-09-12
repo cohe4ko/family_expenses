@@ -17,6 +17,7 @@
 - (void)makeLocales;
 - (void)makeItems;
 - (void)loadData;
+- (void)loadTransactions:(NSDictionary*)params;
 - (void)setData;
 - (void)setClearEdit;
 - (void)setTableViewFooter:(BOOL)animated;
@@ -24,6 +25,12 @@
 - (void)clean;
 - (void)animatedAddObjectForIndex:(NSDictionary*)dic;
 - (void)scrollToRowWithIndex:(NSNumber*)rIndex;
+@end
+
+@interface TransactionsViewController (Loading)
+- (void)startLoading;
+- (void)stopLoading;
+
 @end
 
 @implementation TransactionsViewController
@@ -191,6 +198,8 @@
     [buttonGroupMonth setTag:GroupMonth];
     [buttonGroupAll setTag:GroupInfin];
     
+    loadingView.hidden = YES;
+    
     //bind group action to the dates
     UITapGestureRecognizer *groupTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                 action:@selector(actionGroup)];
@@ -265,16 +274,42 @@
     labelDateStart.text = [beginDate dateFormat:NSLocalizedString(@"transactions_interval_date_format", @"")];
     labelDateEnd.text = [endDate dateFormat:NSLocalizedString(@"transactions_interval_date_format", @"")];
     
-    if (groupType == GroupInfin) {
-        self.list = [TransactionsController loadTransactions:sortType minDate:beginDate maxDate:endDate];
-    }else {
-        self.list = [TransactionsController loadTransactions:sortType groupBy:groupType minDate:beginDate maxDate:endDate];
-    }
-	
-	
-	// Set data
+    self.list = [NSMutableArray array];
+    // Set empty data
 	[self setData];
-	
+    [self startLoading];
+        
+    [self performSelectorInBackground:@selector(loadTransactions:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:beginDate,@"beginDate",endDate,@"endDate", nil]];
+}
+
+- (void)loadTransactions:(NSDictionary*)params{
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if (groupType == GroupInfin) {
+        self.list = [TransactionsController loadTransactions:sortType minDate:[params objectForKey:@"beginDate"] maxDate:[params objectForKey:@"endDate"]];
+    }else {
+        self.list = [TransactionsController loadTransactions:sortType groupBy:groupType minDate:[params objectForKey:@"beginDate"] maxDate:[params objectForKey:@"endDate"]];
+    }
+    [self performSelectorOnMainThread:@selector(stopLoading)
+                           withObject:nil
+                        waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(setData)
+                           withObject:nil
+                        waitUntilDone:NO];
+    
+    [pool release];
+
+}
+
+- (void)startLoading{
+    [AppDelegate shared].tabBarController.view.userInteractionEnabled = NO;
+    loadingView.hidden = NO;
+    [loadingView startAnimating];
+}
+
+- (void)stopLoading{
+    [loadingView stopAnimating];
+    loadingView.hidden = YES;
+    [AppDelegate shared].tabBarController.view.userInteractionEnabled = YES;
 }
 
 #pragma mark -
@@ -302,10 +337,10 @@
         
   		[buttonGroupAll setImage:((groupType == GroupInfin) ? [UIImage imageNamed:@"radio_checked.png"] : [UIImage imageNamed:@"radio.png"]) forState:UIControlStateNormal];
 		
-		// Hide sort
+		// Hide group
 		self.isGroup = NO;
 		
-		// Save sort
+		// Save group
 		[[NSUserDefaults standardUserDefaults] setInteger:groupType forKey:@"group_transactions"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
@@ -554,7 +589,10 @@
         [labelTotalName release];
         labelTotalName = nil;
     }
-	
+	if (loadingView) {
+        [loadingView release];
+        loadingView = nil;
+    }
 	
 }
 

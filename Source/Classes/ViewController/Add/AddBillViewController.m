@@ -246,7 +246,7 @@
 	// Change tab
 	[[AppDelegate shared].tabBarController setSelectedIndex:0];
     if (btype == BillTypeAdd) {
-        [[AppDelegate shared].tabBarController performSelector:@selector(animationTransactionAdding:) withObject:transaction afterDelay:0.25f];
+        [[AppDelegate shared].tabBarController performSelector:@selector(animationTransactionAdding:) withObject:transaction afterDelay:0.2f];
     }
     
 }
