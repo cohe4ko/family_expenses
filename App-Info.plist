@@ -28,15 +28,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-<<<<<<< HEAD
-<<<<<<< HEAD
-	<string>4610</string>
-=======
-	<string>4596</string>
->>>>>>> ffa67da0de28d859330c6f7a46dff3772cecf6e1
-=======
-	<string>4769</string>
->>>>>>> bfccb27fa2c5c63eccf669945ee800213aecf34c
+	<string>4597</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
