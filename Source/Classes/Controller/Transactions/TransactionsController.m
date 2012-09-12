@@ -84,7 +84,7 @@
 	
     if (sort == SortCategores) {
         NSString *sql = [NSString stringWithFormat:@"SELECT sum(t.amount) amount, max(t.time) time, t.categoriesId categoriesId, %@ groupStr FROM Transactions t WHERE state = %d and time >= %d and time <= %d GROUP BY groupStr", groupField, TransactionsStateNormal,(int)[minDate timeIntervalSince1970],(int)[maxDate timeIntervalSince1970]];
-        return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+        return [[[Db shared] loadAndFill:sql theClass:[TransactionsGrouped class]] mutableCopy];
     }else {
         NSString *sql = [NSString stringWithFormat:@"SELECT sum(t.amount) amount, max(t.time) time, t.categoriesId categoriesId, %@ groupStr FROM Transactions t WHERE state = %d and time >= %d and time <= %d GROUP BY groupStr ORDER BY %@", groupField, TransactionsStateNormal, (int)[minDate timeIntervalSince1970],(int)[maxDate timeIntervalSince1970], sortField];
         return [[[Db shared] loadAndFill:sql theClass:[TransactionsGrouped class]] mutableCopy];
