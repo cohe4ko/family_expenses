@@ -6,6 +6,7 @@
 #import "ReportBox.h"
 
 #import "NSString+Utils.h"
+#import "SettingsController.h"
 
 @implementation ReportBox
 
@@ -31,7 +32,13 @@
 #pragma mark Getters
 
 - (NSString *)amountString {
-	return [NSString stringWithFormat:@"%@ %@", [NSString formatCurrency:self.amount def:@"0"], @"руб"];
+	NSInteger currencyIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_index"];
+    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"];
+    
+       
+    NSDictionary *currency = [SettingsController currencyForIndex:currencyIndex];
+        
+    return [NSString formatCurrency:self.amount currencyCode:[currency objectForKey:kCurrencyKeySymbol] numberOfPoints:points orietation:[[currency objectForKey:kCurrencyKeyOrientation] intValue]];
 }
 
 #pragma mark -

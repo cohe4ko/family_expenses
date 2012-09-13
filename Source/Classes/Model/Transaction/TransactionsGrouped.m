@@ -11,6 +11,7 @@
 #import "NSString+Utils.h"
 #import "NSDate+Utils.h"
 #import "NSDate+DateFunctions.h"
+#import "SettingsController.h"
 
 @implementation TransactionsGrouped
 
@@ -39,13 +40,13 @@
 }
 
 - (NSString *)price {
-	return [NSString stringWithFormat:@"%@ %@", [NSString formatCurrency:self.amount def:@"0"], @"руб"];
-}
-
-- (NSString*)priceForCurrency:(NSString*)currencyCode points:(NSInteger)points{
-    return [NSString formatCurrency:self.amount
-                       currencyCode:currencyCode
-                     numberOfPoints:points];
+	NSInteger currencyIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_index"];
+    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"];
+    
+    
+    NSDictionary *currency = [SettingsController currencyForIndex:currencyIndex];
+    
+    return [NSString formatCurrency:self.amount currencyCode:[currency objectForKey:kCurrencyKeySymbol] numberOfPoints:points orietation:[[currency objectForKey:kCurrencyKeyOrientation] intValue]];
 }
 
 - (NSString*)dateAsWeekTimeInterval{

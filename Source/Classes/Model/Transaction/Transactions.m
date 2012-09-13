@@ -10,6 +10,7 @@
 #import "DataManager.h"
 
 #import "NSString+Utils.h"
+#import "SettingsController.h"
 
 @implementation Transactions
 
@@ -76,15 +77,17 @@
 }
 
 - (NSString *)price {
-	return [NSString stringWithFormat:@"%@ %@", [NSString formatCurrency:self.amount def:@"0"], @"руб"];
+	NSInteger currencyIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_index"];
+    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"];
+    
+    
+    NSDictionary *currency = [SettingsController currencyForIndex:currencyIndex];
+    
+    return [NSString formatCurrency:self.amount currencyCode:[currency objectForKey:kCurrencyKeySymbol] numberOfPoints:points orietation:[[currency objectForKey:kCurrencyKeyOrientation] intValue]];
 
 }
 
-- (NSString*)priceForCurrency:(NSString*)currencyCode points:(NSInteger)points{
-    return [NSString formatCurrency:self.amount
-                       currencyCode:currencyCode
-                     numberOfPoints:points];
-}
+
 
 - (Categories *)categories {
 	return [CategoriesController getById:categoriesId];

@@ -20,8 +20,9 @@
 + (NSString *)formatCurrency:(int)number;
 + (NSString *)formatCurrency:(int)number def:(NSString *)def;
 + (NSString *)formatCurrency:(float)number
-                currencyCode:(NSString*)currencyCode
-              numberOfPoints:(int)numberOfPoints;
+                currencyCode:(NSString*)currencySymbol
+              numberOfPoints:(int)numberOfPoints
+                  orietation:(int)backward;
 + (NSString *)intOnly:(NSString *)string;
 
 @end

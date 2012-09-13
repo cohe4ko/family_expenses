@@ -97,15 +97,29 @@
 }
 
 + (NSString *)formatCurrency:(float)number
-                currencyCode:(NSString*)currencyCode
-              numberOfPoints:(int)numberOfPoints{
+                currencyCode:(NSString*)currencySymbol
+              numberOfPoints:(int)numberOfPoints
+                  orietation:(int)backward{
+    NSString *amountStr = nil;
+    NSString *currencyFormat = nil;
+        
     NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
-	[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-	[numberFormatter setCurrencyCode:currencyCode];
-	[numberFormatter setMaximumFractionDigits:numberOfPoints];
-	//[numberFormatter setPositiveFormat:@"# ###"];
-	return [numberFormatter stringFromNumber:[NSNumber numberWithFloat:number]];
+	[numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[numberFormatter setCurrencyDecimalSeparator:@""];
+	[numberFormatter setCurrencySymbol:@""];
+	[numberFormatter setMaximumFractionDigits:2];
+	[numberFormatter setPositiveFormat:@"# ###"];
+    currencyFormat = [numberFormatter stringFromNumber:[NSNumber numberWithInt:number]];
+    
+    if (backward == 1) {
+        amountStr = [NSString stringWithFormat:@"%@ %@",currencyFormat,currencySymbol];
+    }else {
+        amountStr = [NSString stringWithFormat:@"%@ %@",currencySymbol,currencyFormat];
+    }
+    
+    return amountStr;
 }
+
 
 + (NSString *)intOnly:(NSString *)string {
 	NSMutableString *res = [[[NSMutableString alloc] init] autorelease];

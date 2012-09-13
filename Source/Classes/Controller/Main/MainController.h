@@ -42,6 +42,7 @@
 #pragma mark Other methods
 
 + (NSMutableArray *)loadPlist:(NSString *)name;
++ (NSMutableDictionary*)loadPlistAsDic:(NSString*)name;
 
 + (id)getViewController:(NSString *)controller;
 

@@ -28,6 +28,4 @@
 - (NSString*)dateAsWeekTimeInterval;
 - (Categories *)categories;
 
-- (NSString*)priceForCurrency:(NSString*)currencyCode points:(NSInteger)points;
-
 @end

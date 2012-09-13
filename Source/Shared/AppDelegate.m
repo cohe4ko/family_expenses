@@ -171,7 +171,7 @@ static AppDelegate *app = NULL;
                          [NSNumber numberWithInt:GroupInfin],@"graph_group_transactions",
 						 [NSNumber numberWithBool:NO], @"is_transactions_temp",
                          [NSNumber numberWithInt:1], @"settings_currency_points",
-                         [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode],@"settings_country_code",
+                         [NSNumber numberWithInt:25],@"settings_currency_index",
                          [NSNumber numberWithInt:0],@"settings_password_type",
                          [NSNumber numberWithInt:GroupInfin],@"report_group",
                          [NSNumber numberWithInt:2],@"tabbar_selected",

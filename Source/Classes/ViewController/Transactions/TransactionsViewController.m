@@ -10,6 +10,7 @@
 #import "TransactionsController.h"
 #import "Transactions.h"
 #import "NSLocale+Currency.h"
+#import "SettingsController.h"
 
 
 @interface TransactionsViewController (Private)
@@ -401,9 +402,10 @@
 		amountTotal += m.amount;
 	
 	// Set total amount
-    NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"settings_country_code"];
-    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"]-1;
-	[labelTotal setText:[NSString formatCurrency:amountTotal currencyCode:[NSLocale currencyCodeForCountryCode:countryCode] numberOfPoints:points]];
+    NSInteger currencyIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings_currency_index"] integerValue];
+    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"];
+    NSDictionary *currencyDic = [SettingsController currencyForIndex:currencyIndex];
+	[labelTotal setText:[NSString formatCurrency:amountTotal currencyCode:[currencyDic objectForKey:kCurrencyKeySymbol] numberOfPoints:points orietation:[[currencyDic objectForKey:kCurrencyKeyOrientation] intValue]]];
 	[labelTotal sizeToFit];
 	r = labelTotal.frame;
 	if (r.size.width > 130.0f)

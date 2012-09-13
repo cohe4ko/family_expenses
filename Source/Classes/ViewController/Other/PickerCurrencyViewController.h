@@ -23,8 +23,7 @@ typedef enum {
     IBOutlet UIButton *buttonOnePoint;
     IBOutlet UIButton *buttonNoPoints;
     
-    NSArray *codesArray;
-    
+   
     NSInteger selectedButton;
     BOOL isShouldUpdate;
     
