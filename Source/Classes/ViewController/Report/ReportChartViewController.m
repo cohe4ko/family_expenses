@@ -65,7 +65,7 @@
         buttonDateRange.hidden = YES;
         labelHint.hidden = YES;
         imageViewBg.frame = CGRectMake(0, 0, 480, 300);
-        scrollView.frame = CGRectMake(0, 0, 480, 300);
+        scrollView.frame = CGRectMake(0, 7, 480, 300);
         scrollView.contentSize = CGSizeMake(480, 300);
         if (hostingView) {
             hostingView.frame = CGRectMake(0, 0, 480, 300);
