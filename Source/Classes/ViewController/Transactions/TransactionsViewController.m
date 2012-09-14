@@ -201,19 +201,7 @@
     
     loadingView.hidden = YES;
     
-    //bind group action to the dates
-    UITapGestureRecognizer *groupTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                action:@selector(actionGroup)];
-    [labelDateStart addGestureRecognizer:groupTap1];
-    [groupTap1 release];
-    
-    UITapGestureRecognizer *groupTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                action:@selector(actionGroup)];
-    [labelDateEnd addGestureRecognizer:groupTap2];
-    [groupTap2 release];
-	
-	
-	
+
 	// Set sort type
     sortType = -1;
 	self.sortType = [[NSUserDefaults standardUserDefaults] integerForKey:@"sort_transactions"];
@@ -224,7 +212,7 @@
 #pragma mark -
 #pragma mark Actions
 
-- (void)actionGroup {
+- (IBAction)actionGroup {
     TransactionGroupViewController *groupViewController = [MainController getViewController:@"TransactionGroupViewController"];
     [[RootViewController shared] presentModalViewController:groupViewController animated:YES];
 }
