@@ -226,8 +226,17 @@
     return interfaceOrientation == UIInterfaceOrientationPortrait;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    }else {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    }
+}
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     
+        
     [diagramViewController renderToInterfaceOrientation:toInterfaceOrientation];
     [chartViewController renderToInterfaceOrientation:toInterfaceOrientation];
     if(segmentedState == SegmentedLeft){
