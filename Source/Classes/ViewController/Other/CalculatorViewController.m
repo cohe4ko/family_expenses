@@ -210,6 +210,7 @@
 }
 
 - (void)dealloc {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"saved_transaction"];
 	[category release];
 	[calculator release];
 	[buttonNext release];

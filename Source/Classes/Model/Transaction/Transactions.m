@@ -38,7 +38,14 @@
 
 - (Transactions *)initWithDictionary:(NSDictionary *)dic {
 	if (self == [super init]) {
-	
+        self.state = [[dic objectForKey:@"state"] intValue];
+        self.repeatType = [[dic objectForKey:@"repeatType"] intValue];
+        self.repeatValue = [[dic objectForKey:@"repeatValue"] intValue];
+        self.time = [[dic objectForKey:@"time"] integerValue];
+        self.categoriesId = [[dic objectForKey:@"categoriesId"] intValue];
+        self.categoriesParentId = [[dic objectForKey:@"categoriesParentId"] intValue];;
+        self.amount = [[dic objectForKey:@"amount"] floatValue];
+        self.desc = [dic objectForKey:@"desc"];
 	}
 	return self;
 }
