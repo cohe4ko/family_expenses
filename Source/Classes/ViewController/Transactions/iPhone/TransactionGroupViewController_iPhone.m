@@ -57,7 +57,7 @@
     if (tag == 100) {
         [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood-selected.png"] forState:UIControlStateNormal];
         [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood-selected.png"] forState:UIControlStateHighlighted];
-    }else if (tag == 103) {
+    }else if (tag == 102) {
         [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_right_wood-selected.png"] forState:UIControlStateNormal];
         [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_right_wood-selected.png"] forState:UIControlStateHighlighted];
     }else {
@@ -71,7 +71,7 @@
     if (tag == 100) {
         [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood.png"] forState:UIControlStateNormal];
         [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_left_wood.png"] forState:UIControlStateHighlighted];
-    }else if (tag == 103) {
+    }else if (tag == 102) {
         [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_right_wood.png"] forState:UIControlStateNormal];
         [b setBackgroundImage:[UIImage imageNamed:@"button_segmented_right_wood.png"] forState:UIControlStateHighlighted];
     }else {

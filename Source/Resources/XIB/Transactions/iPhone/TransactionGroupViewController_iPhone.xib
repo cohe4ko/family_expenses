@@ -2,21 +2,21 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1296</int>
-		<string key="IBDocument.SystemVersion">11E53</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
-		<string key="IBDocument.AppKitVersion">1138.47</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.SystemVersion">12A269</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2549</string>
+		<string key="IBDocument.AppKitVersion">1187</string>
+		<string key="IBDocument.HIToolboxVersion">624.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1181</string>
+			<string key="NS.object.0">1498</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
-			<string>IBUIDatePicker</string>
-			<string>IBUIButton</string>
-			<string>IBUIImageView</string>
-			<string>IBUIView</string>
-			<string>IBUILabel</string>
 			<string>IBProxyObject</string>
+			<string>IBUIButton</string>
+			<string>IBUIDatePicker</string>
+			<string>IBUIImageView</string>
+			<string>IBUILabel</string>
+			<string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -68,13 +68,13 @@
 							<string key="NSResourceName">background_transaction_group.png</string>
 						</object>
 					</object>
-					<object class="IBUIButton" id="55375359">
+					<object class="IBUIButton" id="345471138">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{95, 33}, {55, 30}}</string>
+						<string key="NSFrame">{{148, 33}, {55, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="345471138"/>
+						<reference key="NSNextKeyView" ref="250015967"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUITag">100</int>
@@ -82,7 +82,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<string key="IBUISelectedTitle">Day</string>
-						<string key="IBUINormalTitle">Day</string>
+						<string key="IBUINormalTitle">Week</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="1009434073">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -92,7 +92,7 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUISelectedBackgroundImage" id="238061512">
+						<object class="NSCustomResource" key="IBUISelectedBackgroundImage" id="17299962">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">button_segmented_left_wood-selected.png</string>
 						</object>
@@ -106,37 +106,11 @@
 							<int key="traits">2</int>
 							<double key="pointSize">12</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="912322676">
+						<object class="NSFont" key="IBUIFont" id="981603276">
 							<string key="NSName">HelveticaNeue-Bold</string>
 							<double key="NSSize">12</double>
 							<int key="NSfFlags">16</int>
 						</object>
-					</object>
-					<object class="IBUIButton" id="345471138">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{149, 33}, {55, 30}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="250015967"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIOpaque">NO</bool>
-						<int key="IBUITag">101</int>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUISelectedTitle">Day</string>
-						<string key="IBUINormalTitle">Week</string>
-						<reference key="IBUIHighlightedTitleColor" ref="1009434073"/>
-						<reference key="IBUINormalTitleColor" ref="1009434073"/>
-						<reference key="IBUINormalTitleShadowColor" ref="529311818"/>
-						<reference key="IBUISelectedBackgroundImage" ref="238061512"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="59538533">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">button_segment_middle.png</string>
-						</object>
-						<reference key="IBUIFontDescription" ref="281545162"/>
-						<reference key="IBUIFont" ref="912322676"/>
 					</object>
 					<object class="IBUIButton" id="250015967">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -147,7 +121,7 @@
 						<reference key="NSNextKeyView" ref="152566013"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
-						<int key="IBUITag">102</int>
+						<int key="IBUITag">101</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
@@ -156,10 +130,13 @@
 						<reference key="IBUIHighlightedTitleColor" ref="1009434073"/>
 						<reference key="IBUINormalTitleColor" ref="1009434073"/>
 						<reference key="IBUINormalTitleShadowColor" ref="529311818"/>
-						<reference key="IBUISelectedBackgroundImage" ref="238061512"/>
-						<reference key="IBUINormalBackgroundImage" ref="59538533"/>
+						<reference key="IBUISelectedBackgroundImage" ref="17299962"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">button_segment_middle.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="281545162"/>
-						<reference key="IBUIFont" ref="912322676"/>
+						<reference key="IBUIFont" ref="981603276"/>
 					</object>
 					<object class="IBUIButton" id="152566013">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -170,7 +147,7 @@
 						<reference key="NSNextKeyView" ref="1066937589"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
-						<int key="IBUITag">103</int>
+						<int key="IBUITag">102</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
@@ -183,7 +160,7 @@
 						<reference key="IBUIHighlightedTitleColor" ref="1009434073"/>
 						<reference key="IBUINormalTitleColor" ref="1009434073"/>
 						<reference key="IBUINormalTitleShadowColor" ref="529311818"/>
-						<reference key="IBUISelectedBackgroundImage" ref="238061512"/>
+						<reference key="IBUISelectedBackgroundImage" ref="17299962"/>
 						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">button_segmented_right_wood.png</string>
@@ -206,7 +183,7 @@
 						<string key="NSFrame">{{7, 37}, {70, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="55375359"/>
+						<reference key="NSNextKeyView" ref="345471138"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="84544645">
 							<int key="NSColorSpace">3</int>
@@ -248,6 +225,7 @@
 						<string key="NSFrame">{{24, 409}, {273, 41}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -348,14 +326,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">daysButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="55375359"/>
-					</object>
-					<int key="connectionID">17</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">infinButton</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="152566013"/>
@@ -401,15 +371,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<reference key="destination" ref="979954593"/>
 					</object>
 					<int key="connectionID">30</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">actionGrouped:</string>
-						<reference key="source" ref="55375359"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">24</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -463,7 +424,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<reference ref="38027718"/>
 							<reference ref="152566013"/>
 							<reference ref="345471138"/>
-							<reference ref="55375359"/>
 							<reference ref="666306122"/>
 							<reference ref="1066937589"/>
 							<reference ref="58612176"/>
@@ -487,12 +447,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<int key="objectID">3</int>
 						<reference key="object" ref="38027718"/>
 						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">4</int>
-						<reference key="object" ref="55375359"/>
-						<reference key="parent" ref="191373211"/>
-						<string key="objectName">buttonDay</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">5</int>
@@ -547,10 +501,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="2" key="4.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="0.0" key="5.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="2" key="5.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="0.0" key="6.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -571,7 +523,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 					<string key="superclassName">ViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="datePicker">UIDatePicker</string>
-						<string key="daysButton">UIButton</string>
 						<string key="doneButton">UIButton</string>
 						<string key="infinButton">UIButton</string>
 						<string key="labelTitle">UILabel</string>
@@ -583,10 +534,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 						<object class="IBToOneOutletInfo" key="datePicker">
 							<string key="name">datePicker</string>
 							<string key="candidateClassName">UIDatePicker</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="daysButton">
-							<string key="name">daysButton</string>
-							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="doneButton">
 							<string key="name">doneButton</string>
@@ -666,6 +613,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 			<string key="button_segmented_right_wood.png">{84, 30}</string>
 			<string key="button_wood_big.png">{273, 41}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1181</string>
+		<string key="IBCocoaTouchPluginVersion">1498</string>
 	</data>
 </archive>

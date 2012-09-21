@@ -243,22 +243,9 @@
 - (void)loadData {
 	
 	// Load transactions
-    NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_begin_date"];
-    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_end_date"];
-    if (!beginDate) {
-        beginDate = [TransactionsController minumDate];
-        if ([beginDate timeIntervalSince1970] <= 0) {
-            beginDate = [NSDate date];
-        }
-        [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"transaction_filter_begin_date"];
-    }
-    if (!endDate) {
-        endDate = [TransactionsController maximumDate];
-        if ([endDate timeIntervalSince1970] <= 0) {
-            endDate = [NSDate date];
-        }
-        [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"transaction_filter_end_date"];
-    }
+    NSDictionary *datesDic = [SettingsController constractTransactionsDates];
+    NSDate *beginDate = [datesDic objectForKey:@"beginDate"];
+    NSDate *endDate = [datesDic objectForKey:@"endDate"];
     
     labelDateStart.text = [beginDate dateFormat:NSLocalizedString(@"transactions_interval_date_format", @"")];
     labelDateEnd.text = [endDate dateFormat:NSLocalizedString(@"transactions_interval_date_format", @"")];

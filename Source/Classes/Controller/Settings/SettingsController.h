@@ -22,5 +22,6 @@
 + (void)loadCategories;
 + (NSDictionary*)currencyForIndex:(NSInteger)index;
 + (NSInteger)currencyCount;
++ (NSDictionary*)constractTransactionsDates;
 
 @end
