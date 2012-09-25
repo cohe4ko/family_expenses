@@ -207,6 +207,14 @@
 	self.sortType = [[NSUserDefaults standardUserDefaults] integerForKey:@"sort_transactions"];
     groupType = -1;
     self.groupType = [[NSUserDefaults standardUserDefaults] integerForKey:@"group_transactions"];
+    
+    UITapGestureRecognizer *footterTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionFooterTap)];
+    [imageNotepadFooter addGestureRecognizer:footterTap];
+    [footterTap release];
+    
+    UITapGestureRecognizer *headerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionHeaderTap)];
+    [imageNotepadHeader addGestureRecognizer:headerTap];
+    [headerTap release];
 }
 
 #pragma mark -
@@ -235,6 +243,18 @@
     self.groupType = sender.tag;
     
     [self loadData];
+}
+
+- (void)actionFooterTap{
+    if (list) {
+        [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[list count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+}
+
+- (void)actionHeaderTap{
+    if (list && [list count] > 0) {
+        [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 #pragma mark -
@@ -549,6 +569,10 @@
     if (imageNotepadFooter) {
         [imageNotepadFooter release];
         imageNotepadFooter = nil;
+    }
+    if (imageNotepadHeader) {
+        [imageNotepadHeader release];
+        imageNotepadHeader = nil;
     }
     if (labelDateStart) {
         [labelDateStart release];
