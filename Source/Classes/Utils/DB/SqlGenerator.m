@@ -117,11 +117,11 @@
 	} 
 	else if ([Value isKindOfClass:[NSDecimalNumber class]]) 
     {
-        strValue = [(NSDecimalNumber *)Value descriptionWithLocale:US_LOCALE];
+        strValue = [NSString stringWithFormat:@"%@",Value];//[(NSDecimalNumber *)Value descriptionWithLocale:US_LOCALE];
     } 
 	else if ([Value isKindOfClass:[NSNumber class]]) 
     {
-        strValue = [(NSNumber *)Value descriptionWithLocale:US_LOCALE];
+        strValue = [NSString stringWithFormat:@"%@",Value];//[NSString stringWithFormat:@"'%@'",[(NSNumber *)Value descriptionWithLocale:US_LOCALE]];
     } 
 	else if ([Value isKindOfClass:[NSDate class]]) 
 	{
@@ -157,11 +157,12 @@
 			break;
 		}
 	}
-	
-	for (Value in [fieldsAndValues allValues]) {
+    
+    for (Value in [fieldsAndValues allValues]) {
 		[values addObject:[self quoteValue:Value]];
 	}
-
+    
+    
 	[sql appendFormat: @") VALUES (%@)", [NSString arrayToString :values]];
 
 	return sql;		
