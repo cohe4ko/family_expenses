@@ -10,6 +10,7 @@
 	IBOutlet UITableView *tableView;
 	
 	IBOutlet UIImageView *imageNotepadFooter;
+    IBOutlet UIImageView *imageNotepadHeader;
 	
 	IBOutlet UIView *viewSort;
     IBOutlet UIView *viewGroup;

@@ -257,7 +257,7 @@ static Db *sharedDB = NULL;
 	if (ds.Id==0) {
 		[fieldsAndValues setValue:[NSNull null] forKey:@"Id"];
 	}
-	
+
 	return [SqlGenerator buildInsertUpdate:[ds tableName] fieldsAndValues:fieldsAndValues];
 }
 
@@ -508,7 +508,7 @@ static Db *sharedDB = NULL;
 	}
 
 	NSString *sql = [self buildUpdateSql:ds];
-	
+
 	[self execute:sql];
 	
 	[self checkError];
@@ -532,7 +532,7 @@ static Db *sharedDB = NULL;
 	NSString *fieldType = nil;
 	
 	id fieldValue;
-	
+
 	for (NSString *fieldName in [props allKeys]) {
 		fieldType = [props objectForKey: fieldName];
 

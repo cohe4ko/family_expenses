@@ -122,7 +122,7 @@
 	DbObject *hold;
 	
 	id fieldValue;
-	
+
 	for (NSString *fieldName in props) {	
 		fieldValue = [self valueForKey :fieldName];
 		
