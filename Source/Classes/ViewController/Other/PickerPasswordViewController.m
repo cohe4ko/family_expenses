@@ -133,7 +133,8 @@
 }
 
 - (void)notificationPost{
-    if (initMode != [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"]) {
+    NSInteger currentPassword = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_password_type"];
+    if (initMode != currentPassword && currentPassword != 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PASSWORD_UPDATE object:nil];
     }
 }

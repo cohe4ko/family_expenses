@@ -11,7 +11,6 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface TransactionGroupViewController : ViewController{
-    IBOutlet UIButton *daysButton;
     IBOutlet UIButton *weeksButton;
     IBOutlet UIButton *monthesButton;
     IBOutlet UIButton *infinButton;

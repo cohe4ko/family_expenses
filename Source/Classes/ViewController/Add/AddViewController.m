@@ -493,7 +493,8 @@
 }
 
 - (void)actionNext:(UIButton *)button {
-	CalculatorViewController *controller = [MainController getViewController:@"CalculatorViewController"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"saved_transaction"];
+    CalculatorViewController *controller = [MainController getViewController:@"CalculatorViewController"];
 	[controller setCategory:[list objectAtIndex:button.tag]];
 	[controller setHidesBottomBarWhenPushed:YES];
 	[self.navigationController pushViewController:controller animated:YES];

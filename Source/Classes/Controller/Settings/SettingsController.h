@@ -8,6 +8,11 @@
 
 #import "MainController.h"
 
+#define kCurrencyKeyTitle @"Title"
+#define kCurrencyKeySymbol @"Symbol"
+#define kCurrencyKeyOrientation @"Orient"
+
+
 @interface SettingsController : MainController {
 
 }
@@ -15,5 +20,8 @@
 + (id)withDelegate:(id)theDelegate;
 
 + (void)loadCategories;
++ (NSDictionary*)currencyForIndex:(NSInteger)index;
++ (NSInteger)currencyCount;
++ (NSDictionary*)constractTransactionsDates;
 
 @end

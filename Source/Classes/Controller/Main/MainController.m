@@ -138,6 +138,16 @@
 	return [result autorelease];
 }
 
++ (NSMutableDictionary*)loadPlistAsDic:(NSString*)name{
+    NSString *error;
+	NSPropertyListFormat format;
+	NSString *localizedPath = [[NSBundle mainBundle] pathForResource:name ofType:@"plist"];
+	NSData *plistData = [NSData dataWithContentsOfFile:localizedPath];
+	NSDictionary *data = [NSPropertyListSerialization propertyListFromData:plistData mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error];
+	NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:data];
+	return result;
+}
+
 + (id)getViewController:(NSString *)controller {
 	NSString *controllerName = [NSString stringWithFormat:@"%@_%@", controller, DEVICE_NAME];
 	return [[[NSClassFromString(controllerName) alloc] initWithNibName:controllerName bundle:[NSBundle mainBundle]] autorelease];

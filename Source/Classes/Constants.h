@@ -55,6 +55,13 @@ typedef enum {
 } GroupType;
 
 typedef enum {
+ IntervalTypeDate,
+ IntervalTypeWeek,
+ IntervalTypeMonth,
+ IntervalTypeAll
+}IntervalType;
+
+typedef enum {
     SegmentedLeft	= 0,
 	SegmentedCenter	= 1,
 	SegmentedRight	= 2,

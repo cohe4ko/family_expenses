@@ -30,7 +30,7 @@
     IBOutlet UIButton *buttonGroupMonth;
     IBOutlet UIButton *buttonGroupAll;
 	IBOutlet UIActivityIndicatorView *loadingView;
-	NSMutableDictionary *cellEditing;
+    NSMutableDictionary *cellEditing;
 	
 	SortType sortType;
     GroupType groupType;

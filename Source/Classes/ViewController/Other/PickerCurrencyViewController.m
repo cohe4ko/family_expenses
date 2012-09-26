@@ -9,6 +9,7 @@
 #import "PickerCurrencyViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSLocale+Currency.h"
+#import "SettingsController.h"
 
 @interface PickerCurrencyViewController ()
 - (void)makeLocales;
@@ -94,14 +95,10 @@
 	[pickerView.layer setMask:mask];
 	[mask release];
     
-    NSString *countryCode = [[NSUserDefaults standardUserDefaults] stringForKey:@"settings_country_code"];
-    for (int i = 0; i < [codesArray count]; i++) {
-        NSDictionary *currencyDic = [codesArray objectAtIndex:i];
-        if ([[currencyDic objectForKey:@"countryCode"] isEqualToString:countryCode]) {
-            [pickerView selectRow:i inComponent:0 animated:YES];
-            break;
-        }
-    }
+    NSInteger currencyIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings_currency_index"] integerValue];
+
+    [pickerView selectRow:currencyIndex inComponent:0 animated:YES];
+
 
 }
 
@@ -117,11 +114,6 @@
 #pragma mark Load
 
 - (void)loadData{
-    if (codesArray) {
-        [codesArray release];
-        codesArray = nil;
-    }
-    codesArray = [[NSArray alloc] initWithArray:[NSLocale supportedCurrencyList]];
     
 }
 
@@ -132,19 +124,16 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    if (codesArray) {
-        return [codesArray count];
-    }
-    return 0;
+    return [SettingsController currencyCount];
 }
 
 #pragma mark -
 #pragma mark UIPickerController delegate
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    NSDictionary *currencyDic = [codesArray objectAtIndex:row];
-    NSString *country = [currencyDic objectForKey:@"country"];
-    NSString *currency = [currencyDic objectForKey:@"currency"];
-    return [NSString stringWithFormat:@"%@ %@",country,currency];
+    NSDictionary *currencyDic = [SettingsController currencyForIndex:row];
+    NSString *title = [currencyDic objectForKey:kCurrencyKeyTitle];
+    NSString *currency = [currencyDic objectForKey:kCurrencyKeySymbol];
+    return [NSString stringWithFormat:@"%@   %@",title,currency];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
@@ -156,9 +145,7 @@
 
 - (IBAction)actionDone:(id)sender {
     if (isShouldUpdate) {
-        NSDictionary *currencyDic = [codesArray objectAtIndex:[pickerView selectedRowInComponent:0]];
-        NSString *countryCode = [currencyDic objectForKey:@"countryCode"];
-        [[NSUserDefaults standardUserDefaults] setObject:countryCode forKey:@"settings_country_code"];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[pickerView selectedRowInComponent:0]] forKey:@"settings_currency_index"];
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_CURRENCY_UPDATE object:nil];
     }
 	[UIView animateWithDuration:0.2 animations:^{
@@ -221,10 +208,7 @@
         [doneButton release];
         doneButton = nil;
     }
-    if (codesArray) {
-        [codesArray release];
-        codesArray = nil;
-    }
+
 }
 
 #pragma mark -

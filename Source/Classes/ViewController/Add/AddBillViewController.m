@@ -101,12 +101,22 @@
 	[textView.layer setCornerRadius:11];
 	[textView.layer setBorderColor:[UIColor colorWithHexString:@"d8d8d8"].CGColor];
 	[textView.layer setBorderWidth:1.0f];
-	
+	    
 	// If new transaction, init it
 	if (!transaction) {
-		Transactions *t = [Transactions create];
-		t.amount = amount;
-		self.transaction = t;
+        NSDictionary *tDic = [[NSUserDefaults standardUserDefaults] objectForKey:@"saved_transaction"];
+        if (tDic) {
+            Transactions* t = [Transactions withDictionary:tDic];
+            t.amount = amount;
+            textView.text = t.desc;
+            self.category = t.categories;
+            self.transaction = t;
+        }else{
+            Transactions* t = [Transactions create];
+            t.amount = amount;
+            self.transaction = t;
+        }
+        
         btype = BillTypeAdd;
 	}else {
         textView.text = transaction.desc;
@@ -335,6 +345,20 @@
     UIView *view = sender.view;
     selectedIndex = view.tag-kIconViewTag;
     [self setSelectedViewForIndex:selectedIndex];
+}
+
+-(void)actionBack{
+    if (btype == BillTypeAdd) {
+        // Set selected category
+        Categories *c = [self.list objectAtIndex:selectedIndex];
+        transaction.categoriesId = c.Id;
+        transaction.categoriesParentId = c.parentId;
+        
+        // Set desc
+        transaction.desc = textView.text;
+        [[NSUserDefaults standardUserDefaults] setObject:[transaction asDict]forKey:@"saved_transaction"];
+    }
+    [super actionBack];
 }
 
 #pragma mark -

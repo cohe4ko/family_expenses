@@ -14,6 +14,7 @@
 #import "BudgetController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "NSLocale+Currency.h"
+#import "SettingsController.h"
 
 
 @interface SettingsViewController (Private)
@@ -173,8 +174,9 @@
     NSMutableDictionary *settingsDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"settings_settings",@"title", @"icon_settings_settings.png", @"icon", nil];
 	NSMutableArray *settingsArray = [NSMutableArray array];
     [settingsArray addObject:[NSArray arrayWithObjects:@"password",@"", nil]];
-    NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"settings_country_code"];
-	[settingsArray addObject:[NSArray arrayWithObjects:@"currency",[NSLocale currencySymbolForCountryCode:countryCode], nil]];
+    NSInteger currencyIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_index"];
+    NSDictionary *currencyDic = [SettingsController currencyForIndex:currencyIndex];
+	[settingsArray addObject:[NSArray arrayWithObjects:@"currency",[currencyDic objectForKey:kCurrencyKeySymbol], nil]];
     [settingsDic setObject:settingsArray forKey:@"list"];
     [list addObject:settingsDic];
     

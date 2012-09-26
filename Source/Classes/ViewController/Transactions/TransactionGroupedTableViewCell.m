@@ -47,9 +47,8 @@
         categoryImageView.image = image;
     }
     // Set price
-    NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"settings_country_code"];
-    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"]-1;
-    [labelPrice setText:[item priceForCurrency:[NSLocale currencyCodeForCountryCode:countryCode] points:points]];
+    
+    [labelPrice setText:[item price]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

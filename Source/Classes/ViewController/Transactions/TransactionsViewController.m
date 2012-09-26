@@ -10,6 +10,7 @@
 #import "TransactionsController.h"
 #import "Transactions.h"
 #import "NSLocale+Currency.h"
+#import "SettingsController.h"
 
 
 @interface TransactionsViewController (Private)
@@ -200,19 +201,7 @@
     
     loadingView.hidden = YES;
     
-    //bind group action to the dates
-    UITapGestureRecognizer *groupTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                action:@selector(actionGroup)];
-    [labelDateStart addGestureRecognizer:groupTap1];
-    [groupTap1 release];
-    
-    UITapGestureRecognizer *groupTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                action:@selector(actionGroup)];
-    [labelDateEnd addGestureRecognizer:groupTap2];
-    [groupTap2 release];
-	
-	
-	
+
 	// Set sort type
     sortType = -1;
 	self.sortType = [[NSUserDefaults standardUserDefaults] integerForKey:@"sort_transactions"];
@@ -223,7 +212,7 @@
 #pragma mark -
 #pragma mark Actions
 
-- (void)actionGroup {
+- (IBAction)actionGroup {
     TransactionGroupViewController *groupViewController = [MainController getViewController:@"TransactionGroupViewController"];
     [[RootViewController shared] presentModalViewController:groupViewController animated:YES];
 }
@@ -254,22 +243,9 @@
 - (void)loadData {
 	
 	// Load transactions
-    NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_begin_date"];
-    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_end_date"];
-    if (!beginDate) {
-        beginDate = [TransactionsController minumDate];
-        if ([beginDate timeIntervalSince1970] <= 0) {
-            beginDate = [NSDate date];
-        }
-        [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"transaction_filter_begin_date"];
-    }
-    if (!endDate) {
-        endDate = [TransactionsController maximumDate];
-        if ([endDate timeIntervalSince1970] <= 0) {
-            endDate = [NSDate date];
-        }
-        [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"transaction_filter_end_date"];
-    }
+    NSDictionary *datesDic = [SettingsController constractTransactionsDates];
+    NSDate *beginDate = [datesDic objectForKey:@"beginDate"];
+    NSDate *endDate = [datesDic objectForKey:@"endDate"];
     
     labelDateStart.text = [beginDate dateFormat:NSLocalizedString(@"transactions_interval_date_format", @"")];
     labelDateEnd.text = [endDate dateFormat:NSLocalizedString(@"transactions_interval_date_format", @"")];
@@ -401,9 +377,10 @@
 		amountTotal += m.amount;
 	
 	// Set total amount
-    NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"settings_country_code"];
-    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"]-1;
-	[labelTotal setText:[NSString formatCurrency:amountTotal currencyCode:[NSLocale currencyCodeForCountryCode:countryCode] numberOfPoints:points]];
+    NSInteger currencyIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings_currency_index"] integerValue];
+    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"];
+    NSDictionary *currencyDic = [SettingsController currencyForIndex:currencyIndex];
+	[labelTotal setText:[NSString formatCurrency:amountTotal currencyCode:[currencyDic objectForKey:kCurrencyKeySymbol] numberOfPoints:points orietation:[[currencyDic objectForKey:kCurrencyKeyOrientation] intValue]]];
 	[labelTotal sizeToFit];
 	r = labelTotal.frame;
 	if (r.size.width > 130.0f)

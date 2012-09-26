@@ -39,6 +39,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    [imageNavigationbarShadow setHidden:YES];
     [self makeItems];
     [self makeLocale];
 }

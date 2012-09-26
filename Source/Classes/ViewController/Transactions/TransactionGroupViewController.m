@@ -8,6 +8,7 @@
 
 #import "TransactionGroupViewController.h"
 #import "TransactionsController.h"
+#import "SettingsController.h"
 
 @interface TransactionGroupViewController (Private)
 - (void)makeLocales;
@@ -18,6 +19,7 @@
 - (void)deselectAllButtons;
 - (void)clearAll;
 - (void)initCurrentDate;
+- (void)updateDate;
 @end
 
 @interface TransactionGroupViewController (Target)
@@ -77,26 +79,22 @@
 #pragma mark Private
 - (void)makeLocales{
     [labelTitle setText:NSLocalizedString(@"transactions_group_title", @"")];
-    [daysButton setTitle:NSLocalizedString(@"transactions_group_day", @"") forState:UIControlStateNormal];
     [weeksButton setTitle:NSLocalizedString(@"transactions_group_week", @"") forState:UIControlStateNormal];
     [monthesButton setTitle:NSLocalizedString(@"transactions_group_month", @"") forState:UIControlStateNormal];
 }
 
 - (void)makeItems{
     [self deselectAllButtons];
-    GroupType groupType = [[NSUserDefaults standardUserDefaults] integerForKey:@"group_transactions"];
-    switch (groupType) {
-        case GroupDay:
+    IntervalType intervalType = [[NSUserDefaults standardUserDefaults] integerForKey:@"interval_selected"];
+    switch (intervalType) {
+        case IntervalTypeWeek:
             [self selectButtonWithTag:100];
             break;
-        case GroupWeek:
+        case IntervalTypeMonth:
             [self selectButtonWithTag:101];
             break;
-        case GroupMonth:
+        case IntervalTypeAll:
             [self selectButtonWithTag:102];
-            break;
-        case GroupInfin:
-            [self selectButtonWithTag:103];
             break;
         default:
             break;
@@ -144,18 +142,37 @@
 }
 
 - (void)initCurrentDate{
-    NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_begin_date"];
-    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_end_date"];
-    if (!beginDate) {
-        beginDate = [TransactionsController minumDate];
-        [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"transaction_filter_begin_date"];
-    }
-    if (!endDate) {
-        endDate = [TransactionsController maximumDate];
-        [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"transaction_filter_end_date"];
-    }
+    NSDictionary *datesDic = [SettingsController constractTransactionsDates];
+    NSDate *beginDate = [datesDic objectForKey:@"beginDate"];
+    NSDate *endDate = [datesDic objectForKey:@"endDate"];
+    
+
     datePicker.date = beginDate;
     datePicker.maximumDate = endDate;
+    firstCalendarView.detailLabel.text = [beginDate dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
+    secondCalendarView.detailLabel.text = [endDate dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
+}
+
+- (void)updateDate{
+    NSDictionary *datesDic = [SettingsController constractTransactionsDates];
+    NSDate *beginDate = [datesDic objectForKey:@"beginDate"];
+    NSDate *endDate = [datesDic objectForKey:@"endDate"];
+    
+        
+    [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"transaction_filter_begin_date"];
+    [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"transaction_filter_end_date"];
+    
+    if (firstCalendarView.selected) {
+        datePicker.date = beginDate;
+        datePicker.minimumDate = nil;
+        datePicker.maximumDate = endDate;
+    }else{
+        datePicker.date = endDate;
+        datePicker.minimumDate = beginDate;
+        datePicker.maximumDate = nil;
+    }
+    
+    
     firstCalendarView.detailLabel.text = [beginDate dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
     secondCalendarView.detailLabel.text = [endDate dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
 }
@@ -182,7 +199,7 @@
     if (selectedButton == b.tag) {
         return;
     }
-    for (int i = 100;i<104;i++) {
+    for (int i = 100;i<103;i++) {
         if (i!=b.tag) {
             [self deselectButtonWithTag:i];
         }
@@ -190,33 +207,26 @@
     [self selectButtonWithTag:b.tag];
     switch (b.tag) {
         case 100:
-            [[NSUserDefaults standardUserDefaults] setInteger:GroupDay forKey:@"group_transactions"];
+            [[NSUserDefaults standardUserDefaults] setInteger:IntervalTypeWeek forKey:@"interval_selected"];
             break;
         case 101:
-            [[NSUserDefaults standardUserDefaults] setInteger:GroupWeek forKey:@"group_transactions"];
+            [[NSUserDefaults standardUserDefaults] setInteger:IntervalTypeMonth forKey:@"interval_selected"];
             break;
         case 102:
-            [[NSUserDefaults standardUserDefaults] setInteger:GroupMonth forKey:@"group_transactions"];
-            break;
-        case 103:
-            [[NSUserDefaults standardUserDefaults] setInteger:GroupInfin forKey:@"group_transactions"];
+            [[NSUserDefaults standardUserDefaults] setInteger:IntervalTypeAll forKey:@"interval_selected"];
             break;
         default:
             break;
     }
     isShouldUpdate = YES;
+    [self updateDate];
 }
 
 - (void)firstDateTapped:(UITapGestureRecognizer*)sender{
     if (!firstCalendarView.selected) {
         firstCalendarView.selected = YES;
         secondCalendarView.selected = NO;
-        NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_begin_date"];
-        NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_end_date"];
-        datePicker.date = beginDate;
-        firstCalendarView.detailLabel.text = [beginDate dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
-        datePicker.minimumDate = nil;
-        datePicker.maximumDate = endDate;
+        [self updateDate];
         isShouldUpdate = YES;
     }
 }
@@ -224,12 +234,7 @@
     if (!secondCalendarView.selected) {
         firstCalendarView.selected = NO;
         secondCalendarView.selected = YES;
-        NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_begin_date"];
-        NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"transaction_filter_end_date"];
-        datePicker.date = endDate;
-        secondCalendarView.detailLabel.text = [endDate dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
-        datePicker.minimumDate = beginDate;
-        datePicker.maximumDate = nil;
+        [self updateDate];
         isShouldUpdate = YES;
     }
 }
@@ -244,6 +249,8 @@
         secondCalendarView.detailLabel.text = [datePicker.date dateFormat:NSLocalizedString(@"transactions_group_date_cell_format", @"")];
     }
     isShouldUpdate = YES;
+    [self deselectAllButtons];
+    [[NSUserDefaults standardUserDefaults] setInteger:IntervalTypeDate forKey:@"interval_selected"];
 }
 
 #pragma mark -
@@ -252,10 +259,6 @@
 #pragma mark Memory management
 
 - (void)clearAll{
-    if (daysButton) {
-        [daysButton release];
-        daysButton = nil;
-    }
     if (weeksButton) {
         [weeksButton release];
         weeksButton = nil;
