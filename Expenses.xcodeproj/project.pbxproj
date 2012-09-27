@@ -655,6 +655,7 @@
 		FA97009D15CAFCF2009D01A3 /* ESLocaleFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FA97009C15CAFCF2009D01A3 /* ESLocaleFactory.m */; };
 		FAA603A81601913000D4E363 /* Currency.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAA603A71601913000D4E363 /* Currency.plist */; };
 		FAC9D77915F910E000C6CCFA /* comment_close.png in Resources */ = {isa = PBXBuildFile; fileRef = FAC9D77815F910E000C6CCFA /* comment_close.png */; };
+		FADA51F61614D00200D49C1B /* RIPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = FADA51F51614D00200D49C1B /* RIPageControl.m */; };
 		FADFD46315AAAFE0008A86BA /* TransactionCalendarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */; };
 		FADFD46615AAB2E6008A86BA /* TransactionCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */; };
 		FAE2B99A15B7D0F300A36AC2 /* NSLocale+Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE2B99915B7D0F300A36AC2 /* NSLocale+Currency.m */; };
@@ -1522,6 +1523,8 @@
 		FA97009C15CAFCF2009D01A3 /* ESLocaleFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLocaleFactory.m; sourceTree = "<group>"; };
 		FAA603A71601913000D4E363 /* Currency.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Currency.plist; sourceTree = "<group>"; };
 		FAC9D77815F910E000C6CCFA /* comment_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comment_close.png; sourceTree = "<group>"; };
+		FADA51F41614D00200D49C1B /* RIPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIPageControl.h; sourceTree = "<group>"; };
+		FADA51F51614D00200D49C1B /* RIPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIPageControl.m; sourceTree = "<group>"; };
 		FADFD46215AAAFE0008A86BA /* TransactionCalendarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCalendarView.xib; sourceTree = "<group>"; };
 		FADFD46415AAB2E6008A86BA /* TransactionCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCalendarView.h; sourceTree = "<group>"; };
 		FADFD46515AAB2E6008A86BA /* TransactionCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCalendarView.m; sourceTree = "<group>"; };
@@ -1766,6 +1769,7 @@
 		D1002C62140D3C92001503F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FADA51F31614D00200D49C1B /* RIPageControl */,
 				FA4C95A715CF6EC800236CC4 /* RIRoundView */,
 				FA2D2A6C15C65E3B00727671 /* iRate */,
 				FA0B52CD15BC7BA9001FC0B6 /* ALPickerView */,
@@ -3556,6 +3560,15 @@
 			path = Utils/FIAnimation;
 			sourceTree = "<group>";
 		};
+		FADA51F31614D00200D49C1B /* RIPageControl */ = {
+			isa = PBXGroup;
+			children = (
+				FADA51F41614D00200D49C1B /* RIPageControl.h */,
+				FADA51F51614D00200D49C1B /* RIPageControl.m */,
+			);
+			path = RIPageControl;
+			sourceTree = "<group>";
+		};
 		FAE2B99715B7D0D200A36AC2 /* NSLocale */ = {
 			isa = PBXGroup;
 			children = (
@@ -4311,6 +4324,7 @@
 				FA4C95AA15CF6F1E00236CC4 /* RIRoundView.m in Sources */,
 				FA229F6E15D3DB3A008AEA10 /* ReportDateFilterViewController.m in Sources */,
 				FA709C9115FDA25200C1142F /* FIAnimationController.m in Sources */,
+				FADA51F61614D00200D49C1B /* RIPageControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4397,8 +4411,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = armv7;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ivan Dzyamulych (5QW6ML2DR8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ivan Dzyamulych (5QW6ML2DR8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4416,8 +4430,8 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
-				PROVISIONING_PROFILE = "308D2EC7-A74B-4EA4-9F40-1FCEB988BC86";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "308D2EC7-A74B-4EA4-9F40-1FCEB988BC86";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
 				VALIDATE_PRODUCT = NO;
@@ -4482,8 +4496,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = armv7;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ivan Dzyamulych (5QW6ML2DR8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ivan Dzyamulych (5QW6ML2DR8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4504,8 +4518,8 @@
 				OTHER_CPLUSPLUSFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
-				PROVISIONING_PROFILE = "308D2EC7-A74B-4EA4-9F40-1FCEB988BC86";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "308D2EC7-A74B-4EA4-9F40-1FCEB988BC86";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
 				VALIDATE_PRODUCT = NO;
@@ -4519,8 +4533,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = armv7;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ivan Dzyamulych (5QW6ML2DR8)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ivan Dzyamulych (5QW6ML2DR8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4538,8 +4552,8 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = Expenses;
-				PROVISIONING_PROFILE = "308D2EC7-A74B-4EA4-9F40-1FCEB988BC86";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "308D2EC7-A74B-4EA4-9F40-1FCEB988BC86";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Source/Classes/ViewController/Report/framework\"/**";
 				VALIDATE_PRODUCT = NO;

@@ -63,6 +63,7 @@
     
     scrollView.contentSize = CGSizeMake(2*scrollView.frame.size.width, scrollView.frame.size.height);
     
+   
     UIImageView* coverLensView = (UIImageView*)[scrollView viewWithTag:5050];
     coverLensView.exclusiveTouch = NO;
     coverLensView.userInteractionEnabled = NO;
@@ -122,7 +123,6 @@
     
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
-    piePlot.dataSource = self;
     piePlot.pieRadius  = MIN((hostingView.frame.size.height - 2 * graph.paddingLeft) / 2.0,
                              (hostingView.frame.size.width - 2 * graph.paddingTop) / 2.0);
     CGFloat innerRadius = piePlot.pieRadius / 1.8;
@@ -132,9 +132,10 @@
     piePlot.endAngle        = M_PI_2;
     piePlot.sliceDirection  = CPTPieDirectionClockwise;
     //piePlot.shadow          = whiteShadow;
-    piePlot.delegate        = self;
     
     [graph addPlot:piePlot];
+    piePlot.dataSource = self;
+    piePlot.delegate        = self;
     [piePlot release];
     
     graph.rasterizationScale = [UIScreen mainScreen].scale;
@@ -149,7 +150,7 @@
 }
 
 - (void)builfGraphForAllCategories{
-    CGFloat offsetX = 320;
+    CGFloat offsetX = scrollView.frame.size.width;
     CGFloat wd = 310;
     CGFloat dh = 287;
     
@@ -191,7 +192,6 @@
     
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
-    piePlot.dataSource = self;
     piePlot.pieRadius  = MIN((hostingView.frame.size.height - 2 * graph.paddingLeft) / 2.0,
                              (hostingView.frame.size.width - 2 * graph.paddingTop) / 2.0);
     CGFloat innerRadius = piePlot.pieRadius / 1.8;
@@ -201,9 +201,10 @@
     piePlot.endAngle        = M_PI_2;
     piePlot.sliceDirection  = CPTPieDirectionClockwise;
     //piePlot.shadow          = whiteShadow;
-    piePlot.delegate        = self;
     
     [graph addPlot:piePlot];
+    piePlot.dataSource = self;
+    piePlot.delegate        = self;
     [piePlot release];
     
     graph.rasterizationScale = [UIScreen mainScreen].scale;
@@ -231,10 +232,11 @@
             lensView.center = hostingView1.center;
         }
         if (hostingView2) {
-            hostingView2.frame = CGRectMake(330, 0, 310, 287);
+            hostingView2.frame = CGRectMake(320, 0, 310, 287);
             lensViewSec.center = hostingView2.center;
         }
         roundView.frame = CGRectMake(10, 10, roundView.frame.size.width, roundView.frame.size.height);
+        pageControl.frame = CGRectMake(roundf(160-pageControl.frame.size.width/2.0), 327, pageControl.frame.size.width, pageControl.frame.size.height);
     }else {
         self.draggableViewController.draggableHeaderView.hidden = YES;
         self.draggableViewController.draggableCloseHeaderView.hidden = YES;
@@ -248,11 +250,13 @@
             lensView.center = hostingView1.center;
         }
         if (hostingView2) {
-            hostingView2.frame = CGRectMake(410, 0, 310, 287);
+            hostingView2.frame = CGRectMake(560, 0, 310, 287);
             lensViewSec.center = hostingView2.center;
         }
         roundView.frame = CGRectMake(90, 10, roundView.frame.size.width, roundView.frame.size.height);
+        pageControl.frame = CGRectMake(roundf(240-pageControl.frame.size.width/2.0), 300-pageControl.frame.size.height, pageControl.frame.size.width, pageControl.frame.size.height);
     }
+    scrollView.contentSize = CGSizeMake(2*scrollView.frame.size.width, scrollView.contentSize.height);
 }
 
 #pragma mark -
@@ -446,15 +450,32 @@
 }
 
 - (NSInteger)plotType:(CPTPlot*)plot{
-    CPTGraphHostingView *hostingView1 = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
-    
-    for (CPTPlot *p in [hostingView1.hostedGraph allPlots]) {
-        if ([p isEqual:plot]) {
-            return 0;
+    if (selectedGraph) {
+        CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
+        if (hostingView) {
+            for (CPTPlot *p in [hostingView.hostedGraph allPlots]) {
+                if ([p isEqual:plot]) {
+                    return 0;
+                }
+            }
         }
+        
+        
+        return 1;
+    }else{
+        CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1011];
+        if (hostingView) {
+            for (CPTPlot *p in [hostingView.hostedGraph allPlots]) {
+                if ([p isEqual:plot]) {
+                    return 1;
+                }
+            }
+        }
+        
+        
+        return 0;
     }
-    
-    return 1;
+
 }
 
 #pragma mark -
@@ -482,6 +503,48 @@
     [scrollView addSubview:roundView];
     [roundView release];
     roundView.hidden = 0.0;
+    
+    scrollView.pagingEnabled = YES;
+    
+    pageControl = [[DDPageControl alloc] init];
+    [pageControl setFrame:CGRectMake(roundf(160-pageControl.frame.size.width/2.0), 327, pageControl.frame.size.width, pageControl.frame.size.height)];
+    
+	[pageControl setType:DDPageControlTypeOnFullOffEmpty] ;
+	[pageControl setOnColor:[UIColor colorWithHexString:@"6e8bab"]];
+	[pageControl setOffColor:[UIColor colorWithHexString:@"cecece"]];
+    [pageControl setNumberOfPages:2];
+    [pageControl setCurrentPage:selectedGraph];
+	[pageControl setIndicatorDiameter:6.0f];
+	[pageControl setIndicatorSpace:6.0f];
+	[self.view addSubview:pageControl];
+   
+}
+
+#pragma mark -
+#pragma mark UIScrollView delegate
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (!decelerate) {
+        [self updateScrollViewPosition];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [self updateScrollViewPosition];
+}
+
+- (void)updateScrollViewPosition{
+    if (scrollView.contentOffset.x < scrollView.frame.size.width/2.0) {
+        [scrollView scrollRectToVisible:CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height) animated:YES];
+        pageControl.currentPage = 0;
+        
+        selectedGraph = 0;
+    }else{
+        [scrollView scrollRectToVisible:CGRectMake(scrollView.frame.size.width, 0, scrollView.frame.size.width, scrollView.frame.size.height) animated:YES];
+        pageControl.currentPage = 1;
+        selectedGraph = 1;
+    }
+
 }
 
 #pragma mark -
@@ -619,6 +682,7 @@
 #pragma mark Memory managment
 
 - (void)viewDidUnload {
+    selectedGraph = 0;
     [labelHint release];
     labelHint = nil;
     [viewBox release];
@@ -647,6 +711,8 @@
     imageViewBg = nil;
     [labelLowData release];
     labelLowData = nil;
+    [pageControl release];
+    pageControl = nil;
     [super viewDidUnload];
 }
 
@@ -667,6 +733,8 @@
     [lensButtonSec release];
     [imageViewBg release];
     [labelLowData release];
+    [pageControl release];
+    pageControl = nil;
     [super dealloc];
 }
 

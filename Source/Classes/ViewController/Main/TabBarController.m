@@ -162,6 +162,22 @@
     }
 }
 
+- (BOOL)shouldAutorotate{
+    if (self.selectedIndex == 3) {
+        return YES;
+    }else {
+        return NO;
+    }
+}
+
+- (NSUInteger)supportedInterfaceOrientations{
+    if (self.selectedIndex == 3) {
+        return UIInterfaceOrientationMaskAll;
+    }else{
+        return UIInterfaceOrientationMaskPortrait;
+    }
+}
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
     if (toInterfaceOrientation == UIInterfaceOrientationPortrait || toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
         [self showTabBar:NO isPush:NO];

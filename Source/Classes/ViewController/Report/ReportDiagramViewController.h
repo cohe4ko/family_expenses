@@ -9,6 +9,7 @@
 #import "ReportBoxView.h"
 #import "framework/CorePlot-CocoaTouch.h"
 #import "RIRoundView.h"
+#import "DDPageControl.h"
 
 @interface ReportDiagramViewController : ViewController <UIScrollViewDelegate, CPTPlotDataSource, CPTPieChartDelegate> {
 	IBOutlet UIScrollView *scrollView;
@@ -33,6 +34,8 @@
     IBOutlet UIButton *lensButtonSec;
     
     IBOutlet UIImageView *imageViewBg;
+    
+    DDPageControl *pageControl;
     
 @private
    

@@ -107,8 +107,7 @@ static AppDelegate *app = NULL;
 	//[navController pushViewController:self.tabBarController animated:NO];
 	//self.window.rootViewController = navController;
 	
-	[self.window addSubview:self.tabBarController.view];
-	
+    self.window.rootViewController = self.tabBarController;
 	// Add rootviewcontroller to tabbar controller
 	[self.tabBarController.view addSubview:self.rootViewController.view];
 	
