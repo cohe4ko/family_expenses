@@ -165,10 +165,12 @@
     NSArray *values = [TransactionsController loadTransactions:SortDate minDate:beginDate maxDate:endDate];
 
     NSMutableDictionary *chartByDay = nil;
+    NSMutableDictionary *allCatDic = nil;
     if (values) {
         chartByDay = [NSMutableDictionary dictionary];
+        allCatDic = [NSMutableDictionary dictionary];
         for (Transactions *t in values) {
-            
+            //chart by day
             NSMutableDictionary *catDic = [chartByDay objectForKey:[NSNumber numberWithInt:t.categoriesParentId]];
             if(!catDic) {
                 catDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:0],@"total",[NSMutableDictionary dictionary],@"subCat",[NSNumber numberWithInt:t.categoriesParentId],@"cid", nil];
@@ -195,11 +197,24 @@
             [subCat setObject:subCatDic forKey:[NSNumber numberWithInt:t.categoriesId]];
             [catDic setObject:subCat forKey:@"subCat"];
             [chartByDay setObject:catDic forKey:[NSNumber numberWithInt:t.categoriesParentId]];
+            
+            //all cat chart
+            subCatDic = [allCatDic objectForKey:[NSNumber numberWithInt:t.categoriesId]];
+            if (!subCatDic) {
+                subCatDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:0],@"total",[NSNumber numberWithInt:t.categoriesId],@"cid", nil];
+                Categories *c = [CategoriesController getById:t.categoriesId];
+                if (c && c.name) {
+                    [subCatDic setObject:c.name forKey:@"name"];
+                }
+            }
+            total = [subCatDic objectForKey:@"total"];
+            [subCatDic setObject:[NSNumber numberWithDouble:[total doubleValue]+t.amount] forKey:@"total"];
+            [allCatDic setObject:subCatDic forKey:[NSNumber numberWithInt:t.categoriesId]];
         }
     }
     
     
-    [diagramViewController setValues:values forDic:chartByDay];
+    [diagramViewController setValues:values forDic:chartByDay allCat:allCatDic];
     [chartViewController setValues:values forDic:chartByDay];
     
     [loadingView stopAnimating];

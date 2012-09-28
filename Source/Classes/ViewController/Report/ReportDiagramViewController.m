@@ -15,14 +15,17 @@
 
 @interface ReportDiagramViewController (Private)
 - (void) builfGraphForParentCategoryId;
+- (void) builfGraphForAllCategories;
 - (void) makeLocales;
 - (void) makeItems;
 - (BOOL) setData;
 - (void) animateSettingData;
+- (NSInteger)plotType:(CPTPlot*)plot;
 @end
 
 @implementation ReportDiagramViewController
 @synthesize chartByDay;
+@synthesize allCatChart;
 @synthesize scrollView;
 @synthesize labelLowData;
 @synthesize reportBoxView = viewBox;
@@ -35,6 +38,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+    selectedGraph = 0;
+    
 	// Make locales
 	[self makeLocales];
 	
@@ -52,8 +57,13 @@
     draggableController.useAutoclose = YES;
     
     [scrollView addSubview:lensView];
+    [scrollView addSubview:lensViewSec];
     lensView.center = CGPointMake(scrollView.frame.size.width / 2.0f, scrollView.frame.size.height / 2.0f);
+    lensViewSec.center = CGPointMake(3*scrollView.frame.size.width / 2.0f, scrollView.frame.size.height / 2.0f);
     
+    scrollView.contentSize = CGSizeMake(2*scrollView.frame.size.width, scrollView.frame.size.height);
+    
+   
     UIImageView* coverLensView = (UIImageView*)[scrollView viewWithTag:5050];
     coverLensView.exclusiveTouch = NO;
     coverLensView.userInteractionEnabled = NO;
@@ -61,9 +71,10 @@
 }
 
 
--(void) setValues:(NSArray *)val forDic:(NSDictionary*)chart
+-(void) setValues:(NSArray *)val forDic:(NSDictionary*)chart allCat:(NSDictionary*)allCat
 {
     self.chartByDay = chart;
+    self.allCatChart = allCat;
     [self setData];
     [self makeLocales];
 }
@@ -112,7 +123,6 @@
     
     // Add pie chart
     CPTPieChart *piePlot = [[CPTPieChart alloc] init];
-    piePlot.dataSource = self;
     piePlot.pieRadius  = MIN((hostingView.frame.size.height - 2 * graph.paddingLeft) / 2.0,
                              (hostingView.frame.size.width - 2 * graph.paddingTop) / 2.0);
     CGFloat innerRadius = piePlot.pieRadius / 1.8;
@@ -122,9 +132,10 @@
     piePlot.endAngle        = M_PI_2;
     piePlot.sliceDirection  = CPTPieDirectionClockwise;
     //piePlot.shadow          = whiteShadow;
-    piePlot.delegate        = self;
     
     [graph addPlot:piePlot];
+    piePlot.dataSource = self;
+    piePlot.delegate        = self;
     [piePlot release];
     
     graph.rasterizationScale = [UIScreen mainScreen].scale;
@@ -138,8 +149,76 @@
     
 }
 
+- (void)builfGraphForAllCategories{
+    CGFloat offsetX = scrollView.frame.size.width;
+    CGFloat wd = 310;
+    CGFloat dh = 287;
+    
+    CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1011];
+    
+    if(hostingView)
+    {
+        offsetX = hostingView.frame.origin.x;
+        [hostingView removeFromSuperview];
+    }
+    
+    hostingView = [[CPTGraphHostingView alloc] initWithFrame:CGRectMake(offsetX,0,wd, dh)];
+    hostingView.tag = 1011;
+    
+    [scrollView addSubview:hostingView];
+    CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:hostingView.bounds];
+    hostingView.hostedGraph = graph;
+    [graph release];
+    [hostingView release];
+    
+    graph.plotAreaFrame.masksToBorder = NO;
+    
+    // Graph padding
+    graph.paddingLeft   = 10;
+    graph.paddingTop    = 10;
+    graph.paddingRight  = 10;
+    graph.paddingBottom = 10;
+    
+    graph.axisSet = nil;
+    
+    CPTMutableLineStyle *whiteLineStyle = [CPTMutableLineStyle lineStyle];
+    whiteLineStyle.lineColor = [CPTColor whiteColor];
+    
+    /*CPTMutableShadow *whiteShadow = [CPTMutableShadow shadow];
+     whiteShadow.shadowOffset     = CGSizeMake(2.0, -4.0);
+     whiteShadow.shadowBlurRadius = 4.0;
+     whiteShadow.shadowColor      = [[CPTColor whiteColor] colorWithAlphaComponent:0.25];*/
+    
+    
+    // Add pie chart
+    CPTPieChart *piePlot = [[CPTPieChart alloc] init];
+    piePlot.pieRadius  = MIN((hostingView.frame.size.height - 2 * graph.paddingLeft) / 2.0,
+                             (hostingView.frame.size.width - 2 * graph.paddingTop) / 2.0);
+    CGFloat innerRadius = piePlot.pieRadius / 1.8;
+    piePlot.pieInnerRadius  = innerRadius + 5.0;
+    piePlot.borderLineStyle = whiteLineStyle;
+    piePlot.startAngle      = M_PI_2;
+    piePlot.endAngle        = M_PI_2;
+    piePlot.sliceDirection  = CPTPieDirectionClockwise;
+    //piePlot.shadow          = whiteShadow;
+    
+    [graph addPlot:piePlot];
+    piePlot.dataSource = self;
+    piePlot.delegate        = self;
+    [piePlot release];
+    
+    graph.rasterizationScale = [UIScreen mainScreen].scale;
+    graph.shouldRasterize = YES;
+    
+    [scrollView bringSubviewToFront:lensViewSec];
+    lensViewSec.center = hostingView.center;
+    
+    [self pieChart:piePlot sliceWasSelectedAtRecordIndex:0];
+}
+
 - (void)renderToInterfaceOrientation:(UIInterfaceOrientation)orientation{
-    CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
+    CPTGraphHostingView *hostingView1 = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
+    CPTGraphHostingView *hostingView2 = (CPTGraphHostingView*)[scrollView viewWithTag:1011];
     if (orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown) {
         self.draggableViewController.draggableHeaderView.hidden = NO;
         self.draggableViewController.draggableCloseHeaderView.hidden = NO;
@@ -148,11 +227,16 @@
         labelHint.hidden = NO;
         imageViewBg.frame = CGRectMake(0, 6, 320, 352);
         scrollView.frame = CGRectMake(5, 60, 310, 287);
-        if (hostingView) {
-            hostingView.frame = CGRectMake(0, 0, 310, 287);
-            lensView.center = hostingView.center;
+        if (hostingView1) {
+            hostingView1.frame = CGRectMake(0, 0, 310, 287);
+            lensView.center = hostingView1.center;
+        }
+        if (hostingView2) {
+            hostingView2.frame = CGRectMake(320, 0, 310, 287);
+            lensViewSec.center = hostingView2.center;
         }
         roundView.frame = CGRectMake(10, 10, roundView.frame.size.width, roundView.frame.size.height);
+        pageControl.frame = CGRectMake(roundf(160-pageControl.frame.size.width/2.0), 327, pageControl.frame.size.width, pageControl.frame.size.height);
     }else {
         self.draggableViewController.draggableHeaderView.hidden = YES;
         self.draggableViewController.draggableCloseHeaderView.hidden = YES;
@@ -161,12 +245,18 @@
         labelHint.hidden = YES;
         imageViewBg.frame = CGRectMake(0, 0, 480, 300);
         scrollView.frame = CGRectMake(0, 7, 480, 300);
-        if (hostingView) {
-            hostingView.frame = CGRectMake(80, 0, 310, 287);
-            lensView.center = hostingView.center;
+        if (hostingView1) {
+            hostingView1.frame = CGRectMake(80, 0, 310, 287);
+            lensView.center = hostingView1.center;
+        }
+        if (hostingView2) {
+            hostingView2.frame = CGRectMake(560, 0, 310, 287);
+            lensViewSec.center = hostingView2.center;
         }
         roundView.frame = CGRectMake(90, 10, roundView.frame.size.width, roundView.frame.size.height);
+        pageControl.frame = CGRectMake(roundf(240-pageControl.frame.size.width/2.0), 300-pageControl.frame.size.height, pageControl.frame.size.width, pageControl.frame.size.height);
     }
+    scrollView.contentSize = CGSizeMake(2*scrollView.frame.size.width, scrollView.contentSize.height);
 }
 
 #pragma mark -
@@ -174,38 +264,55 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    if (parentCategoryId > 0) {
-        return [[[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"] count];
-    }else {
-        return [chartByDay count];
+    if ([self plotType:plot] == 0) {
+        if (parentCategoryId > 0) {
+            return [[[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"] count];
+        }else {
+            return [chartByDay count];
+        }
+    }else{
+        return [allCatChart count];
     }
-    
+
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)_index
 {
     NSNumber* total;
-    if (parentCategoryId > 0) {
-        NSDictionary *subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
-        NSNumber* catNum = [subCat.allKeys objectAtIndex:_index];
-        total = [[subCat objectForKey:catNum] objectForKey:@"total"];
-    }else {
-        NSNumber* catNum = [chartByDay.allKeys objectAtIndex:_index];
-        total = [[chartByDay objectForKey:catNum] objectForKey:@"total"];
+    if ([self plotType:plot] == 0) {
+        
+        if (parentCategoryId > 0) {
+            NSDictionary *subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
+            NSNumber* catNum = [subCat.allKeys objectAtIndex:_index];
+            total = [[subCat objectForKey:catNum] objectForKey:@"total"];
+        }else {
+            NSNumber* catNum = [chartByDay.allKeys objectAtIndex:_index];
+            total = [[chartByDay objectForKey:catNum] objectForKey:@"total"];
+        }
+        
+    }else{
+        NSNumber* catNum = [allCatChart.allKeys objectAtIndex:_index];
+        total = [[allCatChart objectForKey:catNum] objectForKey:@"total"];
     }
-    
+
     return total;
-    
 }
 
 -(CPTFill *)sliceFillForPieChart:(CPTPieChart *)pieChart recordIndex:(NSUInteger)_index
 {
     NSUInteger catId;
-    if (parentCategoryId > 0) {
-        NSDictionary *subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
-        catId = [[subCat.allKeys objectAtIndex:_index] integerValue];
-    }else {
-        catId = [[chartByDay.allKeys objectAtIndex:_index] integerValue];
+    if ([self plotType:pieChart] == 0) {
+        
+        if (parentCategoryId > 0) {
+            NSDictionary *subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
+            catId = [[subCat.allKeys objectAtIndex:_index] integerValue];
+        }else {
+            catId = [[chartByDay.allKeys objectAtIndex:_index] integerValue];
+        }
+        
+        
+    }else{
+        catId = [[allCatChart.allKeys objectAtIndex:_index] integerValue];
     }
     
     return [CPTFill fillWithColor:[CPTColor colorWithCGColor:[UIColor colorWithHexString:[Categories colorStringForCategiryId:catId]].CGColor]];
@@ -266,25 +373,109 @@
     return midPointAngle;
 }
 
+-(CGFloat) findMidpointOfSliceAtIndexSec:(NSUInteger)_index
+{
+    CGFloat midPointAngle = 0;
+    // main idea is integrating all amounts before selected slice and find angle
+    // from normalization of values
+    NSNumber *selectedNum = [allCatChart.allKeys objectAtIndex:_index];
+    NSDictionary* data = [allCatChart objectForKey:selectedNum];
+   
+    // set label, image, etc
+    CGFloat selectedTotal =  [[data objectForKey:@"total"] doubleValue];
+    
+    selectednameLabelSec.text = [data objectForKey:@"name"];
+    selectedAmountLabelSec.text = [NSString stringWithFormat:@"%@ руб.",[data objectForKey:@"total"]];
+    
+    NSUInteger cid = [[data objectForKey:@"cid"] integerValue];
+        
+    Categories* nativeCat = [CategoriesController getById:cid];
+    [lensButtonSec setImage:nativeCat.imageNormal forState:UIControlStateNormal];
+    
+    CGFloat subTotal = 0;
+    for(NSUInteger i = 0; i <= _index; ++i)
+    {
+        NSNumber* catNum = [allCatChart.allKeys objectAtIndex:i];
+        subTotal += [[[allCatChart objectForKey:catNum] objectForKey:@"total"] doubleValue];
+    }
+    
+    
+    // then find angle
+    midPointAngle = 2.0f * M_PI * (subTotal-selectedTotal * 0.5f) / overAllTotalSec;
+    NSLog(@"overAllTotal = %f, _index = %d, midPointAngle=%f, subtotal = %f", subTotal, _index,  midPointAngle, selectedTotal);
+    return midPointAngle;
+}
+
+
 -(void)pieChart:(CPTPieChart *)plot sliceWasSelectedAtRecordIndex:(NSUInteger)_index
 {
-    selectedIndex = _index;
-    currentRotation = [self findMidpointOfSliceAtIndex:_index];
+    if ([self plotType:plot] == 0) {
+        selectedIndex = _index;
+        currentRotation = [self findMidpointOfSliceAtIndex:_index];
+        
+        CABasicAnimation *rotation = [CABasicAnimation animationWithKeyPath:@"startAngle"];
+        CABasicAnimation *rotationA = [CABasicAnimation animationWithKeyPath:@"endAngle"];
+        rotation.fromValue = [NSNumber numberWithFloat:plot.startAngle];
+        rotation.toValue   = [NSNumber numberWithFloat:currentRotation + M_PI_2];
+        rotation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        rotationA.fromValue = [NSNumber numberWithFloat:plot.startAngle];
+        rotationA.toValue   = [NSNumber numberWithFloat:currentRotation + M_PI_2];
+        rotationA.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        rotation.duration = 0.3f;
+        rotationA.duration = 0.3f;
+        plot.startAngle = currentRotation + M_PI_2;
+        plot.endAngle = currentRotation + M_PI_2;
+        [plot addAnimation:rotation forKey:@"rotation"];
+        [plot addAnimation:rotationA forKey:@"rotationA"];
+    }else{
+        selectedIndexSec = _index;
+        currentRotationSec = [self findMidpointOfSliceAtIndexSec:_index];
+        
+        CABasicAnimation *rotation = [CABasicAnimation animationWithKeyPath:@"startAngle"];
+        CABasicAnimation *rotationA = [CABasicAnimation animationWithKeyPath:@"endAngle"];
+        rotation.fromValue = [NSNumber numberWithFloat:plot.startAngle];
+        rotation.toValue   = [NSNumber numberWithFloat:currentRotationSec + M_PI_2];
+        rotation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        rotationA.fromValue = [NSNumber numberWithFloat:plot.startAngle];
+        rotationA.toValue   = [NSNumber numberWithFloat:currentRotationSec + M_PI_2];
+        rotationA.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        rotation.duration = 0.3f;
+        rotationA.duration = 0.3f;
+        plot.startAngle = currentRotationSec + M_PI_2;
+        plot.endAngle = currentRotationSec + M_PI_2;
+        [plot addAnimation:rotation forKey:@"rotation"];
+        [plot addAnimation:rotationA forKey:@"rotationA"];
+    }
 
-    CABasicAnimation *rotation = [CABasicAnimation animationWithKeyPath:@"startAngle"];
-    CABasicAnimation *rotationA = [CABasicAnimation animationWithKeyPath:@"endAngle"];
-    rotation.fromValue = [NSNumber numberWithFloat:plot.startAngle];
-    rotation.toValue   = [NSNumber numberWithFloat:currentRotation + M_PI_2];
-    rotation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    rotationA.fromValue = [NSNumber numberWithFloat:plot.startAngle];
-    rotationA.toValue   = [NSNumber numberWithFloat:currentRotation + M_PI_2];
-    rotationA.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    rotation.duration = 0.3f;
-    rotationA.duration = 0.3f;
-    plot.startAngle = currentRotation + M_PI_2;
-    plot.endAngle = currentRotation + M_PI_2;
-    [plot addAnimation:rotation forKey:@"rotation"];    
-    [plot addAnimation:rotationA forKey:@"rotationA"];    
+}
+
+- (NSInteger)plotType:(CPTPlot*)plot{
+    if (selectedGraph) {
+        CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
+        if (hostingView) {
+            for (CPTPlot *p in [hostingView.hostedGraph allPlots]) {
+                if ([p isEqual:plot]) {
+                    return 0;
+                }
+            }
+        }
+        
+        
+        return 1;
+    }else{
+        CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1011];
+        if (hostingView) {
+            for (CPTPlot *p in [hostingView.hostedGraph allPlots]) {
+                if ([p isEqual:plot]) {
+                    return 1;
+                }
+            }
+        }
+        
+        
+        return 0;
+    }
+
 }
 
 #pragma mark -
@@ -312,6 +503,48 @@
     [scrollView addSubview:roundView];
     [roundView release];
     roundView.hidden = 0.0;
+    
+    scrollView.pagingEnabled = YES;
+    
+    pageControl = [[DDPageControl alloc] init];
+    [pageControl setFrame:CGRectMake(roundf(160-pageControl.frame.size.width/2.0), 327, pageControl.frame.size.width, pageControl.frame.size.height)];
+    
+	[pageControl setType:DDPageControlTypeOnFullOffEmpty] ;
+	[pageControl setOnColor:[UIColor colorWithHexString:@"6e8bab"]];
+	[pageControl setOffColor:[UIColor colorWithHexString:@"cecece"]];
+    [pageControl setNumberOfPages:2];
+    [pageControl setCurrentPage:selectedGraph];
+	[pageControl setIndicatorDiameter:6.0f];
+	[pageControl setIndicatorSpace:6.0f];
+	[self.view addSubview:pageControl];
+   
+}
+
+#pragma mark -
+#pragma mark UIScrollView delegate
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (!decelerate) {
+        [self updateScrollViewPosition];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [self updateScrollViewPosition];
+}
+
+- (void)updateScrollViewPosition{
+    if (scrollView.contentOffset.x < scrollView.frame.size.width/2.0) {
+        [scrollView scrollRectToVisible:CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height) animated:YES];
+        pageControl.currentPage = 0;
+        
+        selectedGraph = 0;
+    }else{
+        [scrollView scrollRectToVisible:CGRectMake(scrollView.frame.size.width, 0, scrollView.frame.size.width, scrollView.frame.size.height) animated:YES];
+        pageControl.currentPage = 1;
+        selectedGraph = 1;
+    }
+
 }
 
 #pragma mark -
@@ -426,7 +659,14 @@
 	[viewBox setList:arr];
     [arr release];
     
+    for(NSNumber* cid in allCatChart.allKeys)
+    {
+        NSDictionary* d = [allCatChart objectForKey:cid];
+        overAllTotalSec += [[d objectForKey:@"total"] floatValue];
+    }
+    
     [self builfGraphForParentCategoryId];
+    [self builfGraphForAllCategories];
     
     return YES;
 }
@@ -442,6 +682,7 @@
 #pragma mark Memory managment
 
 - (void)viewDidUnload {
+    selectedGraph = 0;
     [labelHint release];
     labelHint = nil;
     [viewBox release];
@@ -458,25 +699,42 @@
     selectedAmountLabel = nil;
     [lensButton release];
     lensButton = nil;
+    [selectednameLabelSec release];
+    selectednameLabelSec = nil;
+    [selectedAmountLabelSec release];
+    selectedAmountLabelSec = nil;
+    [lensButtonSec release];
+    lensButtonSec = nil;
+    [lensViewSec release];
+    lensViewSec = nil;
     [imageViewBg release];
     imageViewBg = nil;
     [labelLowData release];
     labelLowData = nil;
+    [pageControl release];
+    pageControl = nil;
     [super viewDidUnload];
 }
 
 - (void)dealloc {
     self.chartByDay = nil;
+    self.allCatChart = nil;
     [labelHint release];
     [viewBox release];
     [buttonDateRange release];
     [scrollView release];
     [lensView release];
+    [lensViewSec release];
     [selectednameLabel release];
     [selectedAmountLabel release];
     [lensButton release];
+    [selectednameLabelSec release];
+    [selectedAmountLabelSec release];
+    [lensButtonSec release];
     [imageViewBg release];
     [labelLowData release];
+    [pageControl release];
+    pageControl = nil;
     [super dealloc];
 }
 
