@@ -670,6 +670,9 @@
 		FAEB233915ACBBF40034BA76 /* background_transaction_group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEB233715ACBBF40034BA76 /* background_transaction_group@2x.png */; };
 		FAECAFA015B7440A0037DAC2 /* UIAlertView+Autorelease.m in Sources */ = {isa = PBXBuildFile; fileRef = FAECAF9F15B744090037DAC2 /* UIAlertView+Autorelease.m */; };
 		FAECAFA215B74A140037DAC2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAECAFA115B74A140037DAC2 /* MessageUI.framework */; };
+		FAF824161615694700419432 /* TutorialView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF824151615694700419432 /* TutorialView.m */; };
+		FAF824191615825F00419432 /* icon_close.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF824171615825700419432 /* icon_close.png */; };
+		FAF8241A1615825F00419432 /* icon_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF824181615825A00419432 /* icon_close@2x.png */; };
 		FAF8874B15BEA4E200844D15 /* background_group.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF8874915BEA4E200844D15 /* background_group.png */; };
 		FAF8874C15BEA4E200844D15 /* background_group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF8874A15BEA4E200844D15 /* background_group@2x.png */; };
 /* End PBXBuildFile section */
@@ -1544,6 +1547,10 @@
 		FAECAF9E15B744080037DAC2 /* UIAlertView+Autorelease.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Autorelease.h"; sourceTree = "<group>"; };
 		FAECAF9F15B744090037DAC2 /* UIAlertView+Autorelease.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Autorelease.m"; sourceTree = "<group>"; };
 		FAECAFA115B74A140037DAC2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		FAF824141615694700419432 /* TutorialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialView.h; sourceTree = "<group>"; };
+		FAF824151615694700419432 /* TutorialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialView.m; sourceTree = "<group>"; };
+		FAF824171615825700419432 /* icon_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_close.png; sourceTree = "<group>"; };
+		FAF824181615825A00419432 /* icon_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_close@2x.png"; sourceTree = "<group>"; };
 		FAF8874915BEA4E200844D15 /* background_group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_group.png; sourceTree = "<group>"; };
 		FAF8874A15BEA4E200844D15 /* background_group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_group@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2059,6 +2066,8 @@
 				D1002D4C140D3C92001503F6 /* LoadingView.m */,
 				D1B26B2C145C257900663EF3 /* SplashView.h */,
 				D1B26B2D145C257900663EF3 /* SplashView.m */,
+				FAF824141615694700419432 /* TutorialView.h */,
+				FAF824151615694700419432 /* TutorialView.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -2110,6 +2119,8 @@
 		D1002D65140D3C92001503F6 /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				FAF824171615825700419432 /* icon_close.png */,
+				FAF824181615825A00419432 /* icon_close@2x.png */,
 				FA20BEEA15AE9C53006E4CA3 /* icon_settings_database.png */,
 				FA20BEEB15AE9C56006E4CA3 /* icon_settings_database@2x.png */,
 				FA20BEEC15AE9C5A006E4CA3 /* icon_settings_device.png */,
@@ -4104,6 +4115,8 @@
 				FA354AE615BEAA19004670F0 /* PasswordViewController_iPhone.xib in Resources */,
 				FAC9D77915F910E000C6CCFA /* comment_close.png in Resources */,
 				FAA603A81601913000D4E363 /* Currency.plist in Resources */,
+				FAF824191615825F00419432 /* icon_close.png in Resources */,
+				FAF8241A1615825F00419432 /* icon_close@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4325,6 +4338,7 @@
 				FA229F6E15D3DB3A008AEA10 /* ReportDateFilterViewController.m in Sources */,
 				FA709C9115FDA25200C1142F /* FIAnimationController.m in Sources */,
 				FADA51F61614D00200D49C1B /* RIPageControl.m in Sources */,
+				FAF824161615694700419432 /* TutorialView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
