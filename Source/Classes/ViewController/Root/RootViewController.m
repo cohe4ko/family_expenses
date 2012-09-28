@@ -25,6 +25,8 @@
 
 #import "SettingsController.h"
 
+#import "TutorialView.h"
+
 #import "File.h"
 
 @interface RootViewController(Private)
@@ -33,6 +35,7 @@
 - (void)runComplete;
 - (void)runCheckUpdate;
 - (void)actionLogin:(BOOL)yesOrNo;
+- (void)showTutorial;
 @end
 
 @implementation RootViewController
@@ -90,6 +93,7 @@ static RootViewController *rootViewController = NULL;
 		 
 - (void)runComplete {
 	[self hideSplash];
+    [self performSelector:@selector(showTutorial) withObject:nil afterDelay:1.0];
 }
 
 #pragma mark -
@@ -195,6 +199,30 @@ static RootViewController *rootViewController = NULL;
 	labelSplash.text = text;
 	[labelSplash setHidden:FALSE];
 	[indicatorSplash startAnimating];
+}
+
+#pragma mark -
+#pragma mark Show tutorial
+
+- (void)showTutorial{
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"tutorialShouldShow"] || [[NSUserDefaults standardUserDefaults] boolForKey:@"tutorialShouldShow"]) {
+        NSMutableArray *images = [NSMutableArray array];
+        for (int i = 0; i < 5; i++) {
+            UIImage *image = [UIImage imageNamed:@"background.png"];
+            [images addObject:image];
+        }
+        TutorialView *tutorialView = [[TutorialView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
+        [tutorialView setImages:images];
+        [tutorialView onClose:^{
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"tutorialShouldShow"];
+        }];
+        if (master.tabBarController.modalViewController) {
+            [tutorialView showOnView:master.tabBarController.modalViewController.view animated:YES];
+        }else{
+            [tutorialView showOnView:master.tabBarController.view animated:YES];
+        }
+        [tutorialView release];
+    }
 }
 
 #pragma mark -

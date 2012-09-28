@@ -128,7 +128,7 @@ static iRate *sharedInstance = nil;
 	{
 		return message;
 	}
-	return [NSString stringWithFormat:@"Очень надеемся, что Вам понравилось наше приложение. Будем очень благодарны за отзыв в AppStore. Он будет способствовать развитию этого проекта", applicationName];
+	return @"Очень надеемся, что Вам понравилось наше приложение. Будем очень благодарны за отзыв в AppStore. Он будет способствовать развитию этого проекта";
 }
 
 - (NSURL *)ratingsURL

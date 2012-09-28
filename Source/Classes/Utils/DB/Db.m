@@ -91,7 +91,7 @@ static Db *sharedDB = NULL;
 }
 
 + (NSString *)getDbPath {
-    return [[File rootDir] stringByAppendingPathComponent:[NSString stringWithString:@"DB/"]];
+    return [[File rootDir] stringByAppendingPathComponent:@"DB/"];
 	
 }
 
