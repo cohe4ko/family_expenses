@@ -68,7 +68,7 @@
 
 - (IBAction)actionDateRange:(id)sender;
 
--(void) setValues:(NSArray *)val forDic:(NSDictionary*)chart allCat:(NSDictionary*)allCat;
+- (void) setValues:(NSArray *)val forDic:(NSDictionary*)chart allCat:(NSDictionary*)allCat;
 
 - (IBAction)onLevelUp:(id)sender;
 - (IBAction)onLens:(id)sender;

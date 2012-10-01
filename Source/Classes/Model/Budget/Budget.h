@@ -41,6 +41,9 @@ typedef enum {
 - (NSDate *)dateFrom;
 - (NSDate *)dateTo;
 
+- (NSString*)localizedAmount;
+- (NSString*)localizedTotal;
+
 - (CGFloat)progressPercent;
 
 - (UIImage *)progressImage;

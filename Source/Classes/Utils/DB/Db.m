@@ -267,9 +267,7 @@ static Db *sharedDB = NULL;
 	if ([fieldType isEqualToString:@"i"] || // int
 		[fieldType isEqualToString:@"I"] || // unsigned int
 		[fieldType isEqualToString:@"s"] || // short
-		[fieldType isEqualToString:@"S"] || // unsigned short
-		[fieldType isEqualToString:@"f"] || // float
-		[fieldType isEqualToString:@"d"] )  // double
+		[fieldType isEqualToString:@"S"])  // unsigned short
 	{
 		result = FIELDTYPE_INTEGER;
 	}	
@@ -280,7 +278,9 @@ static Db *sharedDB = NULL;
 	else if ([fieldType isEqualToString:@"l"] || // long
 			 [fieldType isEqualToString:@"L"] || // usigned long
 			 [fieldType isEqualToString:@"q"] || // long long
-			 [fieldType isEqualToString:@"Q"] ) // unsigned long long
+			 [fieldType isEqualToString:@"Q"] || // unsigned short
+             [fieldType isEqualToString:@"f"] || // float
+             [fieldType isEqualToString:@"d"]) // double
 	{
 		result = FIELDTYPE_NUMBER;
 	}

@@ -6,6 +6,8 @@
 #import "Budget.h"
 
 #import "NSDate+Utils.h"
+#import "SettingsController.h"
+#import "NSString+Utils.h"
 
 @implementation Budget
 
@@ -60,6 +62,26 @@
 	UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"budget_progress_%@.png", n]];
 	return [image stretchableImageWithLeftCapWidth:image.size.width / 2 topCapHeight:image.size.height / 2];
 		
+}
+
+- (NSString*)localizedAmount{
+    NSInteger currencyIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_index"];
+    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"];
+    
+    
+    NSDictionary *currency = [SettingsController currencyForIndex:currencyIndex];
+    
+    return [NSString formatCurrency:self.amount currencyCode:[currency objectForKey:kCurrencyKeySymbol] numberOfPoints:points orietation:[[currency objectForKey:kCurrencyKeyOrientation] intValue]];
+}
+
+- (NSString*)localizedTotal{
+    NSInteger currencyIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_index"];
+    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"];
+    
+    
+    NSDictionary *currency = [SettingsController currencyForIndex:currencyIndex];
+    
+    return [NSString formatCurrency:self.total currencyCode:[currency objectForKey:kCurrencyKeySymbol] numberOfPoints:points orietation:[[currency objectForKey:kCurrencyKeyOrientation] intValue]];
 }
 
 #pragma mark -

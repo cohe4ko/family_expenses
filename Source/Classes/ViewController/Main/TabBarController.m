@@ -148,7 +148,7 @@
 }
 
 - (void)animationTransactionAdding:(Transactions*)t{
-    [(TransactionsViewController*)[[(UINavigationController*)[self.viewControllers objectAtIndex:0] viewControllers] objectAtIndex:0] addTransactionAnimated:t];
+    [(TransactionsViewController*)[[(UINavigationController*)[self.viewControllers objectAtIndex:0] viewControllers] objectAtIndex:0] setAddingTransaction:t];
 }
 
 #pragma mark -

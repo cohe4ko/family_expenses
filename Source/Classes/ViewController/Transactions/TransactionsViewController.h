@@ -40,6 +40,9 @@
     BOOL isGroup;
 	
 	NSMutableArray *list;
+    
+    Transactions *addingTransaction;
+    NSInteger currentIndex;
 }
 
 @property (nonatomic, retain) NSMutableDictionary *cellEditing;
@@ -49,6 +52,7 @@
 @property (nonatomic, assign) BOOL isGroup;
 
 @property (nonatomic, retain) NSMutableArray *list;
+@property (nonatomic, retain) Transactions *addingTransaction;
 
 - (IBAction)actionSortButton:(UIButton *)sender;
 - (void)addTransactionAnimated:(Transactions*)t;

@@ -12,6 +12,7 @@
 #import "TransactionsController.h"
 #import "CategoriesController.h"
 #import "ReportDateFilterViewController.h"
+#import "SettingsController.h"
 
 @interface ReportDiagramViewController (Private)
 - (void) builfGraphForParentCategoryId;
@@ -21,6 +22,7 @@
 - (BOOL) setData;
 - (void) animateSettingData;
 - (NSInteger)plotType:(CPTPlot*)plot;
+- (void)setLocalizedAmountForGraph:(NSInteger)graph amount:(CGFloat)amount;
 @end
 
 @implementation ReportDiagramViewController
@@ -347,7 +349,7 @@
     CGFloat selectedTotal =  [[data objectForKey:@"total"] floatValue];
     
     selectednameLabel.text = [data objectForKey:@"name"];
-    selectedAmountLabel.text = [NSString stringWithFormat:@"%@ руб.",[data objectForKey:@"total"]];
+    [self setLocalizedAmountForGraph:0 amount:selectedTotal];
     
     NSUInteger cid = [[data objectForKey:@"cid"] integerValue];
     parentCid = cid;
@@ -390,7 +392,7 @@
     CGFloat selectedTotal =  [[data objectForKey:@"total"] doubleValue];
     
     selectednameLabelSec.text = [data objectForKey:@"name"];
-    selectedAmountLabelSec.text = [NSString stringWithFormat:@"%@ руб.",[data objectForKey:@"total"]];
+    [self setLocalizedAmountForGraph:1 amount:selectedTotal];
     
     NSUInteger cid = [[data objectForKey:@"cid"] integerValue];
         
@@ -675,6 +677,7 @@
     }
     NSLog(@"overAllTotal = %f", overAllTotal);
 
+    overAllTotalSec = 0;
     for(NSNumber* cid in allCatChart.allKeys)
     {
         NSDictionary* d = [allCatChart objectForKey:cid];
@@ -693,6 +696,21 @@
     [self builfGraphForAllCategories];
     
     return YES;
+}
+
+- (void)setLocalizedAmountForGraph:(NSInteger)graph amount:(CGFloat)amount{
+    NSInteger currencyIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_index"];
+    NSInteger points = [[NSUserDefaults standardUserDefaults] integerForKey:@"settings_currency_points"];
+    
+    
+    NSDictionary *currency = [SettingsController currencyForIndex:currencyIndex];
+    
+    
+    if (graph == 0) {
+        selectedAmountLabel.text = [NSString formatCurrency:amount currencyCode:[currency objectForKey:kCurrencyKeySymbol] numberOfPoints:points orietation:[[currency objectForKey:kCurrencyKeyOrientation] intValue]];
+    }else{
+        selectedAmountLabelSec.text = [NSString formatCurrency:amount currencyCode:[currency objectForKey:kCurrencyKeySymbol] numberOfPoints:points orietation:[[currency objectForKey:kCurrencyKeyOrientation] intValue]];
+    }
 }
 
 #pragma mark -

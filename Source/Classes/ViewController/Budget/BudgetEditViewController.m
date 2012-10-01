@@ -149,7 +149,7 @@
 	}
 		
 	// Set default labels
-	[buttonAmount setValue:((self.budget.amount) ? [NSString stringWithFormat:@"%d %@", (int)self.budget.amount, @"руб"] : NSLocalizedString(@"budget_edit_placeholder_amount", @""))];
+	[buttonAmount setValue:((self.budget.amount) ? [self.budget localizedAmount] : NSLocalizedString(@"budget_edit_placeholder_amount", @""))];
 	
 	// Set dates
 	[buttonDateFrom setValue:[self.budget.dateFrom dateFormat:NSLocalizedString(@"budget_edit_date_format", @"")]];
@@ -161,7 +161,7 @@
 
 - (void)setAmount:(NSNumber *)amount {
 	self.budget.amount = [amount floatValue];
-	[buttonAmount setValue:((self.budget.amount) ? [NSString stringWithFormat:@"%d %@", (int)self.budget.amount, @"руб"] : NSLocalizedString(@"budget_edit_placeholder_amount", @""))];
+	[buttonAmount setValue:((self.budget.amount) ? [self.budget localizedAmount] : NSLocalizedString(@"budget_edit_placeholder_amount", @""))];
 }
 
 - (void)setDateFrom:(NSDate *)date {
