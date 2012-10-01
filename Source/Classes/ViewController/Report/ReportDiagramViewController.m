@@ -257,6 +257,11 @@
         pageControl.frame = CGRectMake(roundf(240-pageControl.frame.size.width/2.0), 300-pageControl.frame.size.height, pageControl.frame.size.width, pageControl.frame.size.height);
     }
     scrollView.contentSize = CGSizeMake(2*scrollView.frame.size.width, scrollView.contentSize.height);
+    if (selectedGraph == 0) {
+        [scrollView scrollRectToVisible:CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height) animated:NO];
+    }else{
+        [scrollView scrollRectToVisible:CGRectMake(scrollView.frame.size.width, 0, scrollView.frame.size.width, scrollView.frame.size.height) animated:NO];
+    }
 }
 
 #pragma mark -
@@ -507,6 +512,7 @@
     scrollView.pagingEnabled = YES;
     
     pageControl = [[DDPageControl alloc] init];
+    pageControl.userInteractionEnabled = NO;
     [pageControl setFrame:CGRectMake(roundf(160-pageControl.frame.size.width/2.0), 327, pageControl.frame.size.width, pageControl.frame.size.height)];
     
 	[pageControl setType:DDPageControlTypeOnFullOffEmpty] ;
@@ -539,10 +545,12 @@
         pageControl.currentPage = 0;
         
         selectedGraph = 0;
+        [viewBox setList:boxCatArray];
     }else{
         [scrollView scrollRectToVisible:CGRectMake(scrollView.frame.size.width, 0, scrollView.frame.size.width, scrollView.frame.size.height) animated:YES];
         pageControl.currentPage = 1;
         selectedGraph = 1;
+        [viewBox setList:boxAllArray];
     }
 
 }
@@ -645,24 +653,40 @@
         chartData = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
     }
     
+    if (boxCatArray) {
+        [boxCatArray removeAllObjects];
+    }else{
+        boxCatArray = [[NSMutableArray alloc] init];
+    }
     
-    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    if (boxAllArray) {
+        [boxAllArray removeAllObjects];
+    }else{
+        boxAllArray = [[NSMutableArray alloc] init];
+    }
+    
     overAllTotal = 0;
     for(NSNumber* cid in chartData.allKeys)
     {
         NSDictionary* d = [chartData objectForKey:cid];
         NSDictionary *d1 = [NSDictionary dictionaryWithObjectsAndKeys:[d objectForKey:@"name"], @"name", [d objectForKey:@"total"], @"amount", [Categories colorStringForCategiryId:[cid integerValue]], @"color", nil];        
-        [arr addObject:[ReportBox withDictionary:d1]];
+        [boxCatArray addObject:[ReportBox withDictionary:d1]];
         overAllTotal += [[d objectForKey:@"total"] floatValue];
     }
     NSLog(@"overAllTotal = %f", overAllTotal);
-	[viewBox setList:arr];
-    [arr release];
-    
+
     for(NSNumber* cid in allCatChart.allKeys)
     {
         NSDictionary* d = [allCatChart objectForKey:cid];
+        NSDictionary *d1 = [NSDictionary dictionaryWithObjectsAndKeys:[d objectForKey:@"name"], @"name", [d objectForKey:@"total"], @"amount", [Categories colorStringForCategiryId:[cid integerValue]], @"color", nil];
+        [boxAllArray addObject:[ReportBox withDictionary:d1]];
         overAllTotalSec += [[d objectForKey:@"total"] floatValue];
+    }
+    
+    if (selectedGraph == 0) {
+        [viewBox setList:boxCatArray];
+    }else{
+        [viewBox setList:boxAllArray];
     }
     
     [self builfGraphForParentCategoryId];
@@ -735,6 +759,14 @@
     [labelLowData release];
     [pageControl release];
     pageControl = nil;
+    if (boxAllArray) {
+        [boxAllArray release];
+        boxAllArray = nil;
+    }
+    if (boxCatArray) {
+        [boxCatArray release];
+        boxCatArray = nil;
+    }
     [super dealloc];
 }
 

@@ -52,6 +52,9 @@
     NSUInteger parentCid;
     NSUInteger level;
     NSInteger selectedGraph;
+    
+    NSMutableArray *boxCatArray;
+    NSMutableArray *boxAllArray;
 }
 
 @property (nonatomic, retain) NSDictionary* chartByDay;
