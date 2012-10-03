@@ -84,6 +84,7 @@
 -(void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [super tableView:_tableView didSelectRowAtIndexPath:indexPath];
     if (groupType == GroupInfin) {
+        currentIndex = indexPath.row;
         AddBillViewController *controller = [MainController getViewController:@"AddBillViewController"];
         Transactions *item = [list objectAtIndex:indexPath.row];
         [controller setTransaction:item];

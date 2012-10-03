@@ -105,11 +105,11 @@
         
     NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
 	[numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	[numberFormatter setCurrencyDecimalSeparator:@""];
+//	[numberFormatter setCurrencyDecimalSeparator:@"."];
 	[numberFormatter setCurrencySymbol:@""];
-	[numberFormatter setMaximumFractionDigits:2];
-	[numberFormatter setPositiveFormat:@"# ###"];
-    currencyFormat = [numberFormatter stringFromNumber:[NSNumber numberWithInt:number]];
+	[numberFormatter setMaximumFractionDigits:numberOfPoints-1];
+	//[numberFormatter setPositiveFormat:@"# ###"];
+    currencyFormat = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:number]];
     
     if (backward == 1) {
         amountStr = [NSString stringWithFormat:@"%@ %@",currencyFormat,currencySymbol];

@@ -164,7 +164,6 @@
     
     
 	[sql appendFormat: @") VALUES (%@)", [NSString arrayToString :values]];
-
 	return sql;		
 }
 

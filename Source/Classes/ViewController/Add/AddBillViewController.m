@@ -241,10 +241,7 @@
 	[transaction save];
 	
 	// Send notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
-    
-	
-	
+    	
 	// Go back
 	[self.navigationController popToRootViewControllerAnimated:YES];
 	
@@ -254,11 +251,12 @@
 - (void)actionDoneComplete {
 	
 	// Change tab
-	[[AppDelegate shared].tabBarController setSelectedIndex:0];
     if (btype == BillTypeAdd) {
-        [[AppDelegate shared].tabBarController performSelector:@selector(animationTransactionAdding:) withObject:transaction afterDelay:0.2f];
+        [[AppDelegate shared].tabBarController setSelectedIndex:0];
+        [[AppDelegate shared].tabBarController animationTransactionAdding:transaction];
     }
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
 }
 
 - (IBAction)actionDate:(id)sender {
@@ -367,7 +365,7 @@
 - (void)setData {
 	
 	// Set price
-	[labelPrice setText:[NSString stringWithFormat:@"%d %@", (int)transaction.amount, @"руб"]];
+	[labelPrice setText:[transaction price]];
 	
 	// Set date
 	[buttonDate setTitle:[transaction.date dateFormat:NSLocalizedString(@"add_bill_date_format", @"")] forState:UIControlStateNormal];
@@ -378,7 +376,7 @@
 
 - (void)setPrice:(NSNumber*)price{
     transaction.amount = [price floatValue];
-    [labelPrice setText:[NSString stringWithFormat:@"%d %@", (int)[price floatValue], @"руб"]];
+    [labelPrice setText:[transaction price]];
 }
 
 - (void)setCategoryName {

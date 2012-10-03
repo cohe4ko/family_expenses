@@ -62,7 +62,7 @@
 		[labelDate setText:[NSString stringWithFormat:@"%@ - %@", [item.dateFrom dateFormat:NSLocalizedString(@"budget_date_format", @"")], [item.dateTo dateFormat:NSLocalizedString(@"budget_date_format", @"")]]];
 		
 		// Set label progress
-		[labelProgress setText:[NSString stringWithFormat:@"%@ / %@ %@", [NSString formatCurrency:(int)item.total def:@"0"], [NSString formatCurrency:(int)item.amount def:@"0"], @"руб"]];
+		[labelProgress setText:[NSString stringWithFormat:@"%@ / %@", [item localizedTotal], [item localizedAmount]]];
 		
 		// Set editing status
 		[self setEdit:[[parent.cellEditing objectForKey:[NSNumber numberWithInteger:item.Id]] boolValue] animated:NO];

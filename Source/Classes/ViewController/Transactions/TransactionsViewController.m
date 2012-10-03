@@ -36,7 +36,7 @@
 
 @implementation TransactionsViewController
 
-@synthesize sortType, groupType, isSort, isGroup, list, cellEditing;
+@synthesize sortType, groupType, isSort, isGroup, list, cellEditing,addingTransaction;
 
 #pragma mark -
 #pragma mark Initializate
@@ -75,22 +75,25 @@
             [list removeObjectAtIndex:foundIndex];
             [tableView reloadData];
             
-            if (foundIndex == 0) {
-                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0
-                                                                     inSection:0]
-                                 atScrollPosition:UITableViewScrollPositionMiddle
-                                         animated:NO];
-            }else if(foundIndex == [list count]) {
-                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:foundIndex-1
-                                                                     inSection:0]
-                                 atScrollPosition:UITableViewScrollPositionMiddle
-                                         animated:NO];
-            }else {
-                [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:foundIndex
-                                                                     inSection:0]
-                                 atScrollPosition:UITableViewScrollPositionMiddle
-                                         animated:NO];
+            if ([list count] > 0) {
+                if (foundIndex == 0) {
+                    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0
+                                                                         inSection:0]
+                                     atScrollPosition:UITableViewScrollPositionMiddle
+                                             animated:NO];
+                }else if(foundIndex == [list count]) {
+                    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:foundIndex-1
+                                                                         inSection:0]
+                                     atScrollPosition:UITableViewScrollPositionMiddle
+                                             animated:NO];
+                }else {
+                    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:foundIndex
+                                                                         inSection:0]
+                                     atScrollPosition:UITableViewScrollPositionMiddle
+                                             animated:NO];
+                }
             }
+            
             
             [self performSelector:@selector(animatedAddObjectForIndex:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:t,@"object",[NSNumber numberWithInt:foundIndex],@"index", nil] afterDelay:0.25];
             
@@ -269,7 +272,6 @@
     
     labelDateStart.text = [beginDate dateFormat:NSLocalizedString(@"transactions_interval_date_format", @"")];
     labelDateEnd.text = [endDate dateFormat:NSLocalizedString(@"transactions_interval_date_format", @"")];
-    
     self.list = [NSMutableArray array];
     // Set empty data
 	[self setData];
@@ -290,7 +292,16 @@
                         waitUntilDone:YES];
     [self performSelectorOnMainThread:@selector(setData)
                            withObject:nil
-                        waitUntilDone:NO];
+                        waitUntilDone:YES];
+    if (groupType == GroupInfin && self.addingTransaction) {
+        [self performSelectorOnMainThread:@selector(addTransactionAnimated:) withObject:self.addingTransaction waitUntilDone:YES];
+        self.addingTransaction = nil;
+    }else{
+        if (list && currentIndex >= 0 && currentIndex < [list count]) {
+            [self performSelectorOnMainThread:@selector(scrollToRowWithIndex:) withObject:[NSNumber numberWithInt:currentIndex] waitUntilDone:YES];
+        }
+
+    }
     
     [pool release];
 
@@ -319,7 +330,7 @@
 	[self setTotalAmount];
 	
 	// Reload table view
-	[tableView reloadData];
+    [tableView reloadData];
 }
 
 - (void)setGroupType:(GroupType)_groupType{
@@ -594,7 +605,7 @@
         [loadingView release];
         loadingView = nil;
     }
-	
+	self.addingTransaction = nil;
 }
 
 - (void)dealloc {
