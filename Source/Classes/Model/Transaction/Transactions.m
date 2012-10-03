@@ -17,7 +17,7 @@
 #pragma mark -
 #pragma mark Initializate
 
-@synthesize state, repeatType, repeatValue, time, categoriesId, categoriesParentId, amount, desc;
+@synthesize state, repeatType, repeatValue, time, categoriesId, categoriesParentId, amount, desc,sid,device_id,timestamp;
 
 + (Transactions *)create {
 	Transactions *t = [[[Transactions alloc] init] autorelease];
@@ -51,7 +51,18 @@
 }
 
 - (void)save {
-	[[Db shared] save:self];
+    if ([self isNew]) {
+        if (![self sid]) {
+            self.sid = [NSString stringWithFormat:@"%@%0.0lf",[SettingsController UIID],[[NSDate date] timeIntervalSince1970]];
+        }
+        if (![self device_id]) {
+            self.device_id = [SettingsController UIID];
+        }
+    }
+	if ([[Db shared] save:self]) {
+        [Model addTransactionToSync:self.sid];
+    }
+    
 }
 
 - (void)remove {

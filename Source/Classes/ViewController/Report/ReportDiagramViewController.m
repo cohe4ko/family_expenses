@@ -376,7 +376,6 @@
     
     // then find angle
     midPointAngle = 2.0f * M_PI * subTotal / overAllTotal;
-    NSLog(@"overAllTotal = %f, _index = %d, midPointAngle=%f, subtotal = %f", overAllTotal, _index,  midPointAngle, subTotal);
     return midPointAngle;
 }
 
@@ -409,7 +408,6 @@
     
     // then find angle
     midPointAngle = 2.0f * M_PI * (subTotal-selectedTotal * 0.5f) / overAllTotalSec;
-    NSLog(@"overAllTotal = %f, _index = %d, midPointAngle=%f, subtotal = %f", subTotal, _index,  midPointAngle, selectedTotal);
     return midPointAngle;
 }
 
@@ -675,8 +673,7 @@
         [boxCatArray addObject:[ReportBox withDictionary:d1]];
         overAllTotal += [[d objectForKey:@"total"] floatValue];
     }
-    NSLog(@"overAllTotal = %f", overAllTotal);
-
+    
     overAllTotalSec = 0;
     for(NSNumber* cid in allCatChart.allKeys)
     {

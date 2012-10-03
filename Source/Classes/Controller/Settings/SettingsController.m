@@ -67,4 +67,20 @@ static NSArray *currencies = nil;
     return [NSDictionary dictionaryWithObjectsAndKeys:beginDate,@"beginDate",endDate,@"endDate", nil];
 }
 
++ (NSString *)UIID{
+    NSString *uniqueID;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    id uuid = [[defaults objectForKey:@"uniqueID"] retain];
+    if (uuid)
+        uniqueID = (NSString *)uuid;
+    else {
+        CFStringRef cfUuid = CFUUIDCreateString(NULL, CFUUIDCreate(NULL));
+        uniqueID = (NSString *)cfUuid;
+        [defaults setObject:uniqueID forKey:@"uniqueID"];
+    }
+    
+    return [uniqueID autorelease];
+}
+
 @end

@@ -206,8 +206,6 @@
         }
     }
     
-   // NSLog(@"%@", categories);
-    
     CGFloat wd = scrollView.frame.size.width;
     CGFloat dh = scrollView.frame.size.height;
     scrollView.delaysContentTouches = YES;
@@ -324,15 +322,6 @@
         [graph addPlot:boundLinePlot];
                 
         
-//        NSMutableArray* cat = [categories objectForKey:catNum];
-//        for(Transactions* tr in cat)
-//        {
-//#if TARGET_IPHONE_SIMULATOR
-//            NSLog(@"parentCatId = %d", tr.categoriesParentId);
-//#endif        
-//        }
-        
-        
     }
     
     graph.rasterizationScale = [UIScreen mainScreen].scale;
@@ -377,8 +366,6 @@
     id key = plot.identifier;
     NSArray* cat = [categories objectForKey:key];
     Transactions* t = [cat objectAtIndex:_index];
-  //  NSLog(@"fieldenum = %d index = %d time=%d", fieldEnum, _index, t.time);
-
     
     if(!fieldEnum)
     {

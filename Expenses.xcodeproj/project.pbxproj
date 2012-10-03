@@ -662,6 +662,8 @@
 		FAE2B99C15B7D8B300A36AC2 /* PickerCurrencyViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B99B15B7D8B300A36AC2 /* PickerCurrencyViewController_iPhone.xib */; };
 		FAE2B99F15B7E4BF00A36AC2 /* PickerCurrencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE2B99E15B7E4BF00A36AC2 /* PickerCurrencyViewController.m */; };
 		FAE2B9A215B7E51A00A36AC2 /* PickerCurrencyViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE2B9A115B7E51A00A36AC2 /* PickerCurrencyViewController_iPhone.m */; };
+		FAE41695161C46F8000DB4AA /* SyncTransactions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE41694161C46F8000DB4AA /* SyncTransactions.m */; };
+		FAE41698161C4875000DB4AA /* SyncBudget.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE41697161C4875000DB4AA /* SyncBudget.m */; };
 		FAEB233215ACBBDC0034BA76 /* button_segment_middle-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEB232E15ACBBDC0034BA76 /* button_segment_middle-selected.png */; };
 		FAEB233315ACBBDC0034BA76 /* button_segment_middle-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEB232F15ACBBDC0034BA76 /* button_segment_middle-selected@2x.png */; };
 		FAEB233415ACBBDC0034BA76 /* button_segment_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = FAEB233015ACBBDC0034BA76 /* button_segment_middle.png */; };
@@ -1538,6 +1540,10 @@
 		FAE2B99E15B7E4BF00A36AC2 /* PickerCurrencyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerCurrencyViewController.m; sourceTree = "<group>"; };
 		FAE2B9A115B7E51A00A36AC2 /* PickerCurrencyViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerCurrencyViewController_iPhone.m; sourceTree = "<group>"; };
 		FAE2B9A315B7E56400A36AC2 /* PickerCurrencyViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerCurrencyViewController_iPhone.h; sourceTree = "<group>"; };
+		FAE41693161C46F8000DB4AA /* SyncTransactions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncTransactions.h; sourceTree = "<group>"; };
+		FAE41694161C46F8000DB4AA /* SyncTransactions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncTransactions.m; sourceTree = "<group>"; };
+		FAE41696161C4874000DB4AA /* SyncBudget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncBudget.h; sourceTree = "<group>"; };
+		FAE41697161C4875000DB4AA /* SyncBudget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncBudget.m; sourceTree = "<group>"; };
 		FAEB232E15ACBBDC0034BA76 /* button_segment_middle-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_segment_middle-selected.png"; sourceTree = "<group>"; };
 		FAEB232F15ACBBDC0034BA76 /* button_segment_middle-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button_segment_middle-selected@2x.png"; sourceTree = "<group>"; };
 		FAEB233015ACBBDC0034BA76 /* button_segment_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_segment_middle.png; sourceTree = "<group>"; };
@@ -1759,6 +1765,7 @@
 		D1002C61140D3C92001503F6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FAE41692161C46D1000DB4AA /* Sync */,
 				FA97009B15CAFCF2009D01A3 /* ESLocaleFactory.h */,
 				FA97009C15CAFCF2009D01A3 /* ESLocaleFactory.m */,
 				FA97009515CAFBD4009D01A3 /* SqliteFunctions.h */,
@@ -3589,6 +3596,17 @@
 			path = NSLocale;
 			sourceTree = "<group>";
 		};
+		FAE41692161C46D1000DB4AA /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				FAE41693161C46F8000DB4AA /* SyncTransactions.h */,
+				FAE41694161C46F8000DB4AA /* SyncTransactions.m */,
+				FAE41696161C4874000DB4AA /* SyncBudget.h */,
+				FAE41697161C4875000DB4AA /* SyncBudget.m */,
+			);
+			path = Sync;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4339,6 +4357,8 @@
 				FA709C9115FDA25200C1142F /* FIAnimationController.m in Sources */,
 				FADA51F61614D00200D49C1B /* RIPageControl.m in Sources */,
 				FAF824161615694700419432 /* TutorialView.m in Sources */,
+				FAE41695161C46F8000DB4AA /* SyncTransactions.m in Sources */,
+				FAE41698161C4875000DB4AA /* SyncBudget.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

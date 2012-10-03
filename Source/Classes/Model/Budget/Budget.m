@@ -14,7 +14,7 @@
 #pragma mark -
 #pragma mark Initializate
 
-@synthesize timeFrom, timeTo, amount, state, repeat, total;
+@synthesize timeFrom, timeTo, amount, state, repeat, total,sid,device_id,timestamp;
 
 + (Budget *)create {
 	Budget *t = [[[Budget alloc] init] autorelease];
@@ -88,7 +88,18 @@
 #pragma mark Operations
 
 - (void)save {
-	[[Db shared] save:self];
+    if ([self isNew]) {
+        if (![self sid]) {
+            self.sid = [NSString stringWithFormat:@"%@%0.0lf",[SettingsController UIID],[[NSDate date] timeIntervalSince1970]];
+        }
+        if (![self device_id]) {
+            self.device_id = [SettingsController UIID];
+        }
+        
+    }
+	if ([[Db shared] save:self]) {
+        [Model addBudgetToSync:self.sid];
+    }
 }
 
 - (void)remove {

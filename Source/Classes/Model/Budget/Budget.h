@@ -25,6 +25,9 @@ typedef enum {
 	
 	BudgetState state;
 	BudgetRepeat repeat;
+    NSString *sid;
+    NSString *device_id;
+    NSInteger timestamp;
 }
 
 @property (nonatomic, assign) NSInteger timeFrom;
@@ -33,6 +36,9 @@ typedef enum {
 @property (nonatomic, assign) CGFloat total;
 @property (nonatomic, assign) BudgetState state;
 @property (nonatomic, assign) BudgetRepeat repeat;
+@property (nonatomic, retain) NSString *sid;
+@property (nonatomic, retain) NSString *device_id;
+@property (nonatomic, assign) NSInteger timestamp;
 
 + (Budget *)create;
 + (Budget *)withDictionary:(NSDictionary *)dic;
