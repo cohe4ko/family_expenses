@@ -206,7 +206,7 @@
         }
     }
     
-    NSLog(@"%@", categories);
+   // NSLog(@"%@", categories);
     
     CGFloat wd = scrollView.frame.size.width;
     CGFloat dh = scrollView.frame.size.height;
@@ -228,6 +228,8 @@
     graph.plotAreaFrame.paddingRight  = 0;
     graph.plotAreaFrame.paddingBottom = 50.0;
     
+    
+    
     hostingView.collapsesLayers = NO; // Setting to YES reduces GPU memory usage, but can slow drawing/scrolling
     hostingView.hostedGraph     = graph;        
     [scrollView addSubview:hostingView];
@@ -238,23 +240,24 @@
     //        NSUInteger catSize = [[categories objectForKey:catNum] count];
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-
     NSTimeInterval minX       = minDate - oneDay;
     NSTimeInterval maxX       = minX + oneDay * 7; // one week on screen
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(maxX - minX)];
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(maxAmount * 1.2f)];
     plotSpace.allowsUserInteraction = YES;
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(maxAmount)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(maxAmount)];
     plotSpace.delegate = self;
     
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
-    majorGridLineStyle.lineWidth = 0.75;
+    majorGridLineStyle.lineWidth = 1.0;
     majorGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:0.6] colorWithAlphaComponent:0.75];
     
-    CPTMutableLineStyle *minorGridLineStyle = [CPTMutableLineStyle lineStyle];
-    minorGridLineStyle.lineWidth = 0.25;
-    minorGridLineStyle.lineColor = [[CPTColor whiteColor] colorWithAlphaComponent:0.1];
+    CPTMutableLineStyle *yGridLineStyle = [CPTMutableLineStyle lineStyle];
+    yGridLineStyle.lineWidth = 1.0;
+    yGridLineStyle.lineColor = [[CPTColor colorWithGenericGray:0.6] colorWithAlphaComponent:0.75];
+    yGridLineStyle.dashPattern = [NSArray arrayWithObjects:[NSDecimalNumber numberWithInt:2], [NSDecimalNumber numberWithInt:4],nil];
+    yGridLineStyle.patternPhase = 0.0;
+    
     
     // label style
     CPTMutableTextStyle* labelStyle = [CPTMutableTextStyle textStyle];
@@ -264,13 +267,13 @@
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
     CPTXYAxis *x          = axisSet.xAxis;
-    x.majorGridLineStyle = nil;
-    x.minorGridLineStyle = nil;
-    x.axisLineStyle = nil;
+    x.axisLineStyle = majorGridLineStyle;
     x.majorTickLineStyle = nil;
+    x.majorGridLineStyle = yGridLineStyle;
     x.majorIntervalLength         = CPTDecimalFromFloat(oneDay);
-    x.orthogonalCoordinateDecimal = CPTDecimalFromString(@"0");
     x.minorTicksPerInterval       = 0;
+    
+    x.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0];
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     dateFormatter.dateFormat = @"dd MMMM";
     //        dateFormatter.dateStyle = kCFDateFormatterShortStyle;
@@ -288,11 +291,9 @@
     y.minorTicksPerInterval       = 0;
     y.orthogonalCoordinateDecimal = CPTDecimalFromFloat(0.0);
     y.majorGridLineStyle = majorGridLineStyle;
-    y.minorGridLineStyle = minorGridLineStyle;
     y.minorTicksPerInterval       = 0;
     y.labelTextStyle = labelStyle;
     y.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0];
-    
     OrdinalNumberFormatter* yLabelFormatter = [[[OrdinalNumberFormatter alloc] init] autorelease];
     
     y.labelFormatter = yLabelFormatter;
@@ -313,17 +314,15 @@
         lineStyle.lineColor         = [CPTColor colorWithCGColor:[UIColor colorWithHexString:[Categories colorStringForCategiryId:[catNum integerValue]]].CGColor];
         boundLinePlot.dataLineStyle = lineStyle;
         boundLinePlot.dataSource    = self;
-        
         boundLinePlot.identifier = catNum;
 
         CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
         plotSymbol.lineStyle = lineStyle;
         plotSymbol.fill = [[[CPTFill alloc] initWithColor:[CPTColor whiteColor]] autorelease];
-        plotSymbol.size               = CGSizeMake(3.0, 3.0);
+        plotSymbol.size               = CGSizeMake(5.0, 5.0);
         boundLinePlot.plotSymbol = plotSymbol;
-        
         [graph addPlot:boundLinePlot];
-        
+                
         
 //        NSMutableArray* cat = [categories objectForKey:catNum];
 //        for(Transactions* tr in cat)
@@ -368,14 +367,14 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    NSNumber* key = plot.identifier;
+    id key = plot.identifier;
     NSArray* cat = [categories objectForKey:key];
     return [cat count];
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)_index
 {
-    NSNumber* key = plot.identifier;
+    id key = plot.identifier;
     NSArray* cat = [categories objectForKey:key];
     Transactions* t = [cat objectAtIndex:_index];
   //  NSLog(@"fieldenum = %d index = %d time=%d", fieldEnum, _index, t.time);
