@@ -26,10 +26,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	// Register notification
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadData) name:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadData) name:NOTIFICATION_BUDGET_UPDATE object:nil];
- 	
+    // Register notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadData) name:NOTIFICATION_TRANSACTIONS_UPDATE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadData) name:NOTIFICATION_BUDGET_UPDATE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(currencyDidChanged:) name:NOTIFICATION_CURRENCY_UPDATE object:nil];
+    
 	// Make toolbar
 	[self makeToolBar];
 	
@@ -86,6 +87,12 @@
 		[cell setEdit:isEdit animated:YES];
 }
 
+- (void)currencyDidChanged:(NSNotification*)notification{
+    if (tableView) {
+        [tableView reloadData];
+    }
+}
+
 #pragma mark -
 #pragma mark Load
 
@@ -93,8 +100,9 @@
 	
 	// Load budget
 	self.list = [BudgetController loadBudget];
-	
-	[tableView reloadData];
+	if (tableView) {
+        [tableView reloadData];
+    }
 }
 
 #pragma mark -
@@ -172,6 +180,7 @@
 #pragma mark Memory managment
 
 - (void)viewDidUnload {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[tableView release];
 	tableView = nil;
 	[labelHint release];

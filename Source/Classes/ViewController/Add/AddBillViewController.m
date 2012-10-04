@@ -17,9 +17,10 @@
 - (void)makeItems;
 - (void)setData;
 - (void)setButtonPage;
-- (void)setCategoryName;
+- (void)setCategoryName:(BOOL)animated;
+- (void)setCategoryNameForCategory:(Categories*)c;
 - (void)setPrice:(NSNumber*)price;
-- (void)setSelectedViewForIndex:(NSInteger)_index;
+- (void)setSelectedViewForIndex:(NSInteger)_index animated:(BOOL)animated;
 - (void)updateSelectedIndex;
 - (void)textChanged:(NSNotification*)notification;
 @end
@@ -207,10 +208,10 @@
         [scrollView addSubview:view];
         [view release];
     }
-    [self setSelectedViewForIndex:selectedIndex];
+    [self setSelectedViewForIndex:selectedIndex animated:NO];
 }
 
-- (void)setSelectedViewForIndex:(NSInteger)_index{
+- (void)setSelectedViewForIndex:(NSInteger)_index animated:(BOOL)animated{
     for (int i = 0; i<[self.list count]; i++) {
         UIView *view = [scrollView viewWithTag:kIconViewTag+i];
         UIImageView *imageView = (UIImageView*)[view viewWithTag:kIconImageTag];
@@ -221,7 +222,8 @@
         }
     }
     [scrollView setContentOffset:CGPointMake(_index*iconWidth, 0) animated:YES];
-    [self setCategoryName];
+    [self setCategoryName:animated];
+
 }
 
 #pragma mark -
@@ -284,7 +286,7 @@
 
 - (IBAction)actionButtonPageLeft:(UIButton *)sender {
 	selectedIndex = (selectedIndex-1+[self.list count])%[self.list count];
-    [self setSelectedViewForIndex:selectedIndex];
+    [self setSelectedViewForIndex:selectedIndex animated:YES];
 }
 
 - (IBAction)actionClearText:(id)sender{
@@ -294,7 +296,7 @@
 
 - (IBAction)actionButtonPageRight:(UIButton *)sender {
     selectedIndex = (selectedIndex+1)%[self.list count];
-    [self setSelectedViewForIndex:selectedIndex];
+    [self setSelectedViewForIndex:selectedIndex animated:YES];
 }
 
 - (void)actionPickerSelect:(NSDictionary *)item {
@@ -342,7 +344,7 @@
 -(void)actionScrollTap:(UITapGestureRecognizer*)sender{
     UIView *view = sender.view;
     selectedIndex = view.tag-kIconViewTag;
-    [self setSelectedViewForIndex:selectedIndex];
+    [self setSelectedViewForIndex:selectedIndex animated:YES];
 }
 
 -(void)actionBack{
@@ -379,36 +381,46 @@
     [labelPrice setText:[transaction price]];
 }
 
-- (void)setCategoryName {
+- (void)setCategoryName:(BOOL)animated {
 	
 	// Get selected category
 	Categories *c = [self.list objectAtIndex:selectedIndex];
 	
-	[UIView animateWithDuration:0.2f animations:^{
-		[labelName setAlpha:0.0f];
-		[imageViewName setAlpha:0.0f];
-	} completion:^(BOOL finished) {
-		
-		CGRect r;
-		
-		// Set category name
-		[labelName setText:c.name];
-		[labelName sizeToFit];
-        [labelName setFrame:CGRectMake(roundf(self.view.frame.size.width / 2-labelName.frame.size.width / 2), roundf(imageViewName.center.y-labelName.frame.size.height / 2-1), labelName.frame.size.width, labelName.frame.size.height)];
-		
-		// Change image background name rect and center
-		r = imageViewName.frame;
-		r.size.width = labelName.frame.size.width + 14.0f;
-		imageViewName.frame = r;
-		
-		[imageViewName setCenter:CGPointMake(self.view.frame.size.width / 2, imageViewName.center.y)];
-        [imageViewName setFrame:CGRectMake(roundf(self.view.frame.size.width / 2 - imageViewName.frame.size.width / 2), imageViewName.frame.origin.y, imageViewName.frame.size.width, imageViewName.frame.size.height)];
-		
-		[UIView animateWithDuration:0.2f animations:^{
-			[labelName setAlpha:1.0f];
-			[imageViewName setAlpha:1.0f];
-		}];
-	}];
+    if (animated) {
+        [UIView animateWithDuration:0.2f animations:^{
+            [labelName setAlpha:0.0f];
+            [imageViewName setAlpha:0.0f];
+        } completion:^(BOOL finished) {
+            
+            [self setCategoryNameForCategory:c];
+            
+            [UIView animateWithDuration:0.2f animations:^{
+                [labelName setAlpha:1.0f];
+                [imageViewName setAlpha:1.0f];
+            }];
+        }];
+    }else{
+        [self setCategoryNameForCategory:c];
+    }
+    
+	
+}
+
+- (void)setCategoryNameForCategory:(Categories*)c{
+    CGRect r;
+    
+    // Set category name
+    [labelName setText:c.name];
+    [labelName sizeToFit];
+    [labelName setFrame:CGRectMake(roundf(self.view.frame.size.width / 2-labelName.frame.size.width / 2), roundf(imageViewName.center.y-labelName.frame.size.height / 2-1), labelName.frame.size.width, labelName.frame.size.height)];
+    
+    // Change image background name rect and center
+    r = imageViewName.frame;
+    r.size.width = labelName.frame.size.width + 14.0f;
+    imageViewName.frame = r;
+    
+    [imageViewName setCenter:CGPointMake(self.view.frame.size.width / 2, imageViewName.center.y)];
+    [imageViewName setFrame:CGRectMake(roundf(self.view.frame.size.width / 2 - imageViewName.frame.size.width / 2), imageViewName.frame.origin.y, imageViewName.frame.size.width, imageViewName.frame.size.height)];
 }
 
 #pragma mark -
@@ -417,13 +429,18 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if (!decelerate) {
         [self updateSelectedIndex];
-        [self setSelectedViewForIndex:selectedIndex];
+        [self setSelectedViewForIndex:selectedIndex animated:NO];
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     [self updateSelectedIndex];
-    [self setSelectedViewForIndex:selectedIndex];
+    [self setSelectedViewForIndex:selectedIndex animated:NO];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    [self updateSelectedIndex];
+    [self setCategoryName:NO];
 }
 
 - (void)updateSelectedIndex{
