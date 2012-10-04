@@ -27,9 +27,6 @@
     NSMutableArray* charts;
     
     NSDictionary* chartByDay;
-    NSDictionary* chartByWeek;
-    NSDictionary* chartByMonth;
-    
     NSUInteger currentChart;
     
     NSDate* dateFrom;
@@ -41,13 +38,9 @@
 @property (nonatomic, retain) NSDate* dateFrom;
 @property (nonatomic, retain) NSDate* dateTo;
 @property (nonatomic, retain) NSMutableDictionary* categories;
-@property (nonatomic, retain) NSMutableDictionary* minDates;
-@property (nonatomic, retain) NSMutableDictionary* maxDates;
 
 //
 @property (nonatomic, retain) NSDictionary* chartByDay;
-@property (nonatomic, retain) NSDictionary* chartByWeek;
-@property (nonatomic, retain) NSDictionary* chartByMonth;
 @property (nonatomic, readonly) UIScrollView *scrollView;
 @property (nonatomic, readonly) UILabel *labelLowData;
 @property (nonatomic, readonly) ReportBoxView *reportViewBox;

@@ -214,7 +214,8 @@
         }
     }
     
-    
+    chartViewController.dateFrom = beginDate;
+    chartViewController.dateTo = endDate;
     [diagramViewController setValues:values forDic:chartByDay allCat:allCatDic];
     [chartViewController setValues:values forDic:chartByDay];
     
