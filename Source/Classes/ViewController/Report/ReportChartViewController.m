@@ -173,21 +173,8 @@
             [categories setObject:cat forKey:n];
         }
         
-        if(tr.amount > maxAmount)
-        {
-            maxAmount = tr.amount;
-        }
-        
-        if(tr.time < minDate)
-        {
-            minDate = tr.time;
-        }
-        
-        if(tr.time > maxDate)
-        {
-            maxDate = tr.time;
-        }
-        
+         
+       
         NSDate *trDate = [NSDate dateWithTimeIntervalSince1970:tr.time];
         NSInteger trYear = [trDate year];
         NSInteger trYearDay = [trDate yearDay];
@@ -198,6 +185,11 @@
         }else{
             NSNumber *dayAmount = [cat objectForKey:trKey];
             [cat setObject:[NSNumber numberWithDouble:[dayAmount doubleValue]+[trAmount doubleValue]] forKey:trKey];
+        }
+        
+        if([[cat objectForKey:trKey] doubleValue] > maxAmount)
+        {
+            maxAmount = [[cat objectForKey:trKey] doubleValue];
         }
     }
     
@@ -233,7 +225,7 @@
     //        NSUInteger catSize = [[categories objectForKey:catNum] count];
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    NSTimeInterval minX       = minDate - oneDay;
+    NSTimeInterval minX       = minDate;
     NSTimeInterval maxX       = minX + oneDay * 7; // one week on screen
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(maxX - minX)];
     plotSpace.allowsUserInteraction = YES;
