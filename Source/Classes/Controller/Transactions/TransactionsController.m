@@ -5,6 +5,7 @@
 
 #import "TransactionsController.h"
 #import "CategoriesController.h"
+#import "SettingsController.h"
 
 #import "NSDate+Utils.h"
 #import "DataManager.h"
@@ -174,9 +175,9 @@
 	
 	// Get interval
 	NSInteger interval = [[NSDate dateStringToDate:[[NSDate date] dateFormat:@"yyyy"] dateFormat:@"yyyy"] timeIntervalSince1970] - [[NSDate dateStringToDate:@"1" dateFormat:@"D"] timeIntervalSince1970];
-	
+	NSInteger tBound = (arc4random() % 3) + 1;
 	for (int i = 1; i <= 180; i++) {
-		for (int t = 1; t <= (arc4random() % 3) + 1; t++) {
+		for (int j = 1; j <= tBound; j++) {
 			
 			// Get date
 			NSDate *date = [[NSDate dateStringToDate:[NSString stringWithFormat:@"%d", i] dateFormat:@"D"] dateByAddingTimeInterval:interval];
@@ -201,6 +202,9 @@
 			t.categoriesId = cat.Id;
 			t.time = [date timeIntervalSince1970];
 			t.amount = (CGFloat)amount;
+            
+            NSInteger timestamp = (NSInteger)[[[NSDate date] dateByAddingTimeInterval:i*(tBound+1)+j] timeIntervalSince1970];
+            t.sid = [NSString stringWithFormat:@"%@%d",[SettingsController UIID],timestamp];
 			[t save];
 		}
 		

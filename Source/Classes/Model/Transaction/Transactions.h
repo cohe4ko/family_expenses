@@ -29,6 +29,9 @@ typedef enum {
 	CGFloat amount;
 	
 	NSString *desc;
+    NSString *sid;
+    NSString *device_id;
+    NSInteger timestamp;
 }
 
 @property (nonatomic, assign) NSInteger repeatType;
@@ -39,6 +42,9 @@ typedef enum {
 @property (nonatomic, assign) TransactionsState state;
 @property (nonatomic, assign) CGFloat amount;
 @property (nonatomic, retain) NSString *desc;
+@property (nonatomic, retain) NSString *sid;
+@property (nonatomic, retain) NSString *device_id;
+@property (nonatomic, assign) NSInteger timestamp;
 
 + (Transactions *)create;
 + (Transactions *)withDictionary:(NSDictionary *)dic;
