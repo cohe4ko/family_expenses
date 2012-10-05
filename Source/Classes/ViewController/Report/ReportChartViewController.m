@@ -9,6 +9,7 @@
 #import "TransactionsController.h"
 #import "OrdinalNumberFormatter.h"
 #import "ReportDateFilterViewController.h"
+#import "NSDate+Utils.h"
 
 @interface ReportChartViewController (Private)
 - (void)makeLocales;
@@ -18,8 +19,8 @@
 
 @implementation ReportChartViewController
 
-@synthesize categories, minDates, maxDates, chartByDay
-, chartByWeek, chartByMonth, dateFrom, dateTo, scrollView,labelLowData,buttonDateRange;
+@synthesize categories, chartByDay
+, dateFrom, dateTo, scrollView,labelLowData,buttonDateRange;
 @synthesize reportViewBox = viewBox;
 @synthesize draggableViewController;
 
@@ -126,6 +127,9 @@
         [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"graph_filter_end_date"];
     }
     
+    self.dateFrom = beginDate;
+    self.dateTo = endDate;
+    
     NSString *buttonTitle = [NSString stringWithFormat:@"%@ - %@",[beginDate dateFormat:NSLocalizedString(@"report_date_format", @"")],[endDate dateFormat:NSLocalizedString(@"report_date_format", @"")]];
     [buttonDateRange setTitle:buttonTitle forState:UIControlStateNormal];
 }
@@ -152,57 +156,40 @@
     
     self.categories = [NSMutableDictionary dictionary];
 
-    self.minDates = [NSMutableDictionary dictionary];
-    self.maxDates = [NSMutableDictionary dictionary];
-    
+   
     CGFloat maxAmount = 0;
-    NSTimeInterval minDate = 0;
-    NSTimeInterval maxDate = 0;
+    NSTimeInterval minDate = [self.dateFrom timeIntervalSince1970];
+    NSTimeInterval maxDate = [self.dateTo timeIntervalSince1970];
     for(Transactions* tr in val)
     {
         
         
         NSNumber* n = [NSNumber numberWithInt:(!tr.categoriesParentId)?tr.categoriesId:tr.categoriesParentId];
-        NSMutableArray* cat = [categories objectForKey:n];
+        NSMutableDictionary* cat = [categories objectForKey:n];
         if(!cat)
         {
-            //
-            NSNumber* num = [NSNumber numberWithFloat:maxAmount];
-            
-            minDate = tr.time;
-            maxDate = tr.time;
-            
-            num = [NSNumber numberWithInteger:minDate];
-            [minDates setObject:num forKey:n];
-            num = [NSNumber numberWithInteger:maxDate];
-            [maxDates setObject:num forKey:n];
-            
-            
-            cat = [NSMutableArray array];
-            [cat addObject:tr];
+                       
+            cat = [NSMutableDictionary dictionary];
             [categories setObject:cat forKey:n];
         }
-        else {
-            if(tr.amount > maxAmount)
-            {
-                maxAmount = tr.amount;
-            }
-            
-            if(tr.time < minDate)
-            {
-                minDate = tr.time;
-                NSNumber* num = [NSNumber numberWithInteger:minDate];
-                [minDates setObject:num forKey:n];
-            }
-            
-            if(tr.time > maxDate)
-            {
-                maxDate = tr.time;
-                NSNumber* num = [NSNumber numberWithInteger:maxDate];
-                [maxDates setObject:num forKey:n];
-            }
-            
-            [cat addObject:tr];
+        
+         
+       
+        NSDate *trDate = [NSDate dateWithTimeIntervalSince1970:tr.time];
+        NSInteger trYear = [trDate year];
+        NSInteger trYearDay = [trDate yearDay];
+        NSString *trKey = [NSString stringWithFormat:@"%d%d",trYear,trYearDay];
+        NSNumber *trAmount = [NSNumber numberWithDouble:tr.amount];
+        if (![cat objectForKey:trKey]) {
+            [cat setObject:trAmount forKey:trKey];
+        }else{
+            NSNumber *dayAmount = [cat objectForKey:trKey];
+            [cat setObject:[NSNumber numberWithDouble:[dayAmount doubleValue]+[trAmount doubleValue]] forKey:trKey];
+        }
+        
+        if([[cat objectForKey:trKey] doubleValue] > maxAmount)
+        {
+            maxAmount = [[cat objectForKey:trKey] doubleValue];
         }
     }
     
@@ -238,7 +225,7 @@
     //        NSUInteger catSize = [[categories objectForKey:catNum] count];
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
-    NSTimeInterval minX       = minDate - oneDay;
+    NSTimeInterval minX       = minDate;
     NSTimeInterval maxX       = minX + oneDay * 7; // one week on screen
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(maxX - minX)];
     plotSpace.allowsUserInteraction = YES;
@@ -356,24 +343,29 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    id key = plot.identifier;
-    NSArray* cat = [categories objectForKey:key];
-    return [cat count];
+    NSTimeInterval diff = [dateTo timeIntervalSinceDate:dateFrom];
+    NSInteger daysNum = diff/(3600*24);
+    return daysNum;
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)_index
 {
     id key = plot.identifier;
-    NSArray* cat = [categories objectForKey:key];
-    Transactions* t = [cat objectAtIndex:_index];
+    NSDictionary* cat = [categories objectForKey:key];
     
     if(!fieldEnum)
     {
-        NSTimeInterval tm = t.time - [[minDates objectForKey:key] integerValue];
+        NSTimeInterval tm = 3600*24*_index;
         return [NSNumber numberWithFloat:tm];
     }
-    
-    return [NSNumber numberWithFloat:t.amount];
+    NSDate *currDate = [NSDate dateWithTimeInterval:3600*24*_index sinceDate:dateFrom];
+    NSInteger currYearDay = [currDate yearDay];
+    NSInteger currYear = [currDate year];
+    NSString *dicKey = [NSString stringWithFormat:@"%d%d",currYear,currYearDay];
+    if ([cat objectForKey:dicKey]) {
+        return [cat objectForKey:dicKey];
+    }
+    return [NSNumber numberWithFloat:0.0];
 }
 
 #pragma mark -
@@ -458,11 +450,7 @@
     self.chartByDay = nil;
     [dateFrom release];
     [dateTo release];
-    [chartByMonth release];
     [chartByDay release];
-    [chartByWeek release];
-    [minDates release];
-    [maxDates release];
     [categories release];
     [charts release];
 	[labelHint release];
