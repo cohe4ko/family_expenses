@@ -159,7 +159,6 @@
    
     CGFloat maxAmount = 0;
     NSTimeInterval minDate = [self.dateFrom timeIntervalSince1970];
-    NSTimeInterval maxDate = [self.dateTo timeIntervalSince1970];
     for(Transactions* tr in val)
     {
         
@@ -226,7 +225,7 @@
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     NSTimeInterval minX       = minDate;
-    NSTimeInterval maxX       = minX + oneDay * 7; // one week on screen
+    NSTimeInterval maxX       = minX + oneDay * 4; // one week on screen
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(maxX - minX)];
     plotSpace.allowsUserInteraction = YES;
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(maxAmount)];
@@ -251,13 +250,11 @@
     
     // Axes
     CPTXYAxisSet *axisSet = (CPTXYAxisSet *)graph.axisSet;
-    CPTXYAxis *x          = axisSet.xAxis;
+    CPTXYAxis *x = axisSet.xAxis;
     x.axisLineStyle = majorGridLineStyle;
     x.majorTickLineStyle = nil;
     x.majorGridLineStyle = yGridLineStyle;
-    x.majorIntervalLength         = CPTDecimalFromFloat(oneDay);
     x.minorTicksPerInterval       = 0;
-    
     x.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0];
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     dateFormatter.dateFormat = @"dd MMMM";
@@ -267,7 +264,19 @@
     timeFormatter.referenceDate = [NSDate dateWithTimeIntervalSince1970:minX];
     x.labelFormatter            = timeFormatter;
     x.labelTextStyle = labelStyle;
-    x.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+    x.labelingPolicy = CPTAxisLabelingPolicyLocationsProvided;
+    
+    NSTimeInterval diff = [dateTo timeIntervalSinceDate:dateFrom];
+    NSInteger daysNum = diff/(3600*24);
+    
+    NSMutableSet *xMajorLocations = [NSMutableSet set];
+    
+    for (int i = 0; i < daysNum; i++) {
+        CGFloat location = i*3600*24;
+        [xMajorLocations addObject:[NSNumber numberWithFloat:location]];
+    }
+    
+    x.majorTickLocations = xMajorLocations;
     
     CPTXYAxis *y = axisSet.yAxis;
     y.majorIntervalLength         = CPTDecimalFromFloat(maxAmount / 7.0f);
