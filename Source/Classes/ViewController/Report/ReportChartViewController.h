@@ -28,6 +28,7 @@
     
     NSDictionary* chartByDay;
     NSUInteger currentChart;
+    CGFloat currentScale;
     
     NSDate* dateFrom;
     NSDate* dateTo;

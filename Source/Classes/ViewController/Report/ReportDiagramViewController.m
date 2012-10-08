@@ -135,11 +135,13 @@
     piePlot.sliceDirection  = CPTPieDirectionClockwise;
     //piePlot.shadow          = whiteShadow;
     
-    CPTGradient *overlayGradient = [[[CPTGradient alloc] init] autorelease];
+    /*CPTGradient *overlayGradient = [[[CPTGradient alloc] init] autorelease];
     overlayGradient.gradientType = CPTGradientTypeRadial;
     overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.0] atPosition:0.9];
     overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.4] atPosition:1.0];
     piePlot.overlayFill = [CPTFill fillWithGradient:overlayGradient];
+    piePlot.rasterizationScale = [UIScreen mainScreen].scale;
+    piePlot.shouldRasterize = YES;*/
     
     [graph addPlot:piePlot];
     piePlot.dataSource = self;
@@ -209,11 +211,13 @@
     piePlot.endAngle        = M_PI_2;
     piePlot.sliceDirection  = CPTPieDirectionClockwise;
     
-    CPTGradient *overlayGradient = [[[CPTGradient alloc] init] autorelease];
+    /*CPTGradient *overlayGradient = [[[CPTGradient alloc] init] autorelease];
     overlayGradient.gradientType = CPTGradientTypeRadial;
     overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.0] atPosition:0.9];
     overlayGradient = [overlayGradient addColorStop:[[CPTColor blackColor] colorWithAlphaComponent:0.4] atPosition:1.0];
     piePlot.overlayFill = [CPTFill fillWithGradient:overlayGradient];
+    piePlot.rasterizationScale = [UIScreen mainScreen].scale;
+    piePlot.shouldRasterize = YES;*/
     
     [graph addPlot:piePlot];
     piePlot.dataSource = self;

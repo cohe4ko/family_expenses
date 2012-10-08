@@ -11,6 +11,11 @@
 #import "ReportDateFilterViewController.h"
 #import "NSDate+Utils.h"
 
+#define kChartLeftBound -5000.0f
+#define kChartBottomBound -1000.0f
+#define kChartMinScale 1.0
+#define kChartMaxScale 4.0
+
 @interface ReportChartViewController (Private)
 - (void)makeLocales;
 - (void)makeItems;
@@ -226,10 +231,11 @@
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     NSTimeInterval minX       = minDate;
     NSTimeInterval maxX       = minX + oneDay * 4; // one week on screen
-    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(maxX - minX)];
+    plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(kChartLeftBound) length:CPTDecimalFromFloat(maxX - minX)];
     plotSpace.allowsUserInteraction = YES;
-    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(maxAmount)];
+    plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(kChartBottomBound) length:CPTDecimalFromFloat(maxAmount-2*kChartBottomBound)];
     plotSpace.delegate = self;
+    currentScale = 1.0;
     
     // Grid line styles
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
@@ -267,7 +273,7 @@
     x.labelingPolicy = CPTAxisLabelingPolicyLocationsProvided;
     
     NSTimeInterval diff = [dateTo timeIntervalSinceDate:dateFrom];
-    NSInteger daysNum = diff/(3600*24);
+    NSInteger daysNum = diff/(3600*24)+1;
     
     NSMutableSet *xMajorLocations = [NSMutableSet set];
     
@@ -353,7 +359,7 @@
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
     NSTimeInterval diff = [dateTo timeIntervalSinceDate:dateFrom];
-    NSInteger daysNum = diff/(3600*24);
+    NSInteger daysNum = diff/(3600*24)+1;
     return daysNum;
 }
 
@@ -401,12 +407,22 @@
     
     switch ( coordinate ) {
         case CPTCoordinateX:
-            if (newRange.locationDouble < 0.0F) {
+            if (newRange.locationDouble < kChartLeftBound) {
                 CPTMutablePlotRange *mutableRange = [[newRange mutableCopy] autorelease];
-                mutableRange.location = CPTDecimalFromFloat(0.0);
+                mutableRange.location = CPTDecimalFromFloat(kChartLeftBound);
                 updatedRange = mutableRange;
             }
-            else {
+            else if (newRange.locationDouble+newRange.lengthDouble > [dateTo timeIntervalSinceDate:dateFrom]) {
+                CPTMutablePlotRange *mutableRange = [[newRange mutableCopy] autorelease];
+                
+                if ([dateTo timeIntervalSinceDate:dateFrom] - newRange.lengthDouble > kChartLeftBound) {
+                    mutableRange.location = CPTDecimalFromCGFloat([dateTo timeIntervalSinceDate:dateFrom] - newRange.lengthDouble);
+                }else{
+                    mutableRange.location = CPTDecimalFromCGFloat(kChartLeftBound);
+                }
+                
+                updatedRange = mutableRange;
+            }else{
                 updatedRange = newRange;
             }
             break;
@@ -418,6 +434,14 @@
             break;
     }
     return updatedRange;
+}
+
+- (BOOL)plotSpace:(CPTPlotSpace *)space shouldScaleBy:(CGFloat)interactionScale aboutPoint:(CGPoint)interactionPoint{
+    if (interactionScale*currentScale < kChartMinScale || interactionScale*currentScale > kChartMaxScale) {
+        return NO;
+    }
+    currentScale = interactionScale*currentScale;
+    return YES;
 }
 
 -(BOOL)plotSpace:(CPTPlotSpace *)space shouldHandlePointingDeviceDraggedEvent:(CPTNativeEvent *)event atPoint:(CGPoint)point
