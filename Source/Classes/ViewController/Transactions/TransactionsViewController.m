@@ -171,7 +171,7 @@
 	
 	CGRect r;
 	
-	self.cellEditing = [[NSMutableDictionary alloc] init];
+	self.cellEditing = [NSMutableDictionary dictionary];
 	
 	// Hide navigation shadow
 	[imageNavigationbarShadow setHidden:YES];

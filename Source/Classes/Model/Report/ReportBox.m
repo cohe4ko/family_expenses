@@ -16,7 +16,7 @@
 @synthesize amount, name, color;
 
 + (ReportBox *)withDictionary:(NSDictionary *)dic {
-	return [[ReportBox alloc] initWithDictionary:dic];
+	return [[[ReportBox alloc] initWithDictionary:dic] autorelease];
 }
 
 - (ReportBox *)initWithDictionary:(NSDictionary *)dic {

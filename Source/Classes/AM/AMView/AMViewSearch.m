@@ -33,6 +33,7 @@
 	UIImageView *imageBg = [[UIImageView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.frame.size.width, self.frame.size.height)];
 	[imageBg setImage:[[UIImage imageNamed:@"background_searchbar.png"] stretchableImageWithLeftCapWidth:4 topCapHeight:0]];
 	[self addSubview:imageBg];
+    [imageBg release];
 	
 	// Make overlay view
 	viewOverlay = [[UIView alloc] initWithFrame:CGRectMake(viewParent.frame.origin.x, self.frame.origin.y + self.frame.size.height, viewParent.frame.size.width, viewParent.frame.size.height)];

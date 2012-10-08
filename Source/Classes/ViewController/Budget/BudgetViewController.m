@@ -65,7 +65,7 @@
 
 - (void)makeItems {
 	
-	self.cellEditing = [[NSMutableDictionary alloc] init];
+	self.cellEditing = [NSMutableDictionary dictionary];
 	
 	// Hide navigation shadow
 	[imageNavigationbarShadow setHidden:YES];
@@ -185,6 +185,7 @@
 	tableView = nil;
 	[labelHint release];
 	labelHint = nil;
+    self.cellEditing = nil;
 	[super viewDidUnload];
 }
 
@@ -195,7 +196,7 @@
 	[list release];
 	[tableView release];
 	[labelHint release];
-	[cellEditing release];
+	self.cellEditing = nil;
     [super dealloc];
 }
 

@@ -27,7 +27,7 @@
 #pragma mark Make
 
 - (void)makeItems {
-	self.list = [[NSMutableArray alloc] init];
+	self.list = [NSMutableArray array];
 }
 
 #pragma mark -
@@ -72,7 +72,7 @@
 #pragma mark Memory managment
 
 - (void)dealloc {
-	[list release];
+    self.list = nil;
 	[tableView release];
 	[super dealloc];
 }

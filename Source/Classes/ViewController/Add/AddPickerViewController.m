@@ -133,12 +133,12 @@
 		if ([parent respondsToSelector:@selector(actionPickerSelect:)]) {
             if (pickerType == PickerTypeWeek || pickerType == PickerTypeMonth) {
                 NSDictionary *d = [[list objectAtIndex:pickerType] objectAtIndex:[pickerView selectedRowInComponent:0]];
-                NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
+                NSMutableDictionary *item = [NSMutableDictionary dictionary];
                 [item setObject:[NSNumber numberWithInt:pickerType] forKey:@"type"];
                 [item setObject:[d objectForKey:@"value"] forKey:@"value"];
                 [parent performSelector:@selector(actionPickerSelect:) withObject:item];
             }else if(pickerType == PickerTypeDontRepeat){
-                NSMutableDictionary *item = [[NSMutableDictionary alloc] init];
+                NSMutableDictionary *item = [NSMutableDictionary dictionary];
                 [item setObject:[NSNumber numberWithInt:-1] forKey:@"type"];
                 [item setObject:[NSNumber numberWithInt:-1] forKey:@"value"];
                 [parent performSelector:@selector(actionPickerSelect:) withObject:item];
@@ -223,10 +223,11 @@
 		[imageChecked setCenter:CGPointMake(imageChecked.center.x, label.center.y)];
 		[theView addSubview:imageChecked];
 		[label setTextColor:[UIColor colorWithHexString:@"324e84"]];
+        [imageChecked release];
 	}
 	[label release];
 	
-	return theView;
+	return [theView autorelease];
 }
 
 #pragma mark -

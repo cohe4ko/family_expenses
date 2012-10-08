@@ -143,8 +143,8 @@
 	[imageNavigationbarShadow setHidden:YES];
 	
 	// Make icons list
-	self.list = [[NSMutableArray alloc] init];
-	self.listCategories = [[NSMutableArray alloc] init];
+	self.list = [NSMutableArray array];
+	self.listCategories = [NSMutableArray array];
 	if (category.parentId) {
 		Categories *categoryParent = [CategoriesController getByParent:category.parentId];
 		[categoryParent setPosition:-1];
@@ -528,6 +528,8 @@
 	imageCommentBorder = nil;
     [buttonClearText release];
     buttonClearText = nil;
+    self.list = nil;
+    self.listCategories = nil;
 	[super viewDidUnload];
 }
 
@@ -536,9 +538,7 @@
 	[buttonDone release];
 	[scrollView release];
 	[category release];
-	[list release];
-	[listCategories release];
-	[imageLen release];
+    [imageLen release];
 	[buttonDate release];
 	[buttonRecurring release];
 	[imageComment release];
@@ -553,6 +553,8 @@
 	[viewOverlay release];
 	[imageCommentBorder release];
     [buttonClearText release];
+    self.list = nil;
+    self.listCategories = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }

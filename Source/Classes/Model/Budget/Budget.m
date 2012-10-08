@@ -27,7 +27,7 @@
 }
 
 + (Budget *)withDictionary:(NSDictionary *)dic {
-	return [[Budget alloc] initWithDictionary:dic];
+	return [[[Budget alloc] initWithDictionary:dic] autorelease];
 }
 
 - (Budget *)initWithDictionary:(NSDictionary *)dic {

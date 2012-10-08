@@ -23,7 +23,7 @@
 		sortField = @"categoriesParentId, categoriesId";
 	
 	NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Transactions WHERE state = %d ORDER BY %@", TransactionsStateNormal, sortField];
-	return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+	return [[[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy] autorelease];
 }
 
 + (NSMutableArray *)loadTransactions:(SortType)sort minDate:(NSDate*)minDate maxDate:(NSDate*)maxDate{
@@ -36,7 +36,7 @@
 		sortField = @"categoriesParentId, categoriesId";
 	
 	NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Transactions WHERE state = %d and time >= %d and time <= %d ORDER BY %@", TransactionsStateNormal,(int)[minDate timeIntervalSince1970], (int)[maxDate timeIntervalSince1970], sortField];
-	return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+	return [[[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy] autorelease];
 }
 
 + (NSMutableArray *)loadTransactions:(SortType)sort groupBy:(GroupType)group{
@@ -58,10 +58,10 @@
 	
     if (sort == SortCategores) {
         NSString *sql = [NSString stringWithFormat:@"SELECT sum(t.amount) amount, max(t.time) time, t.categoriesId categoriesId, %@ groupStr FROM Transactions t WHERE state = %d GROUP BY groupStr", groupField, TransactionsStateNormal];
-        return [[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy];
+        return [[[[Db shared] loadAndFill:sql theClass:[Transactions class]] mutableCopy] autorelease];
     }else {
         NSString *sql = [NSString stringWithFormat:@"SELECT sum(t.amount) amount, max(t.time) time, t.categoriesId categoriesId, %@ groupStr FROM Transactions t WHERE state = %d GROUP BY groupStr ORDER BY %@", groupField, TransactionsStateNormal, sortField];
-        return [[[Db shared] loadAndFill:sql theClass:[TransactionsGrouped class]] mutableCopy];
+        return [[[[Db shared] loadAndFill:sql theClass:[TransactionsGrouped class]] mutableCopy] autorelease];
     }
     
 
@@ -85,16 +85,16 @@
 	
     if (sort == SortCategores) {
         NSString *sql = [NSString stringWithFormat:@"SELECT sum(t.amount) amount, max(t.time) time, t.categoriesId categoriesId, %@ groupStr FROM Transactions t WHERE state = %d and time >= %d and time <= %d GROUP BY groupStr", groupField, TransactionsStateNormal,(int)[minDate timeIntervalSince1970],(int)[maxDate timeIntervalSince1970]];
-        return [[[Db shared] loadAndFill:sql theClass:[TransactionsGrouped class]] mutableCopy];
+        return [[[[Db shared] loadAndFill:sql theClass:[TransactionsGrouped class]] mutableCopy] autorelease];
     }else {
         NSString *sql = [NSString stringWithFormat:@"SELECT sum(t.amount) amount, max(t.time) time, t.categoriesId categoriesId, %@ groupStr FROM Transactions t WHERE state = %d and time >= %d and time <= %d GROUP BY groupStr ORDER BY %@", groupField, TransactionsStateNormal, (int)[minDate timeIntervalSince1970],(int)[maxDate timeIntervalSince1970], sortField];
-        return [[[Db shared] loadAndFill:sql theClass:[TransactionsGrouped class]] mutableCopy];
+        return [[[[Db shared] loadAndFill:sql theClass:[TransactionsGrouped class]] mutableCopy] autorelease];
     }
 }
 
 + (NSMutableDictionary *)transactionsChartBy:(TransactionsType)type fromDate:(NSDate *)dateFrom toDate:(NSDate *)dateTo parentCid:(NSUInteger)pCid {
 	
-	NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 	
 	// Set date format
 	NSString *dateFormat = (type == TransactionsDay) ? @"dd-MM-yyyy" : (type == TransactionsWeek) ? @"w" : @"MM";
@@ -121,20 +121,20 @@
 		if (![dic objectForKey:cid]) {
             if(pCid)
             {
-                [dic setObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:m.categories.name, @"name", [NSNumber numberWithInt:m.categories.Id], @"cid", [[NSMutableDictionary alloc] init], @"values", nil] forKey:cid];                
+                [dic setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:m.categories.name, @"name", [NSNumber numberWithInt:m.categories.Id], @"cid", [NSMutableDictionary dictionary], @"values", nil] forKey:cid];
             }
             else if(parentCid)
             {
                 Categories* c = [CategoriesController getById:parentCid];
-                [dic setObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                c.name, @"name", [NSNumber numberWithInt:parentCid], @"cid", [[NSMutableDictionary alloc] init], @"values", nil] forKey:cid];
+                [dic setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                c.name, @"name", [NSNumber numberWithInt:parentCid], @"cid", [NSMutableDictionary dictionary], @"values", nil] forKey:cid];
             } else {
                 
-                [dic setObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:m.categories.name, @"name", [NSNumber numberWithInt:m.categories.Id], @"cid", [[NSMutableDictionary alloc] init], @"values", nil] forKey:cid];
+                [dic setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:m.categories.name, @"name", [NSNumber numberWithInt:m.categories.Id], @"cid", [NSMutableDictionary dictionary], @"values", nil] forKey:cid];
             }
 		}
 		if (![[[dic objectForKey:cid] objectForKey:@"values"] objectForKey:date])
-			[[[dic objectForKey:cid] objectForKey:@"values"] setObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:m.date, @"date", [NSNumber numberWithInteger:0], @"total", nil] forKey:date];
+			[[[dic objectForKey:cid] objectForKey:@"values"] setObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:m.date, @"date", [NSNumber numberWithInteger:0], @"total", nil] forKey:date];
 		
 		NSInteger amountTotal = [[[dic objectForKey:cid] objectForKey:@"total"] integerValue] + m.amount;
 		[[dic objectForKey:cid] setObject:[NSNumber numberWithInteger:amountTotal] forKey:@"total"];

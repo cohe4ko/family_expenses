@@ -4,12 +4,12 @@
 
 +(NSLocale*)posixLocale
 {
-    return [ [ NSLocale alloc ] initWithLocaleIdentifier: @"en_US_POSIX" ];
+    return [[ [ NSLocale alloc ] initWithLocaleIdentifier: @"en_US_POSIX" ] autorelease];
 }
 
 +(NSCalendar*)gregorianCalendar
 {
-    NSCalendar* result_ = [ [ NSCalendar alloc ] initWithCalendarIdentifier: NSGregorianCalendar ];
+    NSCalendar* result_ = [[ [ NSCalendar alloc ] initWithCalendarIdentifier: NSGregorianCalendar ] autorelease];
     [ result_ setTimeZone: [ NSTimeZone timeZoneWithName: @"GMT" ] ];
     return result_;
 }
@@ -43,7 +43,7 @@
 
 +(NSCalendar*)gregorianCalendarWithLocaleId:( NSString* )localeIdentifier_
 {
-    NSLocale* locale_ = [ [ NSLocale alloc ] initWithLocaleIdentifier: localeIdentifier_ ];
+    NSLocale* locale_ = [[ [ NSLocale alloc ] initWithLocaleIdentifier: localeIdentifier_ ] autorelease];
     return [ self gregorianCalendarWithLocale: locale_ ];
 }
 
@@ -64,7 +64,7 @@
     [ self setCalendar: calendar_
       forDateFormatter: result_ ];
 
-    return result_;
+    return [result_ autorelease];
 }
 
 

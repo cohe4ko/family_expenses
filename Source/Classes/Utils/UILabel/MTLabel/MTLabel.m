@@ -466,11 +466,13 @@ CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin) {
     CGContextScaleCTM(context, 1.0, -1.0);
     
     CGContextSaveGState(context);
-
-    CGColorRef colorRef = CGColorCreate(CGColorSpaceCreateDeviceRGB(), CGColorGetComponents([_fontColor CGColor]));
+    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+    CGColorRef colorRef = CGColorCreate(colorSpaceRef, CGColorGetComponents([_fontColor CGColor]));
     CGContextSetShadowWithColor(context, CGSizeMake(self.shadowOffset, self.shadowOffset), 5, colorRef);
     
     [self drawTextInRect:rect inContext:context];
+    CGColorRelease(colorRef);
+    CGColorSpaceRelease(colorSpaceRef);
     
     
     if (_shouldResizeToFit && self.frame.size.height < _textHeight) {

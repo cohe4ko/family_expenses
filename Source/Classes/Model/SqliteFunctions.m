@@ -74,5 +74,7 @@ void ObjcFormatAnsiDateUsingLocale_int( sqlite3_context* ctx_, int argc_, sqlite
                 SQLITE_TRANSIENT 
             );
         }
+        [format_ release];
+        [localeIdentifier_ release];
     }
 }

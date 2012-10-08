@@ -25,8 +25,8 @@
 -(void)awakeFromNib
 {
     selectIndex = 0;
-    self.viewArray = [[NSMutableArray alloc] init];
-    self.viewDictionary = [[NSMutableDictionary alloc] init];
+    self.viewArray = [NSMutableArray array];
+    self.viewDictionary = [NSMutableDictionary dictionary];
 }
 
 // 初始化
@@ -35,8 +35,8 @@
     self = [super init];
     if (self) {
         selectIndex = 0;
-        self.viewArray = [[NSMutableArray alloc] init];
-        self.viewDictionary = [[NSMutableDictionary alloc] init];
+        self.viewArray = [NSMutableArray array];
+        self.viewDictionary = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -45,8 +45,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         selectIndex = 0;
-        self.viewArray = [[NSMutableArray alloc] init];
-        self.viewDictionary = [[NSMutableDictionary alloc] init];
+        self.viewArray = [NSMutableArray array];
+        self.viewDictionary = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -90,7 +90,7 @@
     index += numberOfSubViews;
     // 实际的索引位置
     NSInteger realIndex = index % numberOfSubViews;
-    ISView* view = [[isdelegate viewForScroll:self AtIndex:realIndex] autorelease];
+    ISView* view = [isdelegate viewForScroll:self AtIndex:realIndex];
     view.indexPath = [NSIndexPath indexPathForRow:realIndex inSection:0];
     return view;
 }
@@ -112,7 +112,7 @@
         return nil;
     }
     
-    ISView* view = [[array lastObject] retain];
+    ISView* view = [array lastObject];
     [array removeLastObject];
     return view;
 }
@@ -215,7 +215,8 @@
                             
 -(void)dealloc
 {
-    [viewDictionary release];
+    self.viewArray = nil;
+    self.viewDictionary = nil;
     [viewArray release];
     [oldPath release];
     [super dealloc];

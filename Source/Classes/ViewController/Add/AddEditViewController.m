@@ -80,7 +80,7 @@
 
 - (IBAction)actionDone:(id)sender {
     
-    NSMutableDictionary *oldCat = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *oldCat = [NSMutableDictionary dictionary];
     int lastPosition = 0;
     for (Categories *c in [CategoriesController loadCategoriesFavorite]) {
         if (c.position > lastPosition)
