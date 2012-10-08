@@ -37,6 +37,10 @@
 	return self;
 }
 
+- (NSDictionary*)proxyForJson {
+    return [self asDict];
+}
+
 #pragma mark -
 #pragma mark Getters
 

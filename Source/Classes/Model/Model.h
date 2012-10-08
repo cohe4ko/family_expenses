@@ -15,9 +15,11 @@
 + (BOOL)addTransactionToSync:(NSString*)sid;
 + (BOOL)isTransactionToSyncExist:(NSString*)sid;
 + (NSArray*)allTransactionsToSync;
++ (NSArray*)transactionsUsingSyncIds;
 
 + (BOOL)addBudgetToSync:(NSString*)sid;
 + (BOOL)isBudgetToSyncExist:(NSString*)sid;
 + (NSArray*)allBudgetsToSync;
++ (NSArray*)budgetsUsingSyncIds;
 
 @end

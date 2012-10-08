@@ -9,6 +9,8 @@
 #import "Model.h"
 #import "SyncBudget.h"
 #import "SyncTransactions.h"
+#import "Transactions.h"
+#import "Budget.h"
 
 @implementation Model
 
@@ -48,6 +50,16 @@
     return [[Db shared] loadAndFill:@"select * from SyncTransactions" theClass:[SyncTransactions class]];
 }
 
++ (NSArray*)transactionsUsingSyncIds{
+    NSMutableArray *idsArray = [NSMutableArray array];
+    NSArray *syncArr = [Model allTransactionsToSync];
+    for (SyncTransactions *s in syncArr) {
+        [idsArray addObject:[NSString stringWithFormat:@"\"%@\"",s.sid]];
+    }
+    NSString *sql = [NSString stringWithFormat:@"select * from Transactions where sid in (%@)",[idsArray componentsJoinedByString:@","]];
+    return [[Db shared] loadAndFill:sql theClass:[Transactions class]];
+}
+
 + (BOOL)addBudgetToSync:(NSString*)sid{
     if (sid && ![Model isBudgetToSyncExist:sid]) {
         SyncBudgets *sb = [SyncBudgets create];
@@ -70,6 +82,16 @@
 
 + (NSArray*)allBudgetsToSync{
     return [[Db shared] loadAndFill:@"select * from SyncBudgets" theClass:[SyncBudgets class]];
+}
+
++ (NSArray*)budgetsUsingSyncIds{
+    NSMutableArray *idsArray = [NSMutableArray array];
+    NSArray *syncArr = [Model allBudgetsToSync];
+    for (SyncTransactions *s in syncArr) {
+        [idsArray addObject:[NSString stringWithFormat:@"\"%@\"",s.sid]];
+    }
+    NSString *sql = [NSString stringWithFormat:@"select * from Budget where sid in (%@)",[idsArray componentsJoinedByString:@","]];
+    return [[Db shared] loadAndFill:sql theClass:[Budget class]];
 }
 
 @end

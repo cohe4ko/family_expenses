@@ -50,6 +50,10 @@
 	return self;
 }
 
+- (NSDictionary*)proxyForJson {
+    return [self asDict];
+}
+
 - (void)save {
     if ([self isNew]) {
         if (![self sid]) {

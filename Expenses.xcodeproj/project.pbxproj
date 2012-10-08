@@ -614,6 +614,7 @@
 		D1FBCFD9155B061C00F2AF36 /* background_report_box_separator.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FBCFD7155B061C00F2AF36 /* background_report_box_separator.png */; };
 		D1FBCFDA155B061C00F2AF36 /* background_report_box_separator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D1FBCFD8155B061C00F2AF36 /* background_report_box_separator@2x.png */; };
 		D1FBCFDE155B069900F2AF36 /* ReportBox.m in Sources */ = {isa = PBXBuildFile; fileRef = D1FBCFDD155B069900F2AF36 /* ReportBox.m */; };
+		FA087B301622AD7000B8B1B0 /* SyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA087B2F1622AD7000B8B1B0 /* SyncController.m */; };
 		FA0B52D615BC7BA9001FC0B6 /* ALPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0B52CF15BC7BA9001FC0B6 /* ALPickerView.m */; };
 		FA0B52D715BC7BA9001FC0B6 /* ALPickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0B52D115BC7BA9001FC0B6 /* ALPickerViewCell.m */; };
 		FA0B52D815BC7BA9001FC0B6 /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA0B52D215BC7BA9001FC0B6 /* check@2x.png */; };
@@ -1470,6 +1471,8 @@
 		D1FBCFD8155B061C00F2AF36 /* background_report_box_separator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_report_box_separator@2x.png"; sourceTree = "<group>"; };
 		D1FBCFDC155B069900F2AF36 /* ReportBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportBox.h; sourceTree = "<group>"; };
 		D1FBCFDD155B069900F2AF36 /* ReportBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportBox.m; sourceTree = "<group>"; };
+		FA087B2E1622AD7000B8B1B0 /* SyncController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncController.h; sourceTree = "<group>"; };
+		FA087B2F1622AD7000B8B1B0 /* SyncController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncController.m; sourceTree = "<group>"; };
 		FA0B52CE15BC7BA9001FC0B6 /* ALPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALPickerView.h; sourceTree = "<group>"; };
 		FA0B52CF15BC7BA9001FC0B6 /* ALPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALPickerView.m; sourceTree = "<group>"; };
 		FA0B52D015BC7BA9001FC0B6 /* ALPickerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALPickerViewCell.h; sourceTree = "<group>"; };
@@ -1743,6 +1746,7 @@
 		D1002C5B140D3C92001503F6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FA087B2D1622AD4B00B8B1B0 /* Sync */,
 				D16BDBEF154C455900908704 /* Budget */,
 				D1266BF915339BA300F240F3 /* Transactions */,
 				D1E4BDB214F39979002A6E18 /* Categories */,
@@ -3512,6 +3516,15 @@
 			path = Report;
 			sourceTree = "<group>";
 		};
+		FA087B2D1622AD4B00B8B1B0 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				FA087B2E1622AD7000B8B1B0 /* SyncController.h */,
+				FA087B2F1622AD7000B8B1B0 /* SyncController.m */,
+			);
+			path = Sync;
+			sourceTree = "<group>";
+		};
 		FA0B52CD15BC7BA9001FC0B6 /* ALPickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4359,6 +4372,7 @@
 				FAF824161615694700419432 /* TutorialView.m in Sources */,
 				FAE41695161C46F8000DB4AA /* SyncTransactions.m in Sources */,
 				FAE41698161C4875000DB4AA /* SyncBudget.m in Sources */,
+				FA087B301622AD7000B8B1B0 /* SyncController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

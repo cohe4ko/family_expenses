@@ -18,6 +18,7 @@
 
 #import "Constants.h"
 #import "iRate.h"
+#import "SyncController.h"
 
 
 @interface AppDelegate (Private)
@@ -75,6 +76,9 @@ static AppDelegate *app = NULL;
 	
 	// Init DB
 	[Model initDB];
+    
+    //Start sync
+    [[SyncController sharedSyncController] sync];
 	
 	// Initialize user defaults
 	[self initializeUserDefaults];
