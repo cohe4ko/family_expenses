@@ -6,7 +6,7 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 
-@interface TransactionsViewController : ViewController <UITableViewDelegate> {
+@interface TransactionsViewController : ViewController <UITableViewDelegate, UIGestureRecognizerDelegate> {
 	IBOutlet UITableView *tableView;
 	
 	IBOutlet UIImageView *imageNotepadFooter;

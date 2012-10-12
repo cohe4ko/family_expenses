@@ -45,7 +45,6 @@
         
         cell.parent = self;
         cell.item = [list objectAtIndex:indexPath.row];
-        NSLog(@"%@",[cell.item asDict:NO]);
         return cell;
     }else {
         static NSString *groupedCellIdentifer = @"groupCellIdentifier";
