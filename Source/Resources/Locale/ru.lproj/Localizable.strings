@@ -47,6 +47,8 @@
 
 // Transactions
 "transactions_hint"								= "Ваши транзакции";
+"transactions_hint_by_date"						= "Ваши транзакции: c %@ по %@";
+"transactions_hint_date_format"					= "dd.MM.yyyy";
 "transactions_hint_by_day"                      = "Ваши транзакции: по дням";
 "transactions_hint_by_week"                      = "Ваши транзакции: по неделям";
 "transactions_hint_by_month"                      = "Ваши транзакции: по месяцам";

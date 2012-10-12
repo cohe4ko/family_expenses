@@ -63,6 +63,42 @@
     return [NSString stringWithFormat:@"%@ - %@ %d",[d1 dateFormat:NSLocalizedString(@"transactions_grouped_week_interval_format", @"")],[d2 dateFormat:NSLocalizedString(@"transactions_grouped_week_interval_format", @"")],[self.date year]];
 }
 
+- (NSDate*)dateFromForGroupType:(GroupType)gtype{
+    switch (gtype) {
+        case GroupDay:
+            return [[self date] dayBegining];
+            break;
+        case GroupWeek:
+            return [[self date] weekBegining];
+            break;
+        case GroupMonth:
+            return [[self date] monthBegining];
+            break;
+            
+        default:
+            break;
+    }
+    return [self date];
+}
+
+- (NSDate*)dateToForGroupType:(GroupType)gtype{
+    switch (gtype) {
+        case GroupDay:
+            return [[self date] dayEnding];
+            break;
+        case GroupWeek:
+            return [[self date] weekEnding];
+            break;
+        case GroupMonth:
+            return [[self date] monthEnding];
+            break;
+            
+        default:
+            break;
+    }
+    return [self date];
+}
+
 - (Categories *)categories {
 	return [CategoriesController getById:categoriesId];
 }

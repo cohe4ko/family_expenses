@@ -48,6 +48,56 @@
 	return [[NSCalendar currentCalendar] dateByAddingComponents:components toDate:self options:0];	
 }
 
+- (NSDate*)monthBegining{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    unsigned flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSDateComponents *components = [calendar components:flags fromDate:self];
+    [components setDay:1];
+    [components setHour:0];
+    [components setMinute:0];
+    [components setSecond:0];
+    return [calendar dateFromComponents:components];
+}
+
+- (NSDate*)monthEnding{
+    NSDate *dateBegining = [self monthBegining];
+    NSDate *endingDate = [dateBegining monthNext];
+    return [endingDate dateByAddingTimeInterval:-1.0];
+}
+
+- (NSDate*)dayBegining{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSUInteger flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSDateComponents *components = [calendar components:flags fromDate:self];
+    [components setHour:0];
+    [components setMinute:0];
+    [components setSecond:0];
+    return [calendar dateFromComponents:components];
+}
+
+- (NSDate*)dayEnding{
+    NSDate *dayBeginingDate = [self dayBegining];
+    NSDate *dayEndingDate = [dayBeginingDate dayNext];
+    return [dayEndingDate dateByAddingTimeInterval:-1.0];
+}
+
+- (NSDate*)weekBegining{
+    NSInteger weekDay = [self dayOfWeek];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSUInteger flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSDateComponents *components = [calendar components:flags fromDate:self];
+    [components setHour:0];
+    [components setMinute:0];
+    [components setSecond:0];
+    return [[calendar dateFromComponents:components] dateByAddingTimeInterval:-weekDay*24*3600];
+}
+
+- (NSDate*)weekEnding{
+    NSDate *weekBeginingDate = [self weekBegining];
+    NSDate *weekEndingDate = [weekBeginingDate dateByAddingTimeInterval:7*24*3600-1.0];
+    return weekEndingDate;
+}
+
 + (NSInteger)ageFromUnixtime:(int)dateOfBirth {
 	NSDate *date = [NSDate dateWithTimeIntervalSince1970:dateOfBirth];
 	return [NSDate ageFromDate:date];

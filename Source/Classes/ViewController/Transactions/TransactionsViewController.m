@@ -489,7 +489,20 @@
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	// Disable edit state
-    if (groupType == GroupInfin) {
+    if (groupType != GroupInfin) {
+        TransactionsGrouped *groupTransaction = [list objectAtIndex:indexPath.row];
+        NSDate *dateFrom = [groupTransaction dateFromForGroupType:groupType];
+        NSDate *dateTo = [groupTransaction dateToForGroupType:groupType];
+
+        [self setGroupType:GroupInfin];
+        [[NSUserDefaults standardUserDefaults] setObject:dateFrom forKey:@"transaction_filter_begin_date"];
+        [[NSUserDefaults standardUserDefaults] setObject:dateTo forKey:@"transaction_filter_end_date"];
+        [[NSUserDefaults standardUserDefaults] setInteger:IntervalTypeDate forKey:@"interval_selected"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [labelHint setText:[NSString stringWithFormat:NSLocalizedString(@"transactions_hint_by_date", @""),[dateFrom dateFormat:NSLocalizedString(@"transactions_hint_date_format", @"")],[dateTo dateFormat:NSLocalizedString(@"transactions_hint_date_format", @"")]]];
+        [self loadData];
+    }else{
         [self setClearEdit];
     }
 	

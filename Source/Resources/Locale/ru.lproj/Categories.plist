@@ -6,7 +6,7 @@
 		<key>id</key>
 		<integer>100</integer>
 		<key>position</key>
-		<integer>4</integer>
+		<integer>1</integer>
 		<key>name</key>
 		<string>Дом</string>
 		<key>desc</key>
@@ -19,9 +19,9 @@
 				<key>position</key>
 				<integer>1</integer>
 				<key>desc</key>
-				<string>Квартплата</string>
+				<string>Квартплата, оренда дома</string>
 				<key>name</key>
-				<string>Квартплата</string>
+				<string>Квартплата, оренда</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -29,9 +29,9 @@
 				<key>position</key>
 				<integer>2</integer>
 				<key>desc</key>
-				<string>Коммунальные: эл., тепло</string>
+				<string>Вода, газ, тепло, электричество</string>
 				<key>name</key>
-				<string>Коммунальные: эл., тепло</string>
+				<string>Энергоресурсы</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -39,9 +39,9 @@
 				<key>position</key>
 				<integer>3</integer>
 				<key>desc</key>
-				<string>Телефон, интернет</string>
+				<string>Интернет, телефон, мобильная связь</string>
 				<key>name</key>
-				<string>Телефон, интернет</string>
+				<string>Интернет, телефон</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -49,9 +49,9 @@
 				<key>position</key>
 				<integer>4</integer>
 				<key>desc</key>
-				<string>Уют</string>
+				<string>Мебель</string>
 				<key>name</key>
-				<string>Уют</string>
+				<string>Мебель</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -59,9 +59,9 @@
 				<key>position</key>
 				<integer>5</integer>
 				<key>desc</key>
-				<string>Ремонт</string>
+				<string>Домашние животные - покупка</string>
 				<key>name</key>
-				<string>Ремонт</string>
+				<string>Домашние животные</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -69,9 +69,9 @@
 				<key>position</key>
 				<integer>6</integer>
 				<key>desc</key>
-				<string>Мебель</string>
+				<string>Ремонт жилья, обслуживание жилья</string>
 				<key>name</key>
-				<string>Мебель</string>
+				<string>Ремонт жилья</string>
 			</dict>
 		</array>
 	</dict>
@@ -79,7 +79,7 @@
 		<key>id</key>
 		<integer>200</integer>
 		<key>position</key>
-		<integer>1</integer>
+		<integer>2</integer>
 		<key>name</key>
 		<string>Еда</string>
 		<key>desc</key>
@@ -92,9 +92,9 @@
 				<key>position</key>
 				<integer>1</integer>
 				<key>desc</key>
-				<string>Домой</string>
+				<string>Еда домой, заготовки</string>
 				<key>name</key>
-				<string>Домой</string>
+				<string>Еда домой</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -102,9 +102,9 @@
 				<key>position</key>
 				<integer>2</integer>
 				<key>desc</key>
-				<string>Ресторан, фаст фуд</string>
+				<string>Кафе, бар, ресторан, общепит</string>
 				<key>name</key>
-				<string>Ресторан, фаст фуд</string>
+				<string>Кафе, бар, ресторан</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -112,9 +112,9 @@
 				<key>position</key>
 				<integer>3</integer>
 				<key>desc</key>
-				<string>Спиртное</string>
+				<string>Овощи, фрукты, продукты с рынка</string>
 				<key>name</key>
-				<string>Спиртное</string>
+				<string>Овощи, фрукты</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -122,9 +122,9 @@
 				<key>position</key>
 				<integer>4</integer>
 				<key>desc</key>
-				<string>Сигареты</string>
+				<string>Алкоголь, слабоалкогольные напитки</string>
 				<key>name</key>
-				<string>Сигареты</string>
+				<string>Алкоголь</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -132,9 +132,19 @@
 				<key>position</key>
 				<integer>5</integer>
 				<key>desc</key>
-				<string>Животным</string>
+				<string>Еда животным, корм</string>
 				<key>name</key>
-				<string>Животным</string>
+				<string>Еда животным</string>
+			</dict>
+			<dict>
+				<key>id</key>
+				<integer>206</integer>
+				<key>position</key>
+				<integer>6</integer>
+				<key>desc</key>
+				<string>Сигареты, сигары, табак</string>
+				<key>name</key>
+				<string>Сигареты, сигары, табак</string>
 			</dict>
 		</array>
 	</dict>
@@ -146,7 +156,7 @@
 		<key>desc</key>
 		<string>Отдых, досуг, развлечения</string>
 		<key>name</key>
-		<string>Отдых</string>
+		<string>Отдых, досуг</string>
 		<key>childs</key>
 		<array>
 			<dict>
@@ -155,9 +165,9 @@
 				<key>position</key>
 				<integer>1</integer>
 				<key>desc</key>
-				<string>Тур, поездки, путешествия</string>
+				<string>Отдых, путешествия, отпуск</string>
 				<key>name</key>
-				<string>Тур, поездки, путешествия</string>
+				<string>Отдых, путешествия</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -165,9 +175,9 @@
 				<key>position</key>
 				<integer>2</integer>
 				<key>desc</key>
-				<string>Развлечения</string>
+				<string>Кино, книги, игры, DVD</string>
 				<key>name</key>
-				<string>Развлечения</string>
+				<string>Кино, книги, игры</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -175,9 +185,9 @@
 				<key>position</key>
 				<integer>3</integer>
 				<key>desc</key>
-				<string>Кино, книги, журналы, игры</string>
+				<string>Спорт, фитнес, йога</string>
 				<key>name</key>
-				<string>Кино, книги, журналы, игры</string>
+				<string>Спорт</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -185,9 +195,9 @@
 				<key>position</key>
 				<integer>4</integer>
 				<key>desc</key>
-				<string>Дни рождения, подарки</string>
+				<string>Театр, развлечения, шоу, представления</string>
 				<key>name</key>
-				<string>Дни рождения, подарки</string>
+				<string>Театр, развлечения</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -195,9 +205,9 @@
 				<key>position</key>
 				<integer>5</integer>
 				<key>desc</key>
-				<string>Свидания, отношения</string>
+				<string>Отношения, романтика, свидания</string>
 				<key>name</key>
-				<string>Свидания, отношения</string>
+				<string>Отношения, романтика</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -205,9 +215,9 @@
 				<key>position</key>
 				<integer>6</integer>
 				<key>desc</key>
-				<string>Спорт</string>
+				<string>Праздники, подарки, дни рождения</string>
 				<key>name</key>
-				<string>Спорт</string>
+				<string>Праздники, подарки</string>
 			</dict>
 		</array>
 	</dict>
@@ -215,7 +225,7 @@
 		<key>id</key>
 		<integer>400</integer>
 		<key>position</key>
-		<integer>2</integer>
+		<integer>4</integer>
 		<key>desc</key>
 		<string>Транспорт</string>
 		<key>name</key>
@@ -228,9 +238,9 @@
 				<key>position</key>
 				<integer>1</integer>
 				<key>desc</key>
-				<string>Покупка автомобиля</string>
+				<string>Поезд, железнодорожный транспорт</string>
 				<key>name</key>
-				<string>Покупка автомобиля</string>
+				<string>Поезд</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -238,9 +248,9 @@
 				<key>position</key>
 				<integer>2</integer>
 				<key>desc</key>
-				<string>Бензин</string>
+				<string>Самолет</string>
 				<key>name</key>
-				<string>Бензин</string>
+				<string>Самолет</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -248,9 +258,9 @@
 				<key>position</key>
 				<integer>3</integer>
 				<key>desc</key>
-				<string>Сервис, ТО</string>
+				<string>Бензин, дизтопливо, ГСМ</string>
 				<key>name</key>
-				<string>Сервис, ТО</string>
+				<string>Бензин, дизтопливо</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -258,9 +268,9 @@
 				<key>position</key>
 				<integer>4</integer>
 				<key>desc</key>
-				<string>Такси</string>
+				<string>Автосервис, обслуживание авто, мойка</string>
 				<key>name</key>
-				<string>Такси</string>
+				<string>Автосервис</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -268,9 +278,19 @@
 				<key>position</key>
 				<integer>5</integer>
 				<key>desc</key>
-				<string>Общественный траспорт</string>
+				<string>Автобус, метро, общественный траспорт</string>
 				<key>name</key>
-				<string>Общественный траспорт</string>
+				<string>Автобус, метро</string>
+			</dict>
+			<dict>
+				<key>id</key>
+				<integer>406</integer>
+				<key>position</key>
+				<integer>6</integer>
+				<key>desc</key>
+				<string>Такси</string>
+				<key>name</key>
+				<string>Такси</string>
 			</dict>
 		</array>
 	</dict>
@@ -282,7 +302,7 @@
 		<key>desc</key>
 		<string>Одежда  и аксессуары</string>
 		<key>name</key>
-		<string>Одежда</string>
+		<string>Одежда  и аксессуары</string>
 		<key>childs</key>
 		<array>
 			<dict>
@@ -291,9 +311,9 @@
 				<key>position</key>
 				<integer>1</integer>
 				<key>desc</key>
-				<string>Верхняя</string>
+				<string>Верхняя одежда</string>
 				<key>name</key>
-				<string>Верхняя</string>
+				<string>Верхняя одежда</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -311,9 +331,9 @@
 				<key>position</key>
 				<integer>3</integer>
 				<key>desc</key>
-				<string>Белье</string>
+				<string>Нижнее белье</string>
 				<key>name</key>
-				<string>Белье</string>
+				<string>Нижнее белье</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -321,9 +341,9 @@
 				<key>position</key>
 				<integer>4</integer>
 				<key>desc</key>
-				<string>Детям</string>
+				<string>Аксессуары</string>
 				<key>name</key>
-				<string>Детям</string>
+				<string>Аксессуары</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -331,9 +351,9 @@
 				<key>position</key>
 				<integer>5</integer>
 				<key>desc</key>
-				<string>Аксессуары, украшения</string>
+				<string>Детская одежда</string>
 				<key>name</key>
-				<string>Аксессуары, украшения</string>
+				<string>Детская одежда</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -364,9 +384,9 @@
 				<key>position</key>
 				<integer>1</integer>
 				<key>desc</key>
-				<string>Кредиты</string>
+				<string>Образование, учеба, учебники</string>
 				<key>name</key>
-				<string>Кредиты</string>
+				<string>Образование, учеба, учебники</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -374,9 +394,9 @@
 				<key>position</key>
 				<integer>2</integer>
 				<key>desc</key>
-				<string>Услуги</string>
+				<string>Медицина, лекарства</string>
 				<key>name</key>
-				<string>Услуги</string>
+				<string>Медицина, лекарства</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -384,9 +404,9 @@
 				<key>position</key>
 				<integer>3</integer>
 				<key>desc</key>
-				<string>Медицина</string>
+				<string>Косметика и уход</string>
 				<key>name</key>
-				<string>Медицина</string>
+				<string>Косметика и уход</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -394,9 +414,9 @@
 				<key>position</key>
 				<integer>4</integer>
 				<key>desc</key>
-				<string>Косметика</string>
+				<string>Уборка, чистка, услуги</string>
 				<key>name</key>
-				<string>Косметика</string>
+				<string>Уборка, чистка, услуги</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -404,9 +424,9 @@
 				<key>position</key>
 				<integer>5</integer>
 				<key>desc</key>
-				<string>Другое</string>
+				<string>Кредиты, проценты, налоги</string>
 				<key>name</key>
-				<string>Другое</string>
+				<string>Кредиты, проценты, налоги</string>
 			</dict>
 			<dict>
 				<key>id</key>
@@ -414,9 +434,9 @@
 				<key>position</key>
 				<integer>6</integer>
 				<key>desc</key>
-				<string>Налоги</string>
+				<string>Другие затраты</string>
 				<key>name</key>
-				<string>Налоги</string>
+				<string>Другие затраты</string>
 			</dict>
 		</array>
 	</dict>

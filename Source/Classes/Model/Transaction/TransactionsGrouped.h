@@ -8,6 +8,7 @@
 
 #import "DbObject.h"
 #import "Categories.h"
+#import "Constants.h"
 
 @interface TransactionsGrouped : DbObject{
     NSInteger time;
@@ -25,6 +26,8 @@
 - (TransactionsGrouped *)initWithDictionary:(NSDictionary *)dic;
 - (NSString *)price;
 - (NSDate*)date;
+- (NSDate*)dateFromForGroupType:(GroupType)gtype;
+- (NSDate*)dateToForGroupType:(GroupType)gtype;
 - (NSString*)dateAsWeekTimeInterval;
 - (Categories *)categories;
 
