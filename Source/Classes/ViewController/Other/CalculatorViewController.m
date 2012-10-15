@@ -189,6 +189,10 @@
 	textFieldDisplay.text = [calculator displayValue];
 }
 
+- (void)setLogo{
+    [self setTitle:NSLocalizedString(@"nav_calc", @"")];
+}
+
 #pragma mark -
 #pragma mark Other
 

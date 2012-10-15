@@ -38,6 +38,16 @@
 // App
 "app_title"										= "Семейный бюджет";
 
+// Navigation
+"nav_transactions"                              = "Транзакции";
+"nav_transaction"                               = "Транзакция";
+"nav_calc"                                      = "Сумма";
+"nav_cat"                                       = "Категории";
+"nav_fav_cat"                                   = "Категории";
+"nav_budget"									= "Бюджет";
+"nav_report"									= "Отчет";
+"nav_settings"                                  = "Настройки";
+
 // Tabbar
 "tabbar_transactions"							= "Транзакции";
 "tabbar_budget"									= "Бюджет";

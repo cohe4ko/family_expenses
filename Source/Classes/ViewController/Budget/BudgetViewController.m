@@ -122,6 +122,10 @@
 			[cell setEdit:NO animated:YES];
 }
 
+- (void)setLogo{
+    [self setTitle:NSLocalizedString(@"nav_budget", @"")];
+}
+
 #pragma mark -
 #pragma mark UITableViewDelegate
 

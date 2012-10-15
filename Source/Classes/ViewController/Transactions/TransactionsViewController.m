@@ -283,33 +283,32 @@
 	[self setData];
     [self startLoading];
         
-    [self performSelectorInBackground:@selector(loadTransactions:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:beginDate,@"beginDate",endDate,@"endDate", nil]];
+    /*[self performSelectorInBackground:@selector(loadTransactions:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:beginDate,@"beginDate",endDate,@"endDate", nil]];*/
+    [self performSelector:@selector(loadTransactions:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:beginDate,@"beginDate",endDate,@"endDate", nil] afterDelay:0.25f];
 }
 
 - (void)loadTransactions:(NSDictionary*)params{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+
     if (groupType == GroupInfin) {
         self.list = [TransactionsController loadTransactions:sortType minDate:[params objectForKey:@"beginDate"] maxDate:[params objectForKey:@"endDate"]];
     }else {
         self.list = [TransactionsController loadTransactions:sortType groupBy:groupType minDate:[params objectForKey:@"beginDate"] maxDate:[params objectForKey:@"endDate"]];
     }
-    [self performSelectorOnMainThread:@selector(stopLoading)
-                           withObject:nil
-                        waitUntilDone:YES];
-    [self performSelectorOnMainThread:@selector(setData)
-                           withObject:nil
-                        waitUntilDone:YES];
+
+    [self stopLoading];
+    [self setData];
     if (groupType == GroupInfin && self.addingTransaction) {
-        [self performSelectorOnMainThread:@selector(addTransactionAnimated:) withObject:self.addingTransaction waitUntilDone:YES];
+        [self addTransactionAnimated:self.addingTransaction];
         self.addingTransaction = nil;
     }else{
         if (list && currentIndex >= 0 && currentIndex < [list count]) {
-            [self performSelectorOnMainThread:@selector(scrollToRowWithIndex:) withObject:[NSNumber numberWithInt:currentIndex] waitUntilDone:YES];
+            [self scrollToRowWithIndex:[NSNumber numberWithInt:currentIndex]];
+            currentIndex = -1;
         }
 
     }
     
-    [pool release];
+    
 
 }
 
@@ -337,6 +336,10 @@
 	
 	// Reload table view
     [tableView reloadData];
+}
+
+- (void)setLogo{
+    [self setTitle:NSLocalizedString(@"nav_transactions", @"")];
 }
 
 - (void)setGroupType:(GroupType)_groupType{

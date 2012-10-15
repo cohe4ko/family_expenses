@@ -515,6 +515,10 @@
 	
 }
 
+- (void)setLogo{
+    [self setTitle:NSLocalizedString(@"nav_fav_cat", @"")];
+}
+
 #pragma mark -
 #pragma mark DDPageControl triggered actions
 

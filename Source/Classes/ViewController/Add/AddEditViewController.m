@@ -142,6 +142,10 @@
 	
 }
 
+- (void)setLogo{
+    [self setTitle:NSLocalizedString(@"nav_cat", @"")];
+}
+
 #pragma mark -
 #pragma mark Other
 
