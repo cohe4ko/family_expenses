@@ -49,6 +49,7 @@ typedef enum {
 + (Transactions *)create;
 + (Transactions *)withDictionary:(NSDictionary *)dic;
 - (Transactions *)initWithDictionary:(NSDictionary *)dic;
+- (NSDictionary*)asDict:(BOOL)ignoreNil;
 
 - (void)save;
 - (void)remove;

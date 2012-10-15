@@ -356,7 +356,7 @@
         
         // Set desc
         transaction.desc = textView.text;
-        [[NSUserDefaults standardUserDefaults] setObject:[transaction asDict]forKey:@"saved_transaction"];
+        [[NSUserDefaults standardUserDefaults] setObject:[transaction asDict:YES]forKey:@"saved_transaction"];
     }
     [super actionBack];
 }

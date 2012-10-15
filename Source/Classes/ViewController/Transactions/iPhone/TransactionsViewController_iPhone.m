@@ -70,7 +70,8 @@
                 default:
                     break;
             }
-            [cell setTransaction:[list objectAtIndex:indexPath.row] date:[[[list objectAtIndex:indexPath.row] date] dateFormat:NSLocalizedString(format, @"")]];
+            NSString *formatStr = [NSDateFormatter dateFormatFromTemplate:NSLocalizedString(format, @"") options:0 locale:[NSLocale currentLocale]];
+            [cell setTransaction:[list objectAtIndex:indexPath.row] date:[[[list objectAtIndex:indexPath.row] date] dateFormat:formatStr]];
         }
         
         

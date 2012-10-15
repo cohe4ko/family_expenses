@@ -16,6 +16,7 @@
 @interface TransactionsViewController (Private)
 - (void)makeToolBar;
 - (void)makeLocales;
+- (void)updateTableViewHeader;
 - (void)makeItems;
 - (void)loadData;
 - (void)loadTransactions:(NSDictionary*)params;
@@ -56,7 +57,8 @@
 	
 	// Make items
 	[self makeItems];
-	
+    [self updateTableViewHeader];
+    
 	// Load data
 	[self loadData];
 }
@@ -120,6 +122,7 @@
         [self setClearEdit];
     }
 	self.groupType = [[NSUserDefaults standardUserDefaults] integerForKey:@"group_transactions"];
+    [self updateTableViewHeader];
 	[self loadData];
     
 }
@@ -150,9 +153,7 @@
 
 - (void)makeLocales {
 	
-	[labelHint setText:NSLocalizedString(@"transactions_hint", @"")];
-	
-	[labelSortHeader setText:NSLocalizedString(@"transactions_sort_header", @"")];
+    [labelSortHeader setText:NSLocalizedString(@"transactions_sort_header", @"")];
     [labelGroupHeader setText:NSLocalizedString(@"transactions_group_header", @"")];
 	
 	[labelTotalName setText:NSLocalizedString(@"transactions_total", @"")];
@@ -165,6 +166,26 @@
 	[buttonGroupWeek setTitle:NSLocalizedString(@"transactions_group_by_week", @"") forState:UIControlStateNormal];
 	[buttonGroupMonth setTitle:NSLocalizedString(@"transactions_group_by_month", @"") forState:UIControlStateNormal];
     [buttonGroupAll setTitle:NSLocalizedString(@"transactions_group_by_all", @"") forState:UIControlStateNormal];
+}
+
+- (void)updateTableViewHeader{
+    switch (groupType) {
+        case GroupDay:
+            [labelHint setText:[NSString stringWithFormat:@"%@ ",NSLocalizedString(@"transactions_hint_by_day", @"")]];
+            break;
+        case GroupMonth:
+            [labelHint setText:[NSString stringWithFormat:@"%@ ",NSLocalizedString(@"transactions_hint_by_month", @"")]];
+            break;
+        case GroupWeek:
+            [labelHint setText:[NSString stringWithFormat:@"%@",NSLocalizedString(@"transactions_hint_by_week", @"")]];
+            break;
+        case GroupInfin:
+            [labelHint setText:[NSString stringWithFormat:@"%@",NSLocalizedString(@"transactions_hint", @"")]];
+            break;
+        default:
+            break;
+    }
+
 }
 
 - (void)makeItems {
@@ -350,6 +371,7 @@
 		// Save group
 		[[NSUserDefaults standardUserDefaults] setInteger:groupType forKey:@"group_transactions"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
+        [self updateTableViewHeader];
 	}
 }
 

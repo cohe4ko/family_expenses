@@ -47,6 +47,9 @@
 
 // Transactions
 "transactions_hint"								= "Ваши транзакции";
+"transactions_hint_by_day"                      = "Ваши транзакции: по дням";
+"transactions_hint_by_week"                      = "Ваши транзакции: по неделям";
+"transactions_hint_by_month"                      = "Ваши транзакции: по месяцам";
 "transactions_sort_header"						= "Сортировать по...";
 "transactions_sort_by_summ"						= "Сумме";
 "transactions_sort_by_date"						= "Дате";
@@ -60,7 +63,7 @@
 "transactions_interval_date_format"				= "dd-MM-yyyy";
 "transactions_grouped_day_date_format"			= "dd MMMM yyyy";
 "transactions_grouped_week_date_format"			= "w MMMM yyyy";
-"transactions_grouped_month_date_format"        = "MMMM yyyy";
+"transactions_grouped_month_date_format"        = "LLLL yyyy";
 "transactions_grouped_week_interval_format"        = "dd MMM";
 "transactions_total"							= "Итого";
 "transactions_group_title"                      = "Период";
@@ -122,7 +125,7 @@
 "transaction_week_4"							= "Каждую пятницу";
 "transaction_week_5"							= "Каждую субботу";
 "transaction_week_6"							= "Каждое воскресенье";
-"transaction_month"                             = "Каждый %d число";
+"transaction_month"                             = "Каждый %d-й день месяца";
 
 // Report
 "report_segmented_diagram"						= "Диаграмма";

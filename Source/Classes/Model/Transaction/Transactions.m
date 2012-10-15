@@ -74,6 +74,20 @@
 	[self save];
 }
 
+- (NSDictionary*)asDict:(BOOL)ignoreNil{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[self asDict]];
+    if (ignoreNil) {
+        NSMutableArray *keysToRemove = [NSMutableArray array];
+        for (NSString *key in dict) {
+            if ([[dict objectForKey:key] isKindOfClass:[NSNull class]]) {
+                [keysToRemove addObject:key];
+            }
+        }
+        [dict removeObjectsForKeys:keysToRemove];
+    }
+    return dict;
+}
+
 #pragma mark -
 #pragma mark Getters
 
