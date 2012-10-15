@@ -645,6 +645,7 @@
 		FA354AE915BEB1C0004670F0 /* PasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA354AE815BEB1C0004670F0 /* PasswordViewController.m */; };
 		FA354AEC15BEB1E5004670F0 /* PasswordViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = FA354AEB15BEB1E5004670F0 /* PasswordViewController_iPhone.m */; };
 		FA4C95AA15CF6F1E00236CC4 /* RIRoundView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4C95A915CF6F1E00236CC4 /* RIRoundView.m */; };
+		FA554538162C0C86000AD32D /* TitleOffsetButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FA554537162C0C86000AD32D /* TitleOffsetButton.m */; };
 		FA6FB24E15A6A3560067F043 /* TransactionsGrouped.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FB24D15A6A3560067F043 /* TransactionsGrouped.m */; };
 		FA6FB26115A6EE860067F043 /* TransactionGroupedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA6FB26015A6EE860067F043 /* TransactionGroupedTableViewCell.m */; };
 		FA6FB26315A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6FB26215A6EEEA0067F043 /* TransactionGroupedTableViewCell_iPhone.xib */; };
@@ -1513,6 +1514,8 @@
 		FA354AEB15BEB1E5004670F0 /* PasswordViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordViewController_iPhone.m; sourceTree = "<group>"; };
 		FA4C95A815CF6F1E00236CC4 /* RIRoundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIRoundView.h; sourceTree = "<group>"; };
 		FA4C95A915CF6F1E00236CC4 /* RIRoundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIRoundView.m; sourceTree = "<group>"; };
+		FA554536162C0C86000AD32D /* TitleOffsetButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleOffsetButton.h; sourceTree = "<group>"; };
+		FA554537162C0C86000AD32D /* TitleOffsetButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleOffsetButton.m; sourceTree = "<group>"; };
 		FA6FB24C15A6A3560067F043 /* TransactionsGrouped.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionsGrouped.h; sourceTree = "<group>"; };
 		FA6FB24D15A6A3560067F043 /* TransactionsGrouped.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionsGrouped.m; sourceTree = "<group>"; };
 		FA6FB25F15A6EE850067F043 /* TransactionGroupedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionGroupedTableViewCell.h; sourceTree = "<group>"; };
@@ -2780,6 +2783,8 @@
 				FA0BA3FA15B92D80000B2602 /* PickerPasswordViewController.m */,
 				FA354AE715BEB1C0004670F0 /* PasswordViewController.h */,
 				FA354AE815BEB1C0004670F0 /* PasswordViewController.m */,
+				FA554536162C0C86000AD32D /* TitleOffsetButton.h */,
+				FA554537162C0C86000AD32D /* TitleOffsetButton.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -4373,6 +4378,7 @@
 				FAE41695161C46F8000DB4AA /* SyncTransactions.m in Sources */,
 				FAE41698161C4875000DB4AA /* SyncBudget.m in Sources */,
 				FA087B301622AD7000B8B1B0 /* SyncController.m in Sources */,
+				FA554538162C0C86000AD32D /* TitleOffsetButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

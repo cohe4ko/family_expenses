@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-
+#import "TitleOffsetButton.h"
 #import "ViewController.h"
 
 typedef enum {
@@ -20,9 +20,9 @@ typedef enum {
 	
 	IBOutlet UIPickerView *pickerView;
 	
-	IBOutlet UIButton *buttonLeft;
-	IBOutlet UIButton *buttonRight;
-    IBOutlet UIButton *buttonMiddle;
+	IBOutlet TitleOffsetButton *buttonLeft;
+	IBOutlet TitleOffsetButton *buttonRight;
+    IBOutlet TitleOffsetButton *buttonMiddle;
 	IBOutlet UIButton *buttonDone;
 	
 	IBOutlet UILabel *labelHeader;
