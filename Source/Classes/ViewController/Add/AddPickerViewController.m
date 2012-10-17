@@ -64,8 +64,8 @@
     buttonMiddle.titleOffset = 2.0;
     buttonRight.titleOffset = 2.0;
     
-	[buttonRight setSelected:(pickerType == PickerTypeWeek)];
-    [buttonMiddle setSelected:(pickerType == PickerTypeMonth)];
+	[buttonRight setSelected:(pickerType == PickerTypeMonth)];
+    [buttonMiddle setSelected:(pickerType == PickerTypeWeek)];
 	[buttonLeft setSelected:(pickerType == PickerTypeDontRepeat)];
 	
 	CALayer *mask = [[CALayer alloc] init];
@@ -117,9 +117,9 @@
     if (buttonLeft.selected) {
         self.pickerType = PickerTypeDontRepeat;
     }else if(buttonRight.selected) {
-        self.pickerType = PickerTypeWeek;
-    }else if(buttonMiddle.selected){
         self.pickerType = PickerTypeMonth;
+    }else if(buttonMiddle.selected){
+        self.pickerType = PickerTypeWeek;
     }
     
 	

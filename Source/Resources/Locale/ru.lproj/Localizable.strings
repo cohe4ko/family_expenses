@@ -121,8 +121,8 @@
 
 // Add picker
 "add_picker_button_recurring_left"				= "Не повторять";
-"add_picker_button_recurring_middle"            = "Месяц";
-"add_picker_button_recurring_right"             = "Неделя";
+"add_picker_button_recurring_middle"            = "Еженедельно";
+"add_picker_button_recurring_right"             = "Ежемесячно";
 "add_picker_button_done"						= "Готово";
 "add_picker_header_recurring"					= "Повторять";
 "add_picker_header_date"						= "Дата";
