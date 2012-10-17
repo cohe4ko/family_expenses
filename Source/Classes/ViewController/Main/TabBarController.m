@@ -172,7 +172,7 @@
 
 - (NSUInteger)supportedInterfaceOrientations{
     if (self.selectedIndex == 3) {
-        return UIInterfaceOrientationMaskAll;
+        return UIInterfaceOrientationMaskAllButUpsideDown;
     }else{
         return UIInterfaceOrientationMaskPortrait;
     }

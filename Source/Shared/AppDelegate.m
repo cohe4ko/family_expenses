@@ -113,6 +113,7 @@ static AppDelegate *app = NULL;
 	
     self.window.rootViewController = self.tabBarController;
 	// Add rootviewcontroller to tabbar controller
+    
 	[self.tabBarController.view addSubview:self.rootViewController.view];
 	
 	// Show splash
