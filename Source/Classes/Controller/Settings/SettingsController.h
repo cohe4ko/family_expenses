@@ -23,6 +23,7 @@
 + (NSDictionary*)currencyForIndex:(NSInteger)index;
 + (NSInteger)currencyCount;
 + (NSDictionary*)constractTransactionsDates;
++ (NSDictionary*)constractIntervalDates;
 + (NSString *)UIID;
 
 @end

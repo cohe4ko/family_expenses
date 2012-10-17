@@ -38,6 +38,15 @@
 // App
 "app_title"										= "Семейный бюджет";
 
+// Navigation
+"nav_transactions"                              = "Затраты";
+"nav_transaction"                               = "Затрата";
+"nav_calc_tr"                                   = "Сумма затраты";
+"nav_calc_budget"                               = "Сумма затраты";
+"nav_new_transaction"                           = "Новая затрата";
+"nav_budget"									= "Бюджет";
+"nav_report"									= "Отчет";
+
 // Tabbar
 "tabbar_transactions"							= "Транзакции";
 "tabbar_budget"									= "Бюджет";
@@ -111,9 +120,9 @@
 "add_bill_note_placeholder"						= "Напишите заметку";
 
 // Add picker
-"add_picker_button_recurring_left"				= "Неделя";
+"add_picker_button_recurring_left"				= "Не повторять";
 "add_picker_button_recurring_middle"            = "Месяц";
-"add_picker_button_recurring_right"             = "Не повторять";
+"add_picker_button_recurring_right"             = "Неделя";
 "add_picker_button_done"						= "Готово";
 "add_picker_header_recurring"					= "Повторять";
 "add_picker_header_date"						= "Дата";

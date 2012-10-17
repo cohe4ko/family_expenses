@@ -60,10 +60,13 @@
 }
 
 - (void)makeItems {
-	
-	[buttonLeft setSelected:(pickerType == PickerTypeWeek)];
-    [buttonMiddle setSelected:(pickerType == PickerTypeMonth)];
-	[buttonRight setSelected:(pickerType == PickerTypeDontRepeat)];
+    buttonLeft.titleOffset = 2.0;
+    buttonMiddle.titleOffset = 2.0;
+    buttonRight.titleOffset = 2.0;
+    
+	[buttonRight setSelected:(pickerType == PickerTypeMonth)];
+    [buttonMiddle setSelected:(pickerType == PickerTypeWeek)];
+	[buttonLeft setSelected:(pickerType == PickerTypeDontRepeat)];
 	
 	CALayer *mask = [[CALayer alloc] init];
 	[mask setBackgroundColor:[UIColor blackColor].CGColor];
@@ -112,11 +115,11 @@
 	[buttonRight setSelected:(sender == buttonRight)];
 
     if (buttonLeft.selected) {
-        self.pickerType = PickerTypeWeek;
-    }else if(buttonRight.selected) {
         self.pickerType = PickerTypeDontRepeat;
-    }else if(buttonMiddle.selected){
+    }else if(buttonRight.selected) {
         self.pickerType = PickerTypeMonth;
+    }else if(buttonMiddle.selected){
+        self.pickerType = PickerTypeWeek;
     }
     
 	

@@ -423,6 +423,10 @@
     [imageViewName setFrame:CGRectMake(roundf(self.view.frame.size.width / 2 - imageViewName.frame.size.width / 2), imageViewName.frame.origin.y, imageViewName.frame.size.width, imageViewName.frame.size.height)];
 }
 
+- (void)setLogo{
+    [self setTitle:NSLocalizedString(@"nav_transaction", @"")];
+}
+
 #pragma mark -
 #pragma mark ISScrollViewDelegate
 

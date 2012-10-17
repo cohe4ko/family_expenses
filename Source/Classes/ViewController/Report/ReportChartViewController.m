@@ -10,6 +10,7 @@
 #import "OrdinalNumberFormatter.h"
 #import "ReportDateFilterViewController.h"
 #import "NSDate+Utils.h"
+#import "SettingsController.h"
 
 #define kChartLeftBound -5000.0f
 #define kChartBottomBound -1000.0f
@@ -121,16 +122,9 @@
 #pragma mark Make
 
 - (void)makeLocales {
-	NSDate *beginDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"graph_filter_begin_date"];
-    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"graph_filter_end_date"];
-    if (!beginDate) {
-        beginDate = [TransactionsController minumDate];
-        [[NSUserDefaults standardUserDefaults] setObject:beginDate forKey:@"graph_filter_begin_date"];
-    }
-    if (!endDate) {
-        endDate = [TransactionsController maximumDate];
-        [[NSUserDefaults standardUserDefaults] setObject:endDate forKey:@"graph_filter_end_date"];
-    }
+	NSDictionary *datesDic = [SettingsController constractIntervalDates];
+    NSDate *beginDate = [datesDic objectForKey:@"beginDate"];
+    NSDate *endDate = [datesDic objectForKey:@"endDate"];
     
     self.dateFrom = beginDate;
     self.dateTo = endDate;
