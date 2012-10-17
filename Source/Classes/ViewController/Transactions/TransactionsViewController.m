@@ -190,33 +190,18 @@
 
 - (void)makeItems {
 	
-	CGRect r;
-	
-	self.cellEditing = [NSMutableDictionary dictionary];
+    self.cellEditing = [NSMutableDictionary dictionary];
 	
 	// Hide navigation shadow
 	[imageNavigationbarShadow setHidden:YES];
 	
-	// Add sort
-	[self.view addSubview:viewSort];
-	[viewSort setAlpha:0.0f];
-	r = viewSort.frame;
-	r.origin.x = self.view.frame.size.width - r.size.width;
-	r.origin.y = 0.0f;
-	viewSort.frame = r;
-    
+	    
     // Set buttons sort tag
 	[buttonSortSumm setTag:SortSumm];
 	[buttonSortDate setTag:SortDate];
 	[buttonSortCategories setTag:SortCategores];
     
-    [self.view addSubview:viewGroup];
-    [viewGroup setAlpha:0.0f];
-    r = viewGroup.frame;
-	r.origin.x = 0.0;
-	r.origin.y = 0.0f;
-	viewGroup.frame = r;
-    
+        
     //Set buttons group tag
     [buttonGroupDay setTag:GroupDay];
     [buttonGroupWeek setTag:GroupWeek];
@@ -249,7 +234,7 @@
     [[RootViewController shared] presentModalViewController:groupViewController animated:YES];
 }
 
-- (void)actionSort {
+- (IBAction)actionSort {
 	self.isSort = !self.isSort;
 }
 
@@ -259,7 +244,7 @@
 	[self loadData];
 }
 
-- (void)actionGroupType {
+- (IBAction)actionGroupType {
     self.isGroup = !self.isGroup;
 }
 
@@ -400,9 +385,21 @@
         if (self.isGroup) {
             self.isGroup = NO;
         }
-		[UIView animateWithDuration:0.3 animations:^{
-			[viewSort setAlpha:(isSort) ? 1.0f : 0.0f];
-		}];
+        if (isSort) {
+           [[[(AppDelegate*)[UIApplication sharedApplication].delegate tabBarController] view] addSubview:viewSort];
+            [UIView animateWithDuration:0.3 animations:^{
+                viewSort.alpha = 1.0;
+            } completion:^(BOOL finished){
+                
+            }];
+        }else{
+            [UIView animateWithDuration:0.3 animations:^{
+                viewSort.alpha = 0.0;
+            } completion:^(BOOL finished){
+                [viewSort removeFromSuperview];
+            }];
+        }
+		
 	}
 }
 
@@ -414,9 +411,21 @@
             
         }
 		
-		[UIView animateWithDuration:0.3 animations:^{
-			[viewGroup setAlpha:(isGroup) ? 1.0f : 0.0f];
-		}];
+        if (isGroup) {
+            [[[(AppDelegate*)[UIApplication sharedApplication].delegate tabBarController] view] addSubview:viewGroup];
+            [UIView animateWithDuration:0.3 animations:^{
+                viewGroup.alpha = 1.0;
+            } completion:^(BOOL finished){
+                
+            }];
+        }else{
+            [UIView animateWithDuration:0.3 animations:^{
+                viewGroup.alpha = 0.0;
+            } completion:^(BOOL finished){
+                [viewGroup removeFromSuperview];
+            }];
+        }
+        
 	}
 }
 
@@ -489,7 +498,20 @@
 - (void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	// Disable edit state
-    if (groupType == GroupInfin) {
+    if (groupType != GroupInfin) {
+        TransactionsGrouped *groupTransaction = [list objectAtIndex:indexPath.row];
+        NSDate *dateFrom = [groupTransaction dateFromForGroupType:groupType];
+        NSDate *dateTo = [groupTransaction dateToForGroupType:groupType];
+
+        [self setGroupType:GroupInfin];
+        [[NSUserDefaults standardUserDefaults] setObject:dateFrom forKey:@"transaction_filter_begin_date"];
+        [[NSUserDefaults standardUserDefaults] setObject:dateTo forKey:@"transaction_filter_end_date"];
+        [[NSUserDefaults standardUserDefaults] setInteger:IntervalTypeDate forKey:@"interval_selected"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [labelHint setText:[NSString stringWithFormat:NSLocalizedString(@"transactions_hint_by_date", @""),[dateFrom dateFormat:NSLocalizedString(@"transactions_hint_date_format", @"")],[dateTo dateFormat:NSLocalizedString(@"transactions_hint_date_format", @"")]]];
+        [self loadData];
+    }else{
         [self setClearEdit];
     }
 	
@@ -527,8 +549,17 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	
 	self.isSort = NO;
-	
+	self.isGroup = NO;
 	[super touchesEnded:touches withEvent:event];
+}
+
+#pragma mark - Gesture recognizer
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ([[touch view] isKindOfClass:[UIButton class]]) {
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark -

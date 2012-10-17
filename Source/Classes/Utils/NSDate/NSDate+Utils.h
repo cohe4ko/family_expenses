@@ -41,4 +41,11 @@
 - (NSInteger)year;
 - (NSInteger)yearDay;
 
+- (NSDate*)monthBegining;
+- (NSDate*)monthEnding;
+- (NSDate*)dayBegining;
+- (NSDate*)dayEnding;
+- (NSDate*)weekBegining;
+- (NSDate*)weekEnding;
+
 @end

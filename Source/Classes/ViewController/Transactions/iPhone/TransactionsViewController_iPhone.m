@@ -45,7 +45,6 @@
         
         cell.parent = self;
         cell.item = [list objectAtIndex:indexPath.row];
-        
         return cell;
     }else {
         static NSString *groupedCellIdentifer = @"groupCellIdentifier";
@@ -83,7 +82,6 @@
 #pragma mark -
 #pragma mark UITableView delegate
 -(void)tableView:(UITableView *)_tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [super tableView:_tableView didSelectRowAtIndexPath:indexPath];
     if (groupType == GroupInfin) {
         currentIndex = indexPath.row;
         AddBillViewController *controller = [MainController getViewController:@"AddBillViewController"];
@@ -94,6 +92,7 @@
         [controller setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:controller animated:YES];
     }
+    [super tableView:_tableView didSelectRowAtIndexPath:indexPath];    
 }
 #pragma mark -
 
