@@ -190,7 +190,13 @@
 }
 
 - (void)setLogo{
-    [self setTitle:NSLocalizedString(@"nav_calc", @"")];
+    NSInteger sindex = [[AppDelegate shared].tabBarController selectedIndex];
+    if (sindex == 1) {
+        [self setTitle:NSLocalizedString(@"nav_calc_budget", @"")];
+    }else{
+        [self setTitle:NSLocalizedString(@"nav_calc_tr", @"")];
+    }
+
 }
 
 #pragma mark -

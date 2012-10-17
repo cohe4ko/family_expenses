@@ -42,6 +42,10 @@
 	[self setData];
 }
 
+- (void)setLogo{
+    [self setTitle:NSLocalizedString(@"nav_budget", @"")];
+}
+
 #pragma mark -
 #pragma mark Make
 

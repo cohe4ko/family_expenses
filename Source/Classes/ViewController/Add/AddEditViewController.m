@@ -143,7 +143,7 @@
 }
 
 - (void)setLogo{
-    [self setTitle:NSLocalizedString(@"nav_cat", @"")];
+    [self setTitle:NSLocalizedString(@"nav_new_transaction", @"")];
 }
 
 #pragma mark -

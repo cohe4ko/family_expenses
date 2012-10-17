@@ -163,10 +163,6 @@
 	[tableView reloadData];
 }
 
-- (void)setLogo{
-    [self setTitle:NSLocalizedString(@"nav_settings", @"")];
-}
-
 - (void)updateList{
     // Init array
     if (list) {
