@@ -156,7 +156,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
     if (self.selectedIndex == 3) {
-        return YES;
+        return UIInterfaceOrientationPortrait | UIInterfaceOrientationLandscapeLeft | UIInterfaceOrientationLandscapeRight;
     }else {
         return toInterfaceOrientation == UIInterfaceOrientationPortrait;
     }

@@ -631,7 +631,6 @@
 		FA20BEF415AE9C6D006E4CA3 /* icon_settings_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEEE15AE9C63006E4CA3 /* icon_settings_settings.png */; };
 		FA20BEF515AE9C6D006E4CA3 /* icon_settings_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA20BEEF15AE9C69006E4CA3 /* icon_settings_settings@2x.png */; };
 		FA229F6B15D3CCFA008AEA10 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA229F6815D3CC2F008AEA10 /* libCorePlot-CocoaTouch.a */; };
-		FA229F6E15D3DB3A008AEA10 /* ReportDateFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA229F6D15D3DB3A008AEA10 /* ReportDateFilterViewController.m */; };
 		FA2D2A6F15C65E3B00727671 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2D2A6E15C65E3B00727671 /* iRate.m */; };
 		FA354ADD15BEA652004670F0 /* bottom_shutter.png in Resources */ = {isa = PBXBuildFile; fileRef = FA354AD515BEA652004670F0 /* bottom_shutter.png */; };
 		FA354ADE15BEA652004670F0 /* bottom_shutter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FA354AD615BEA652004670F0 /* bottom_shutter@2x.png */; };
@@ -677,6 +676,7 @@
 		FAF824161615694700419432 /* TutorialView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF824151615694700419432 /* TutorialView.m */; };
 		FAF824191615825F00419432 /* icon_close.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF824171615825700419432 /* icon_close.png */; };
 		FAF8241A1615825F00419432 /* icon_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF824181615825A00419432 /* icon_close@2x.png */; };
+		FAF8278B162E80B700FA5BDA /* ReportDateFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF8278A162E80B700FA5BDA /* ReportDateFilterViewController.m */; };
 		FAF8874B15BEA4E200844D15 /* background_group.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF8874915BEA4E200844D15 /* background_group.png */; };
 		FAF8874C15BEA4E200844D15 /* background_group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FAF8874A15BEA4E200844D15 /* background_group@2x.png */; };
 /* End PBXBuildFile section */
@@ -1493,8 +1493,6 @@
 		FA20BEEE15AE9C63006E4CA3 /* icon_settings_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_settings_settings.png; sourceTree = "<group>"; };
 		FA20BEEF15AE9C69006E4CA3 /* icon_settings_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_settings_settings@2x.png"; sourceTree = "<group>"; };
 		FA229F5E15D3CC2E008AEA10 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
-		FA229F6C15D3DB3A008AEA10 /* ReportDateFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportDateFilterViewController.h; sourceTree = "<group>"; };
-		FA229F6D15D3DB3A008AEA10 /* ReportDateFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDateFilterViewController.m; sourceTree = "<group>"; };
 		FA2D2A6D15C65E3B00727671 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		FA2D2A6E15C65E3B00727671 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		FA2FAC9315D3E2280090FB3E /* TransactionGroupViewControllerSubclass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransactionGroupViewControllerSubclass.h; sourceTree = "<group>"; };
@@ -1563,6 +1561,8 @@
 		FAF824151615694700419432 /* TutorialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialView.m; sourceTree = "<group>"; };
 		FAF824171615825700419432 /* icon_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_close.png; sourceTree = "<group>"; };
 		FAF824181615825A00419432 /* icon_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_close@2x.png"; sourceTree = "<group>"; };
+		FAF82789162E80B700FA5BDA /* ReportDateFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportDateFilterViewController.h; sourceTree = "<group>"; };
+		FAF8278A162E80B700FA5BDA /* ReportDateFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDateFilterViewController.m; sourceTree = "<group>"; };
 		FAF8874915BEA4E200844D15 /* background_group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_group.png; sourceTree = "<group>"; };
 		FAF8874A15BEA4E200844D15 /* background_group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background_group@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3064,6 +3064,8 @@
 		D178CE3A14E3F5ED00AA0705 /* Report */ = {
 			isa = PBXGroup;
 			children = (
+				FAF82789162E80B700FA5BDA /* ReportDateFilterViewController.h */,
+				FAF8278A162E80B700FA5BDA /* ReportDateFilterViewController.m */,
 				FA229F5E15D3CC2E008AEA10 /* CorePlot-CocoaTouch.xcodeproj */,
 				5F5A47AB1563D9E9006622F7 /* DraggableViewController */,
 				D178CE3C14E3F5ED00AA0705 /* iPhone */,
@@ -3078,8 +3080,6 @@
 				D1C73D6D155AFF4200629DBA /* ReportBoxView.m */,
 				D1FBCFCE155B031800F2AF36 /* ReportBoxTableViewCell.h */,
 				D1FBCFCF155B031800F2AF36 /* ReportBoxTableViewCell.m */,
-				FA229F6C15D3DB3A008AEA10 /* ReportDateFilterViewController.h */,
-				FA229F6D15D3DB3A008AEA10 /* ReportDateFilterViewController.m */,
 			);
 			path = Report;
 			sourceTree = "<group>";
@@ -4371,7 +4371,6 @@
 				FA97009715CAFBD4009D01A3 /* SqliteFunctions.m in Sources */,
 				FA97009D15CAFCF2009D01A3 /* ESLocaleFactory.m in Sources */,
 				FA4C95AA15CF6F1E00236CC4 /* RIRoundView.m in Sources */,
-				FA229F6E15D3DB3A008AEA10 /* ReportDateFilterViewController.m in Sources */,
 				FA709C9115FDA25200C1142F /* FIAnimationController.m in Sources */,
 				FADA51F61614D00200D49C1B /* RIPageControl.m in Sources */,
 				FAF824161615694700419432 /* TutorialView.m in Sources */,
@@ -4379,6 +4378,7 @@
 				FAE41698161C4875000DB4AA /* SyncBudget.m in Sources */,
 				FA087B301622AD7000B8B1B0 /* SyncController.m in Sources */,
 				FA554538162C0C86000AD32D /* TitleOffsetButton.m in Sources */,
+				FAF8278B162E80B700FA5BDA /* ReportDateFilterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

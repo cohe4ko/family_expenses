@@ -18,6 +18,7 @@
 - (void)deselectAllButtons;
 - (void)clearAll;
 - (void)initCurrentDate;
+- (void)updateDate;
 @end
 
 #endif

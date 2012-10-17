@@ -177,7 +177,7 @@ static AppDelegate *app = NULL;
                          [NSNumber numberWithInt:1], @"settings_currency_points",
                          [NSNumber numberWithInt:25],@"settings_currency_index",
                          [NSNumber numberWithInt:0],@"settings_password_type",
-                         [NSNumber numberWithInt:GroupInfin],@"report_group",
+                         [NSNumber numberWithInt:IntervalTypeAll],@"report_group",
                          [NSNumber numberWithInt:2],@"tabbar_selected",
                          [NSNumber numberWithInt:IntervalTypeAll],@"interval_selected",
 						 nil];
