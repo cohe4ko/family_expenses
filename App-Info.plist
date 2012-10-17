@@ -12,8 +12,10 @@
 	<string></string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Icon.png</string>
-		<string>Icon@2x.png</string>
+		<string>icon.png</string>
+		<string>icon@2x.png</string>
+		<string>icon-72.png</string>
+		<string>icon-72@2x.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>biz.vybir.expenses</string>
