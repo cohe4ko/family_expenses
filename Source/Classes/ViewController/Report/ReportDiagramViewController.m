@@ -8,11 +8,12 @@
 #import "ReportBox.h"
 #import "Transactions.h"
 #import "UIColor-Expanded.h"
-#import "Transactions.h"
-#import "TransactionsController.h"
+#import "ReportCategoryPieItem.h"
+#import "ReportSubcategoryPieItem.h"
 #import "CategoriesController.h"
 #import "ReportDateFilterViewController.h"
 #import "SettingsController.h"
+
 
 @interface ReportDiagramViewController (Private)
 - (void) builfGraphForParentCategoryId;
@@ -26,13 +27,15 @@
 @end
 
 @implementation ReportDiagramViewController
-@synthesize chartByDay;
-@synthesize allCatChart;
+@synthesize categories;
+@synthesize subcategories;
+@synthesize subcategoriesGroupedByCategory;
 @synthesize scrollView;
 @synthesize labelLowData;
 @synthesize reportBoxView = viewBox;
 @synthesize buttonDateRange;
 @synthesize draggableViewController;
+@synthesize pageControl;
 
 #pragma mark -
 #pragma mark Initializate
@@ -73,10 +76,11 @@
 }
 
 
--(void) setValues:(NSArray *)val forDic:(NSDictionary*)chart allCat:(NSDictionary*)allCat
+- (void) setValuesForCategoryGrouped:(NSArray *)categoryGrouped subcategoryGrouped:(NSArray*)subcategoryGrouped subcatGroupedByCat:(NSDictionary*)subcatGroupedByCat
 {
-    self.chartByDay = chart;
-    self.allCatChart = allCat;
+    self.categories = categoryGrouped;
+    self.subcategories = subcategoryGrouped;
+    self.subcategoriesGroupedByCategory = subcatGroupedByCat;
     [self setData];
     [self makeLocales];
 }
@@ -155,8 +159,9 @@
     lensView.center = hostingView.center;
     roundView.frame = CGRectMake(offsetX+10, 10, roundView.frame.size.width, roundView.frame.size.height);
     
-    [self pieChart:piePlot sliceWasSelectedAtRecordIndex:0];
-    
+    if ([self.categories count] > 0) {
+        [self pieChart:piePlot sliceWasSelectedAtRecordIndex:0];
+    }
 }
 
 - (void)builfGraphForAllCategories{
@@ -230,7 +235,9 @@
     [scrollView bringSubviewToFront:lensViewSec];
     lensViewSec.center = hostingView.center;
     
-    [self pieChart:piePlot sliceWasSelectedAtRecordIndex:0];
+    if ([self.subcategories count] > 0) {
+        [self pieChart:piePlot sliceWasSelectedAtRecordIndex:0];
+    }
 }
 
 - (void)renderToInterfaceOrientation:(UIInterfaceOrientation)orientation{
@@ -288,12 +295,12 @@
 {
     if ([self plotType:plot] == 0) {
         if (parentCategoryId > 0) {
-            return [[[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"] count];
+            return [[self.subcategoriesGroupedByCategory objectForKey:[NSNumber numberWithInt:parentCategoryId]] count];
         }else {
-            return [chartByDay count];
+            return [self.categories count];
         }
     }else{
-        return [allCatChart count];
+        return [self.subcategories count];
     }
 
 }
@@ -304,17 +311,16 @@
     if ([self plotType:plot] == 0) {
         
         if (parentCategoryId > 0) {
-            NSDictionary *subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
-            NSNumber* catNum = [subCat.allKeys objectAtIndex:_index];
-            total = [[subCat objectForKey:catNum] objectForKey:@"total"];
+            ReportSubcategoryPieItem *subCatItem = [[self.subcategoriesGroupedByCategory objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectAtIndex:_index];
+            total = [NSNumber numberWithFloat:subCatItem.amount];
         }else {
-            NSNumber* catNum = [chartByDay.allKeys objectAtIndex:_index];
-            total = [[chartByDay objectForKey:catNum] objectForKey:@"total"];
+            ReportCategoryPieItem *catItem = [self.categories objectAtIndex:_index];
+            total = [NSNumber numberWithFloat:catItem.amount];
         }
         
     }else{
-        NSNumber* catNum = [allCatChart.allKeys objectAtIndex:_index];
-        total = [[allCatChart objectForKey:catNum] objectForKey:@"total"];
+        ReportSubcategoryPieItem *subcatItem = [self.subcategories objectAtIndex:_index];
+        total = [NSNumber numberWithFloat:subcatItem.amount];
     }
 
     return total;
@@ -326,15 +332,17 @@
     if ([self plotType:pieChart] == 0) {
         
         if (parentCategoryId > 0) {
-            NSDictionary *subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
-            catId = [[subCat.allKeys objectAtIndex:_index] integerValue];
+            ReportSubcategoryPieItem *subCatItem = [[self.subcategoriesGroupedByCategory objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectAtIndex:_index];
+            catId = subCatItem.categoriesId;
         }else {
-            catId = [[chartByDay.allKeys objectAtIndex:_index] integerValue];
+            ReportCategoryPieItem *catItem = [self.categories objectAtIndex:_index];
+            catId = catItem.categoriesId;
         }
         
         
     }else{
-        catId = [[allCatChart.allKeys objectAtIndex:_index] integerValue];
+        ReportSubcategoryPieItem *subcatItem = [self.subcategories objectAtIndex:_index];
+        catId = subcatItem.categoriesId;
     }
     
     return [CPTFill fillWithColor:[CPTColor colorWithCGColor:[UIColor colorWithHexString:[Categories colorStringForCategiryId:catId]].CGColor]];
@@ -349,42 +357,37 @@
     CGFloat midPointAngle = 0;
     // main idea is integrating all amounts before selected slice and find angle
     // from normalization of values
-    NSDictionary* data = nil;
+    CGFloat selectedTotal;
+    NSUInteger cid;
     if (parentCategoryId > 0) {
-        NSDictionary* subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
-        NSNumber *selectedNum = [subCat.allKeys objectAtIndex:_index];
-        data = [subCat objectForKey:selectedNum];
+        ReportSubcategoryPieItem *subCatItem = [[self.subcategoriesGroupedByCategory objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectAtIndex:_index];
+        selectedTotal = subCatItem.amount;
+        cid = subCatItem.categoriesId;
     }else {
-        NSNumber *selectedNum = [chartByDay.allKeys objectAtIndex:_index];
-        data = [chartByDay objectForKey:selectedNum];
+        ReportCategoryPieItem *catItem = [self.categories objectAtIndex:_index];
+        selectedTotal = catItem.amount;
+        cid = catItem.categoriesId;
     }
-       
-
-    // set label, image, etc
-    CGFloat selectedTotal =  [[data objectForKey:@"total"] floatValue];
     
-    selectednameLabel.text = [data objectForKey:@"name"];
+    // set label, image, etc
+    Categories* nativeCat = [CategoriesController getById:cid];
+    selectednameLabel.text = [nativeCat name];
     [self setLocalizedAmountForGraph:0 amount:selectedTotal];
     
-    NSUInteger cid = [[data objectForKey:@"cid"] integerValue];
     parentCid = cid;
     
-    Categories* nativeCat = [CategoriesController getById:cid];
     [lensButton setImage:nativeCat.imageNormal forState:UIControlStateNormal];
     
     CGFloat subTotal = 0;
     for(NSUInteger i = 0; i <= _index; ++i)
     {
         if (parentCategoryId > 0) {
-            NSDictionary *subCat = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
-            NSNumber* catNum = [subCat.allKeys objectAtIndex:i];
-            subTotal += [[[subCat objectForKey:catNum] objectForKey:@"total"] floatValue];
+            ReportSubcategoryPieItem *subCatPieItem = [[self.subcategoriesGroupedByCategory objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectAtIndex:i];
+            subTotal += subCatPieItem.amount;
         }else {
-            NSNumber* catNum = [chartByDay.allKeys objectAtIndex:i];
-            subTotal += [[[chartByDay objectForKey:catNum] objectForKey:@"total"] floatValue];
+            ReportCategoryPieItem *catPieItem = [self.categories objectAtIndex:i];
+            subTotal += catPieItem.amount;
         }
-
-
     }
     
     subTotal -= (selectedTotal * 0.5f); // amount to the middle of selected slice
@@ -399,25 +402,24 @@
     CGFloat midPointAngle = 0;
     // main idea is integrating all amounts before selected slice and find angle
     // from normalization of values
-    NSNumber *selectedNum = [allCatChart.allKeys objectAtIndex:_index];
-    NSDictionary* data = [allCatChart objectForKey:selectedNum];
+    ReportSubcategoryPieItem *subCatItem = [self.subcategories objectAtIndex:_index];
    
     // set label, image, etc
-    CGFloat selectedTotal =  [[data objectForKey:@"total"] doubleValue];
+    CGFloat selectedTotal =  subCatItem.amount;
+    NSUInteger cid = subCatItem.categoriesId;
     
-    selectednameLabelSec.text = [data objectForKey:@"name"];
-    [self setLocalizedAmountForGraph:1 amount:selectedTotal];
-    
-    NSUInteger cid = [[data objectForKey:@"cid"] integerValue];
-        
     Categories* nativeCat = [CategoriesController getById:cid];
+    
+    selectednameLabelSec.text = [nativeCat name];
+    [self setLocalizedAmountForGraph:1 amount:selectedTotal];
+        
     [lensButtonSec setImage:nativeCat.imageNormal forState:UIControlStateNormal];
     
     CGFloat subTotal = 0;
     for(NSUInteger i = 0; i <= _index; ++i)
     {
-        NSNumber* catNum = [allCatChart.allKeys objectAtIndex:i];
-        subTotal += [[[allCatChart objectForKey:catNum] objectForKey:@"total"] doubleValue];
+        ReportSubcategoryPieItem *subCatItem = [self.subcategories objectAtIndex:i];
+        subTotal += subCatItem.amount;
     }
     
     
@@ -576,17 +578,25 @@
     if(!level)
         return;
 
-    selectedIndex = [chartByDay.allKeys indexOfObject:[NSNumber numberWithInt:parentCategoryId]];
+    selectedIndex = 0;
+    
+    for (int i = 0; i < [self.categories count]; i++) {
+        ReportCategoryPieItem *catPieItem = [self.categories objectAtIndex:i];
+        if (catPieItem.categoriesId = parentCategoryId) {
+            selectedIndex = i;
+            break;
+        }
+    }
+    
     parentCategoryId = 0;
     level = 0;
     parentCid = 0;
     //animation block
     
-    NSNumber* catNum = [chartByDay.allKeys objectAtIndex:selectedIndex];
-    NSNumber* total = [[chartByDay objectForKey:catNum] objectForKey:@"total"];
-    UIColor *color = [UIColor colorWithHexString:[Categories colorStringForCategiryId:[catNum integerValue]]];
+    ReportCategoryPieItem *catPieItem = [self.categories objectAtIndex:selectedIndex];
+    UIColor *color = [UIColor colorWithHexString:[Categories colorStringForCategiryId:catPieItem.categoriesId]];
     
-    CGFloat totalAngle = 2*M_PI*[total doubleValue]/overAllTotal;
+    CGFloat totalAngle = 2*M_PI*catPieItem.amount/overAllTotal;
     [roundView resetValuesForFirstAngle:-totalAngle/2.0-M_PI_2 secondAngle:totalAngle/2.0-M_PI_2 innerRadius:roundView.frame.size.width/3.7 color:color];
     [scrollView bringSubviewToFront:roundView];
     [scrollView bringSubviewToFront:lensView];
@@ -612,12 +622,11 @@
     
     //animation block
     
-    NSNumber* catNum = [chartByDay.allKeys objectAtIndex:selectedIndex];
-    parentCategoryId = [catNum intValue];
-    NSNumber* total = [[chartByDay objectForKey:catNum] objectForKey:@"total"];
-    UIColor *color = [UIColor colorWithHexString:[Categories colorStringForCategiryId:[catNum integerValue]]];
+    ReportCategoryPieItem *catPieItem = [self.categories objectAtIndex:selectedIndex];
+    parentCategoryId = catPieItem.categoriesId;
+    UIColor *color = [UIColor colorWithHexString:[Categories colorStringForCategiryId:catPieItem.categoriesId]];
     
-    CGFloat totalAngle = 2*M_PI*[total doubleValue]/overAllTotal;
+    CGFloat totalAngle = 2*M_PI*catPieItem.amount/overAllTotal;
     [roundView resetValuesForFirstAngle:-totalAngle/2.0-M_PI_2 secondAngle:totalAngle/2.0-M_PI_2 innerRadius:roundView.frame.size.width/3.7 color:color];
     [scrollView bringSubviewToFront:roundView];
     [scrollView bringSubviewToFront:lensView];
@@ -651,16 +660,11 @@
 
 - (BOOL)setData {
 	   
-    if(!chartByDay){
+    if(!self.categories || !self.subcategories || !self.subcategoriesGroupedByCategory){
         return NO;
     }
     
-    NSDictionary* chartData = chartByDay;
-    
-    if (parentCategoryId>0) {
-        chartData = [[chartByDay objectForKey:[NSNumber numberWithInt:parentCategoryId]] objectForKey:@"subCat"];
-    }
-    
+      
     if (boxCatArray) {
         [boxCatArray removeAllObjects];
     }else{
@@ -674,21 +678,34 @@
     }
     
     overAllTotal = 0;
-    for(NSNumber* cid in chartData.allKeys)
-    {
-        NSDictionary* d = [chartData objectForKey:cid];
-        NSDictionary *d1 = [NSDictionary dictionaryWithObjectsAndKeys:[d objectForKey:@"name"], @"name", [d objectForKey:@"total"], @"amount", [Categories colorStringForCategiryId:[cid integerValue]], @"color", nil];        
-        [boxCatArray addObject:[ReportBox withDictionary:d1]];
-        overAllTotal += [[d objectForKey:@"total"] floatValue];
+    
+    if (parentCategoryId>0) {
+        for(ReportSubcategoryPieItem *subCatPieItem in [self.subcategoriesGroupedByCategory objectForKey:[NSNumber numberWithInt:parentCategoryId]])
+        {
+            Categories *category = [CategoriesController getById:subCatPieItem.categoriesId];
+            NSDictionary *d1 = [NSDictionary dictionaryWithObjectsAndKeys:[category name], @"name", [NSNumber numberWithFloat:subCatPieItem.amount], @"amount", [Categories colorStringForCategiryId:subCatPieItem.categoriesId], @"color", nil];
+            [boxCatArray addObject:[ReportBox withDictionary:d1]];
+            overAllTotal += subCatPieItem.amount;
+        }
+    }else{
+        for(ReportCategoryPieItem *catPieItem in self.categories)
+        {
+            Categories *category = [CategoriesController getById:catPieItem.categoriesId];
+            NSDictionary *d1 = [NSDictionary dictionaryWithObjectsAndKeys:[category name], @"name", [NSNumber numberWithFloat:catPieItem.amount], @"amount", [Categories colorStringForCategiryId:catPieItem.categoriesId], @"color", nil];
+            [boxCatArray addObject:[ReportBox withDictionary:d1]];
+            overAllTotal += catPieItem.amount;
+        }
     }
     
+    
+    
     overAllTotalSec = 0;
-    for(NSNumber* cid in allCatChart.allKeys)
+    for(ReportSubcategoryPieItem *subcatPieItem in self.subcategories)
     {
-        NSDictionary* d = [allCatChart objectForKey:cid];
-        NSDictionary *d1 = [NSDictionary dictionaryWithObjectsAndKeys:[d objectForKey:@"name"], @"name", [d objectForKey:@"total"], @"amount", [Categories colorStringForCategiryId:[cid integerValue]], @"color", nil];
+        Categories *category = [CategoriesController getById:subcatPieItem.categoriesId];
+        NSDictionary *d1 = [NSDictionary dictionaryWithObjectsAndKeys:[category name], @"name", [NSNumber numberWithFloat:subcatPieItem.amount], @"amount", [Categories colorStringForCategiryId:subcatPieItem.categoriesId], @"color", nil];
         [boxAllArray addObject:[ReportBox withDictionary:d1]];
-        overAllTotalSec += [[d objectForKey:@"total"] floatValue];
+        overAllTotalSec += subcatPieItem.amount;
     }
     
     if (selectedGraph == 0) {
@@ -764,8 +781,9 @@
 }
 
 - (void)dealloc {
-    self.chartByDay = nil;
-    self.allCatChart = nil;
+    self.categories = nil;
+    self.subcategories = nil;
+    self.subcategoriesGroupedByCategory = nil;
     [labelHint release];
     [viewBox release];
     [buttonDateRange release];

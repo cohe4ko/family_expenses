@@ -203,7 +203,6 @@
 						<string key="NSFrame">{{281, 31}, {23, 21}}</string>
 						<reference key="NSSuperview" ref="330804832"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -1096,14 +1095,6 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">RIPageControl</string>
-					<string key="superclassName">UIView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/RIPageControl.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">ReportBoxView</string>
 					<string key="superclassName">UIView</string>
 					<object class="NSMutableDictionary" key="outlets">
@@ -1154,7 +1145,6 @@
 						<string key="lensButtonSec">UIButton</string>
 						<string key="lensView">UIView</string>
 						<string key="lensViewSec">UIView</string>
-						<string key="pageControll">RIPageControl</string>
 						<string key="scrollView">UIScrollView</string>
 						<string key="selectedAmountLabel">UILabel</string>
 						<string key="selectedAmountLabelSec">UILabel</string>
@@ -1198,10 +1188,6 @@
 						<object class="IBToOneOutletInfo" key="lensViewSec">
 							<string key="name">lensViewSec</string>
 							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="pageControll">
-							<string key="name">pageControll</string>
-							<string key="candidateClassName">RIPageControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="scrollView">
 							<string key="name">scrollView</string>

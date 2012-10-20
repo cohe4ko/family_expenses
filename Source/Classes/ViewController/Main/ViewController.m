@@ -176,6 +176,7 @@
 - (void)setButtonLeft:(NSString *)theTitle withSelector:(SEL)selector {
 	AMButton *button = [[AMButton alloc] init];
 	[button setTitle:theTitle forState:UIControlStateNormal];
+    [button setExclusiveTouch:YES];
 	[button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
 	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
 	[button release];
@@ -188,6 +189,7 @@
 - (void)setButtonLeftWithImage:(UIImage *)theImage withSelector:(SEL)selector withType:(AMButtonType)type {
 	AMButton *button = [[AMButton alloc] init];
 	[button setTypeButton:type];
+    [button setExclusiveTouch:YES];
 	[button setImage:theImage forState:UIControlStateNormal];
 	[button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
 	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
@@ -201,6 +203,7 @@
 - (void)setButtonRight:(NSString *)theTitle withSelector:(SEL)selector withType:(AMButtonType)type {
 	AMButton *button = [[AMButton alloc] init];
 	[button setTypeButton:type];
+    [button setExclusiveTouch:YES];
 	[button setTitle:theTitle forState:UIControlStateNormal];
 	[button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
@@ -214,6 +217,7 @@
 - (void)setButtonRightWithImage:(UIImage *)theImage withSelector:(SEL)selector withType:(AMButtonType)type {
 	AMButton *button = [[AMButton alloc] init];
 	[button setTypeButton:type];
+    [button setExclusiveTouch:YES];
 	[button setImage:theImage forState:UIControlStateNormal];
 	[button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
@@ -224,6 +228,7 @@
 	UIButton *button = [[UIButton alloc] initWithFrame:CGRectZero];
 	[button setImage:[UIImage imageNamed:@"button_back.png"] forState:UIControlStateNormal];
 	[button sizeToFit];
+    [button setExclusiveTouch:YES];
 	[button addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
 	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
 	[button release];
@@ -232,6 +237,7 @@
 - (void)setButtonBack:(NSString *)theTitle {
 	AMButtonBack *button = [[AMButtonBack alloc] init];
 	[button setTitle:theTitle forState:UIControlStateNormal];
+    [button setExclusiveTouch:YES];
 	[button addTarget:self action:@selector(actionBack) forControlEvents:UIControlEventTouchUpInside];
 	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:button] autorelease];
 	[button release];

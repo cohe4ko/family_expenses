@@ -13,7 +13,7 @@
 #import "SettingsController.h"
 
 #define kChartLeftBound -5000.0f
-#define kChartBottomBound -1000.0f
+#define kChartBottomBound 0.0f
 #define kChartMinScale 1.0
 #define kChartMaxScale 4.0
 
