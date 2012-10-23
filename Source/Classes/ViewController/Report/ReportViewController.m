@@ -157,8 +157,8 @@
             NSDictionary *linearGraphic = [self updateLinearGraphic];
             // tell the main thread
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self setLinearGraphicData:linearGraphic];
                 [self stopLoading];
+                [self setLinearGraphicData:linearGraphic];
             });
         });
     }
@@ -192,7 +192,7 @@
 }
 
 - (void)actionDateChangedNotification:(NSNotification*)notification{
-    [self setData];
+    [self performSelector:@selector(setData) withObject:nil afterDelay:0.5f];
 }
 
 
@@ -209,9 +209,9 @@
         NSDictionary *linearGraphic = [self updateLinearGraphic];
         // tell the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self stopLoading];
             [self setPieGraphicData:pieData];
             [self setLinearGraphicData:linearGraphic];
-            [self stopLoading];
         });
     });
     
