@@ -647,6 +647,33 @@ static Db *sharedDB = NULL;
 	return list;
 }
 
+- (NSDictionary*)loadAndFillUsingDic:(NSString*)sql theClass:(Class)cls forKey:(NSString*)key{
+    [self openDb];
+	
+	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+	DbObject *ds;
+	Class myClass = NSClassFromString([DbObject getTableName:cls]);
+	
+	FMResultSet *rs = [self load:sql];
+    
+	while ([rs next]) {
+		ds = [[myClass alloc] init];
+		
+		[self fill:ds resultset:rs];
+		
+		[dict setObject:ds forKey:[ds valueForKey:key]];
+		
+		[ds release];
+	}
+	[rs close];
+    
+	[pool drain];
+	return dict;
+}
+
 -(NSMutableArray *) loadAndFillDict: (NSString *)sql  fields:(NSArray *)fields theClass:(Class)cls {
 	[self openDb];
 	NSMutableArray *list = [NSMutableArray array];

@@ -137,6 +137,9 @@
 #pragma mark Memory managment
 
 - (void)dealloc {
+    self.desc = nil;
+    self.device_id = nil;
+    self.sid = nil;
 	[super dealloc];
 }
 

@@ -71,6 +71,7 @@
 - (id)loadByFieldAndValue:(Class)cls fieldName:(NSString *)fieldName value:(id)value;
 
 - (NSArray *)loadAndFill:(NSString *)sql theClass:(Class)cls;
+- (NSDictionary*)loadAndFillUsingDic:(NSString*)sql theClass:(Class)cls forKey:(NSString*)key;
 - (NSMutableArray *)loadAndFillDict:(NSString *)sql fields:(NSArray *)fields theClass:(Class)cls;
 - (FMResultSet *)load: (NSString *)sql;
 - (NSArray *)loadAsDictArray: (NSString *)sql;

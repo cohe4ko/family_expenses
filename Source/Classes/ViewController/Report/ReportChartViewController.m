@@ -10,10 +10,13 @@
 #import "OrdinalNumberFormatter.h"
 #import "ReportDateFilterViewController.h"
 #import "NSDate+Utils.h"
+#import "NSDate+DateFunctions.h"
 #import "SettingsController.h"
+#import "CategoriesController.h"
+#import "ReportLinearItem.h"
 
 #define kChartLeftBound -5000.0f
-#define kChartBottomBound -1000.0f
+#define kChartBottomBound 0.0f
 #define kChartMinScale 1.0
 #define kChartMaxScale 4.0
 
@@ -21,12 +24,23 @@
 - (void)makeLocales;
 - (void)makeItems;
 - (void)setData;
+
+- (NSString*)dateFormatForDictKey;
+- (NSString*)xAxisFormat;
+- (NSInteger)xAxisElementsCount;
+- (CGFloat)xAxisElementForIndex:(NSInteger)dateIndex;
+- (NSInteger)numberOfDaysOnScreen;
+@end
+
+@interface ReportChartViewController ()
+@property (nonatomic, retain) NSDictionary *chart;
+@property (nonatomic, retain) NSArray *boxArray;
 @end
 
 @implementation ReportChartViewController
+@synthesize chart, boxArray,
+dateFrom, dateTo, scrollView,labelLowData,buttonDateRange,groupType;
 
-@synthesize categories, chartByDay
-, dateFrom, dateTo, scrollView,labelLowData,buttonDateRange;
 @synthesize reportViewBox = viewBox;
 @synthesize draggableViewController;
 
@@ -83,40 +97,25 @@
 #pragma mark -
 #pragma mark Set
 
--(NSDictionary*)curentChart
-{
-    /*NSDictionary* chartData = nil;
-    
-    switch (currentChart) {
-        case 0:
-            chartData = chartByDay;
-            break;
-        case 1:
-            chartData = chartByWeek;
-            break;
-        case 2:
-            chartData = chartByMonth;
-            break;
-            
-        default:
-            break;
-    }*/
-    return self.chartByDay;
-}
 
 - (void)setData {
-        
-    NSDictionary* chartData = [self curentChart];
-	NSMutableArray *arr = [[NSMutableArray alloc] init];
-    for(NSNumber* cid in chartData.allKeys)
-    {
-        NSDictionary* d = [chartData objectForKey:cid];
-        NSDictionary *d1 = [NSDictionary dictionaryWithObjectsAndKeys:[d objectForKey:@"name"], @"name", [d objectForKey:@"total"], @"amount", [Categories colorStringForCategiryId:[cid integerValue]], @"color", nil];        
-        [arr addObject:[ReportBox withDictionary:d1]];
-        
+
+    if (self.boxArray) {
+        NSMutableArray *boxItemsArray = [NSMutableArray array];
+        for(NSDictionary *dbBoxItem in self.boxArray)
+        {
+            NSNumber *amount = [dbBoxItem objectForKey:@"amount"];
+            NSNumber *categoryId = [dbBoxItem objectForKey:@"category"];
+            if (amount && categoryId && [amount doubleValue] > 0) {
+                Categories *category = [CategoriesController getById:[categoryId intValue]];
+                NSDictionary *boxItem = [NSDictionary dictionaryWithObjectsAndKeys:[category name], @"name", amount, @"amount", [Categories colorStringForCategiryId:[categoryId intValue]], @"color", nil];
+                [boxItemsArray addObject:[ReportBox withDictionary:boxItem]];
+            }
+        }
+        [viewBox setList:boxItemsArray];
     }
-	[viewBox setList:arr];
-    [arr release];
+    
+	
 }
 #pragma mark -
 #pragma mark Make
@@ -138,58 +137,13 @@
 }
 
 
--(void) setValues:(NSArray *)val forDic:(NSDictionary*)chart 
-{
-    self.chartByDay = chart;
+-(void) setValues:(NSDictionary*)values forBoxData:(NSArray*)boxData forMaxAmount:(CGFloat)maxAmount{
+    self.chart = values;
+    self.boxArray = boxData;
     [self setData];
     
-    if(!charts)
-        charts = [[NSMutableArray alloc] init];
-    else 
-    {
-        for(CPTGraphHostingView* gv in charts)
-            [gv removeFromSuperview];
-        
-        [charts removeAllObjects];
-    }
-    
-    self.categories = [NSMutableDictionary dictionary];
-
    
-    CGFloat maxAmount = 0;
     NSTimeInterval minDate = [self.dateFrom timeIntervalSince1970];
-    for(Transactions* tr in val)
-    {
-        
-        
-        NSNumber* n = [NSNumber numberWithInt:(!tr.categoriesParentId)?tr.categoriesId:tr.categoriesParentId];
-        NSMutableDictionary* cat = [categories objectForKey:n];
-        if(!cat)
-        {
-                       
-            cat = [NSMutableDictionary dictionary];
-            [categories setObject:cat forKey:n];
-        }
-        
-         
-       
-        NSDate *trDate = [NSDate dateWithTimeIntervalSince1970:tr.time];
-        NSInteger trYear = [trDate year];
-        NSInteger trYearDay = [trDate yearDay];
-        NSString *trKey = [NSString stringWithFormat:@"%d%d",trYear,trYearDay];
-        NSNumber *trAmount = [NSNumber numberWithDouble:tr.amount];
-        if (![cat objectForKey:trKey]) {
-            [cat setObject:trAmount forKey:trKey];
-        }else{
-            NSNumber *dayAmount = [cat objectForKey:trKey];
-            [cat setObject:[NSNumber numberWithDouble:[dayAmount doubleValue]+[trAmount doubleValue]] forKey:trKey];
-        }
-        
-        if([[cat objectForKey:trKey] doubleValue] > maxAmount)
-        {
-            maxAmount = [[cat objectForKey:trKey] doubleValue];
-        }
-    }
     
     CGFloat wd = scrollView.frame.size.width;
     CGFloat dh = scrollView.frame.size.height;
@@ -197,12 +151,16 @@
     
     CGFloat offsetX = 0;
     NSTimeInterval oneDay = 24 * 60 * 60;
-
-    CPTGraphHostingView *hostingView = [[CPTGraphHostingView alloc] initWithFrame:CGRectMake(offsetX,0,wd, dh)];
+    
+    CPTGraphHostingView *hostingView = (CPTGraphHostingView*)[scrollView viewWithTag:1010];
+    
+    if (hostingView) {
+        [hostingView removeFromSuperview];
+    }
+    
+    hostingView = [[CPTGraphHostingView alloc] initWithFrame:CGRectMake(offsetX,0,wd, dh)];
     offsetX += wd;
     hostingView.tag = 1010;
-    
-    [charts addObject:hostingView];
     
     CPTGraph* graph = [[CPTXYGraph alloc] initWithFrame:hostingView.bounds];
     
@@ -210,9 +168,7 @@
     graph.plotAreaFrame.paddingTop    = 10.0;
     graph.plotAreaFrame.paddingRight  = 0;
     graph.plotAreaFrame.paddingBottom = 50.0;
-    
-    
-    
+        
     hostingView.collapsesLayers = NO; // Setting to YES reduces GPU memory usage, but can slow drawing/scrolling
     hostingView.hostedGraph     = graph;        
     [scrollView addSubview:hostingView];
@@ -224,7 +180,7 @@
     // Setup scatter plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)graph.defaultPlotSpace;
     NSTimeInterval minX       = minDate;
-    NSTimeInterval maxX       = minX + oneDay * 4; // one week on screen
+    NSTimeInterval maxX       = minX + oneDay * [self numberOfDaysOnScreen]; // one week on screen
     plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(kChartLeftBound) length:CPTDecimalFromFloat(maxX - minX)];
     plotSpace.allowsUserInteraction = YES;
     plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(kChartBottomBound) length:CPTDecimalFromFloat(maxAmount-2*kChartBottomBound)];
@@ -257,7 +213,8 @@
     x.minorTicksPerInterval       = 0;
     x.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.0];
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    dateFormatter.dateFormat = @"dd MMMM";
+    dateFormatter.dateFormat = [self xAxisFormat];
+   
     //        dateFormatter.dateStyle = kCFDateFormatterShortStyle;
     CPTTimeFormatter *timeFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
     
@@ -266,13 +223,10 @@
     x.labelTextStyle = labelStyle;
     x.labelingPolicy = CPTAxisLabelingPolicyLocationsProvided;
     
-    NSTimeInterval diff = [dateTo timeIntervalSinceDate:dateFrom];
-    NSInteger daysNum = diff/(3600*24)+1;
-    
     NSMutableSet *xMajorLocations = [NSMutableSet set];
     
-    for (int i = 0; i < daysNum; i++) {
-        CGFloat location = i*3600*24;
+    for (int i = 0; i < [self xAxisElementsCount]; i++) {
+        CGFloat location = [self xAxisElementForIndex:i];
         [xMajorLocations addObject:[NSNumber numberWithFloat:location]];
     }
     
@@ -295,28 +249,29 @@
     
 
     // flow parent categories
-    for(NSNumber* catNum in categories.allKeys)
+    for(NSDictionary *dbBoxItem in self.boxArray)
     {
         // create graph view
+        NSNumber *categoryId = [dbBoxItem objectForKey:@"category"];
         
-        
-        // Create plot area
-        CPTScatterPlot *boundLinePlot  = [[[CPTScatterPlot alloc] init] autorelease];
-        CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
-        lineStyle.miterLimit        = 1.0f;
-        lineStyle.lineWidth         = 1.0f;
-        lineStyle.lineColor         = [CPTColor colorWithCGColor:[UIColor colorWithHexString:[Categories colorStringForCategiryId:[catNum integerValue]]].CGColor];
-        boundLinePlot.dataLineStyle = lineStyle;
-        boundLinePlot.dataSource    = self;
-        boundLinePlot.identifier = catNum;
-
-        CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
-        plotSymbol.lineStyle = lineStyle;
-        plotSymbol.fill = [[[CPTFill alloc] initWithColor:[CPTColor whiteColor]] autorelease];
-        plotSymbol.size               = CGSizeMake(5.0, 5.0);
-        boundLinePlot.plotSymbol = plotSymbol;
-        [graph addPlot:boundLinePlot];
-                
+        if (categoryId) {
+            // Create plot area
+            CPTScatterPlot *boundLinePlot  = [[[CPTScatterPlot alloc] init] autorelease];
+            CPTMutableLineStyle *lineStyle = [CPTMutableLineStyle lineStyle];
+            lineStyle.miterLimit        = 1.0f;
+            lineStyle.lineWidth         = 1.0f;
+            lineStyle.lineColor         = [CPTColor colorWithCGColor:[UIColor colorWithHexString:[Categories colorStringForCategiryId:[categoryId integerValue]]].CGColor];
+            boundLinePlot.dataLineStyle = lineStyle;
+            boundLinePlot.dataSource    = self;
+            boundLinePlot.identifier = categoryId;
+            
+            CPTPlotSymbol *plotSymbol = [CPTPlotSymbol ellipsePlotSymbol];
+            plotSymbol.lineStyle = lineStyle;
+            plotSymbol.fill = [[[CPTFill alloc] initWithColor:[CPTColor whiteColor]] autorelease];
+            plotSymbol.size               = CGSizeMake(5.0, 5.0);
+            boundLinePlot.plotSymbol = plotSymbol;
+            [graph addPlot:boundLinePlot];
+        }
         
     }
     
@@ -352,29 +307,33 @@
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    NSTimeInterval diff = [dateTo timeIntervalSinceDate:dateFrom];
-    NSInteger daysNum = diff/(3600*24)+1;
-    return daysNum;
+    return [self xAxisElementsCount];
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)_index
 {
     id key = plot.identifier;
-    NSDictionary* cat = [categories objectForKey:key];
     
     if(!fieldEnum)
     {
-        NSTimeInterval tm = 3600*24*_index;
+        NSTimeInterval tm = [self xAxisElementForIndex:_index];
         return [NSNumber numberWithFloat:tm];
     }
-    NSDate *currDate = [NSDate dateWithTimeInterval:3600*24*_index sinceDate:dateFrom];
-    NSInteger currYearDay = [currDate yearDay];
-    NSInteger currYear = [currDate year];
-    NSString *dicKey = [NSString stringWithFormat:@"%d%d",currYear,currYearDay];
-    if ([cat objectForKey:dicKey]) {
-        return [cat objectForKey:dicKey];
+    NSDate *currDate = [NSDate dateWithTimeInterval:[self xAxisElementForIndex:_index] sinceDate:dateFrom];
+    CGFloat amount = 0.0;
+    for (NSDictionary *boxItem in boxArray) {
+        NSNumber *categoryId = [boxItem objectForKey:@"category"];
+        if (categoryId && [categoryId integerValue] <= [key integerValue]) {
+            NSString *dictKey = [NSString stringWithFormat:@"%@_%@",[currDate dateFormat:[self dateFormatForDictKey]],categoryId];
+            if ([self.chart objectForKey:dictKey]) {
+                ReportLinearItem *item = [self.chart objectForKey:dictKey];
+                amount += item.amount;
+            }
+        }
     }
-    return [NSNumber numberWithFloat:0.0];
+    
+    return [NSNumber numberWithFloat:amount];
+
 }
 
 #pragma mark -
@@ -455,6 +414,95 @@
     
 }
 
+#pragma mark - Private
+
+- (NSString*)dateFormatForDictKey{
+    switch (self.groupType) {
+        case GroupDay:
+            return @"YYYYMMdd";
+            break;
+        case GroupWeek:
+            return @"YYYYMMww";
+            break;
+        case GroupMonth:
+            return @"YYYYMM";
+            break;
+        default:
+            break;
+    }
+    return nil;
+}
+
+- (NSString*)xAxisFormat{
+    switch (self.groupType) {
+        case GroupDay:
+            return @"dd MMM YYYY";
+            break;
+        case GroupWeek:
+            return @"ww MMM YYYY";
+            break;
+        case GroupMonth:
+            return @"MMM YYYY";
+            break;
+        default:
+            break;
+    }
+    return nil;
+}
+
+- (NSInteger)xAxisElementsCount{
+    switch (self.groupType) {
+        case GroupDay:
+            return [NSDate daysBetweenDates:self.dateFrom ToDate:self.dateTo];
+            break;
+        case GroupWeek:
+            break;
+        case GroupMonth:{
+            NSInteger dateElement1 = [self.dateFrom year]*12+[self.dateFrom month];
+            NSInteger dateElement2 = [self.dateTo year]*12+[self.dateTo month];
+            return dateElement2-dateElement1+1;
+            break;
+        }
+        default:
+            break;
+    }
+    return 0;
+}
+
+- (CGFloat)xAxisElementForIndex:(NSInteger)dateIndex{
+    switch (self.groupType) {
+        case GroupDay:
+            return [[self.dateFrom addDays:dateIndex] timeIntervalSinceDate:self.dateFrom];
+            break;
+        case GroupWeek:
+            break;
+        case GroupMonth:
+            return [[self.dateFrom addMonths:dateIndex] timeIntervalSinceDate:self.dateFrom];
+            break;
+        default:
+            break;
+    }
+    return 0.0;
+}
+
+- (NSInteger)numberOfDaysOnScreen{
+    switch (self.groupType) {
+        case GroupDay:
+            return 4;
+            break;
+        case GroupWeek:
+            return 7;
+            break;
+        case GroupMonth:
+            return 90;
+            break;
+            
+        default:
+            break;
+    }
+    return 4;
+}
+
 
 #pragma mark -
 #pragma mark Memory managment
@@ -474,12 +522,10 @@
 }
 
 - (void)dealloc {
-    self.chartByDay = nil;
+    self.chart = nil;
+    self.boxArray = nil;
     [dateFrom release];
     [dateTo release];
-    [chartByDay release];
-    [categories release];
-    [charts release];
 	[labelHint release];
 	[viewBox release];
     [buttonDateRange release];

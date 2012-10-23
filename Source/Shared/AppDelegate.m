@@ -172,7 +172,7 @@ static AppDelegate *app = NULL;
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:
 						 [NSNumber numberWithInt:SortDate], @"sort_transactions",
                          [NSNumber numberWithInt:GroupInfin],@"group_transactions",
-                         [NSNumber numberWithInt:GroupInfin],@"graph_group_transactions",
+                         [NSNumber numberWithInt:GroupDay],@"graph_group",
 						 [NSNumber numberWithBool:NO], @"is_transactions_temp",
                          [NSNumber numberWithInt:1], @"settings_currency_points",
                          [NSNumber numberWithInt:25],@"settings_currency_index",

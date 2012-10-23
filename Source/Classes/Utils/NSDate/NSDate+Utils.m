@@ -302,6 +302,13 @@
     return [yearComponents year];
 }
 
+- (NSInteger)month{
+    NSCalendar *gregorian = [[[NSCalendar alloc]
+                              initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    NSDateComponents *monthComponents = [gregorian components:NSMonthCalendarUnit fromDate:self];
+    return [monthComponents month];
+}
+
 - (NSInteger)yearDay{
     NSCalendar *gregorian = [[[NSCalendar alloc]
                               initWithCalendarIdentifier:NSGregorianCalendar] autorelease];

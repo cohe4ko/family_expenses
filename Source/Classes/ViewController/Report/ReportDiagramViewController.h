@@ -40,8 +40,9 @@
 @private
    
     NSUInteger parentCategoryId;
-    NSDictionary* chartByDay;
-    NSDictionary* allCatChart;
+    NSArray* categories;
+    NSArray *subcategories;
+    NSDictionary* subcategoriesGroupedByCategory;
     
     CGFloat overAllTotal;
     CGFloat overAllTotalSec;
@@ -57,9 +58,11 @@
     NSMutableArray *boxAllArray;
 }
 
-@property (nonatomic, retain) NSDictionary* chartByDay;
-@property (nonatomic, retain) NSDictionary* allCatChart;
+@property (nonatomic, retain) NSArray* categories;
+@property (nonatomic, retain) NSArray *subcategories;
+@property (nonatomic, retain) NSDictionary* subcategoriesGroupedByCategory;
 @property (nonatomic, readonly) UIScrollView *scrollView;
+@property (nonatomic, readonly) DDPageControl *pageControl;
 @property (nonatomic, readonly) UILabel *labelLowData;
 @property (nonatomic, readonly) ReportBoxView *reportBoxView;
 @property (nonatomic, readonly) UIButton *buttonDateRange;
@@ -68,7 +71,7 @@
 
 - (IBAction)actionDateRange:(id)sender;
 
-- (void) setValues:(NSArray *)val forDic:(NSDictionary*)chart allCat:(NSDictionary*)allCat;
+- (void) setValuesForCategoryGrouped:(NSArray *)categoryGrouped subcategoryGrouped:(NSArray*)subcategoryGrouped subcatGroupedByCat:(NSDictionary*)subcatGroupedByCat;
 
 - (IBAction)onLevelUp:(id)sender;
 - (IBAction)onLens:(id)sender;
