@@ -10,8 +10,10 @@
 
 @interface ReportController : MainController
 
-+ (NSMutableArray*)loadTransactionsForLinearGraphic:(GroupType)group minDate:(NSDate*)minDate maxDate:(NSDate*)maxDate;
++ (NSMutableDictionary*)loadTransactionsForLinearGraphic:(GroupType)group minDate:(NSDate*)minDate maxDate:(NSDate*)maxDate;
 + (NSMutableArray*)loadTransactionsForPieGraphicWithCategoriesForMinDate:(NSDate*)minDate maxDate:(NSDate*)maxDate;
 + (NSMutableArray*)loadTransactionsForPieGraphicWithSubcategoriesForMinDate:(NSDate*)minDate maxDate:(NSDate*)maxDate;
++ (NSMutableArray*)loadDataForReportBoxForMinDate:(NSDate*)minDate maxDate:(NSDate*)maxDate;
++ (CGFloat)maxAmountForLinearGraphicForGroup:(GroupType)group minDate:(NSDate*)minDate maxDate:(NSDate*)maxDate;
 
 @end

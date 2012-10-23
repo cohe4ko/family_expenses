@@ -22,12 +22,13 @@
     IBOutlet DraggableViewController* draggableController;
     IBOutlet UIImageView *imageViewBg;
     
+    GroupType groupType;
+    
     @private
     
-    NSMutableArray* charts;
+    NSDictionary* chart;
+    NSArray *boxArray;
     
-    NSDictionary* chartByDay;
-    NSUInteger currentChart;
     CGFloat currentScale;
     
     NSDate* dateFrom;
@@ -38,19 +39,17 @@
 
 @property (nonatomic, retain) NSDate* dateFrom;
 @property (nonatomic, retain) NSDate* dateTo;
-@property (nonatomic, retain) NSMutableDictionary* categories;
 
-//
-@property (nonatomic, retain) NSDictionary* chartByDay;
 @property (nonatomic, readonly) UIScrollView *scrollView;
 @property (nonatomic, readonly) UILabel *labelLowData;
 @property (nonatomic, readonly) ReportBoxView *reportViewBox;
 @property (nonatomic, readonly) UIButton *buttonDateRange;
 @property (nonatomic, readonly) DraggableViewController *draggableViewController;
+@property (nonatomic, assign) GroupType groupType;
 
 
 - (IBAction)actionDateRange:(id)sender;
--(void) setValues:(NSArray *)val forDic:(NSDictionary*)chart;
+-(void) setValues:(NSDictionary*)values forBoxData:(NSArray*)boxData forMaxAmount:(CGFloat)maxAmount;
 
 - (void)renderToInterfaceOrientation:(UIInterfaceOrientation)orientation;
 

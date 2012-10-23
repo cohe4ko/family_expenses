@@ -18,6 +18,7 @@
 - (NSDate *) addDays:(NSInteger)numDays;
 
 + (NSInteger) daysBetweenDates: (NSDate *)fromDate ToDate:(NSDate *)toDate;
+
 + (NSDate *) addMonths: (NSDate *)toDate Months:(NSInteger)months;
 + (NSDate *) dateFromString:(NSString *)strDate;
 + (NSDate *) dateWithString:(NSString *)strDate;

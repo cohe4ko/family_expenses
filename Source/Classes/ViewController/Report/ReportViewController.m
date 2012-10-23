@@ -18,6 +18,15 @@
 - (void)setData;
 - (void)cleanView;
 - (void)makeGroupButton;
+
+- (NSDictionary*)updateLinearGraphic;
+- (NSDictionary*)updatePieGraphic;
+
+- (void)setLinearGraphicData:(NSDictionary*)data;
+- (void)setPieGraphicData:(NSDictionary*)data;
+
+- (void)startLoading;
+- (void)stopLoading;
 @end
 
 @implementation ReportViewController
@@ -139,7 +148,20 @@
 }
 
 - (IBAction)actionGroupButton:(UIButton*)sender{
-    self.groupType = sender.tag;
+    if (self.groupType != sender.tag) {
+        self.groupType = sender.tag;
+        [self startLoading];
+        dispatch_queue_t queue = dispatch_get_global_queue(
+                                                           DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_async(queue, ^{
+            NSDictionary *linearGraphic = [self updateLinearGraphic];
+            // tell the main thread
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setLinearGraphicData:linearGraphic];
+                [self stopLoading];
+            });
+        });
+    }
 
 }
 
@@ -170,16 +192,7 @@
 }
 
 - (void)actionDateChangedNotification:(NSNotification*)notification{
-    [self.view bringSubviewToFront:loadingView];
-    [loadingView startAnimating];
-    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = NO;
-    diagramViewController.scrollView.hidden = YES;
-    diagramViewController.labelLowData.hidden = YES;
-    chartViewController.scrollView.hidden = YES;
-    chartViewController.labelLowData.hidden = YES;
-    
-    
-    [self performSelector:@selector(setData) withObject:nil afterDelay:0.25f];
+    [self setData];
 }
 
 
@@ -187,48 +200,20 @@
 #pragma mark Set
 
 - (void)setData {
+    [self startLoading];
     
-    NSDictionary *datesDic = [SettingsController constractIntervalDates];
-    NSDate *beginDate = [datesDic objectForKey:@"beginDate"];
-    NSDate *endDate = [datesDic objectForKey:@"endDate"];
-    
-    NSArray *categoriesArray = [ReportController loadTransactionsForPieGraphicWithCategoriesForMinDate:beginDate maxDate:endDate];
-    
-    NSArray *subcategoriesArray = [ReportController loadTransactionsForPieGraphicWithSubcategoriesForMinDate:beginDate maxDate:endDate];
-    
-    NSMutableDictionary *groupedByParentCategories = [NSMutableDictionary dictionary];
-    
-    for (ReportCategoryPieItem *categoryPieItem in categoriesArray) {
-        NSNumber *categoryNum = [NSNumber numberWithInt:categoryPieItem.categoriesId];
-        NSMutableArray *groupArr = [NSMutableArray array];
-        for (ReportSubcategoryPieItem *subcategoryPieItem in subcategoriesArray) {
-            if (subcategoryPieItem.categoriesParentId == categoryPieItem.categoriesId) {
-                [groupArr addObject:subcategoryPieItem];
-            }
-        }
-        [groupedByParentCategories setObject:groupArr forKey:categoryNum];
-    }
-    
-    chartViewController.dateFrom = beginDate;
-    chartViewController.dateTo = endDate;
-    [diagramViewController setValuesForCategoryGrouped:categoriesArray subcategoryGrouped:subcategoriesArray subcatGroupedByCat:groupedByParentCategories];
-   
-    [loadingView stopAnimating];
-    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = YES;
-    
-    if (!categoriesArray || [categoriesArray count] == 0) {
-        diagramViewController.scrollView.hidden = YES;
-        diagramViewController.pageControl.hidden = YES;
-        diagramViewController.labelLowData.hidden = NO;
-        chartViewController.scrollView.hidden = YES;
-        chartViewController.labelLowData.hidden = NO;
-    }else {
-        diagramViewController.scrollView.hidden = NO;
-        diagramViewController.pageControl.hidden = NO;
-        diagramViewController.labelLowData.hidden = YES;
-        chartViewController.scrollView.hidden = NO;
-        chartViewController.labelLowData.hidden = YES;
-    }
+    dispatch_queue_t queue = dispatch_get_global_queue(
+                                                       DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(queue, ^{
+        NSDictionary *pieData = [self updatePieGraphic];
+        NSDictionary *linearGraphic = [self updateLinearGraphic];
+        // tell the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setPieGraphicData:pieData];
+            [self setLinearGraphicData:linearGraphic];
+            [self stopLoading];
+        });
+    });
     
 }
 
@@ -248,6 +233,7 @@
 		// Save group
 		[[NSUserDefaults standardUserDefaults] setInteger:groupType forKey:@"graph_group"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
+       
 	}
 }
 
@@ -271,6 +257,107 @@
         }
         
 	}
+}
+
+#pragma mark - Loading
+
+- (void)startLoading{
+    [self.view bringSubviewToFront:loadingView];
+    [loadingView startAnimating];
+    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = NO;
+    diagramViewController.scrollView.hidden = YES;
+    diagramViewController.labelLowData.hidden = YES;
+    chartViewController.scrollView.hidden = YES;
+    chartViewController.labelLowData.hidden = YES;
+}
+
+- (void)stopLoading{
+    diagramViewController.scrollView.hidden = NO;
+    chartViewController.scrollView.hidden = NO;
+    [loadingView stopAnimating];
+    [UIApplication sharedApplication].keyWindow.userInteractionEnabled = YES;
+    [self.view sendSubviewToBack:loadingView];
+}
+
+#pragma mark - Update
+
+- (NSDictionary*)updateLinearGraphic{
+    NSDictionary *datesDic = [SettingsController constractIntervalDates];
+    NSDate *beginDate = [datesDic objectForKey:@"beginDate"];
+    NSDate *endDate = [datesDic objectForKey:@"endDate"];
+    
+    NSDictionary *linerGraphicDict = [ReportController loadTransactionsForLinearGraphic:self.groupType minDate:beginDate maxDate:endDate];
+    NSArray *boxData = [ReportController loadDataForReportBoxForMinDate:beginDate maxDate:endDate];
+    CGFloat maxAmount = [ReportController maxAmountForLinearGraphicForGroup:self.groupType minDate:beginDate maxDate:endDate];
+    
+    return [NSDictionary dictionaryWithObjectsAndKeys:linerGraphicDict,@"chart",boxData,@"box",[NSNumber numberWithDouble:maxAmount],@"maxAmount", nil];
+}
+
+- (NSDictionary*)updatePieGraphic{
+    NSDictionary *datesDic = [SettingsController constractIntervalDates];
+    NSDate *beginDate = [datesDic objectForKey:@"beginDate"];
+    NSDate *endDate = [datesDic objectForKey:@"endDate"];
+    
+    NSArray *categoriesArray = [ReportController loadTransactionsForPieGraphicWithCategoriesForMinDate:beginDate maxDate:endDate];
+    
+    NSArray *subcategoriesArray = [ReportController loadTransactionsForPieGraphicWithSubcategoriesForMinDate:beginDate maxDate:endDate];
+    
+    NSMutableDictionary *groupedByParentCategories = [NSMutableDictionary dictionary];
+    
+    for (ReportCategoryPieItem *categoryPieItem in categoriesArray) {
+        NSNumber *categoryNum = [NSNumber numberWithInt:categoryPieItem.categoriesId];
+        NSMutableArray *groupArr = [NSMutableArray array];
+        for (ReportSubcategoryPieItem *subcategoryPieItem in subcategoriesArray) {
+            if (subcategoryPieItem.categoriesParentId == categoryPieItem.categoriesId) {
+                [groupArr addObject:subcategoryPieItem];
+            }
+        }
+        [groupedByParentCategories setObject:groupArr forKey:categoryNum];
+    }
+    
+    return [NSDictionary dictionaryWithObjectsAndKeys:categoriesArray,@"categories",subcategoriesArray,@"subcategories",groupedByParentCategories,@"groupDict", nil];
+}
+
+- (void)setLinearGraphicData:(NSDictionary*)data{
+    NSDictionary *datesDic = [SettingsController constractIntervalDates];
+    NSDate *beginDate = [datesDic objectForKey:@"beginDate"];
+    NSDate *endDate = [datesDic objectForKey:@"endDate"];
+    
+    NSDictionary *linerGraphicDict = [data objectForKey:@"chart"];
+    NSArray *boxData = [data objectForKey:@"box"];
+    CGFloat maxAmount = [[data objectForKey:@"maxAmount"] doubleValue];
+    
+    chartViewController.dateFrom = beginDate;
+    chartViewController.dateTo = endDate;
+    chartViewController.groupType = self.groupType;
+    
+    [chartViewController setValues:linerGraphicDict forBoxData:boxData forMaxAmount:maxAmount];
+    
+    if (!linerGraphicDict || [linerGraphicDict count] == 0 || maxAmount <= 0) {
+        chartViewController.scrollView.hidden = YES;
+        chartViewController.labelLowData.hidden = NO;
+    }else {
+        chartViewController.scrollView.hidden = NO;
+        chartViewController.labelLowData.hidden = YES;
+    }
+}
+
+- (void)setPieGraphicData:(NSDictionary*)data{
+    NSArray *categoriesArray = [data objectForKey:@"categories"];
+    NSArray *subcategoriesArray = [data objectForKey:@"subcategories"];
+    NSMutableDictionary *groupedByParentCategories = [data objectForKey:@"groupDict"];
+    
+    [diagramViewController setValuesForCategoryGrouped:categoriesArray subcategoryGrouped:subcategoriesArray subcatGroupedByCat:groupedByParentCategories];
+    
+    if (!categoriesArray || [categoriesArray count] == 0) {
+        diagramViewController.scrollView.hidden = YES;
+        diagramViewController.pageControl.hidden = YES;
+        diagramViewController.labelLowData.hidden = NO;
+    }else {
+        diagramViewController.scrollView.hidden = NO;
+        diagramViewController.pageControl.hidden = NO;
+        diagramViewController.labelLowData.hidden = YES;
+    }
 }
 
 #pragma mark - Gesture recognizer
