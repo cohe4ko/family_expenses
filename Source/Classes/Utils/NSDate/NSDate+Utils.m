@@ -295,6 +295,12 @@
     return [[df stringFromDate:self] intValue];
 }
 
+-(NSInteger)weekOfYear{
+    NSDateFormatter *df = [[[NSDateFormatter alloc] init] autorelease];
+    [df setDateFormat:@"ww"];
+    return [[df stringFromDate:self] intValue];
+}
+
 - (NSInteger)year{
     NSCalendar *gregorian = [[[NSCalendar alloc]
                               initWithCalendarIdentifier:NSGregorianCalendar] autorelease];

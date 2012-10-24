@@ -20,7 +20,7 @@
     if (group == GroupDay) {
         groupField = @"strftime('%Y%m%d', t.time, 'unixepoch')";
     }else if(group == GroupWeek){
-        groupField = @"strftime('%Y%m%w', t.time, 'unixepoch')";
+        groupField = [NSString stringWithFormat:@"ObjcFormatAnsiDateUsingLocale_int('YYYY-ww', t.time, '%@')",[[NSLocale currentLocale] localeIdentifier]];
     }else if(group == GroupMonth){
         groupField = @"strftime('%Y%m', t.time, 'unixepoch')";
     }
@@ -52,7 +52,7 @@
     if (group == GroupDay) {
         groupField = @"strftime('%Y%m%d', t.time, 'unixepoch')";
     }else if(group == GroupWeek){
-        groupField = @"strftime('%Y%m%w', t.time, 'unixepoch')";
+        groupField = [NSString stringWithFormat:@"ObjcFormatAnsiDateUsingLocale_int('YYYY-ww', t.time, '%@')",[[NSLocale currentLocale] localeIdentifier]];
     }else if(group == GroupMonth){
         groupField = @"strftime('%Y%m', t.time, 'unixepoch')";
     }

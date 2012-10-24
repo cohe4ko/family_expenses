@@ -422,7 +422,7 @@ dateFrom, dateTo, scrollView,labelLowData,buttonDateRange,groupType;
             return @"YYYYMMdd";
             break;
         case GroupWeek:
-            return @"YYYYMMww";
+            return @"YYYY-ww";
             break;
         case GroupMonth:
             return @"YYYYMM";
@@ -439,7 +439,7 @@ dateFrom, dateTo, scrollView,labelLowData,buttonDateRange,groupType;
             return @"dd MMM YYYY";
             break;
         case GroupWeek:
-            return @"ww MMM YYYY";
+            return @"dd MMM YYYY";
             break;
         case GroupMonth:
             return @"MMM YYYY";
@@ -455,12 +455,22 @@ dateFrom, dateTo, scrollView,labelLowData,buttonDateRange,groupType;
         case GroupDay:
             return [NSDate daysBetweenDates:self.dateFrom ToDate:self.dateTo];
             break;
-        case GroupWeek:
+        case GroupWeek:{
+            NSInteger dateElement1 = [self.dateFrom year]*52+[self.dateFrom weekOfYear];
+            NSInteger dateElement2 = [self.dateTo year]*52+[self.dateTo weekOfYear];
+            NSInteger weekDiff = dateElement2-dateElement1;
+            if (weekDiff >= 0) {
+                return weekDiff+1;
+            }
             break;
+        }
         case GroupMonth:{
             NSInteger dateElement1 = [self.dateFrom year]*12+[self.dateFrom month];
             NSInteger dateElement2 = [self.dateTo year]*12+[self.dateTo month];
-            return dateElement2-dateElement1+1;
+            NSInteger monthDiff = dateElement2-dateElement1;
+            if (monthDiff >= 0) {
+                return monthDiff+1;
+            }
             break;
         }
         default:
@@ -475,6 +485,7 @@ dateFrom, dateTo, scrollView,labelLowData,buttonDateRange,groupType;
             return [[self.dateFrom addDays:dateIndex] timeIntervalSinceDate:self.dateFrom];
             break;
         case GroupWeek:
+            return [[self.dateFrom addDays:7*dateIndex] timeIntervalSinceDate:self.dateFrom];
             break;
         case GroupMonth:
             return [[self.dateFrom addMonths:dateIndex] timeIntervalSinceDate:self.dateFrom];
@@ -491,7 +502,7 @@ dateFrom, dateTo, scrollView,labelLowData,buttonDateRange,groupType;
             return 4;
             break;
         case GroupWeek:
-            return 7;
+            return 21;
             break;
         case GroupMonth:
             return 90;

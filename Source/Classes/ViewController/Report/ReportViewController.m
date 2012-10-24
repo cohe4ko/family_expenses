@@ -287,6 +287,7 @@
     NSDate *endDate = [datesDic objectForKey:@"endDate"];
     
     NSDictionary *linerGraphicDict = [ReportController loadTransactionsForLinearGraphic:self.groupType minDate:beginDate maxDate:endDate];
+    NSLog(@"%@",linerGraphicDict);
     NSArray *boxData = [ReportController loadDataForReportBoxForMinDate:beginDate maxDate:endDate];
     CGFloat maxAmount = [ReportController maxAmountForLinearGraphicForGroup:self.groupType minDate:beginDate maxDate:endDate];
     

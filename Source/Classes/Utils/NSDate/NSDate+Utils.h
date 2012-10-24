@@ -38,6 +38,7 @@
 
 - (NSInteger)dayOfWeek;
 - (NSInteger)dayOfMonth;
+- (NSInteger)weekOfYear;
 - (NSInteger)year;
 - (NSInteger)month;
 - (NSInteger)yearDay;
